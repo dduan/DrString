@@ -1,7 +1,7 @@
 import SWXMLHash
 
 extension FunctionSignature {
-    public init?(fullyAnnotatedXML xmlString: String?, context: Context) {
+    public init?(fullyAnnotatedXML xmlString: String?, context: FunctionContext) {
         guard let rootXML = xmlString.map(SWXMLHash.parse) else {
             return nil
         }
@@ -9,7 +9,7 @@ extension FunctionSignature {
         self.init(functionXML: rootXML, context: context)
     }
 
-    init?(functionXML: XMLIndexer, context: Context) {
+    init?(functionXML: XMLIndexer, context: FunctionContext) {
         let xml = functionXML[String(context.declKind.rawValue.dropFirst(18))]
         guard let name = xml["decl.name"].element?.text else {
             return nil

@@ -2,9 +2,10 @@ import DrString
 import SourceKittenFramework
 
 let module = Module(spmName: "DrString")
-
 for doc in module?.docs ?? [] {
-    for f in parseTopLevel(doc) {
-        print(f)
+    let documentables = parseTopLevel(doc)
+    for d in documentables {
+        let problems = try validate(d)
+        print(problems)
     }
 }

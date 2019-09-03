@@ -15,6 +15,9 @@ enum Test4 {
 
     struct Test7 {
         /// Test3 doc
+        ///
+        /// - parameter randomShit: random
+        /// - parameter t8i0: this is t8i0
         func test8(_ t8i0: String, lt8i1 t0i1: Int, t8i2: UInt) { fatalError() }
     }
 }

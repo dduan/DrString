@@ -9,6 +9,9 @@ let package = Package(
         .library(
             name: "DrString",
             targets: ["DrString"]),
+        .library(
+            name: "DocString",
+            targets: ["DocString"]),
         .executable(
             name: "drstring-cli",
             targets: ["drstring-cli"]),
@@ -23,7 +26,10 @@ let package = Package(
             dependencies: ["DrString", "SourceKittenFramework"]),
         .target(
             name: "DrString",
-            dependencies: ["SourceKittenFramework", "SWXMLHash"]),
+            dependencies: ["SourceKittenFramework", "SWXMLHash", "DocString"]),
+        .target(
+            name: "DocString",
+            dependencies: []),
         .testTarget(
             name: "DrStringTests",
             dependencies: ["DrString"]),
