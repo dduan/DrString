@@ -1,4 +1,5 @@
-import DocString
+import DrDecipher
+import DrCrawler
 
 public func validate(_ documentable: Documentable) throws -> [DocProblem] {
     var result = [DocProblem]()

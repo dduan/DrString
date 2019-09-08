@@ -7,11 +7,14 @@ let package = Package(
     name: "DrString",
     products: [
         .library(
-            name: "DrString",
-            targets: ["DrString"]),
+            name: "DrDecipher",
+            targets: ["DrDecipher"]),
         .library(
-            name: "DocString",
-            targets: ["DocString"]),
+            name: "DrCraweler",
+            targets: ["DrCrawler"]),
+        .library(
+            name: "DrCritic",
+            targets: ["DrCritic"]),
         .executable(
             name: "drstring-cli",
             targets: ["drstring-cli"]),
@@ -23,15 +26,15 @@ let package = Package(
     targets: [
         .target(
             name: "drstring-cli",
-            dependencies: ["DrString", "SourceKittenFramework"]),
+            dependencies: ["DrCritic", "SourceKittenFramework"]),
         .target(
-            name: "DrString",
-            dependencies: ["SourceKittenFramework", "SWXMLHash", "DocString"]),
+            name: "DrCritic",
+            dependencies: ["DrCrawler"]),
         .target(
-            name: "DocString",
+            name: "DrDecipher",
             dependencies: []),
-        .testTarget(
-            name: "DrStringTests",
-            dependencies: ["DrString"]),
+        .target(
+            name: "DrCrawler",
+            dependencies: ["SourceKittenFramework", "SWXMLHash", "DrDecipher"]),
     ]
 )
