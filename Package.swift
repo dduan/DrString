@@ -29,7 +29,10 @@ let package = Package(
             dependencies: ["DrCritic", "SourceKittenFramework"]),
         .target(
             name: "DrCritic",
-            dependencies: ["DrCrawler"]),
+            dependencies: ["DrCrawler", "DrDecipher"]),
+        .testTarget(
+            name: "DrCriticTests",
+            dependencies: ["DrCrawler", "DrDecipher", "DrCritic"]),
         .target(
             name: "DrDecipher",
             dependencies: []),
