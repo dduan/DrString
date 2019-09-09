@@ -50,9 +50,14 @@ public func validate(_ documentable: Documentable) throws -> [DocProblem] {
 }
 
 func commonSequence(_ signature: FunctionSignature, _ docs: DocString) -> [FunctionSignature.Parameter] {
+    var cache = [Int: [Int: [FunctionSignature.Parameter]]]()
     func lcs(_ sig: [FunctionSignature.Parameter], _ sigIndex: Int, _ doc: [DocString.Parameter],
              _ docIndex: Int) -> [FunctionSignature.Parameter]
     {
+        if let cached = cache[sigIndex]?[docIndex] {
+            return cached
+        }
+
         guard sigIndex < sig.count && docIndex < doc.count else {
             return []
         }
@@ -64,7 +69,10 @@ func commonSequence(_ signature: FunctionSignature, _ docs: DocString) -> [Funct
         let a = lcs(sig, sigIndex + 1, doc, docIndex)
         let b = lcs(sig, sigIndex, doc, docIndex + 1)
 
-        return a.count > b.count ? a : b
+        let result = a.count > b.count ? a : b
+        cache[sigIndex] = cache[sigIndex, default: [:]].merging([docIndex: result]) { $1 }
+
+        return result
     }
 
     return lcs(signature.parameters, 0, docs.parameters, 0)
