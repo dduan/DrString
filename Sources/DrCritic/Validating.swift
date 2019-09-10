@@ -5,44 +5,34 @@ public func validate(_ documentable: Documentable) throws -> [DocProblem] {
     var result = [DocProblem]()
     switch documentable {
     case .function(let signature, let rawDoc):
-        let parsed = try parse(lines: rawDoc.content.split(separator: "\n").map(String.init))
-        // print(signature)
-        // print(parsed)
-        let parsedCount = parsed.parameters.count
-        let signatureCount = signature.parameters.count
-        var parsedIndex = 0
-        var signatureIndex = 0
+        result += try findParameterProblems(signature, rawDoc)
 
-        while parsedIndex < parsedCount && signatureIndex < signatureCount {
-            if parsed.parameters[parsedIndex].name == signature.parameters[signatureIndex].name {
-                parsedIndex += 1
-                signatureIndex += 1
-                continue
-            }
+    }
 
-            let parsedRemaining = parsedCount - parsedIndex
-            let signatureRemaining = signatureCount - signatureIndex
-            if parsedRemaining > signatureRemaining {
-                result.append(.redundantParameter(parsed.parameters[parsedIndex]))
-                parsedIndex += 1
-            } else if parsedRemaining < signatureRemaining {
-                result.append(.missingParameter(signature.parameters[signatureIndex].name))
-                parsedIndex += 1
-            } else {
-                result.append(.redundantParameter(parsed.parameters[parsedIndex]))
-                parsedIndex += 1
-                signatureIndex += 1
-            }
+    return result
+}
+
+func findParameterProblems(_ signature: FunctionSignature, _ rawDoc: ExistingDocs) throws -> [DocProblem] {
+    var result = [DocProblem]()
+    let docs = try parse(lines: rawDoc.content.split(separator: "\n").map(String.init))
+    let commonality = commonSequence(signature, docs)
+    var commonIter = commonality.makeIterator()
+    var nextCommon = commonIter.next()
+    for param in signature.parameters {
+        if param == nextCommon {
+            nextCommon = commonIter.next()
+        } else {
+            result.append(.missingParameter(param.name, param.type))
         }
+    }
 
-        while signatureIndex < signatureCount {
-            result.append(.missingParameter(signature.parameters[signatureIndex].name))
-            signatureIndex += 1
-        }
-
-        while parsedIndex < parsedCount {
-            result.append(.redundantParameter(parsed.parameters[parsedIndex]))
-            parsedIndex += 1
+    commonIter = commonality.makeIterator()
+    nextCommon = commonIter.next()
+    for docParam in docs.parameters {
+        if docParam.name == nextCommon?.name {
+            nextCommon = commonIter.next()
+        } else {
+            result.append(.redundantParameter(docParam))
         }
     }
 

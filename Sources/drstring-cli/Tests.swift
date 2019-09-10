@@ -4,7 +4,7 @@ func test1(_ t1i0: String, lt1i1 t1i1: Int, t1i2: UInt) { fatalError() }
 
 struct Test2 {
     /// Test3 doc
-    func test3(_ t3i0: String, lt3i1 t0i1: Int, t3i2: UInt) { fatalError() }
+    func test3(_ t3i0: String, lt3i1 t3i1: Int, t3i2: UInt) { fatalError() }
 }
 
 enum Test4 {
@@ -18,7 +18,7 @@ enum Test4 {
         ///
         /// - parameter randomShit: random
         /// - parameter t8i0: this is t8i0
-        func test8(_ t8i0: String, lt8i1 t0i1: Int, t8i2: UInt) { fatalError() }
+        func test8(_ t8i0: String, lt8i1 t8i1: Int, t8i2: UInt) { fatalError() }
     }
 }
 
