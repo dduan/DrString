@@ -5,16 +5,18 @@ public func validate(_ documentable: Documentable) throws -> [DocProblem] {
     var result = [DocProblem]()
     switch documentable {
     case .function(let signature, let rawDoc):
-        result += try findParameterProblems(signature, rawDoc)
-
+        let docs = try parse(lines: rawDoc.content.split(separator: "\n").map(String.init))
+        let problems = try findParameterProblems(signature, docs)
+        if !problems.isEmpty {
+            result.append(DocProblem(existingDocs: rawDoc, details: problems))
+        }
     }
 
     return result
 }
 
-func findParameterProblems(_ signature: FunctionSignature, _ rawDoc: ExistingDocs) throws -> [DocProblem] {
-    var result = [DocProblem]()
-    let docs = try parse(lines: rawDoc.content.split(separator: "\n").map(String.init))
+func findParameterProblems(_ signature: FunctionSignature, _ docs: DocString) throws -> [DocProblem.Detail] {
+    var result = [DocProblem.Detail]()
     let commonality = commonSequence(signature, docs)
     var commonIter = commonality.makeIterator()
     var nextCommon = commonIter.next()
@@ -32,7 +34,7 @@ func findParameterProblems(_ signature: FunctionSignature, _ rawDoc: ExistingDoc
         if docParam.name == nextCommon?.name {
             nextCommon = commonIter.next()
         } else {
-            result.append(.redundantParameter(docParam))
+            result.append(.redundantParameter(docParam.name))
         }
     }
 
