@@ -1,5 +1,4 @@
 import DrCrawler
-import DrDecipher
 
 public struct DocProblem {
     let existingDocs: ExistingDocs
@@ -30,7 +29,7 @@ extension DocProblem.Detail: CustomStringConvertible {
 
 extension DocProblem: CustomStringConvertible {
     public var description: String {
-        let header = "Warning: docstring problems found in \(self.existingDocs.filePath):\(self.existingDocs.line):\(self.existingDocs.column)"
+        let header = "\(self.existingDocs.filePath):\(self.existingDocs.line):\(self.existingDocs.column): warning: docstring problems found"
         return ([header] + self.details.map { $0.description }).joined(separator: "\n")
     }
 }
