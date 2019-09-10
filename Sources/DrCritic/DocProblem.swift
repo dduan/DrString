@@ -9,6 +9,7 @@ public struct DocProblem {
         case redundantParameter(String)
         case missingParameter(String, String)
         case missingThrow
+        case missingReturns(String)
     }
 }
 
@@ -21,6 +22,8 @@ extension DocProblem.Detail: CustomStringConvertible {
             return "  missing docs for argument '\(name)' of type '\(type)'"
         case .missingThrow:
             return "  missing docs for throws"
+        case .missingReturns(let type):
+            return "  missing docs for return of type '\(type)'"
         }
     }
 }

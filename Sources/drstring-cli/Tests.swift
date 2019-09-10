@@ -18,7 +18,7 @@ enum Test4 {
         ///
         /// - parameter randomShit: random
         /// - parameter t8i0: this is t8i0
-        func test8(_ t8i0: String, lt8i1 t8i1: Int, t8i2: UInt) { fatalError() }
+        func test8(_ t8i0: String, lt8i1 t8i1: Int, t8i2: UInt) -> String { fatalError() }
     }
 }
 

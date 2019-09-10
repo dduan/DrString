@@ -6,7 +6,9 @@ public func validate(_ documentable: Documentable) throws -> [DocProblem] {
     switch documentable {
     case .function(let signature, let rawDoc):
         let docs = try parse(lines: rawDoc.content.split(separator: "\n").map(String.init))
-        let problems = try findParameterProblems(signature, docs) + findMissingThrows(signature, docs)
+        let problems = try findParameterProblems(signature, docs) 
+            + findMissingThrows(signature, docs)
+            + findMissingReturns(signature, docs)
         if !problems.isEmpty {
             result.append(DocProblem(existingDocs: rawDoc, details: problems))
         }
@@ -18,6 +20,14 @@ public func validate(_ documentable: Documentable) throws -> [DocProblem] {
 func findMissingThrows(_ signature: FunctionSignature, _ docs: DocString) -> [DocProblem.Detail] {
     if signature.throws && docs.throws.isEmpty {
         return [.missingThrow]
+    }
+
+    return []
+}
+
+func findMissingReturns(_ signature: FunctionSignature, _ docs: DocString) -> [DocProblem.Detail] {
+    if let returnType = signature.returnType, docs.returns.isEmpty {
+        return [.missingReturns(returnType)]
     }
 
     return []
