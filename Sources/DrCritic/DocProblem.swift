@@ -8,6 +8,7 @@ public struct DocProblem {
     public enum Detail {
         case redundantParameter(String)
         case missingParameter(String, String)
+        case missingThrow
     }
 }
 
@@ -18,6 +19,8 @@ extension DocProblem.Detail: CustomStringConvertible {
             return "  redundant docs for argument '\(name)'"
         case .missingParameter(let name, let type):
             return "  missing docs for argument '\(name)' of type '\(type)'"
+        case .missingThrow:
+            return "  missing docs for throws"
         }
     }
 }

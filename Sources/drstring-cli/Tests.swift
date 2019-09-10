@@ -4,7 +4,7 @@ func test1(_ t1i0: String, lt1i1 t1i1: Int, t1i2: UInt) { fatalError() }
 
 struct Test2 {
     /// Test3 doc
-    func test3(_ t3i0: String, lt3i1 t3i1: Int, t3i2: UInt) { fatalError() }
+    func test3(_ t3i0: String, lt3i1 t3i1: Int, t3i2: UInt) throws { fatalError() }
 }
 
 enum Test4 {
