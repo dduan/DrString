@@ -15,6 +15,9 @@ let package = Package(
         .library(
             name: "DrCritic",
             targets: ["DrCritic"]),
+        .library(
+            name: "DrInformant",
+            targets: ["DrInformant"]),
         .executable(
             name: "drstring-cli",
             targets: ["drstring-cli"]),
@@ -26,10 +29,13 @@ let package = Package(
     targets: [
         .target(
             name: "drstring-cli",
-            dependencies: ["DrCritic", "SourceKittenFramework"]),
+            dependencies: ["DrCritic", "DrInformant", "SourceKittenFramework"]),
         .target(
             name: "DrCritic",
             dependencies: ["DrCrawler", "DrDecipher"]),
+        .target(
+            name: "DrInformant",
+            dependencies: ["DrCritic"]),
         .testTarget(
             name: "DrCriticTests",
             dependencies: ["DrCrawler", "DrDecipher", "DrCritic"]),

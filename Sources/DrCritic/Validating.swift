@@ -10,7 +10,9 @@ public func validate(_ documentable: Documentable) throws -> [DocProblem] {
             + findMissingThrows(signature, docs)
             + findMissingReturns(signature, docs)
         if !problems.isEmpty {
-            result.append(DocProblem(existingDocs: rawDoc, details: problems))
+            let problem = DocProblem(docName: rawDoc.name, filePath: rawDoc.filePath, line: rawDoc.line,
+                                     column: rawDoc.column, details: problems)
+            result.append(problem)
         }
     }
 
