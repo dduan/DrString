@@ -10,7 +10,7 @@ let package = Package(
             name: "DrDecipher",
             targets: ["DrDecipher"]),
         .library(
-            name: "DrCraweler",
+            name: "DrCrawler",
             targets: ["DrCrawler"]),
         .library(
             name: "DrCritic",
@@ -23,13 +23,12 @@ let package = Package(
             targets: ["drstring-cli"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/jpsim/SourceKitten", .exact("0.24.0")),
-        .package(url: "https://github.com/drmohundro/SWXMLHash.git", .upToNextMinor(from: "4.9.0")),
+        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50000.0")),
     ],
     targets: [
         .target(
             name: "drstring-cli",
-            dependencies: ["DrCritic", "DrInformant", "SourceKittenFramework"]),
+            dependencies: ["DrCritic", "DrInformant"]),
         .target(
             name: "DrCritic",
             dependencies: ["DrCrawler", "DrDecipher"]),
@@ -44,6 +43,6 @@ let package = Package(
             dependencies: []),
         .target(
             name: "DrCrawler",
-            dependencies: ["SourceKittenFramework", "SWXMLHash", "DrDecipher"]),
+            dependencies: ["DrDecipher", "SwiftSyntax"]),
     ]
 )

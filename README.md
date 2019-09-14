@@ -10,7 +10,7 @@ With Swift 5 available on your system: `make install`
 
 ## Usage
 
-With current working directory being root of a SwiftPM project: `drstring SWIFTPM_MODULE_NAME`.
+`drstring SWIFT_FILE_0 SWIFT_FILE_1 ...`
 
 ## License
 

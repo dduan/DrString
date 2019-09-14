@@ -18,8 +18,16 @@ func isBlank(_ c: Character) -> Bool {
 }
 
 private func trimDocHead(fromLine line: String) throws -> String.SubSequence {
-    let start = line.firstIndex(where: { !isBlank($0) }) ?? line.endIndex
-    return line[start...]
+    guard
+        let docHeadEnd = line.endIndex(ofFirst: "///")
+        else
+    {
+        throw Parsing.LineError.missingCommentHead(line)
+    }
+
+    let postDocHead = line[docHeadEnd...]
+    let start = postDocHead.firstIndex(where: { !isBlank($0) }) ?? postDocHead.endIndex
+    return postDocHead[start...]
 }
 
 func parseWords(fromLine line: String) throws -> String {
