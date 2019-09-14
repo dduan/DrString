@@ -1,3 +1,4 @@
+- [ ] Support SwiftPM project menifest
 - [ ] Support Xcode project
 - [ ] Check whitespace errors of docstrings
 - [ ] Auto format docstrings
