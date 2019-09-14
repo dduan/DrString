@@ -9,7 +9,7 @@ extension DocProblem.Detail: CustomStringConvertible {
             return "missing docs for argument '\(name)' of type '\(type)'"
         case .missingThrow:
             return "missing docs for throws"
-        case .missingReturns(let type):
+        case .missingReturn(let type):
             return "missing docs for return of type '\(type)'"
         }
     }

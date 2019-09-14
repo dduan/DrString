@@ -2,45 +2,31 @@ import DrDecipher
 import DrCrawler
 
 public func validate(_ documentable: Documentable) throws -> [DocProblem] {
-    var result = [DocProblem]()
-    switch documentable {
-    case .function(let signature, let rawDoc):
-        let docs = try parse(lines: rawDoc.content.split(separator: "\n").map(String.init))
-        let problems = try findParameterProblems(signature, docs) 
-            + findMissingThrows(signature, docs)
-            + findMissingReturns(signature, docs)
-        if !problems.isEmpty {
-            let problem = DocProblem(docName: rawDoc.name, filePath: rawDoc.filePath, line: rawDoc.line,
-                                     column: rawDoc.column, details: problems)
-            result.append(problem)
+    guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
+        return []
+    }
+
+    switch documentable.details {
+    case let .function(_, doesThrow, returnType, parameters):
+        let details = try findParameterProblems(parameters, docs)
+            + (doesThrow && docs.throws.isEmpty ? [.missingThrow] : [])
+            + (returnType != nil && docs.returns.isEmpty ? [.missingReturn(returnType ?? "")] : [])
+        if details.isEmpty {
+            return []
         }
-    }
 
-    return result
+        return [DocProblem(docName: documentable.name, filePath: documentable.path, line: documentable.line, column: documentable.column, details: details)]
+    default:
+        return []
+    }
 }
 
-func findMissingThrows(_ signature: FunctionSignature, _ docs: DocString) -> [DocProblem.Detail] {
-    if signature.throws && docs.throws.isEmpty {
-        return [.missingThrow]
-    }
-
-    return []
-}
-
-func findMissingReturns(_ signature: FunctionSignature, _ docs: DocString) -> [DocProblem.Detail] {
-    if let returnType = signature.returnType, docs.returns.isEmpty {
-        return [.missingReturns(returnType)]
-    }
-
-    return []
-}
-
-func findParameterProblems(_ signature: FunctionSignature, _ docs: DocString) throws -> [DocProblem.Detail] {
+func findParameterProblems(_ parameters: [Parameter], _ docs: DocString) throws -> [DocProblem.Detail] {
     var result = [DocProblem.Detail]()
-    let commonality = commonSequence(signature, docs)
+    let commonality = commonSequence(parameters, docs)
     var commonIter = commonality.makeIterator()
     var nextCommon = commonIter.next()
-    for param in signature.parameters {
+    for param in parameters {
         if param == nextCommon {
             nextCommon = commonIter.next()
         } else {
@@ -61,10 +47,10 @@ func findParameterProblems(_ signature: FunctionSignature, _ docs: DocString) th
     return result
 }
 
-func commonSequence(_ signature: FunctionSignature, _ docs: DocString) -> [FunctionSignature.Parameter] {
-    var cache = [Int: [Int: [FunctionSignature.Parameter]]]()
-    func lcs(_ sig: [FunctionSignature.Parameter], _ sigIndex: Int, _ doc: [DocString.Parameter],
-             _ docIndex: Int) -> [FunctionSignature.Parameter]
+func commonSequence(_ parameters: [Parameter], _ docs: DocString) -> [Parameter] {
+    var cache = [Int: [Int: [Parameter]]]()
+    func lcs(_ sig: [Parameter], _ sigIndex: Int, _ doc: [DocString.Parameter],
+             _ docIndex: Int) -> [Parameter]
     {
         if let cached = cache[sigIndex]?[docIndex] {
             return cached
@@ -87,5 +73,5 @@ func commonSequence(_ signature: FunctionSignature, _ docs: DocString) -> [Funct
         return result
     }
 
-    return lcs(signature.parameters, 0, docs.parameters, 0)
+    return lcs(parameters, 0, docs.parameters, 0)
 }
