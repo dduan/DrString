@@ -14,11 +14,9 @@ public struct Configuration {
     let options: Options
 
     var paths: [String] {
-        // TODO: globbing
-        // TODO: compute by consolidating include/exclude
         let included = Set((try? self.includedPaths.flatMap(glob)) ?? [])
         let excluded = Set((try? self.excludedPaths.flatMap(glob)) ?? [])
-        return Array(included.subtracting(excluded))
+        return Array(included.subtracting(excluded)).sorted()
     }
 
     public init(includedPaths: [String], excludedPaths: [String], options: Options) {
