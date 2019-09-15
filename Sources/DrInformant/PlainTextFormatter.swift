@@ -18,7 +18,7 @@ extension DocProblem.Detail: CustomStringConvertible {
 extension DocProblem: CustomStringConvertible {
     public var description: String {
         let header = "\(self.filePath):\(self.line):\(self.column): warning: docstring problems regarding `\(self.docName)`"
-        let detailPrefix = " • "
+        let detailPrefix = " - "
         return ([header] + self.details.map { detailPrefix + $0.description }).joined(separator: "\n")
     }
 }

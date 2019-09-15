@@ -6,7 +6,7 @@ extension FunctionParameterSyntax {
         let label = self.firstName?.text
         let name = self.secondName?.text ?? self.firstName?.text ?? ""
         let typeTriviaLength = self.type?.trailingTriviaLength.utf8Length ?? 0
-        let type = (self.type?.description.utf8.dropLast(typeTriviaLength)).flatMap(String.init) ?? ""
+        let type = String(((self.type?.description.utf8.dropLast(typeTriviaLength)).flatMap(String.init) ?? "").map { $0 == "\n" ? " " : $0 })
         let hasDefault = self.defaultArgument != nil
         let isVariadic = self.ellipsis?.text == "..."
         return Parameter(label: label, name: name, type: type, isVariadic: isVariadic, hasDefault: hasDefault)
