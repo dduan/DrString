@@ -14,7 +14,7 @@ public let checkCommand = Command(
                 .compactMap({ $0 })
             {
                 for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
-                    if IsTTY.standardOutput {
+                    if IsTerminal.standardOutput {
                         print(ttyText(for: problem))
                     } else {
                         print(plainText(for: problem))
