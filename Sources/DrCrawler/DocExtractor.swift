@@ -25,20 +25,21 @@ private final class DocExtractor: SyntaxRewriter {
 
     override func visit(_ node: FunctionDeclSyntax) -> DeclSyntax {
         let location = node.startLocation(in: self.url)
-        let signature = node.signature
-        let signatureText = signature.description.dropLast(signature.trailingTriviaLength.utf8Length)
+        let parameters = node.parameters
+        let signatureText = node.identifier.description
+            + "(\(parameters.reduce("") { $0 + ($1.label ?? $1.name) + ":" }))"
         let finding = Documentable(
             path: location.file,
             line: location.line,
             column: location.column,
-            name: node.identifier.description + signatureText,
+            name: signatureText,
             docLines: node.leadingTrivia?.docStringLines ?? [],
             children: [],
             details: .function(
                 isDiscardable: node.isDiscardable,
                 throws: node.throws,
                 returnType: node.returnType,
-                parameters: node.parameters)
+                parameters: parameters)
         )
         self.findings.append(finding)
         return node
