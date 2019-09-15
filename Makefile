@@ -1,5 +1,5 @@
 run:
-	@swift run drstring-cli Sources/drstring-cli/Tests.swift
+	@swift run drstring-cli check -i Sources/drstring-cli/Tests.swift
 
 test:
 	@swift test

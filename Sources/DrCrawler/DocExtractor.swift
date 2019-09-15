@@ -1,7 +1,6 @@
 import Foundation
 import SwiftSyntax
 
-// TODO: Remove dependency on `URL` therefore Foundation when SwiftSyntax updates.
 public func extractDocs(fromSourcePath sourcePath: String) throws -> [Documentable] {
     return try DocExtractor(filePath: sourcePath)?.extractDocs() ?? []
 }

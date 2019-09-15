@@ -7,6 +7,9 @@ let package = Package(
     name: "DrString",
     products: [
         .library(
+            name: "DrString",
+            targets: ["DrString"]),
+        .library(
             name: "DrDecipher",
             targets: ["DrDecipher"]),
         .library(
@@ -24,11 +27,15 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50000.0")),
+        .package(url: "https://github.com/nsomar/Guaka.git", .exact("0.4.1")),
     ],
     targets: [
         .target(
             name: "drstring-cli",
-            dependencies: ["DrCritic", "DrInformant"]),
+            dependencies: ["DrString", "Guaka"]),
+        .target(
+            name: "DrString",
+            dependencies: ["DrInformant", "DrCritic"]),
         .target(
             name: "DrCritic",
             dependencies: ["DrCrawler", "DrDecipher"]),
