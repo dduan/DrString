@@ -1,5 +1,7 @@
 import DrCrawler
 import DrCritic
+import DrInformant
+import IsTTY
 
 public let checkCommand = Command(
     name: "check",
@@ -12,8 +14,11 @@ public let checkCommand = Command(
                 .compactMap({ $0 })
             {
                 for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
-                    print(problem)
-                    print("")
+                    if IsTTY.standardOutput {
+                        print(ttyText(for: problem))
+                    } else {
+                        print(plainText(for: problem))
+                    }
                 }
             }
         }

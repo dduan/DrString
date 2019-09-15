@@ -29,6 +29,8 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50000.0")),
         .package(url: "https://github.com/nsomar/Guaka.git", .exact("0.4.1")),
         .package(url: "https://github.com/dduan/Pathos.git", .exact("0.2.0")),
+        .package(url: "https://github.com/dduan/IsTTY.git", .exact("0.1.0")),
+        .package(url: "https://github.com/mxcl/Chalk.git", .exact("0.4.0")),
     ],
     targets: [
         .target(
@@ -36,13 +38,13 @@ let package = Package(
             dependencies: ["DrString", "Guaka"]),
         .target(
             name: "DrString",
-            dependencies: ["DrInformant", "DrCritic", "Pathos"]),
+            dependencies: ["DrInformant", "DrCritic", "Pathos", "IsTTY"]),
         .target(
             name: "DrCritic",
             dependencies: ["DrCrawler", "DrDecipher"]),
         .target(
             name: "DrInformant",
-            dependencies: ["DrCritic"]),
+            dependencies: ["DrCritic", "Chalk"]),
         .testTarget(
             name: "DrCriticTests",
             dependencies: ["DrCrawler", "DrDecipher", "DrCritic"]),
