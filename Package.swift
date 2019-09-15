@@ -28,6 +28,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50000.0")),
         .package(url: "https://github.com/nsomar/Guaka.git", .exact("0.4.1")),
+        .package(url: "https://github.com/dduan/Pathos.git", .exact("0.2.0")),
     ],
     targets: [
         .target(
@@ -35,7 +36,7 @@ let package = Package(
             dependencies: ["DrString", "Guaka"]),
         .target(
             name: "DrString",
-            dependencies: ["DrInformant", "DrCritic"]),
+            dependencies: ["DrInformant", "DrCritic", "Pathos"]),
         .target(
             name: "DrCritic",
             dependencies: ["DrCrawler", "DrDecipher"]),
