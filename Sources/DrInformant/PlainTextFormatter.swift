@@ -4,20 +4,22 @@ extension DocProblem.Detail: CustomStringConvertible {
     public var description: String {
         switch self {
         case .redundantParameter(let name):
-            return "redundant docs for argument '\(name)'"
+            return "Unrecognized docstring for '\(name)'"
         case .missingParameter(let name, let type):
-            return "missing docs for argument '\(name)' of type '\(type)'"
+            return "Missing docstring for '\(name)' of type '\(type)'"
         case .missingThrow:
-            return "missing docs for throws"
+            return "Missing docs for throws"
         case .missingReturn(let type):
-            return "missing docs for return of type '\(type)'"
+            return "Missing docs for return type '\(type)'"
         }
     }
 }
 
 extension DocProblem: CustomStringConvertible {
     public var description: String {
-        let header = "\(self.filePath):\(self.line):\(self.column): warning: docstring problems regarding `\(self.docName)`"
+        let count = self.details.count
+        let pluralPostfix = count > 1 ? "s" : ""
+        let header = "\(self.filePath):\(self.line):\(self.column): warning: \(count) docstring problem\(pluralPostfix) regarding `\(self.docName)`"
         let detailPrefix = " - "
         return ([header] + self.details.map { detailPrefix + $0.description }).joined(separator: "\n")
     }
