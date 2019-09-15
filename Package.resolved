@@ -2,12 +2,30 @@
   "object": {
     "pins": [
       {
+        "package": "Chalk",
+        "repositoryURL": "https://github.com/mxcl/Chalk.git",
+        "state": {
+          "branch": null,
+          "revision": "9aa9f348b86db3cf6702a3e43c081ecec80cf3c7",
+          "version": "0.4.0"
+        }
+      },
+      {
         "package": "Guaka",
         "repositoryURL": "https://github.com/nsomar/Guaka.git",
         "state": {
           "branch": null,
           "revision": "6fb29b2378166a30d72120980e1c099c664598de",
           "version": "0.4.1"
+        }
+      },
+      {
+        "package": "IsTTY",
+        "repositoryURL": "https://github.com/dduan/IsTTY.git",
+        "state": {
+          "branch": null,
+          "revision": "7d4bc7788580c99d5a5295bdde96d0264b06d96e",
+          "version": "0.1.0"
         }
       },
       {
