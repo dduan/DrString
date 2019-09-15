@@ -1,7 +1,7 @@
 import DrDecipher
 import DrCrawler
 
-public func validate(_ documentable: Documentable) throws -> [DocProblem] {
+public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws -> [DocProblem] {
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
         return []
     }
@@ -9,7 +9,7 @@ public func validate(_ documentable: Documentable) throws -> [DocProblem] {
     switch documentable.details {
     case let .function(_, doesThrow, returnType, parameters):
         let details = try findParameterProblems(parameters, docs)
-            + (doesThrow && docs.throws.isEmpty ? [.missingThrow] : [])
+            + (!ignoreThrows && doesThrow && docs.throws.isEmpty ? [.missingThrow] : [])
             + (returnType != nil && docs.returns.isEmpty ? [.missingReturn(returnType ?? "")] : [])
         if details.isEmpty {
             return []
