@@ -1,11 +1,19 @@
 import Pathos
 
 public struct Configuration {
+    public enum OutputFormat: String, Equatable {
+        case automatic = "automatic"
+        case terminal = "terminal"
+        case plain = "plain"
+    }
+
     public struct Options {
         let ignoreDocstringForThrows: Bool
+        let outputFormat: OutputFormat
 
-        public init(ignoreDocstringForThrows: Bool) {
+        public init(ignoreDocstringForThrows: Bool, outputFormat: OutputFormat) {
             self.ignoreDocstringForThrows = ignoreDocstringForThrows
+            self.outputFormat = outputFormat
         }
     }
 
