@@ -1,0 +1,6 @@
+include = [
+    "Sources/drstring-cli/*.swift",
+]
+
+[options]
+ignore-throws = true

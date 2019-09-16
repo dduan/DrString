@@ -7,6 +7,7 @@
 - Support option `--ignore-throws`, which makes DrString ignore throws in docstring validation.
 - Colored output for TTY
 - Support option `--format`, which controls the output format.
+- Add support for TOML config files
 
 ## 0.0.1
 

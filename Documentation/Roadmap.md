@@ -1,8 +1,8 @@
+- [x] Configuration file
 - [ ] Support SwiftPM project menifest
 - [ ] Support Xcode project
 - [ ] Check whitespace errors of docstrings
 - [ ] Auto format docstrings
-- [ ] Configuration file
 - [ ] Expert problems in other formats (JSON)
 - [ ] Check missing docstrings for various interfaces
 - [ ] Allow exceptions
