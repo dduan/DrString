@@ -1,5 +1,7 @@
 ## master
 
+## 0.1.0
+
 ### New
 
 - Add subcommand 'check', which is the original command from 0.0.1
