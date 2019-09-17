@@ -27,5 +27,6 @@ let package = Package(
         .target(name: "DrString", dependencies: ["DrInformant", "DrCritic", "Pathos", "IsTTY"]),
         .target(name: "drstring-cli", dependencies: ["DrString", "Guaka", "TOMLDecoder"]),
         .testTarget(name: "DrCriticTests", dependencies: ["DrCrawler", "DrDecipher", "DrCritic"]),
+        .testTarget(name: "DrDecipherTests", dependencies: ["DrDecipher"]),
     ]
 )
