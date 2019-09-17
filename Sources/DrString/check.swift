@@ -3,17 +3,21 @@ import DrCritic
 import DrInformant
 import IsTTY
 
+#if canImport(Darwin)
+import Darwin
+#else
+import Glibc
+#endif
+
 public let checkCommand = Command(
     name: "check",
     shortDescription: "Check problems for existing doc strings")
 { config in
     let ignoreThrows = config.options.ignoreDocstringForThrows
     let format = config.options.outputFormat
-    do {
-        for path in config.paths {
-            for documentable in try extractDocs(fromSourcePath: path)
-                .compactMap({ $0 })
-            {
+    for path in config.paths {
+        do {
+            for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
                 for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
                     let output: String
                     switch (format, IsTerminal.standardOutput) {
@@ -26,7 +30,8 @@ public let checkCommand = Command(
                     print(output)
                 }
             }
+        } catch let error {
+            fputs("DrString encountered error processing \(path): \(error)\n", stderr)
         }
-
-    } catch {}
+    }
 }
