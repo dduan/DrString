@@ -2,12 +2,16 @@
 import XCTest
 
 final class LineParsingTests: XCTestCase {
+    private func equal(_ result: (String, String)?, _ expectation: (String, String)) -> Bool {
+        return result?.0 == expectation.0 && result?.1 == expectation.1
+    }
+
     func testWords() throws {
-        XCTAssertEqual(try parseWords(fromLine: "///"), "")
-        XCTAssertEqual(try parseWords(fromLine: " ///"), "")
-        XCTAssertEqual(try parseWords(fromLine: " /// "), "")
-        XCTAssertEqual(try parseWords(fromLine: "/// some stuff"), "some stuff")
-        XCTAssertEqual(try parseWords(fromLine: "  /// some stuff"), "some stuff")
+        XCTAssert(equal(try parseWords(fromLine: "///"), ("", "")))
+        XCTAssert(equal(try parseWords(fromLine: " ///"), ("", "")))
+        XCTAssert(equal(try parseWords(fromLine: " /// "), (" ", "")))
+        XCTAssert(equal(try parseWords(fromLine: "///  some stuff"), ("  ", "some stuff")))
+        XCTAssert(equal(try parseWords(fromLine: "  /// some stuff"), (" ", "some stuff")))
     }
 
     func testGroupedParameterHeader() throws {
@@ -22,10 +26,6 @@ final class LineParsingTests: XCTestCase {
         XCTAssertEqual(try parseGroupedParametersHeader(fromLine: "/// - Parametersss"), "- Parametersss")
         XCTAssertNil(try parseGroupedParametersHeader(fromLine: "/// Parametersss"))
         XCTAssertNil(try parseGroupedParametersHeader(fromLine: "/// - xParametersss"))
-    }
-
-    private func equal(_ result: (String, String)?, _ expectation: (String, String)) -> Bool {
-        return result?.0 == expectation.0 && result?.1 == expectation.1
     }
 
     func testGroupedParameter() throws {

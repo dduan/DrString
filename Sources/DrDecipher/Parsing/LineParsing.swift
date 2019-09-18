@@ -13,7 +13,8 @@ extension String {
     }
 }
 
-private func trimDocHead(fromLine line: String) throws -> String.SubSequence {
+/// Trim '///'. Return proceeding leading whitespace, and the rest.
+private func trimDocHead(fromLine line: String) throws -> (String.SubSequence, String.SubSequence) {
     guard
         let docHeadEnd = line.endIndex(ofFirst: "///")
         else
@@ -22,12 +23,13 @@ private func trimDocHead(fromLine line: String) throws -> String.SubSequence {
     }
 
     let postDocHead = line[docHeadEnd...]
-    let start = postDocHead.firstIndex(where: { !$0.isWhitespace }) ?? postDocHead.endIndex
-    return postDocHead[start...]
+    let startOfContent = postDocHead.firstIndex(where: { !$0.isWhitespace }) ?? postDocHead.endIndex
+    return (postDocHead[..<startOfContent], postDocHead[startOfContent...])
 }
 
-func parseWords(fromLine line: String) throws -> String {
-    return String(try trimDocHead(fromLine: line))
+func parseWords(fromLine line: String) throws -> (String, String) {
+    let (lead, content) = try trimDocHead(fromLine: line)
+    return (String(lead), String(content))
 }
 
 // trim number of spaces, "-", number of spaces, and a word whose first letter captilization is ignored
@@ -55,8 +57,8 @@ private func trimDash(fromLine line: String.SubSequence, firstLetter: Character,
 
 func parseGroupedParametersHeader(fromLine line: String) throws -> String? {
     let line = try trimDocHead(fromLine: line)
-    let valid = (try trimDash(fromLine: line, firstLetter: "p", rest: "arameters")) != nil
-    return valid ? String(line) : nil
+    let valid = (try trimDash(fromLine: line.1, firstLetter: "p", rest: "arameters")) != nil
+    return valid ? String(line.1) : nil
 }
 
 private func splitNameColonDescription(fromLine postDash: String.SubSequence) -> (String, String)? {
@@ -77,7 +79,7 @@ private func splitNameColonDescription(fromLine postDash: String.SubSequence) ->
 }
 
 func parseGroupedParameter(fromLine line: String) throws -> (String, String)? {
-    let line = try trimDocHead(fromLine: line)
+    let line = try trimDocHead(fromLine: line).1
     guard
         let dashPosition = line.firstIndex(of: "-"),
         line[line.startIndex ..< dashPosition].allSatisfy({ $0.isWhitespace }),
@@ -94,7 +96,7 @@ func parseGroupedParameter(fromLine line: String) throws -> (String, String)? {
 
 func parseParameter(fromLine line: String) throws -> (String, String)? {
     guard
-        let line = try trimDash(fromLine: trimDocHead(fromLine: line), firstLetter: "p", rest: "arameter")
+        let line = try trimDash(fromLine: trimDocHead(fromLine: line).1, firstLetter: "p", rest: "arameter")
         else
     {
         return nil
@@ -105,7 +107,7 @@ func parseParameter(fromLine line: String) throws -> (String, String)? {
 
 private func descriptionAfterDash(line: String, firstLetter: Character, rest: String) throws -> String? {
     guard
-        let line = try trimDash(fromLine: trimDocHead(fromLine: line), firstLetter: firstLetter, rest: rest),
+        let line = try trimDash(fromLine: trimDocHead(fromLine: line).1, firstLetter: firstLetter, rest: rest),
         let colonPosition = line.firstIndex(where: { $0 == ":" })
         else
     {
@@ -147,8 +149,8 @@ func parse(line: String) throws -> Parsing.LineResult {
         return .parameter(name, description)
     } else if let (name, description) = try parseGroupedParameter(fromLine: line) {
         let rawText = try parseWords(fromLine: line)
-        return .groupedParameter(name, description, rawText)
+        return .groupedParameter(name, description, rawText.1)
     }
 
-    return .words(try parseWords(fromLine: line))
+    return .words(try parseWords(fromLine: line).1)
 }
