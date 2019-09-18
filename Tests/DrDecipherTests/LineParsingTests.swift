@@ -7,11 +7,11 @@ final class LineParsingTests: XCTestCase {
     }
 
     func testWords() throws {
-        XCTAssert(equal(try parseWords(fromLine: "///"), ("", "")))
-        XCTAssert(equal(try parseWords(fromLine: " ///"), ("", "")))
-        XCTAssert(equal(try parseWords(fromLine: " /// "), (" ", "")))
-        XCTAssert(equal(try parseWords(fromLine: "///  some stuff"), ("  ", "some stuff")))
-        XCTAssert(equal(try parseWords(fromLine: "  /// some stuff"), (" ", "some stuff")))
+        XCTAssertEqual(try parseWords(fromLine: "///"), TextLeadByWhitespace("", ""))
+        XCTAssertEqual(try parseWords(fromLine: " ///"), TextLeadByWhitespace("", ""))
+        XCTAssertEqual(try parseWords(fromLine: " /// "), TextLeadByWhitespace(" ", ""))
+        XCTAssertEqual(try parseWords(fromLine: "///  some stuff"), TextLeadByWhitespace("  ", "some stuff"))
+        XCTAssertEqual(try parseWords(fromLine: "  /// some stuff"), TextLeadByWhitespace(" ", "some stuff"))
     }
 
     func testGroupedParameterHeader() throws {

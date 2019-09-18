@@ -27,9 +27,9 @@ private func trimDocHead(fromLine line: String) throws -> (String.SubSequence, S
     return (postDocHead[..<startOfContent], postDocHead[startOfContent...])
 }
 
-func parseWords(fromLine line: String) throws -> (String, String) {
+func parseWords(fromLine line: String) throws -> TextLeadByWhitespace {
     let (lead, content) = try trimDocHead(fromLine: line)
-    return (String(lead), String(content))
+    return TextLeadByWhitespace(String(lead), String(content))
 }
 
 // trim number of spaces, "-", number of spaces, and a word whose first letter captilization is ignored
@@ -149,8 +149,8 @@ func parse(line: String) throws -> Parsing.LineResult {
         return .parameter(name, description)
     } else if let (name, description) = try parseGroupedParameter(fromLine: line) {
         let rawText = try parseWords(fromLine: line)
-        return .groupedParameter(name, description, rawText.1)
+        return .groupedParameter(name, description, rawText.text)
     }
 
-    return .words(try parseWords(fromLine: line).1)
+    return .words(try parseWords(fromLine: line).text)
 }
