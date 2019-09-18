@@ -13,10 +13,6 @@ extension String {
     }
 }
 
-func isBlank(_ c: Character) -> Bool {
-    return c == " " || c == "\t"
-}
-
 private func trimDocHead(fromLine line: String) throws -> String.SubSequence {
     guard
         let docHeadEnd = line.endIndex(ofFirst: "///")
@@ -26,7 +22,7 @@ private func trimDocHead(fromLine line: String) throws -> String.SubSequence {
     }
 
     let postDocHead = line[docHeadEnd...]
-    let start = postDocHead.firstIndex(where: { !isBlank($0) }) ?? postDocHead.endIndex
+    let start = postDocHead.firstIndex(where: { !$0.isWhitespace }) ?? postDocHead.endIndex
     return postDocHead[start...]
 }
 
@@ -41,11 +37,11 @@ private func trimDash(fromLine line: String.SubSequence, firstLetter: Character,
 
     guard
         let dashPosition = line.firstIndex(of: "-"),
-        line[line.startIndex ..< dashPosition].allSatisfy(isBlank),
+        line[line.startIndex ..< dashPosition].allSatisfy({ $0.isWhitespace }),
         let headStart = line.firstIndex(where: { $0 == upper || $0 == lower }),
         case let dashPositionNext = line.index(after: dashPosition),
         dashPositionNext < line.endIndex,
-        line[dashPositionNext ..< headStart].allSatisfy(isBlank),
+        line[dashPositionNext ..< headStart].allSatisfy({ $0.isWhitespace }),
         case let remainderStart = line.index(after: headStart),
         remainderStart < line.endIndex,
         line[remainderStart...].starts(with: rest)
@@ -65,7 +61,7 @@ func parseGroupedParametersHeader(fromLine line: String) throws -> String? {
 
 private func splitNameColonDescription(fromLine postDash: String.SubSequence) -> (String, String)? {
     guard
-        let nameStart = postDash.firstIndex(where: { !isBlank($0) }),
+        let nameStart = postDash.firstIndex(where: { !$0.isWhitespace }),
         let colonPosition = postDash.firstIndex(where: { $0 == ":" }),
         nameStart < colonPosition
         else
@@ -74,9 +70,9 @@ private func splitNameColonDescription(fromLine postDash: String.SubSequence) ->
     }
 
     let untrimedName = postDash[nameStart ..< colonPosition]
-    let nameEnd = untrimedName.firstIndex(where: isBlank) ?? colonPosition
+    let nameEnd = untrimedName.firstIndex(where: { $0.isWhitespace }) ?? colonPosition
     let postColon = postDash[postDash.index(after: colonPosition)...]
-    let descriptionStart = postColon.firstIndex(where: { !isBlank($0) }) ?? postColon.endIndex
+    let descriptionStart = postColon.firstIndex(where: { !$0.isWhitespace }) ?? postColon.endIndex
     return (String(postDash[nameStart ..< nameEnd]), String(postColon[descriptionStart...]))
 }
 
@@ -84,7 +80,7 @@ func parseGroupedParameter(fromLine line: String) throws -> (String, String)? {
     let line = try trimDocHead(fromLine: line)
     guard
         let dashPosition = line.firstIndex(of: "-"),
-        line[line.startIndex ..< dashPosition].allSatisfy(isBlank),
+        line[line.startIndex ..< dashPosition].allSatisfy({ $0.isWhitespace }),
         case let dashPositionNext = line.index(after: dashPosition),
         dashPositionNext < line.endIndex
         else
@@ -117,7 +113,7 @@ private func descriptionAfterDash(line: String, firstLetter: Character, rest: St
     }
 
     let postColon = line[line.index(after: colonPosition)...]
-    let descriptionStart = postColon.firstIndex(where: { !isBlank($0) }) ?? postColon.endIndex
+    let descriptionStart = postColon.firstIndex(where: { !$0.isWhitespace }) ?? postColon.endIndex
     return String(postColon[descriptionStart...])
 }
 
@@ -131,7 +127,7 @@ func parseThrows(fromLine line: String) throws -> String? {
 
 func parseIndentation(fromLine line: String) throws -> String {
     guard
-        let indentationEnd = line.firstIndex(where: { !isBlank($0) })
+        let indentationEnd = line.firstIndex(where: { !$0.isWhitespace })
     else
     {
         throw Parsing.LineError.missingCommentHead(line)

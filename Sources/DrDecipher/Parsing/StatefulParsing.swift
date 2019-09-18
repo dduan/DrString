@@ -2,7 +2,7 @@ public func parse(lines: [String]) throws -> DocString {
     assert(!lines.isEmpty)
     guard
         let firstLine = lines.first,
-        let _ = firstLine.firstIndex(where: { !isBlank($0) })
+        let _ = firstLine.firstIndex(where: { !$0.isWhitespace })
         else
     {
         throw Parsing.StructuralError.invalidStart
