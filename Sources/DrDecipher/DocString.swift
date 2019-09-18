@@ -26,10 +26,6 @@ public struct DocString: Equatable {
 
 /*
  public struct DocString: Equatable {
-     public struct StringLeadByWhitespace: Equatable {
-         public let lead: String
-         public let text: String
-     }
 
      public struct Parameter: Equatable {
          public let name: String
