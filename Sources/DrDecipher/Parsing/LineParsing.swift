@@ -33,7 +33,10 @@ func parseWords(fromLine line: String) throws -> TextLeadByWhitespace {
 }
 
 // trim number of spaces, "-", number of spaces, and a word whose first letter captilization is ignored
-private func trimDash(fromLine line: String.SubSequence, firstLetter: Character, rest: String) throws -> String.SubSequence? {
+// return the whitespace between dash and the word, the word, and rest of the line.
+private func trimDash(fromLine line: String.SubSequence, firstLetter: Character, rest: String) throws
+    -> (String.SubSequence, String.SubSequence, String.SubSequence)?
+{
     let upper = String(firstLetter).uppercased().first!
     let lower = String(firstLetter).lowercased().first!
 
@@ -52,13 +55,17 @@ private func trimDash(fromLine line: String.SubSequence, firstLetter: Character,
         return nil
     }
 
-    return line[line.index(remainderStart, offsetBy: rest.count)...]
+    let headEnd = line.index(remainderStart, offsetBy: rest.count)
+    return (line[dashPositionNext ..< headStart], line[headStart ..< headEnd], line[headEnd...])
 }
 
-func parseGroupedParametersHeader(fromLine line: String) throws -> String? {
-    let line = try trimDocHead(fromLine: line)
-    let valid = (try trimDash(fromLine: line.1, firstLetter: "p", rest: "arameters")) != nil
-    return valid ? String(line.1) : nil
+func parseGroupedParametersHeader(fromLine line: String) throws -> (String, TextLeadByWhitespace)? {
+    let (preDashLead, line) = try trimDocHead(fromLine: line)
+    guard let (leadingSpace, word, rest) = (try trimDash(fromLine: line, firstLetter: "p", rest: "arameters")) else {
+        return nil
+    }
+
+    return (String(preDashLead), TextLeadByWhitespace(String(leadingSpace), String(word + rest)))
 }
 
 private func splitNameColonDescription(fromLine postDash: String.SubSequence) -> (String, String)? {
@@ -102,12 +109,12 @@ func parseParameter(fromLine line: String) throws -> (String, String)? {
         return nil
     }
 
-    return splitNameColonDescription(fromLine: line)
+    return splitNameColonDescription(fromLine: line.2)
 }
 
 private func descriptionAfterDash(line: String, firstLetter: Character, rest: String) throws -> String? {
     guard
-        let line = try trimDash(fromLine: trimDocHead(fromLine: line).1, firstLetter: firstLetter, rest: rest),
+        let line = (try trimDash(fromLine: trimDocHead(fromLine: line).1, firstLetter: firstLetter, rest: rest))?.2,
         let colonPosition = line.firstIndex(where: { $0 == ":" })
         else
     {
@@ -140,7 +147,7 @@ func parseIndentation(fromLine line: String) throws -> String {
 
 func parse(line: String) throws -> Parsing.LineResult {
     if let rawHeader = try parseGroupedParametersHeader(fromLine: line) {
-        return .groupedParametersHeader(rawHeader)
+        return .groupedParametersHeader(rawHeader.1.text)
     } else if let description = try parseReturns(fromLine: line) {
         return .returns(description)
     } else if let description = try parseThrows(fromLine: line) {
