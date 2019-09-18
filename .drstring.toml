@@ -1,6 +1,0 @@
-include = [
-    "Sources/DrStringCLI/*.swift",
-]
-
-[options]
-ignore-throws = true

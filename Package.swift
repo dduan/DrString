@@ -18,6 +18,9 @@ let package = Package(
         .package(url: "https://github.com/dduan/TOMLDecoder.git", .exact("0.1.4")),
         .package(url: "https://github.com/mxcl/Chalk.git", .exact("0.4.0")),
         .package(url: "https://github.com/nsomar/Guaka.git", .exact("0.4.1")),
+
+        // For testing
+        .package(url: "https://github.com/llvm-swift/FileCheck.git", "0.0.1"..."1.0.0"),
     ],
     targets: [
         .target(name: "DrCrawler", dependencies: ["DrDecipher", "SwiftSyntax"]),
@@ -28,5 +31,7 @@ let package = Package(
         .target(name: "DrStringCLI", dependencies: ["DrString", "Guaka", "TOMLDecoder"]),
         .testTarget(name: "DrCriticTests", dependencies: ["DrCrawler", "DrDecipher", "DrCritic"]),
         .testTarget(name: "DrDecipherTests", dependencies: ["DrDecipher"]),
+        .testTarget(name: "DrStringTests", dependencies: ["DrString", "FileCheck"],
+                    exclude: ["Tests/DrStringTests/Fixtures"]),
     ]
 )
