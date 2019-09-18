@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "DrString",
     products: [
-        .executable(name: "drstring-cli", targets: ["drstring-cli"]),
+        .executable(name: "DrStringCLI", targets: ["DrStringCLI"]),
         .library(name: "DrCrawler", targets: ["DrCrawler"]),
         .library(name: "DrCritic", targets: ["DrCritic"]),
         .library(name: "DrDecipher", targets: ["DrDecipher"]),
@@ -25,7 +25,7 @@ let package = Package(
         .target(name: "DrDecipher", dependencies: []),
         .target(name: "DrInformant", dependencies: ["DrCritic", "Chalk"]),
         .target(name: "DrString", dependencies: ["DrInformant", "DrCritic", "Pathos", "IsTTY"]),
-        .target(name: "drstring-cli", dependencies: ["DrString", "Guaka", "TOMLDecoder"]),
+        .target(name: "DrStringCLI", dependencies: ["DrString", "Guaka", "TOMLDecoder"]),
         .testTarget(name: "DrCriticTests", dependencies: ["DrCrawler", "DrDecipher", "DrCritic"]),
         .testTarget(name: "DrDecipherTests", dependencies: ["DrDecipher"]),
     ]

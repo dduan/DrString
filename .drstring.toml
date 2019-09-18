@@ -1,5 +1,5 @@
 include = [
-    "Sources/drstring-cli/*.swift",
+    "Sources/DrStringCLI/*.swift",
 ]
 
 [options]
