@@ -19,7 +19,7 @@ final class StatefulParsingTests: XCTestCase {
         let expected = DocString(
             description: [
                 .init(" ", "Overall description"),
-                .init("", ""),
+                .empty,
             ],
             parameters: [
                 DocString.Parameter(
@@ -72,7 +72,7 @@ final class StatefulParsingTests: XCTestCase {
         let expected = DocString(
             description: [
                 .init(" ", "Overall description"),
-                .init("", "")
+                .empty
             ],
             parameters: [
                 DocString.Parameter(

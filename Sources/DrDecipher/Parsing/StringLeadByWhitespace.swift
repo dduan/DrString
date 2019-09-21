@@ -6,6 +6,8 @@ public struct TextLeadByWhitespace: Equatable {
         self.lead = lead
         self.text = text
     }
+
+    static let empty = TextLeadByWhitespace("", "")
 }
 
 extension TextLeadByWhitespace: CustomStringConvertible {
