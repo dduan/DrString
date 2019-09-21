@@ -10,12 +10,12 @@ enum Parsing {
     }
 
     enum LineResult: Equatable {
-        case words(String)
-        case groupedParametersHeader(String) // raw text is preserved. it could be part of description
-        case groupedParameter(String, String, String) // name, description, raw text
-        case parameter(String, String)
-        case `returns`(String)
-        case `throws`(String)
+        case words(TextLeadByWhitespace)
+        case groupedParametersHeader(String, TextLeadByWhitespace) // raw text is preserved. it could be part of description
+        case groupedParameter(String, TextLeadByWhitespace, String, TextLeadByWhitespace) // name, description, raw text
+        case parameter(String, TextLeadByWhitespace, TextLeadByWhitespace, String, TextLeadByWhitespace)
+        case `returns`(String, TextLeadByWhitespace, String, TextLeadByWhitespace)
+        case `throws`(String, TextLeadByWhitespace, String, TextLeadByWhitespace)
     }
 
     enum LineError: Error {

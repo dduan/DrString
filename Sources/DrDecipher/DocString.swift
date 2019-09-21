@@ -9,13 +9,15 @@ public struct DocString: Equatable {
         }
     }
 
-    public let description: [String]
+    public let description: [TextLeadByWhitespace]
     public let parameters: [Parameter]
-    public let returns: [String]
-    public let `throws`: [String]
+    public let returns: [TextLeadByWhitespace]
+    public let `throws`: [TextLeadByWhitespace]
     public let maxParameterWidth: Int
 
-    public init(description: [String], parameters: [Parameter], returns: [String], throws: [String]) {
+    public init(description: [TextLeadByWhitespace], parameters: [Parameter], returns: [TextLeadByWhitespace],
+                throws: [TextLeadByWhitespace])
+    {
         self.description = description
         self.parameters = parameters
         self.returns = returns

@@ -18,38 +18,38 @@ final class StatefulParsingTests: XCTestCase {
 
         let expected = DocString(
             description: [
-                "Overall description",
-                ""
+                .init(" ", "Overall description"),
+                .init("", ""),
             ],
             parameters: [
                 DocString.Parameter(
                     name: "d",
                     description: [
-                        "d description"
+                        .init(" ", "d description")
                     ]
                 ),
                 DocString.Parameter(
                     name: "c",
                     description: [
-                        "c description"
+                        .init(" ", "c description")
                     ]
                 ),
                 DocString.Parameter(
                     name: "b",
                     description: [
-                        "b description"
+                        .init(" ", "b description")
                     ]
                 ),
                 DocString.Parameter(
                     name: "a",
                     description: [
-                        "a description",
-                        "a description continues"
+                        .init(" ", "a description"),
+                        .init("        ", "a description continues")
                     ]
                 ),
             ],
-            returns: ["Returns description"],
-            throws: ["Throws description"])
+            returns: [.init(" ", "Returns description")],
+            throws: [.init(" ", "Throws description")])
 
         let actual = try parse(lines: text.split(separator: "\n").map(String.init))
 
@@ -71,38 +71,38 @@ final class StatefulParsingTests: XCTestCase {
 
         let expected = DocString(
             description: [
-                "Overall description",
-                ""
+                .init(" ", "Overall description"),
+                .init("", "")
             ],
             parameters: [
                 DocString.Parameter(
                     name: "d",
                     description: [
-                        "d description"
+                    .init(" ", "d description")
                     ]
                 ),
                 DocString.Parameter(
                     name: "c",
                     description: [
-                        "c description"
+                    .init(" ", "c description")
                     ]
                 ),
                 DocString.Parameter(
                     name: "b",
                     description: [
-                        "b description"
+                    .init(" ", "b description")
                     ]
                 ),
                 DocString.Parameter(
                     name: "a",
                     description: [
-                        "a description",
-                        "a description continues"
+                        .init(" ", "a description"),
+                        .init("                ", "a description continues")
                     ]
                 ),
                 ],
-            returns: ["Returns description"],
-            throws: ["Throws description"])
+            returns: [.init(" ", "Returns description")],
+            throws: [.init(" ", "Throws description")])
 
         let actual = try parse(lines: text.split(separator: "\n").map(String.init))
 

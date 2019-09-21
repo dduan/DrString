@@ -183,18 +183,17 @@ func parseThrows(fromLine line: String) throws -> (String, TextLeadByWhitespace,
 }
 
 func parse(line: String) throws -> Parsing.LineResult {
-    if let rawHeader = try parseGroupedParametersHeader(fromLine: line) {
-        return .groupedParametersHeader(rawHeader.1.text)
-    } else if let description = try parseReturns(fromLine: line) {
-        return .returns(description.3.text)
-    } else if let description = try parseThrows(fromLine: line) {
-        return .throws(description.3.text)
-    } else if let (_, _, name, _, description) = try parseParameter(fromLine: line) {
-        return .parameter(name.text, description.text)
-    } else if let (_, name, _, description) = try parseGroupedParameter(fromLine: line) {
-        let rawText = try parseWords(fromLine: line)
-        return .groupedParameter(name.text, description.text, rawText.text)
+    if let (preDash, keyword) = try parseGroupedParametersHeader(fromLine: line) {
+        return .groupedParametersHeader(preDash, keyword)
+    } else if let (preDash, keyword, preColon, description) = try parseReturns(fromLine: line) {
+        return .returns(preDash, keyword, preColon, description)
+    } else if let (preDash, keyword, preColon, description) = try parseThrows(fromLine: line) {
+        return .throws(preDash, keyword, preColon, description)
+    } else if let (preDash, keyword, name, preColon, description) = try parseParameter(fromLine: line) {
+        return .parameter(preDash, keyword, name, preColon, description)
+    } else if let (preDash, keyword, preColon, description) = try parseGroupedParameter(fromLine: line) {
+        return .groupedParameter(preDash, keyword, preColon, description)
     }
 
-    return .words(try parseWords(fromLine: line).text)
+    return .words(try parseWords(fromLine: line))
 }
