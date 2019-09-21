@@ -7,3 +7,9 @@ public struct TextLeadByWhitespace: Equatable {
         self.text = text
     }
 }
+
+extension TextLeadByWhitespace: CustomStringConvertible {
+    public var description: String {
+        "\(self.lead)\(self.text)"
+    }
+}
