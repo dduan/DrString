@@ -8,10 +8,10 @@ public func parse(lines: [String]) throws -> DocString {
         throw Parsing.StructuralError.invalidStart
     }
 
-    var topLevelDescription = [String]()
-    var returnDescription = [String]()
-    var throwDescription = [String]()
-    var runningDescription = [String]()
+    var topLevelDescription = [TextLeadByWhitespace]()
+    var returnDescription = [TextLeadByWhitespace]()
+    var throwDescription = [TextLeadByWhitespace]()
+    var runningDescription = [TextLeadByWhitespace]()
     var parameterName = ""
     var parameters = [DocString.Parameter]()
     var state = Parsing.State.start
@@ -29,17 +29,17 @@ public func parse(lines: [String]) throws -> DocString {
             runningDescription = [newWords]
         case (.start, .groupedParametersHeader):
             state = .groupedParameterStart
-        case (.start, .groupedParameter(_, _, let text)):
+        case (.start, .groupedParameter(_, _, _, let text)):
             state = .description
             runningDescription = [text]
-        case (.start, .parameter(let name, let text)):
+        case (.start, .parameter(_, _, let name, _, let text)):
             state = .separateParameter
-            parameterName = name
+            parameterName = name.text
             runningDescription = [text]
-        case (.start, .returns(let text)):
+        case (.start, .returns(_, _, _, let text)):
             state = .returns
             runningDescription = [text]
-        case (.start, .throws(let text)):
+        case (.start, .throws(_, _, _, let text)):
             state = .throws
             runningDescription = [text]
 
@@ -47,18 +47,18 @@ public func parse(lines: [String]) throws -> DocString {
             state = .groupedParameterStart
             topLevelDescription = runningDescription
             runningDescription = []
-        case (.description, .groupedParameter(_, _, let rawText)):
-            runningDescription.append(rawText)
-        case (.description, .parameter(let name, let text)):
+        case (.description, .groupedParameter(_, _, _, let text)):
+            runningDescription.append(text)
+        case (.description, .parameter(_, _, let name, _, let text)):
             topLevelDescription = runningDescription
             state = .separateParameter
             runningDescription = [text]
-            parameterName = name
-        case (.description, .returns(let text)):
+            parameterName = name.text
+        case (.description, .returns(_, _, _, let text)):
             topLevelDescription = runningDescription
             state = .returns
             runningDescription = [text]
-        case (.description, .throws(let text)):
+        case (.description, .throws(_, _, _, let text)):
             topLevelDescription = runningDescription
             state = .throws
             runningDescription = [text]
@@ -67,17 +67,17 @@ public func parse(lines: [String]) throws -> DocString {
             concludeParamater()
             state = .groupedParameterStart
             runningDescription = []
-        case (.separateParameter, .groupedParameter(_, _, let rawText)):
-            runningDescription.append(rawText)
-        case (.separateParameter, .parameter(let name, let text)):
+        case (.separateParameter, .groupedParameter(_, _, _, let text)):
+            runningDescription.append(text)
+        case (.separateParameter, .parameter(_, _, let name, _, let text)):
             concludeParamater()
-            parameterName = name
+            parameterName = name.text
             runningDescription = [text]
-        case (.separateParameter, .returns(let text)):
+        case (.separateParameter, .returns(_, _, _, let text)):
             concludeParamater()
             state = .returns
             runningDescription = [text]
-        case (.separateParameter, .throws(let text)):
+        case (.separateParameter, .throws(_, _, _, let text)):
             concludeParamater()
             state = .throws
             runningDescription = [text]
@@ -85,68 +85,68 @@ public func parse(lines: [String]) throws -> DocString {
         case (.groupedParameterStart, .groupedParametersHeader),
              (.groupedParameterStart, .words):
             continue
-        case (.groupedParameterStart, .groupedParameter(let name, let text, _)):
+        case (.groupedParameterStart, .groupedParameter(_, let name, _, let text)):
             state = .groupedParameter
-            parameterName = name
+            parameterName = name.text
             runningDescription = [text]
-        case (.groupedParameterStart, .parameter(let name, let text)):
+        case (.groupedParameterStart, .parameter(_, _, let name, _, let text)):
             state = .groupedParameter
-            parameterName = name
+            parameterName = name.text
             runningDescription = [text]
-        case (.groupedParameterStart, .returns(let text)):
+        case (.groupedParameterStart, .returns(_, _, _, let text)):
             state = .returns
             runningDescription = [text]
-        case (.groupedParameterStart, .throws(let text)):
+        case (.groupedParameterStart, .throws(_, _, _, let text)):
             state = .throws
             runningDescription = [text]
 
-        case (.groupedParameter, .groupedParametersHeader(let text)):
+        case (.groupedParameter, .groupedParametersHeader(_, let text)):
             runningDescription.append(text)
-        case (.groupedParameter, .groupedParameter(let name, let text, _)):
+        case (.groupedParameter, .groupedParameter(_, let name, _, let text)):
             concludeParamater()
-            parameterName = name
+            parameterName = name.text
             runningDescription = [text]
-        case (.groupedParameter, .parameter(let name, let text)):
+        case (.groupedParameter, .parameter(_, _, let name, _, let text)):
             concludeParamater()
-            parameterName = name
+            parameterName = name.text
             runningDescription = [text]
-        case (.groupedParameter, .returns(let text)):
+        case (.groupedParameter, .returns(_, _, _, let text)):
             concludeParamater()
             state = .returns
             runningDescription = [text]
-        case (.groupedParameter, .throws(let text)):
+        case (.groupedParameter, .throws(_, _, _, let text)):
             concludeParamater()
             state = .throws
             runningDescription = [text]
 
-        case (.returns, .groupedParametersHeader(let text)):
+        case (.returns, .groupedParametersHeader(_, let text)):
             runningDescription.append(text)
-        case (.returns, .groupedParameter(_, _, let text)):
+        case (.returns, .groupedParameter(_, _ , _, let text)):
             runningDescription.append(text)
-        case (.returns, .parameter(let name, let text)):
+        case (.returns, .parameter(_, _, let name, _, let text)):
             returnDescription = runningDescription
             state = .separateParameter
-            parameterName = name
+            parameterName = name.text
             runningDescription = [text]
-        case (.returns, .returns(let text)):
+        case (.returns, .returns(_, _, _, let text)):
             runningDescription.append(text)
-        case (.returns, .throws(let text)):
+        case (.returns, .throws(_, _, _, let text)):
             returnDescription = runningDescription
             state = .throws
             runningDescription = [text]
 
-        case (.throws, .groupedParametersHeader(let text)):
+        case (.throws, .groupedParametersHeader(_, let text)):
             runningDescription.append(text)
-        case (.throws, .groupedParameter(_, _, let text)):
+        case (.throws, .groupedParameter(_, _ , _, let text)):
             runningDescription.append(text)
-        case (.throws, .parameter(let name, let text)):
+        case (.throws, .parameter(_, _, let name, _, let text)):
             throwDescription = runningDescription
             state = .separateParameter
-            parameterName = name
+            parameterName = name.text
             runningDescription = [text]
-        case (.throws, .throws(let text)):
+        case (.throws, .throws(_, _, _, let text)):
             runningDescription.append(text)
-        case (.throws, .returns(let text)):
+        case (.throws, .returns(_, _, _, let text)):
             throwDescription = runningDescription
             state = .returns
             runningDescription = [text]
