@@ -22,29 +22,41 @@ final class StatefulParsingTests: XCTestCase {
                 .empty,
             ],
             parameters: [
-                DocString.Parameter(
-                    name: "d",
+                .init(
+                    preDashWhitespaces: "   ",
+                    keyword: nil,
+                    name: .init(" ", "d"),
+                    preColonWhitespace: "",
                     description: [
                         .init(" ", "d description")
                     ]
                 ),
-                DocString.Parameter(
-                    name: "c",
+                .init(
+                    preDashWhitespaces: "   ",
+                    keyword: nil,
+                    name: .init(" ", "c"),
+                    preColonWhitespace: "",
                     description: [
                         .init(" ", "c description")
                     ]
                 ),
-                DocString.Parameter(
-                    name: "b",
+                .init(
+                    preDashWhitespaces: "   ",
+                    keyword: nil,
+                    name: .init(" ", "b"),
+                    preColonWhitespace: "",
                     description: [
                         .init(" ", "b description")
                     ]
                 ),
-                DocString.Parameter(
-                    name: "a",
+                .init(
+                    preDashWhitespaces: "   ",
+                    keyword: nil,
+                    name: .init(" ", "a"),
+                    preColonWhitespace: "",
                     description: [
                         .init(" ", "a description"),
-                        .init("        ", "a description continues")
+                        .init("        ", "a description continues"),
                     ]
                 ),
             ],
@@ -75,32 +87,44 @@ final class StatefulParsingTests: XCTestCase {
                 .empty
             ],
             parameters: [
-                DocString.Parameter(
-                    name: "d",
+                .init(
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "d"),
+                    preColonWhitespace: "",
                     description: [
-                    .init(" ", "d description")
+                        .init(" ", "d description")
                     ]
                 ),
-                DocString.Parameter(
-                    name: "c",
+                .init(
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "c"),
+                    preColonWhitespace: "",
                     description: [
-                    .init(" ", "c description")
+                        .init(" ", "c description")
                     ]
                 ),
-                DocString.Parameter(
-                    name: "b",
+                .init(
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "b"),
+                    preColonWhitespace: "",
                     description: [
-                    .init(" ", "b description")
+                        .init(" ", "b description")
                     ]
                 ),
-                DocString.Parameter(
-                    name: "a",
+                .init(
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "a"),
+                    preColonWhitespace: "",
                     description: [
                         .init(" ", "a description"),
                         .init("                ", "a description continues")
                     ]
                 ),
-                ],
+            ],
             returns: [.init(" ", "Returns description")],
             throws: [.init(" ", "Throws description")])
 
