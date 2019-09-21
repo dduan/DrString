@@ -3,11 +3,11 @@ import XCTest
 
 final class LineParsingTests: XCTestCase {
     func testWords0() throws {
-        XCTAssertEqual(try parseWords(fromLine: "///"), TextLeadByWhitespace("", ""))
+        XCTAssertEqual(try parseWords(fromLine: "///"), .empty)
     }
 
     func testWords1() throws {
-        XCTAssertEqual(try parseWords(fromLine: " ///"), TextLeadByWhitespace("", ""))
+        XCTAssertEqual(try parseWords(fromLine: " ///"), .empty)
     }
 
     func testWords2() throws {

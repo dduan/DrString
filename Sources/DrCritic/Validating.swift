@@ -37,10 +37,10 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString) throws 
     commonIter = commonality.makeIterator()
     nextCommon = commonIter.next()
     for docParam in docs.parameters {
-        if docParam.name == nextCommon?.name {
+        if docParam.name.text == nextCommon?.name {
             nextCommon = commonIter.next()
         } else {
-            result.append(.redundantParameter(docParam.name))
+            result.append(.redundantParameter(docParam.name.text))
         }
     }
 
@@ -60,7 +60,7 @@ func commonSequence(_ parameters: [Parameter], _ docs: DocString) -> [Parameter]
             return []
         }
 
-        if sig[sigIndex].name == doc[docIndex].name {
+        if sig[sigIndex].name == doc[docIndex].name.text {
             return [sig[sigIndex]] + lcs(sig, sigIndex + 1, doc, docIndex)
         }
 

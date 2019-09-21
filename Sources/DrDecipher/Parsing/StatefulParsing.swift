@@ -12,7 +12,7 @@ public func parse(lines: [String]) throws -> DocString {
     var returnDescription = [TextLeadByWhitespace]()
     var throwDescription = [TextLeadByWhitespace]()
     var runningDescription = [TextLeadByWhitespace]()
-    var parameterName = ""
+    var parameterName = TextLeadByWhitespace.empty
     var parameters = [DocString.Parameter]()
     var state = Parsing.State.start
 
@@ -34,7 +34,7 @@ public func parse(lines: [String]) throws -> DocString {
             runningDescription = [text]
         case (.start, .parameter(_, _, let name, _, let text)):
             state = .separateParameter
-            parameterName = name.text
+            parameterName = name
             runningDescription = [text]
         case (.start, .returns(_, _, _, let text)):
             state = .returns
@@ -53,7 +53,7 @@ public func parse(lines: [String]) throws -> DocString {
             topLevelDescription = runningDescription
             state = .separateParameter
             runningDescription = [text]
-            parameterName = name.text
+            parameterName = name
         case (.description, .returns(_, _, _, let text)):
             topLevelDescription = runningDescription
             state = .returns
@@ -71,7 +71,7 @@ public func parse(lines: [String]) throws -> DocString {
             runningDescription.append(text)
         case (.separateParameter, .parameter(_, _, let name, _, let text)):
             concludeParamater()
-            parameterName = name.text
+            parameterName = name
             runningDescription = [text]
         case (.separateParameter, .returns(_, _, _, let text)):
             concludeParamater()
@@ -87,11 +87,11 @@ public func parse(lines: [String]) throws -> DocString {
             continue
         case (.groupedParameterStart, .groupedParameter(_, let name, _, let text)):
             state = .groupedParameter
-            parameterName = name.text
+            parameterName = name
             runningDescription = [text]
         case (.groupedParameterStart, .parameter(_, _, let name, _, let text)):
             state = .groupedParameter
-            parameterName = name.text
+            parameterName = name
             runningDescription = [text]
         case (.groupedParameterStart, .returns(_, _, _, let text)):
             state = .returns
@@ -104,11 +104,11 @@ public func parse(lines: [String]) throws -> DocString {
             runningDescription.append(text)
         case (.groupedParameter, .groupedParameter(_, let name, _, let text)):
             concludeParamater()
-            parameterName = name.text
+            parameterName = name
             runningDescription = [text]
         case (.groupedParameter, .parameter(_, _, let name, _, let text)):
             concludeParamater()
-            parameterName = name.text
+            parameterName = name
             runningDescription = [text]
         case (.groupedParameter, .returns(_, _, _, let text)):
             concludeParamater()
@@ -126,7 +126,7 @@ public func parse(lines: [String]) throws -> DocString {
         case (.returns, .parameter(_, _, let name, _, let text)):
             returnDescription = runningDescription
             state = .separateParameter
-            parameterName = name.text
+            parameterName = name
             runningDescription = [text]
         case (.returns, .returns(_, _, _, let text)):
             runningDescription.append(text)
@@ -142,7 +142,7 @@ public func parse(lines: [String]) throws -> DocString {
         case (.throws, .parameter(_, _, let name, _, let text)):
             throwDescription = runningDescription
             state = .separateParameter
-            parameterName = name.text
+            parameterName = name
             runningDescription = [text]
         case (.throws, .throws(_, _, _, let text)):
             runningDescription.append(text)
