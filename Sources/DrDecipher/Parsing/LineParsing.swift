@@ -49,13 +49,15 @@ private func trimDash(fromLine line: String.SubSequence, firstLetter: Character,
         line[dashPositionNext ..< headStart].allSatisfy({ $0.isWhitespace }),
         case let remainderStart = line.index(after: headStart),
         remainderStart < line.endIndex,
-        line[remainderStart...].starts(with: rest)
+        line[remainderStart...].starts(with: rest),
+        case let wordEnd = line.index(remainderStart, offsetBy: rest.count)
         else
     {
         return nil
     }
 
-    let headEnd = line.index(remainderStart, offsetBy: rest.count)
+    let headEnd = line[wordEnd...].firstIndex(where: { !$0.isLetter }) ?? line.endIndex
+
     return (
         line[dashPositionNext ..< headStart],
         line[headStart ..< headEnd],
@@ -149,25 +151,34 @@ func parseParameter(fromLine line: String) throws -> (String, TextLeadByWhitespa
     )
 }
 
-private func descriptionAfterDash(line: String, firstLetter: Character, rest: String) throws -> String? {
+/// parse ` - keyword: description`
+private func descriptionAfterDash(line: String, firstLetter: Character, rest: String) throws -> (String, TextLeadByWhitespace, String, TextLeadByWhitespace)? {
     guard
-        let line = (try trimDash(fromLine: trimDocHead(fromLine: line).1, firstLetter: firstLetter, rest: rest))?.2,
-        let colonPosition = line.firstIndex(where: { $0 == ":" })
+        case let (preDash, postDash) = try trimDocHead(fromLine: line),
+        let (preKeyword, keyword, colonRest) = try trimDash(fromLine: postDash, firstLetter: firstLetter, rest: rest),
+
+        let colonPosition = colonRest.firstIndex(where: { $0 == ":" })
         else
     {
         return nil
     }
 
-    let postColon = line[line.index(after: colonPosition)...]
+    let postColonPosition = colonRest.index(after: colonPosition)
+    let postColon = colonRest[postColonPosition...]
     let descriptionStart = postColon.firstIndex(where: { !$0.isWhitespace }) ?? postColon.endIndex
-    return String(postColon[descriptionStart...])
+    return (
+        String(preDash),
+        TextLeadByWhitespace(String(preKeyword), String(keyword)),
+        String(colonRest[..<colonPosition]),
+        TextLeadByWhitespace(String(postColon[postColonPosition ..< descriptionStart]), String(postColon[descriptionStart...]))
+    )
 }
 
-func parseReturns(fromLine line: String) throws -> String? {
+func parseReturns(fromLine line: String) throws -> (String, TextLeadByWhitespace, String, TextLeadByWhitespace)? {
     return try descriptionAfterDash(line: line, firstLetter: "r", rest: "eturn")
 }
 
-func parseThrows(fromLine line: String) throws -> String? {
+func parseThrows(fromLine line: String) throws -> (String, TextLeadByWhitespace, String, TextLeadByWhitespace)? {
     return try descriptionAfterDash(line: line, firstLetter: "t", rest: "hrow")
 }
 
@@ -186,9 +197,9 @@ func parse(line: String) throws -> Parsing.LineResult {
     if let rawHeader = try parseGroupedParametersHeader(fromLine: line) {
         return .groupedParametersHeader(rawHeader.1.text)
     } else if let description = try parseReturns(fromLine: line) {
-        return .returns(description)
+        return .returns(description.3.text)
     } else if let description = try parseThrows(fromLine: line) {
-        return .throws(description)
+        return .throws(description.3.text)
     } else if let (_, _, name, _, description) = try parseParameter(fromLine: line) {
         return .parameter(name.text, description.text)
     } else if let (_, name, _, description) = try parseGroupedParameter(fromLine: line) {

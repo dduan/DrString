@@ -199,22 +199,102 @@ final class LineParsingTests: XCTestCase {
         XCTAssertEqual(desc, TextLeadByWhitespace("   ", "description "))
     }
 
-    func testReturns() throws {
-        XCTAssertEqual(try parseReturns(fromLine: "/// - Returns: description"), "description")
-        XCTAssertEqual(try parseReturns(fromLine: "/// - returns: description"), "description")
-        XCTAssertEqual(try parseReturns(fromLine: "/// - Return: description"), "description")
-        XCTAssertEqual(try parseReturns(fromLine: "/// - return: description"), "description")
-        XCTAssertEqual(try parseReturns(fromLine: "/// - Returnnyah: description"), "description")
-        XCTAssertEqual(try parseReturns(fromLine: "///-Returns :description"), "description")
+
+    func testReturns0() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseReturns(fromLine: "/// - Returns: description"))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "Returns"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description"))
     }
 
-    func testThrows() throws {
-        XCTAssertEqual(try parseThrows(fromLine: "/// - Throws: description"), "description")
-        XCTAssertEqual(try parseThrows(fromLine: "/// - throws: description"), "description")
-        XCTAssertEqual(try parseThrows(fromLine: "/// - Throw: description"), "description")
-        XCTAssertEqual(try parseThrows(fromLine: "/// - throw: description"), "description")
-        XCTAssertEqual(try parseThrows(fromLine: "/// - Thrownyah: description"), "description")
-        XCTAssertEqual(try parseThrows(fromLine: "///-Throws :description"), "description")
+    func testReturns1() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseReturns(fromLine: "/// - returns: description"))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "returns"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description"))
+    }
+
+    func testReturns2() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseReturns(fromLine: "/// - Return : description"))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "Return"))
+        XCTAssertEqual(preColon, " ")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description"))
+    }
+
+    func testReturns3() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseReturns(fromLine: "///- return: description"))
+        XCTAssertEqual(preDash, "")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "return"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description"))
+    }
+
+    func testReturns4() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseReturns(fromLine: "/// - Returnnyah: description "))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "Returnnyah"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description "))
+    }
+
+    func testReturns5() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseReturns(fromLine: "///-Returns :description"))
+        XCTAssertEqual(preDash, "")
+        XCTAssertEqual(keyword, TextLeadByWhitespace("", "Returns"))
+        XCTAssertEqual(preColon, " ")
+        XCTAssertEqual(desc, TextLeadByWhitespace("", "description"))
+    }
+
+
+    func testThrows0() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseThrows(fromLine: "/// - Throws: description"))
+        XCTAssertEqual(preDash,  " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "Throws"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description"))
+    }
+
+    func testThrows1() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseThrows(fromLine: "/// - throws: description"))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "throws"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description"))
+    }
+
+    func testThrows2() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseThrows(fromLine: "/// - Throw: description"))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "Throw"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description"))
+    }
+
+    func testThrows3() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseThrows(fromLine: "/// - throw: description"))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace(" ", "throw"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description"))
+    }
+
+    func testThrows4() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseThrows(fromLine: "/// -  Thrownyah: description "))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(keyword, TextLeadByWhitespace("  ", "Thrownyah"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(desc, TextLeadByWhitespace(" ", "description "))
+    }
+
+    func testThrows5() throws {
+        let (preDash, keyword, preColon, desc) = try XCTUnwrap(parseThrows(fromLine: "///-Throws :description"))
+        XCTAssertEqual(preDash, "")
+        XCTAssertEqual(keyword, TextLeadByWhitespace("", "Throws"))
+        XCTAssertEqual(preColon, " ")
+        XCTAssertEqual(desc, TextLeadByWhitespace("", "description"))
     }
 
     func testIndentation() throws {
