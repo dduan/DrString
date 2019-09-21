@@ -1,6 +1,6 @@
 @testable import DrCritic
 @testable import DrCrawler
-import DrDecipher
+@testable import DrDecipher
 import XCTest
 
 private let kParamA = Parameter(label: nil, name: "a", type: "A", isVariadic: false, hasDefault: false)
@@ -8,10 +8,10 @@ private let kParamB = Parameter(label: nil, name: "b", type: "B", isVariadic: fa
 private let kParamC = Parameter(label: nil, name: "c", type: "C", isVariadic: false, hasDefault: false)
 private let kParamD = Parameter(label: nil, name: "d", type: "D", isVariadic: false, hasDefault: false)
 
-private let kDocParamA = DocString.Parameter(name: "a", description: [])
-private let kDocParamB = DocString.Parameter(name: "b", description: [])
-private let kDocParamC = DocString.Parameter(name: "c", description: [])
-private let kDocParamE = DocString.Parameter(name: "e", description: [])
+private let kDocParamA = DocString.Parameter(preDashWhitespaces: "", keyword: nil, name: .init("", "a"), preColonWhitespace: "", description: [])
+private let kDocParamB = DocString.Parameter(preDashWhitespaces: "", keyword: nil, name: .init("", "b"), preColonWhitespace: "", description: [])
+private let kDocParamC = DocString.Parameter(preDashWhitespaces: "", keyword: nil, name: .init("", "c"), preColonWhitespace: "", description: [])
+private let kDocParamE = DocString.Parameter(preDashWhitespaces: "", keyword: nil, name: .init("", "e"), preColonWhitespace: "", description: [])
 
 final class ValidatingTests: XCTestCase {
     private func docString(with parameters: [DocString.Parameter]) -> DocString {

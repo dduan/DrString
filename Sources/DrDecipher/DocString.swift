@@ -1,10 +1,18 @@
 public struct DocString: Equatable {
     public struct Parameter: Equatable {
+        public let preDashWhitespace: String
+        public let keyword: TextLeadByWhitespace?
+        public let preColonWhitespace: String
         public let name: TextLeadByWhitespace
         public let description: [TextLeadByWhitespace]
 
-        public init(name: TextLeadByWhitespace, description: [TextLeadByWhitespace]) {
+        public init(preDashWhitespaces: String, keyword: TextLeadByWhitespace?, name: TextLeadByWhitespace,
+                    preColonWhitespace: String, description: [TextLeadByWhitespace])
+        {
+            self.preDashWhitespace = preDashWhitespaces
+            self.keyword = keyword
             self.name = name
+            self.preColonWhitespace = preColonWhitespace
             self.description = description
         }
     }
