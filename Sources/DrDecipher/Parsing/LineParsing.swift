@@ -182,17 +182,6 @@ func parseThrows(fromLine line: String) throws -> (String, TextLeadByWhitespace,
     return try descriptionAfterDash(line: line, firstLetter: "t", rest: "hrow")
 }
 
-func parseIndentation(fromLine line: String) throws -> String {
-    guard
-        let indentationEnd = line.firstIndex(where: { !$0.isWhitespace })
-    else
-    {
-        throw Parsing.LineError.missingCommentHead(line)
-    }
-
-    return String(line[line.startIndex ..< indentationEnd])
-}
-
 func parse(line: String) throws -> Parsing.LineResult {
     if let rawHeader = try parseGroupedParametersHeader(fromLine: line) {
         return .groupedParametersHeader(rawHeader.1.text)

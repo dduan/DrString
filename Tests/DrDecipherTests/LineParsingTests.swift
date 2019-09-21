@@ -296,11 +296,4 @@ final class LineParsingTests: XCTestCase {
         XCTAssertEqual(preColon, " ")
         XCTAssertEqual(desc, TextLeadByWhitespace("", "description"))
     }
-
-    func testIndentation() throws {
-        XCTAssertEqual(try parseIndentation(fromLine: "/// description"), "")
-        XCTAssertEqual(try parseIndentation(fromLine: "    /// description"), "    ")
-        XCTAssertEqual(try parseIndentation(fromLine: "\t/// description"), "\t")
-        XCTAssertEqual(try parseIndentation(fromLine: "\t /// description"), "\t ")
-    }
 }
