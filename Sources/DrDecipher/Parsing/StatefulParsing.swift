@@ -146,7 +146,7 @@ public func parse(lines: [String]) throws -> DocString {
             parameterName = (preDash, keyword, name, preColon)
             runningDescription = [text]
         case (.returns, let .returns(preDash, keyword, preColon, text)):
-            runningDescription.append(text)
+            runningDescription.append(.init(preDash, "-\(keyword)\(preColon):\(text)"))
         case (.returns, let .throws(preDash, keyword, preColon, text)):
             returnDescription = runningDescription
             state = .throws
@@ -163,7 +163,7 @@ public func parse(lines: [String]) throws -> DocString {
             parameterName = (preDash, keyword, name, preColon)
             runningDescription = [text]
         case (.throws, let .throws(preDash, keyword, preColon, text)):
-            runningDescription.append(text)
+            runningDescription.append(.init(preDash, "-\(keyword)\(preColon):\(text)"))
         case (.throws, let .returns(preDash, keyword, preColon, text)):
             throwDescription = runningDescription
             state = .returns
