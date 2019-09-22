@@ -13,7 +13,7 @@ final class DrStringTests: XCTestCase {
 
     func testCompletelyDocumentedFunction() throws {
         XCTAssert(fileCheckOutput(options: FileCheckOptions.allowEmptyInput) {
-            checkCommand.run(Configuration(
+            _ = checkCommand.run(Configuration(
                 includedPaths: [self.fixture(named: "complete.swift")],
                 excludedPaths: [],
                 options: .init(ignoreDocstringForThrows: false, outputFormat: .plain)))
@@ -24,7 +24,7 @@ final class DrStringTests: XCTestCase {
 
     func testNoDocNoError() throws {
         XCTAssert(fileCheckOutput(options: FileCheckOptions.allowEmptyInput) {
-            checkCommand.run(Configuration(
+            _ = checkCommand.run(Configuration(
                 includedPaths: [self.fixture(named: "nodoc.swift")],
                 excludedPaths: [],
                 options: .init(ignoreDocstringForThrows: false, outputFormat: .plain)))
@@ -35,7 +35,7 @@ final class DrStringTests: XCTestCase {
 
     func testMissingStuff() throws {
         XCTAssert(fileCheckOutput(withPrefixes: ["MISSING-STUFF"]) {
-            checkCommand.run(Configuration(
+            _ = checkCommand.run(Configuration(
                 includedPaths: [self.fixture(named: "missingStuff.swift")],
                 excludedPaths: [],
                 options: .init(ignoreDocstringForThrows: false, outputFormat: .plain)))
@@ -50,7 +50,7 @@ final class DrStringTests: XCTestCase {
 
     func testIgnoreThrows() throws {
         XCTAssert(fileCheckOutput(withPrefixes: ["IGNORE-THROWS"]) {
-            checkCommand.run(Configuration(
+            _ = checkCommand.run(Configuration(
                 includedPaths: [self.fixture(named: "ignoreThrows.swift")],
                 excludedPaths: [],
                 options: .init(ignoreDocstringForThrows: true, outputFormat: .plain)))
@@ -65,7 +65,7 @@ final class DrStringTests: XCTestCase {
 
     func testBadParameterFormat() throws {
         XCTAssert(fileCheckOutput(withPrefixes: ["BAD-PARAM-FORMAT"]) {
-            checkCommand.run(Configuration(
+            _ = checkCommand.run(Configuration(
                 includedPaths: [self.fixture(named: "badParamFormat.swift")],
                 excludedPaths: [],
                 options: .init(ignoreDocstringForThrows: true, outputFormat: .plain)))

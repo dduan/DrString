@@ -27,10 +27,7 @@ let flags = [
 
 let checkCommand = Guaka.Command(DrString.checkCommand, flags: flags)
 
-var mainCommand = Guaka.Command(usage: "drstring")
-mainCommand.add(subCommand: checkCommand)
-
-if CommandLine.argc <= 1 {
+var mainCommand = Guaka.Command(usage: "drstring") { flags, arguments in
     guard let configText = try? String(contentsOfFile: ".drstring.toml") else {
         fputs("Couldn't read configruation from .drstring.toml\n", stderr)
         exit(1)
@@ -41,7 +38,10 @@ if CommandLine.argc <= 1 {
         exit(1)
     }
 
-    DrString.checkCommand.run(config)
-} else {
-    mainCommand.execute()
+    if let code = DrString.checkCommand.run(config) {
+        exit(code)
+    }
 }
+
+mainCommand.add(subCommand: checkCommand)
+mainCommand.execute()

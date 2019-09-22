@@ -1,5 +1,6 @@
 public struct Command {
     public let name: String
     public let shortDescription: String
-    public let run: (Configuration) -> Void
+    /// optionally return a status code for exiting
+    public let run: (Configuration) -> Int32?
 }

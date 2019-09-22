@@ -47,6 +47,8 @@ public let checkCommand = Command(
         }
 
         fputs(summary, stderr)
-        exit(-1)
+        return 1
+    } else {
+        return nil
     }
 }
