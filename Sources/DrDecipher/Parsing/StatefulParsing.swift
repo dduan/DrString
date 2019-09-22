@@ -13,7 +13,7 @@ public func parse(lines: [String]) throws -> DocString {
     var throwDescription = [TextLeadByWhitespace]()
     var runningDescription = [TextLeadByWhitespace]()
     var parameterName: (String, TextLeadByWhitespace?, TextLeadByWhitespace, String) = ("", nil, .empty, "")
-    var parameters = [DocString.Parameter]()
+    var parameters = [DocString.Entry]()
     var state = Parsing.State.start
 
     func concludeParamater() {

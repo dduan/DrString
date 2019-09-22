@@ -1,9 +1,9 @@
 public struct DocString: Equatable {
-    public struct Parameter: Equatable {
+    public struct Entry: Equatable {
         public let preDashWhitespace: String
         public let keyword: TextLeadByWhitespace?
-        public let preColonWhitespace: String
         public let name: TextLeadByWhitespace
+        public let preColonWhitespace: String
         public let description: [TextLeadByWhitespace]
 
         public init(preDashWhitespaces: String, keyword: TextLeadByWhitespace?, name: TextLeadByWhitespace,
@@ -18,12 +18,12 @@ public struct DocString: Equatable {
     }
 
     public let description: [TextLeadByWhitespace]
-    public let parameters: [Parameter]
+    public let parameters: [Entry]
     public let returns: [TextLeadByWhitespace]
     public let `throws`: [TextLeadByWhitespace]
     public let maxParameterWidth: Int
 
-    public init(description: [TextLeadByWhitespace], parameters: [Parameter], returns: [TextLeadByWhitespace],
+    public init(description: [TextLeadByWhitespace], parameters: [Entry], returns: [TextLeadByWhitespace],
                 throws: [TextLeadByWhitespace])
     {
         self.description = description
