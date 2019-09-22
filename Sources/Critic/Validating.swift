@@ -59,6 +59,11 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry) -> [DocProblem
         if keyword.lead != " " {
             result.append(.spaceBetweenDashAndParamaterKeyword(keyword.lead, keyword.text, parameter.name.text))
         }
+
+        if keyword.text.lowercased() != "parameter" {
+            // TODO: sometimes it should be "Paramater" and not "parameter"
+            result.append(.keywordSpellingForParameter(keyword.text, "parameter", parameter.name.text))
+        }
     } else if parameter.preDashWhitespace != "   " {
         result.append(.preDashSpaceInParameter(3, parameter.preDashWhitespace, parameter.name.text))
     }

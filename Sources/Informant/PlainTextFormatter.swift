@@ -15,6 +15,8 @@ private extension DocProblem.Detail {
             return "Parameter `\(name)` should start with exactly \(expected) space\(expected > 1 ? "s" : "") before `-`, found `\(actual)`"
         case .spaceBetweenDashAndParamaterKeyword(let actual, let keyword, let name):
             return "`\(name)` should have exactly 1 space between `-` and `\(keyword)`, found `\(actual)`"
+        case .keywordSpellingForParameter(let actual, let expected, let name):
+            return "`\(name)` should be proceeded by \(expected), found `\(actual)`"
         }
     }
 }
