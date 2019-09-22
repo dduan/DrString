@@ -13,12 +13,16 @@ public let checkCommand = Command(
     name: "check",
     shortDescription: "Check problems for existing doc strings")
 { config in
+    var problemCount = 0
+    var fileCount = 0
     let ignoreThrows = config.options.ignoreDocstringForThrows
     let format = config.options.outputFormat
     for path in config.paths {
         do {
             for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
+                fileCount += 1
                 for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
+                    problemCount += 1
                     let output: String
                     switch (format, IsTerminal.standardOutput) {
                     case (.automatic, true), (.terminal, _):
@@ -27,11 +31,15 @@ public let checkCommand = Command(
                         output = plainText(for: problem)
                     }
 
-                    print(output)
+                    fputs("\(output)\n\n", stderr)
                 }
             }
         } catch let error {
-            fputs("DrString encountered error processing \(path): \(error)\n", stderr)
         }
+    }
+
+    if problemCount > 0 {
+        fputs("Found \(problemCount) problem\(problemCount > 1 ? "s" : "") in \(fileCount) file\(problemCount > 1 ? "s" : "").", stderr)
+        exit(-1)
     }
 }
