@@ -1,5 +1,5 @@
-import DrDecipher
-import DrCrawler
+import Decipher
+import Crawler
 
 public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws -> [DocProblem] {
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {

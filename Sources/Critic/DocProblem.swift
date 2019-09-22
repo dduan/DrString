@@ -1,4 +1,4 @@
-import DrCrawler
+import Crawler
 
 public struct DocProblem {
     public let docName: String

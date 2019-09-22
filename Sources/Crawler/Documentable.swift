@@ -1,4 +1,4 @@
-import DrDecipher
+import Decipher
 
 public struct Parameter: Equatable {
     public let label: String?

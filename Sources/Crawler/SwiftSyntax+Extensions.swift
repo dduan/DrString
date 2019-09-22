@@ -1,4 +1,4 @@
-import DrDecipher
+import Decipher
 import SwiftSyntax
 
 extension FunctionParameterSyntax {

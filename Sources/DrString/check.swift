@@ -1,6 +1,6 @@
-import DrCrawler
-import DrCritic
-import DrInformant
+import Crawler
+import Critic
+import Informant
 import IsTTY
 
 #if canImport(Darwin)

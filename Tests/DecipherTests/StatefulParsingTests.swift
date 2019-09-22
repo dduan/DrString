@@ -1,4 +1,4 @@
-@testable import DrDecipher
+@testable import Decipher
 import XCTest
 
 final class StatefulParsingTests: XCTestCase {

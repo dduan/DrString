@@ -1,4 +1,4 @@
-import DrCritic
+import Critic
 
 private extension DocProblem.Detail {
     var description: String {
