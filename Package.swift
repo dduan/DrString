@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "DrString",
     products: [
-        .executable(name: "DrStringCLI", targets: ["DrStringCLI"]),
+        .executable(name: "drstring", targets: ["DrStringCLI"]),
         .library(name: "DrCrawler", targets: ["DrCrawler"]),
         .library(name: "DrCritic", targets: ["DrCritic"]),
         .library(name: "DrDecipher", targets: ["DrDecipher"]),
