@@ -62,4 +62,16 @@ final class DrStringTests: XCTestCase {
             // IGNORE-THROWS: Missing docstring for return type `String`
         })
     }
+
+    func testBadParameterFormat() throws {
+        XCTAssert(fileCheckOutput(withPrefixes: ["BAD-PARAM-FORMAT"]) {
+            checkCommand.run(Configuration(
+                includedPaths: [self.fixture(named: "badParamFormat.swift")],
+                excludedPaths: [],
+                options: .init(ignoreDocstringForThrows: true, outputFormat: .plain)))
+
+            // BAD-PARAM-FORMAT: Parameter `a1` should start with exactly 1 space before `-`
+            // BAD-PARAM-FORMAT: Parameter `a2` should start with exactly 3 spaces before `-`
+        })
+    }
 }

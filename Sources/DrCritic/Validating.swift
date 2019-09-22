@@ -38,10 +38,26 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString) throws 
     nextCommon = commonIter.next()
     for docParam in docs.parameters {
         if docParam.name.text == nextCommon?.name {
+            result += findDocParameterFormatProblems(docParam)
             nextCommon = commonIter.next()
         } else {
             result.append(.redundantParameter(docParam.name.text))
         }
+    }
+
+    return result
+}
+
+func findDocParameterFormatProblems(_ parameter: DocString.Entry) -> [DocProblem.Detail] {
+    var result = [DocProblem.Detail]()
+
+    if let _ = parameter.keyword {
+        // TODO: check problem for keywords
+        if parameter.preDashWhitespace != " " {
+            result.append(.wrongPreDashSpaceInParameter(1, parameter.preDashWhitespace, parameter.name.text))
+        }
+    } else if parameter.preDashWhitespace != "   " {
+        result.append(.wrongPreDashSpaceInParameter(3, parameter.preDashWhitespace, parameter.name.text))
     }
 
     return result

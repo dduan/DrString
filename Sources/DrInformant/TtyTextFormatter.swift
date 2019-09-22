@@ -12,6 +12,8 @@ private extension DocProblem.Detail {
             return "Missing docstring for throws"
         case .missingReturn(let type):
             return "Missing docstring for return type \(type, color: .cyan)"
+        case .wrongPreDashSpaceInParameter(let expected, let actual, let name):
+            return "Parameter \(name, color: .green) should start with exactly \(String(expected), color: .cyan) space\(expected > 1 ? "s" : "") before \("-", color: .green), found \(actual, background: .cyan)"
         }
     }
 }
