@@ -60,8 +60,21 @@ final class StatefulParsingTests: XCTestCase {
                     ]
                 ),
             ],
-            returns: [.init(" ", "Returns description")],
-            throws: [.init(" ", "Throws description")])
+            returns: .init(
+                preDashWhitespaces: " ",
+                keyword: .init(" ", "Returns"),
+                name: .empty,
+                preColonWhitespace: "",
+                description: [.init(" ", "Returns description")]
+            ),
+            throws: .init(
+                preDashWhitespaces: " ",
+                keyword: .init(" ", "Throws"),
+                name: .empty,
+                preColonWhitespace: "",
+                description: [.init(" ", "Throws description")]
+            )
+        )
 
         let actual = try parse(lines: text.split(separator: "\n").map(String.init))
 
@@ -125,8 +138,21 @@ final class StatefulParsingTests: XCTestCase {
                     ]
                 ),
             ],
-            returns: [.init(" ", "Returns description")],
-            throws: [.init(" ", "Throws description")])
+            returns: .init(
+                preDashWhitespaces: " ",
+                keyword: .init(" ", "Returns"),
+                name: .empty,
+                preColonWhitespace: "",
+                description: [.init(" ", "Returns description")]
+            ),
+            throws: .init(
+                preDashWhitespaces: " ",
+                keyword: .init(" ", "Throws"),
+                name: .empty,
+                preColonWhitespace: "",
+                description: [.init(" ", "Throws description")]
+            )
+        )
 
         let actual = try parse(lines: text.split(separator: "\n").map(String.init))
 

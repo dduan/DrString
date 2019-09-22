@@ -19,17 +19,13 @@ public struct DocString: Equatable {
 
     public let description: [TextLeadByWhitespace]
     public let parameters: [Entry]
-    public let returns: [TextLeadByWhitespace]
-    public let `throws`: [TextLeadByWhitespace]
-    public let maxParameterWidth: Int
+    public let returns: Entry?
+    public let `throws`: Entry?
 
-    public init(description: [TextLeadByWhitespace], parameters: [Entry], returns: [TextLeadByWhitespace],
-                throws: [TextLeadByWhitespace])
-    {
+    public init(description: [TextLeadByWhitespace], parameters: [Entry], returns: Entry?, throws: Entry?) {
         self.description = description
         self.parameters = parameters
         self.returns = returns
         self.throws = `throws`
-        self.maxParameterWidth = parameters.reduce(0) { max($0, $1.name.text.count) }
     }
 }

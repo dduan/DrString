@@ -9,8 +9,8 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws ->
     switch documentable.details {
     case let .function(_, doesThrow, returnType, parameters):
         let details = try findParameterProblems(parameters, docs)
-            + (!ignoreThrows && doesThrow && docs.throws.isEmpty ? [.missingThrow] : [])
-            + (returnType != nil && docs.returns.isEmpty ? [.missingReturn(returnType ?? "")] : [])
+            + (!ignoreThrows && doesThrow && docs.throws == nil ? [.missingThrow] : [])
+            + (returnType != nil && docs.returns == nil ? [.missingReturn(returnType ?? "")] : [])
         if details.isEmpty {
             return []
         }
