@@ -49,7 +49,7 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString) throws 
 
 func commonSequence(_ parameters: [Parameter], _ docs: DocString) -> [Parameter] {
     var cache = [Int: [Int: [Parameter]]]()
-    func lcs(_ sig: [Parameter], _ sigIndex: Int, _ doc: [DocString.Parameter],
+    func lcs(_ sig: [Parameter], _ sigIndex: Int, _ doc: [DocString.Entry],
              _ docIndex: Int) -> [Parameter]
     {
         if let cached = cache[sigIndex]?[docIndex] {
