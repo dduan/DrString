@@ -3,75 +3,35 @@ import FileCheck
 import XCTest
 
 final class DrStringTests: XCTestCase {
-    let parentDirectory: String = {
-        "/" + #file.split(separator: "/").dropLast().joined(separator: "/")
-    }()
+    private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
 
-    func fixture(named name: String) -> String {
-        parentDirectory + "/Fixtures/" + name
+    private func runTest(fileName: String, ignoreThrows: Bool) -> Bool {
+        let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
+        return fileCheckOutput(against: .filePath(fixture), options: FileCheckOptions.allowEmptyInput) {
+            _ = checkCommand.run(Configuration(
+                includedPaths: [fixture],
+                excludedPaths: [],
+                options: .init(ignoreDocstringForThrows: ignoreThrows, outputFormat: .plain)))
+        }
     }
 
     func testCompletelyDocumentedFunction() throws {
-        XCTAssert(fileCheckOutput(options: FileCheckOptions.allowEmptyInput) {
-            _ = checkCommand.run(Configuration(
-                includedPaths: [self.fixture(named: "complete.swift")],
-                excludedPaths: [],
-                options: .init(ignoreDocstringForThrows: false, outputFormat: .plain)))
-
-            // CHECK-NOT: docstring problem
-        })
+        XCTAssert(runTest(fileName: "complete", ignoreThrows: false))
     }
 
     func testNoDocNoError() throws {
-        XCTAssert(fileCheckOutput(options: FileCheckOptions.allowEmptyInput) {
-            _ = checkCommand.run(Configuration(
-                includedPaths: [self.fixture(named: "nodoc.swift")],
-                excludedPaths: [],
-                options: .init(ignoreDocstringForThrows: false, outputFormat: .plain)))
-
-            // CHECK-NOT: docstring problem
-        })
+        XCTAssert(runTest(fileName: "nodoc", ignoreThrows: false))
     }
 
     func testMissingStuff() throws {
-        XCTAssert(fileCheckOutput(withPrefixes: ["MISSING-STUFF"]) {
-            _ = checkCommand.run(Configuration(
-                includedPaths: [self.fixture(named: "missingStuff.swift")],
-                excludedPaths: [],
-                options: .init(ignoreDocstringForThrows: false, outputFormat: .plain)))
-
-            // MISSING-STUFF: 4 docstring problems
-            // MISSING-STUFF: Missing docstring for `t0i1` of type `Int`
-            // MISSING-STUFF: Unrecognized docstring for `random`
-            // MISSING-STUFF: Missing docstring for throws
-            // MISSING-STUFF: Missing docstring for return type `String`
-        })
+        XCTAssert(runTest(fileName: "missingStuff", ignoreThrows: false))
     }
 
     func testIgnoreThrows() throws {
-        XCTAssert(fileCheckOutput(withPrefixes: ["IGNORE-THROWS"]) {
-            _ = checkCommand.run(Configuration(
-                includedPaths: [self.fixture(named: "ignoreThrows.swift")],
-                excludedPaths: [],
-                options: .init(ignoreDocstringForThrows: true, outputFormat: .plain)))
-
-            // IGNORE-THROWS: 3 docstring problems
-            // IGNORE-THROWS: Missing docstring for `t0i1` of type `Int`
-            // IGNORE-THROWS: Unrecognized docstring for `random`
-            // IGNORE-THROWS-NOT: Missing docstring for throws
-            // IGNORE-THROWS: Missing docstring for return type `String`
-        })
+        XCTAssert(runTest(fileName: "ignoreThrows", ignoreThrows: true))
     }
 
     func testBadParameterFormat() throws {
-        XCTAssert(fileCheckOutput(withPrefixes: ["BAD-PARAM-FORMAT"]) {
-            _ = checkCommand.run(Configuration(
-                includedPaths: [self.fixture(named: "badParamFormat.swift")],
-                excludedPaths: [],
-                options: .init(ignoreDocstringForThrows: true, outputFormat: .plain)))
-
-            // BAD-PARAM-FORMAT: Parameter `a1` should start with exactly 1 space before `-`
-            // BAD-PARAM-FORMAT: Parameter `a2` should start with exactly 3 spaces before `-`
-        })
+        XCTAssert(runTest(fileName: "badParamFormat", ignoreThrows: true))
     }
 }

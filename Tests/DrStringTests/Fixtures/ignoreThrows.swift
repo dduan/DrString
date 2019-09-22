@@ -1,4 +1,9 @@
 struct Test1 {
+    // CHECK: 3 docstring problems
+    // CHECK: Missing docstring for `t0i1` of type `Int`
+    // CHECK: Unrecognized docstring for `random`
+    // CHECK-NOT: Missing docstring for throws
+    // CHECK: Missing docstring for return type `String`
     /// Test0 doc
     ///
     /// - parameter random: random

@@ -1,3 +1,4 @@
+// CHECK-NOT: docstring problem
 /// This is awesome
 ///
 /// - parameter a: a
@@ -9,7 +10,7 @@ func completelyDocumented(a: String, b: String) throws -> String {
     return ""
 }
 
-
+// CHECK-NOT: docstring problem
 /// This is awesome
 ///
 /// - Parameters:
