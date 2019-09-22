@@ -31,7 +31,7 @@ public let checkCommand = Command(
                         output = plainText(for: problem)
                     }
 
-                    fputs("\(output)\n\n", stderr)
+                    print("\(output)\n")
                 }
             }
         } catch let error {
@@ -39,7 +39,14 @@ public let checkCommand = Command(
     }
 
     if problemCount > 0 {
-        fputs("Found \(problemCount) problem\(problemCount > 1 ? "s" : "") in \(fileCount) file\(problemCount > 1 ? "s" : "").", stderr)
+        let summary: String
+        if IsTerminal.standardError {
+            summary = "Found \(String(problemCount), color: .red) problem\(problemCount > 1 ? "s" : "") in \(String(fileCount), color: .blue) file\(problemCount > 1 ? "s" : "")."
+        } else {
+            summary = "Found \(problemCount) problem\(problemCount > 1 ? "s" : "") in \(fileCount) file\(problemCount > 1 ? "s" : "")."
+        }
+
+        fputs(summary, stderr)
         exit(-1)
     }
 }
