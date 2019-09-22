@@ -12,6 +12,7 @@ public struct DocProblem {
         case missingParameter(String, String)
         case missingThrow
         case missingReturn(String)
-        case wrongPreDashSpaceInParameter(Int, String, String) // Actual, expected, name
+        case preDashSpaceInParameter(Int, String, String) // Actual, expected, name
+        case spaceBetweenDashAndParamaterKeyword(String, String, String) // Actual, keyword, name
     }
 }

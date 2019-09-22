@@ -51,13 +51,16 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString) throws 
 func findDocParameterFormatProblems(_ parameter: DocString.Entry) -> [DocProblem.Detail] {
     var result = [DocProblem.Detail]()
 
-    if let _ = parameter.keyword {
-        // TODO: check problem for keywords
+    if let keyword = parameter.keyword {
         if parameter.preDashWhitespace != " " {
-            result.append(.wrongPreDashSpaceInParameter(1, parameter.preDashWhitespace, parameter.name.text))
+            result.append(.preDashSpaceInParameter(1, parameter.preDashWhitespace, parameter.name.text))
+        }
+
+        if keyword.lead != " " {
+            result.append(.spaceBetweenDashAndParamaterKeyword(keyword.lead, keyword.text, parameter.name.text))
         }
     } else if parameter.preDashWhitespace != "   " {
-        result.append(.wrongPreDashSpaceInParameter(3, parameter.preDashWhitespace, parameter.name.text))
+        result.append(.preDashSpaceInParameter(3, parameter.preDashWhitespace, parameter.name.text))
     }
 
     return result
