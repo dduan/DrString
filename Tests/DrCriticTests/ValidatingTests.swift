@@ -18,8 +18,8 @@ final class ValidatingTests: XCTestCase {
         return DocString(
             description: [],
             parameters: parameters,
-            returns: [],
-            throws: []
+            returns: nil,
+            throws: nil
         )
     }
 

@@ -12,6 +12,8 @@ public func parse(lines: [String]) throws -> DocString {
     var returnDescription = [TextLeadByWhitespace]()
     var throwDescription = [TextLeadByWhitespace]()
     var runningDescription = [TextLeadByWhitespace]()
+    var returnsMeta: (String, TextLeadByWhitespace, String)? = nil
+    var throwsMeta: (String, TextLeadByWhitespace, String)? = nil
     var parameterName: (String, TextLeadByWhitespace?, TextLeadByWhitespace, String) = ("", nil, .empty, "")
     var parameters = [DocString.Entry]()
     var state = Parsing.State.start
@@ -41,11 +43,13 @@ public func parse(lines: [String]) throws -> DocString {
             state = .separateParameter
             parameterName = (preDash, keyword, name, preColon)
             runningDescription = [text]
-        case (.start, .returns(_, _, _, let text)):
+        case (.start, let .returns(preDash, keyword, preColon, text)):
             state = .returns
+            returnsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
-        case (.start, .throws(_, _, _, let text)):
+        case (.start, let .throws(preDash, keyword, preColon, text)):
             state = .throws
+            throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
         case (.description, .groupedParametersHeader):
@@ -59,13 +63,15 @@ public func parse(lines: [String]) throws -> DocString {
             state = .separateParameter
             runningDescription = [text]
             parameterName = (preDash, keyword, name, preColon)
-        case (.description, .returns(_, _, _, let text)):
+        case (.description, let .returns(preDash, keyword, preColon, text)):
             topLevelDescription = runningDescription
             state = .returns
+            returnsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
-        case (.description, .throws(_, _, _, let text)):
+        case (.description, let .throws(preDash, keyword, preColon, text)):
             topLevelDescription = runningDescription
             state = .throws
+            throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
         case (.separateParameter, .groupedParametersHeader):
@@ -78,13 +84,15 @@ public func parse(lines: [String]) throws -> DocString {
             concludeParamater()
             parameterName = (preDash, keyword, name, preColon)
             runningDescription = [text]
-        case (.separateParameter, .returns(_, _, _, let text)):
+        case (.separateParameter, let .returns(preDash, keyword, preColon, text)):
             concludeParamater()
             state = .returns
+            returnsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
-        case (.separateParameter, .throws(_, _, _, let text)):
+        case (.separateParameter, let .throws(preDash, keyword, preColon, text)):
             concludeParamater()
             state = .throws
+            throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
         case (.groupedParameterStart, .groupedParametersHeader),
@@ -98,11 +106,13 @@ public func parse(lines: [String]) throws -> DocString {
             state = .groupedParameter
             parameterName = (preDash, keyword, name, preColon)
             runningDescription = [text]
-        case (.groupedParameterStart, .returns(_, _, _, let text)):
+        case (.groupedParameterStart, let .returns(preDash, keyword, preColon, text)):
             state = .returns
+            returnsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
-        case (.groupedParameterStart, .throws(_, _, _, let text)):
+        case (.groupedParameterStart, let .throws(preDash, keyword, preColon, text)):
             state = .throws
+            throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
         case (.groupedParameter, .groupedParametersHeader(_, let text)):
@@ -115,13 +125,15 @@ public func parse(lines: [String]) throws -> DocString {
             concludeParamater()
             parameterName = (preDash, keyword, name, preColon)
             runningDescription = [text]
-        case (.groupedParameter, .returns(_, _, _, let text)):
+        case (.groupedParameter, let .returns(preDash, keyword, preColon, text)):
             concludeParamater()
             state = .returns
+            returnsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
-        case (.groupedParameter, .throws(_, _, _, let text)):
+        case (.groupedParameter, let .throws(preDash, keyword, preColon, text)):
             concludeParamater()
             state = .throws
+            throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
         case (.returns, .groupedParametersHeader(_, let text)):
@@ -133,11 +145,12 @@ public func parse(lines: [String]) throws -> DocString {
             state = .separateParameter
             parameterName = (preDash, keyword, name, preColon)
             runningDescription = [text]
-        case (.returns, .returns(_, _, _, let text)):
+        case (.returns, let .returns(preDash, keyword, preColon, text)):
             runningDescription.append(text)
-        case (.returns, .throws(_, _, _, let text)):
+        case (.returns, let .throws(preDash, keyword, preColon, text)):
             returnDescription = runningDescription
             state = .throws
+            throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
         case (.throws, .groupedParametersHeader(_, let text)):
@@ -149,11 +162,12 @@ public func parse(lines: [String]) throws -> DocString {
             state = .separateParameter
             parameterName = (preDash, keyword, name, preColon)
             runningDescription = [text]
-        case (.throws, .throws(_, _, _, let text)):
+        case (.throws, let .throws(preDash, keyword, preColon, text)):
             runningDescription.append(text)
-        case (.throws, .returns(_, _, _, let text)):
+        case (.throws, let .returns(preDash, keyword, preColon, text)):
             throwDescription = runningDescription
             state = .returns
+            returnsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
         case (_, .words(let newWords)):
@@ -178,7 +192,23 @@ public func parse(lines: [String]) throws -> DocString {
     return DocString(
         description: topLevelDescription,
         parameters: parameters,
-        returns: returnDescription,
-        throws: throwDescription
+        returns: returnsMeta.map { (preDash, keyword, preColon) in
+            return .init(
+                preDashWhitespaces: preDash,
+                keyword: keyword,
+                name: .empty,
+                preColonWhitespace: preColon,
+                description: returnDescription
+            )
+        },
+        throws: throwsMeta.map { (preDash, keyword, preColon) in
+            return .init(
+                preDashWhitespaces: preDash,
+                keyword: keyword,
+                name: .empty,
+                preColonWhitespace: preColon,
+                description: throwDescription
+            )
+        }
     )
 }
