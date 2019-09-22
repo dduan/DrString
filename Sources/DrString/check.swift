@@ -22,7 +22,7 @@ public let checkCommand = Command(
             for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
                 fileCount += 1
                 for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
-                    problemCount += 1
+                    problemCount += problem.details.count
                     let output: String
                     switch (format, IsTerminal.standardOutput) {
                     case (.automatic, true), (.terminal, _):
