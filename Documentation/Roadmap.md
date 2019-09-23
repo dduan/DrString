@@ -21,3 +21,5 @@
 - [ ] Lint empty lines between parameter/throws/returns
     - [ ] Add lint rule
     - [ ] Add options
+- [ ] The `explain` commmand. Each problem should be associated with a code and `explain CODE` should print
+      out an explaination.
