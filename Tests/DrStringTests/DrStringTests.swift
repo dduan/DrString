@@ -5,13 +5,16 @@ import XCTest
 final class DrStringTests: XCTestCase {
     private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
 
-    private func runTest(fileName: String, ignoreThrows: Bool = false, expectEmpty: Bool = false) -> Bool {
+    private func runTest(fileName: String, ignoreThrows: Bool = false, verticalAlign: Bool = true, expectEmpty: Bool = false) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
             _ = checkCommand.run(Configuration(
                 includedPaths: [fixture],
                 excludedPaths: [],
-                options: .init(ignoreDocstringForThrows: ignoreThrows, outputFormat: .plain)))
+                options: .init(
+                    ignoreDocstringForThrows: ignoreThrows,
+                    verticalAlignParameterDescription: verticalAlign,
+                    outputFormat: .plain)))
         }
     }
 
@@ -41,5 +44,9 @@ final class DrStringTests: XCTestCase {
 
     func testBadReturnsFormat() throws {
         XCTAssert(runTest(fileName: "badReturnsFormat"))
+    }
+
+    func testMisalignedParameterDescriptions() throws {
+        XCTAssert(runTest(fileName: "misalignedParameterDescription"))
     }
 }

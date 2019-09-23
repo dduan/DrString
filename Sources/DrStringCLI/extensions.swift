@@ -5,6 +5,7 @@ extension DrString.Configuration.Options {
     init(_ flags: Flags) {
         self.init(
             ignoreDocstringForThrows: flags.getBool(name: Constants.ignoreThrows) ?? false,
+            verticalAlignParameterDescription: flags.getBool(name: Constants.verticalAlign) ?? false,
             outputFormat: flags.get(name: "format", type: DrString.Configuration.OutputFormat.self)
                 ?? .automatic
         )

@@ -19,5 +19,6 @@ public struct DocProblem {
         case spaceBeforeColon(String, String) // Actual, name
         case preDashSpace(String, String) // Keyword, actual
         case spaceBetweenDashAndKeyword(String, String) // Keyword, actual
+        case verticalAlignment(Int, String, Int) // Expected, name/keyword, line number
     }
 }

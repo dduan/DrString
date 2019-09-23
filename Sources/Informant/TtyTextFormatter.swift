@@ -26,6 +26,9 @@ private extension DocProblem.Detail {
             return "\(keyword, color: .green) should start with exactly 1 space before \("-", color: .green), found \(actual, background: .cyan)"
         case .spaceBetweenDashAndKeyword(let keyword, let actual):
             return "There should be exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actual, background: .cyan)"
+        case .verticalAlignment(let expected, let nameOrKeyword, let line):
+            return "Line \(line, color: .green) of `\(nameOrKeyword, color: .green)`'s description is not properly vertically aligned (should have \(expected, color: .green) leading spaces)"
+
         }
     }
 }

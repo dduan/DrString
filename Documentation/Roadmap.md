@@ -1,6 +1,9 @@
 - [x] Configuration file
 - [x] Includes/excludes paths by glob patterns
 - [x] Options to omit missing throws docstring
+- [x] Support vertical alignment of parameter descriptions
+    - [x] Add lint rule
+    - [x] Add configuration to opt-in
 - [ ] Support SwiftPM project menifest
 - [ ] Support Xcode project
 - [ ] Check whitespace errors of docstrings
@@ -10,9 +13,6 @@
 - [ ] Allow exceptions
 - [ ] Convert between grouped and separate parameter docstrings
 - [ ] Interactive reformatting
-- [ ] Support vertical alignment of parameter descriptions
-    - [ ] Add lint rule
-    - [ ] Add configuration to opt-in
 - [ ] Lint keyword spelling check
 - [ ] Lint initial letter of keywords
     - [ ] Add lint rule

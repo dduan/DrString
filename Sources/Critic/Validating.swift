@@ -68,7 +68,10 @@ func findThrowsProblems(_ docs: DocString) -> [DocProblem.Detail] {
 
 func findParameterProblems(_ parameters: [Parameter], _ docs: DocString) throws -> [DocProblem.Detail] {
     var result = [DocProblem.Detail]()
+    // 1. find longest common sequence between the signature and docstring
     let commonality = commonSequence(parameters, docs)
+
+    // 2. items that are in the signature but not in the common sequence are missing
     var commonIter = commonality.makeIterator()
     var nextCommon = commonIter.next()
     for param in parameters {
@@ -79,21 +82,32 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString) throws 
         }
     }
 
+    // 3. items that are in the docstring but not in the common sequence are redundant
     commonIter = commonality.makeIterator()
     nextCommon = commonIter.next()
+    var validDocs = [DocString.Entry]()
+    var maxNameLength = 0
     for docParam in docs.parameters {
         if docParam.name.text == nextCommon?.name {
-            result += findDocParameterFormatProblems(docParam)
+            validDocs.append(docParam)
+            if docParam.name.text.count > maxNameLength {
+                maxNameLength = docParam.name.text.count
+            }
             nextCommon = commonIter.next()
         } else {
             result.append(.redundantParameter(docParam.name.text))
         }
     }
 
+    // 4. Only consider other issues if a parameter is in the common sequence
+    for docParam in validDocs {
+        result += findDocParameterFormatProblems(docParam, maxPeerNameLength: maxNameLength)
+    }
+
     return result
 }
 
-func findDocParameterFormatProblems(_ parameter: DocString.Entry) -> [DocProblem.Detail] {
+func findDocParameterFormatProblems(_ parameter: DocString.Entry, maxPeerNameLength: Int) -> [DocProblem.Detail] {
     var result = [DocProblem.Detail]()
 
     if let keyword = parameter.keyword {
@@ -121,6 +135,25 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry) -> [DocProblem
         result.append(.spaceBeforeColon(parameter.preColonWhitespace, parameter.name.text))
     }
 
+    // Vertical alignment
+    // Knowing the longest name's length among peers, the amount of extra space needed to vertical align the
+    // first line is
+    let expectedHeadLeadLength = maxPeerNameLength - parameter.name.text.count + 1
+    let expectedHeadLead = String(Array(repeating: " ", count: expectedHeadLeadLength))
+    if let lead = parameter.description.first?.lead, lead != expectedHeadLead {
+        result.append(.verticalAlignment(expectedHeadLeadLength, parameter.name.text, 1))
+    }
+    // For the rest of the lines in the description, it should have the length of
+    // `- parameter [maxPeerNameLength]: ` for separate style
+    // or
+    // `- [maxPeerNameLength]: ` for grouped style
+    let expectedBodyLeadLength = parameter.keyword == nil ? 4 + maxPeerNameLength : 14 + maxPeerNameLength
+    let expectedBodyLead = String(Array(repeating: " ", count: 0))
+    for (index, line) in parameter.description.dropFirst().enumerated() {
+        if line.lead != expectedBodyLead {
+            result.append(.verticalAlignment(expectedBodyLeadLength, parameter.name.text, index + 2))
+        }
+    }
     return result
 }
 

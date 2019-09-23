@@ -25,6 +25,8 @@ private extension DocProblem.Detail {
             return "`\(keyword)` should start with exactly 1 space before `-`, found `\(actual)`"
         case .spaceBetweenDashAndKeyword(let keyword, let actual):
             return "There should be exactly 1 space between `-` and `\(keyword)`, found `\(actual)`"
+        case .verticalAlignment(let expected, let nameOrKeyword, let line):
+            return "Line \(line) of `\(nameOrKeyword)`'s description is not properly vertically aligned (should have \(expected) leading spaces)"
         }
     }
 }
