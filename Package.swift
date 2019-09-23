@@ -23,7 +23,7 @@ let package = Package(
         .package(url: "https://github.com/llvm-swift/FileCheck.git", "0.0.1"..."1.0.0"),
     ],
     targets: [
-        .target(name: "Crawler", dependencies: ["Decipher", "SwiftSyntax"]),
+        .target(name: "Crawler", dependencies: ["Decipher", "SwiftSyntax", "Pathos"]),
         .target(name: "Critic", dependencies: ["Crawler", "Decipher"]),
         .target(name: "Decipher", dependencies: []),
         .target(name: "Informant", dependencies: ["Critic", "Chalk"]),

@@ -1,4 +1,4 @@
-import Foundation
+import Pathos
 import SwiftSyntax
 
 public func extractDocs(fromSourcePath sourcePath: String) throws -> [Documentable] {
@@ -7,16 +7,14 @@ public func extractDocs(fromSourcePath sourcePath: String) throws -> [Documentab
 
 private final class DocExtractor: SyntaxRewriter {
     private var findings: [Documentable] = []
-    private let url: URL
     private let source: SourceFileSyntax
     private let converter: SourceLocationConverter
 
     init(filePath: String) throws {
-        let url = URL(fileURLWithPath: filePath)
-        let source = try SyntaxParser.parse(url)
-        self.url = url
-        self.source = source
-        self.converter = .init(file: filePath, tree: source)
+        let sourceText = try readString(atPath: filePath)
+        let tree = try SyntaxParser.parse(source: sourceText)
+        self.source = tree
+        self.converter = SourceLocationConverter(file: filePath, source: sourceText)
     }
 
     func extractDocs() throws -> [Documentable] {

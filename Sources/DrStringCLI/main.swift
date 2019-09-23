@@ -1,7 +1,12 @@
-import Foundation
 import DrString
 import Guaka
 import TOMLDecoder
+
+#if canImport(Darwin)
+import Darwin
+#else
+import Glibc
+#endif
 
 let flags = [
     Flag(
