@@ -21,6 +21,10 @@ private extension DocProblem.Detail {
             return "There should be exactly 1 space between `\(keyword)` and `\(name)`, found `\(actual)`"
         case .spaceBeforeColon(let actual, let name):
             return "For `\(name)`, there should be no whitespace before `:`, found `\(actual)`"
+        case .preDashSpace(let keyword, let actual):
+            return "`\(keyword)` should start with exactly 1 space before `-`, found `\(actual)`"
+        case .spaceBetweenDashAndKeyword(let keyword, let actual):
+            return "There should be exactly 1 space between `-` and `\(keyword)`, found `\(actual)`"
         }
     }
 }

@@ -17,5 +17,7 @@ public struct DocProblem {
         case keywordSpellingForParameter(String, String, String) // Actual, expected, name
         case spaceBeforeParameterName(String, String, String) // Actual, keyword, name
         case spaceBeforeColon(String, String) // Actual, name
+        case preDashSpace(String, String) // Keyword, actual
+        case spaceBetweenDashAndKeyword(String, String) // Keyword, actual
     }
 }

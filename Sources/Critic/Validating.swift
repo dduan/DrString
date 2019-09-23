@@ -28,10 +28,18 @@ func findThrowsProblems(_ docs: DocString) -> [DocProblem.Detail] {
     }
 
     var result = [DocProblem.Detail]()
+
+    if throwsDoc.preDashWhitespace != " " {
+        result.append(.preDashSpace("throws", throwsDoc.preDashWhitespace))
+    }
+
+    if let preKeyword = throwsDoc.keyword?.lead, preKeyword != " " {
+        result.append(.spaceBetweenDashAndKeyword("throws", preKeyword))
+    }
+
     if throwsDoc.preColonWhitespace != "" {
         result.append(.spaceBeforeColon(throwsDoc.preColonWhitespace, "throws"))
     }
-
     return result
 }
 

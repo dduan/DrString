@@ -22,6 +22,10 @@ private extension DocProblem.Detail {
             return "There should be exactly 1 space between \(keyword, color: .green) and \(name, color: .green), found \(actual, background: .cyan)"
         case .spaceBeforeColon(let actual, let name):
             return "For \(name, color: .green), there should be no whitespace before \(":", color: .green), found \(actual, background: .cyan)"
+        case .preDashSpace(let keyword, let actual):
+            return "\(keyword, color: .green) should start with exactly 1 space before \("-", color: .green), found \(actual, background: .cyan)"
+        case .spaceBetweenDashAndKeyword(let keyword, let actual):
+            return "There should be exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actual, background: .cyan)"
         }
     }
 }
