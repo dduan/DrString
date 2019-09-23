@@ -1,4 +1,6 @@
 - [x] Configuration file
+- [x] Includes/excludes paths by glob patterns
+- [x] Options to omit missing throws docstring
 - [ ] Support SwiftPM project menifest
 - [ ] Support Xcode project
 - [ ] Check whitespace errors of docstrings
@@ -6,7 +8,5 @@
 - [ ] Expert problems in other formats (JSON)
 - [ ] Check missing docstrings for various interfaces
 - [ ] Allow exceptions
-- [ ] Includes/excludes paths by glob patterns
 - [ ] Convert between grouped and separate parameter docstrings
 - [ ] Interactive reformatting
-- [ ] Options to omit missing throws docstring
