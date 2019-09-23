@@ -21,7 +21,6 @@ public let checkCommand = Command(
     for path in config.paths {
         do {
             for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
-                fileCount += 1
                 for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
                     problemCount += problem.details.count
                     let output: String
@@ -35,8 +34,9 @@ public let checkCommand = Command(
                     print("\(output)\n")
                 }
             }
-        } catch let error {
-        }
+        } catch let error {}
+
+        fileCount += 1
     }
 
     let elapsedTime = readableDiff(from: startTime, to: getTime())
@@ -44,9 +44,9 @@ public let checkCommand = Command(
     if problemCount > 0 {
         let summary: String
         if IsTerminal.standardError {
-            summary = "Found \(String(problemCount), color: .red) problem\(problemCount > 1 ? "s" : "") in \(String(fileCount), color: .blue) file\(problemCount > 1 ? "s" : "") in \(elapsedTime, color: .blue)"
+            summary = "Found \(String(problemCount), color: .red) problem\(problemCount > 1 ? "s" : "") in \(String(fileCount), color: .blue) file\(problemCount > 1 ? "s" : "") in \(elapsedTime, color: .blue)\n"
         } else {
-            summary = "Found \(problemCount) problem\(problemCount > 1 ? "s" : "") in \(fileCount) file\(problemCount > 1 ? "s" : "") in \(elapsedTime)."
+            summary = "Found \(problemCount) problem\(problemCount > 1 ? "s" : "") in \(fileCount) file\(problemCount > 1 ? "s" : "") in \(elapsedTime)\n"
         }
 
         fputs(summary, stderr)
