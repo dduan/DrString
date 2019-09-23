@@ -10,3 +10,14 @@
 - [ ] Allow exceptions
 - [ ] Convert between grouped and separate parameter docstrings
 - [ ] Interactive reformatting
+- [ ] Support vertical alignment of parameter descriptions
+    - [ ] Add lint rule
+    - [ ] Add configuration to opt-in
+- [ ] Lint keyword spelling check
+- [ ] Lint initial letter of keywords
+    - [ ] Add lint rule
+    - [ ] Add options: (lenient|upper|lower|consistent)
+- [ ] Lint grouped parameter header `- Parameters`
+- [ ] Lint empty lines between parameter/throws/returns
+    - [ ] Add lint rule
+    - [ ] Add options
