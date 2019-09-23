@@ -9,8 +9,9 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws ->
     switch documentable.details {
     case let .function(_, doesThrow, returnType, parameters):
         let details = try findParameterProblems(parameters, docs)
-            + (!ignoreThrows && doesThrow && docs.throws == nil ? [.missingThrow] : [])
+            + (!ignoreThrows && doesThrow ? findThrowsProblems(docs) : [])
             + (returnType != nil && docs.returns == nil ? [.missingReturn(returnType ?? "")] : [])
+
         if details.isEmpty {
             return []
         }
@@ -19,6 +20,19 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws ->
     default:
         return []
     }
+}
+
+func findThrowsProblems(_ docs: DocString) -> [DocProblem.Detail] {
+    guard let throwsDoc = docs.throws else {
+        return [.missingThrow]
+    }
+
+    var result = [DocProblem.Detail]()
+    if throwsDoc.preColonWhitespace != "" {
+        result.append(.spaceBeforeColon(throwsDoc.preColonWhitespace, "throws"))
+    }
+
+    return result
 }
 
 func findParameterProblems(_ parameters: [Parameter], _ docs: DocString) throws -> [DocProblem.Detail] {
