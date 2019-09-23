@@ -19,6 +19,8 @@ private extension DocProblem.Detail {
             return "`\(name)` should be proceeded by `\(expected)`, found `\(actual)`"
         case .spaceBeforeParameterName(let actual, let keyword, let name):
             return "There should be exactly 1 space between `\(keyword)` and `\(name)`, found `\(actual)`"
+        case .spaceBeforeColon(let actual, let name):
+            return "For `\(name)`, there should be no whitespace before `:`, found `\(actual)`"
         }
     }
 }

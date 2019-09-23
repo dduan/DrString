@@ -72,7 +72,9 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry) -> [DocProblem
         result.append(.preDashSpaceInParameter(3, parameter.preDashWhitespace, parameter.name.text))
     }
 
-
+    if parameter.preColonWhitespace != "" {
+        result.append(.spaceBeforeColon(parameter.preColonWhitespace, parameter.name.text))
+    }
 
     return result
 }
