@@ -16,7 +16,9 @@ private extension DocProblem.Detail {
         case .spaceBetweenDashAndParamaterKeyword(let actual, let keyword, let name):
             return "`\(name)` should have exactly 1 space between `-` and `\(keyword)`, found `\(actual)`"
         case .keywordSpellingForParameter(let actual, let expected, let name):
-            return "`\(name)` should be proceeded by \(expected), found `\(actual)`"
+            return "`\(name)` should be proceeded by `\(expected)`, found `\(actual)`"
+        case .spaceBeforeParameterName(let actual, let keyword, let name):
+            return "There should be exactly 1 space between `\(keyword)` and `\(name)`, found `\(actual)`"
         }
     }
 }

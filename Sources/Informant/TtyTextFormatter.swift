@@ -18,6 +18,8 @@ private extension DocProblem.Detail {
             return "\(name, color: .green) should have exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actual, background: .cyan)"
         case .keywordSpellingForParameter(let actual, let expected, let name):
             return "\(name, color: .green) should be proceeded by \(expected, color: .green), found \(actual, color: .cyan)"
+        case .spaceBeforeParameterName(let actual, let keyword, let name):
+            return "There should be exactly 1 space between \(keyword, color: .green) and \(name, color: .green), found \(actual, background: .cyan)"
         }
     }
 }
