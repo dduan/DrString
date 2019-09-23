@@ -2,6 +2,7 @@ import Crawler
 import Critic
 import Informant
 import IsTTY
+import Foundation
 
 #if canImport(Darwin)
 import Darwin
@@ -19,22 +20,24 @@ public let checkCommand = Command(
     let ignoreThrows = config.options.ignoreDocstringForThrows
     let format = config.options.outputFormat
     for path in config.paths {
-        do {
-            for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
-                for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
-                    problemCount += problem.details.count
-                    let output: String
-                    switch (format, IsTerminal.standardOutput) {
-                    case (.automatic, true), (.terminal, _):
-                        output = ttyText(for: problem)
-                    case (.automatic, false), (.plain, _):
-                        output = plainText(for: problem)
-                    }
+        autoreleasepool {
+            do {
+                for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
+                    for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
+                        problemCount += problem.details.count
+                        let output: String
+                        switch (format, IsTerminal.standardOutput) {
+                        case (.automatic, true), (.terminal, _):
+                            output = ttyText(for: problem)
+                        case (.automatic, false), (.plain, _):
+                            output = plainText(for: problem)
+                        }
 
-                    print("\(output)\n")
+                        print("\(output)\n")
+                    }
                 }
-            }
-        } catch let error {}
+            } catch let error {}
+        }
 
         fileCount += 1
     }
