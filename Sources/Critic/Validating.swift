@@ -10,7 +10,7 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws ->
     case let .function(_, doesThrow, returnType, parameters):
         let details = try findParameterProblems(parameters, docs)
             + (!ignoreThrows && doesThrow ? findThrowsProblems(docs) : [])
-            + (returnType != nil && docs.returns == nil ? [.missingReturn(returnType ?? "")] : [])
+            + (returnType != nil ? findReturnsProblems(docs, returnType!) : [])
 
         if details.isEmpty {
             return []
@@ -20,6 +20,28 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws ->
     default:
         return []
     }
+}
+
+func findReturnsProblems(_ docs: DocString, _ returnType: String) -> [DocProblem.Detail] {
+    guard let returnsDoc = docs.returns else {
+        return [.missingReturn(returnType)]
+    }
+
+    var result = [DocProblem.Detail]()
+
+    if returnsDoc.preDashWhitespace != " " {
+        result.append(.preDashSpace("returns", returnsDoc.preDashWhitespace))
+    }
+
+    if let preKeyword = returnsDoc.keyword?.lead, preKeyword != " " {
+        result.append(.spaceBetweenDashAndKeyword("returns", preKeyword))
+    }
+
+    if returnsDoc.preColonWhitespace != "" {
+        result.append(.spaceBeforeColon(returnsDoc.preColonWhitespace, "returns"))
+    }
+
+    return result
 }
 
 func findThrowsProblems(_ docs: DocString) -> [DocProblem.Detail] {
@@ -40,6 +62,7 @@ func findThrowsProblems(_ docs: DocString) -> [DocProblem.Detail] {
     if throwsDoc.preColonWhitespace != "" {
         result.append(.spaceBeforeColon(throwsDoc.preColonWhitespace, "throws"))
     }
+
     return result
 }
 

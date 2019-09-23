@@ -38,4 +38,8 @@ final class DrStringTests: XCTestCase {
     func testBadThrowsFormat() throws {
         XCTAssert(runTest(fileName: "badThrowsFormat"))
     }
+
+    func testBadReturnsFormat() throws {
+        XCTAssert(runTest(fileName: "badReturnsFormat"))
+    }
 }
