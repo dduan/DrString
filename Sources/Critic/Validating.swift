@@ -7,7 +7,7 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws ->
     }
 
     switch documentable.details {
-    case let .function(_, doesThrow, returnType, parameters):
+    case let .function(doesThrow, returnType, parameters):
         let details = try findParameterProblems(parameters, docs)
             + (!ignoreThrows && doesThrow ? findThrowsProblems(docs) : [])
             + (returnType != nil ? findReturnsProblems(docs, returnType!) : [])
@@ -16,7 +16,15 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool) throws ->
             return []
         }
 
-        return [DocProblem(docName: documentable.name, filePath: documentable.path, line: documentable.line, column: documentable.column, details: details)]
+        return [
+            DocProblem(
+                docName: documentable.name,
+                filePath: documentable.path,
+                line: documentable.line,
+                column: documentable.column,
+                details: details
+            )
+        ]
     default:
         return []
     }

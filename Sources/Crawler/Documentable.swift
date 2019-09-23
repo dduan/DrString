@@ -23,7 +23,7 @@ public struct Documentable: Equatable {
     public let details: Details
 
     public enum Details: Equatable {
-        case function(isDiscardable: Bool, `throws`: Bool, returnType: String?, parameters: [Parameter])
+        case function(`throws`: Bool, returnType: String?, parameters: [Parameter])
         case variable(mutable: Bool)
         case `class`
         case `enum`(cases: [EnumCase])

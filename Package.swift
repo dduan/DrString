@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "DrString", targets: ["DrString"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50000.0")),
+        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50100.0")),
         .package(url: "https://github.com/dduan/IsTTY.git", .exact("0.1.0")),
         .package(url: "https://github.com/dduan/Pathos.git", .exact("0.2.0")),
         .package(url: "https://github.com/dduan/TOMLDecoder.git", .exact("0.1.4")),

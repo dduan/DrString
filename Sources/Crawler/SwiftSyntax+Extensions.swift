@@ -13,10 +13,6 @@ extension FunctionParameterSyntax {
 }
 
 extension FunctionDeclSyntax {
-    var isDiscardable: Bool {
-        return self.attributes?.contains { $0.attributeName.text == "discardableResult" } ?? false
-    }
-
     var `throws`: Bool {
         return self.signature.throwsOrRethrowsKeyword != nil
     }
