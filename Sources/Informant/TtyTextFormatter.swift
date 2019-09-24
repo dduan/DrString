@@ -16,8 +16,6 @@ private extension DocProblem.Detail {
             return "Parameter \(name, color: .green) should start with exactly \(String(expected), color: .cyan) space\(expected > 1 ? "s" : "") before \("-", color: .green), found \(actual, background: .cyan)"
         case .spaceBetweenDashAndParamaterKeyword(let actual, let keyword, let name):
             return "\(name, color: .green) should have exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actual, background: .cyan)"
-        case .keywordSpellingForParameter(let actual, let expected, let name):
-            return "\(name, color: .green) should be proceeded by \(expected, color: .green), found \(actual, color: .cyan)"
         case .spaceBeforeParameterName(let actual, let keyword, let name):
             return "There should be exactly 1 space between \(keyword, color: .green) and \(name, color: .green), found \(actual, background: .cyan)"
         case .spaceBeforeColon(let actual, let name):
@@ -30,6 +28,10 @@ private extension DocProblem.Detail {
             return "Line \(line, color: .green) of `\(nameOrKeyword, color: .green)`'s description is not properly vertically aligned (should have \(expected, color: .green) leading spaces)"
         case .spaceAfterColon(let keyword, let actual):
             return "For \(keyword, color: .green), there should be exactly 1 space after \(":", color: .green), found \(actual, background: .cyan)"
+        case .keywordCasingForParameter(let actual, let expected, let name):
+            return "For \(name, color: .green), \(expected, color: .green) is misspelled as \(actual, color: .cyan)"
+        case .keywordCasing(let actual, let expected):
+            return "\(expected, color: .green) is misspelled as \(actual, color: .cyan)"
         }
     }
 }

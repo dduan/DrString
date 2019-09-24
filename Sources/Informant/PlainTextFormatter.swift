@@ -15,8 +15,6 @@ private extension DocProblem.Detail {
             return "Parameter `\(name)` should start with exactly \(expected) space\(expected > 1 ? "s" : "") before `-`, found `\(actual)`"
         case .spaceBetweenDashAndParamaterKeyword(let actual, let keyword, let name):
             return "`\(name)` should have exactly 1 space between `-` and `\(keyword)`, found `\(actual)`"
-        case .keywordSpellingForParameter(let actual, let expected, let name):
-            return "`\(name)` should be proceeded by `\(expected)`, found `\(actual)`"
         case .spaceBeforeParameterName(let actual, let keyword, let name):
             return "There should be exactly 1 space between `\(keyword)` and `\(name)`, found `\(actual)`"
         case .spaceBeforeColon(let actual, let name):
@@ -29,6 +27,10 @@ private extension DocProblem.Detail {
             return "Line \(line) of `\(nameOrKeyword)`'s description is not properly vertically aligned (should have \(expected) leading spaces)"
         case .spaceAfterColon(let keyword, let actual):
             return "For `\(keyword)`, there should be exactly 1 space after `:`, found `\(actual)`"
+        case .keywordCasingForParameter(let actual, let expected, let name):
+            return "For `\(name)`, `\(expected)` is misspelled as `\(actual)`"
+        case .keywordCasing(let actual, let expected):
+            return "`\(expected)` is misspelled as `\(actual)`"
         }
     }
 }

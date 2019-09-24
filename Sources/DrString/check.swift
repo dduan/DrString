@@ -18,10 +18,21 @@ public let checkCommand = Command(
     var fileCount = 0
     let ignoreThrows = config.options.ignoreDocstringForThrows
     let format = config.options.outputFormat
+    let firstLetterUpper: Bool?
+
+    switch config.options.firstKeywordLetter {
+    case .lowercase:
+        firstLetterUpper = false
+    case .uppercase:
+        firstLetterUpper = true
+    case .whatever:
+        firstLetterUpper = nil
+    }
+
     for path in config.paths {
         do {
             for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
-                for problem in try validate(documentable, ignoreThrows: ignoreThrows) {
+                for problem in try validate(documentable, ignoreThrows: ignoreThrows, firstLetterUpper: firstLetterUpper) {
                     problemCount += problem.details.count
                     let output: String
                     switch (format, IsTerminal.standardOutput) {

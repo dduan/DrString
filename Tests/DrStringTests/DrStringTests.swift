@@ -5,7 +5,7 @@ import XCTest
 final class DrStringTests: XCTestCase {
     private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
 
-    private func runTest(fileName: String, ignoreThrows: Bool = false, verticalAlign: Bool = true, expectEmpty: Bool = false) -> Bool {
+    private func runTest(fileName: String, ignoreThrows: Bool = false, verticalAlign: Bool = true, expectEmpty: Bool = false, firstLetter: Configuration.FirstKeywordLetterCasing = .whatever) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
             _ = checkCommand.run(Configuration(
@@ -14,6 +14,7 @@ final class DrStringTests: XCTestCase {
                 options: .init(
                     ignoreDocstringForThrows: ignoreThrows,
                     verticalAlignParameterDescription: verticalAlign,
+                    firstKeywordLetter: firstLetter,
                     outputFormat: .plain)))
         }
     }
@@ -48,5 +49,13 @@ final class DrStringTests: XCTestCase {
 
     func testMisalignedParameterDescriptions() throws {
         XCTAssert(runTest(fileName: "misalignedParameterDescription"))
+    }
+
+    func testLowercaseKeywords() throws {
+        XCTAssert(runTest(fileName: "lowercaseKeywords", firstLetter: .lowercase))
+    }
+
+    func testUppercaseKeywords() throws {
+        XCTAssert(runTest(fileName: "uppercaseKeywords", firstLetter: .uppercase))
     }
 }

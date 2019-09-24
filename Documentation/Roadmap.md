@@ -4,6 +4,9 @@
 - [x] Support vertical alignment of parameter descriptions
     - [x] Add lint rule
     - [x] Add configuration to opt-in
+- [x] Lint initial letter of keywords
+    - [x] Add lint rule
+    - [x] Add options: (whatever|upper|lower)
 - [ ] Support SwiftPM project menifest
 - [ ] Support Xcode project
 - [ ] Check whitespace errors of docstrings
@@ -14,10 +17,9 @@
 - [ ] Convert between grouped and separate parameter docstrings
 - [ ] Interactive reformatting
 - [ ] Lint keyword spelling check
-- [ ] Lint initial letter of keywords
-    - [ ] Add lint rule
-    - [ ] Add options: (lenient|upper|lower|consistent)
 - [ ] Lint grouped parameter header `- Parameters`
+- [ ] "consistent" option for `first-letter`: as long as keywords are consistent within a documentable, it's
+      ok
 - [ ] Lint empty lines between parameter/throws/returns
     - [ ] Add lint rule
     - [ ] Add options

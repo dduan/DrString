@@ -27,7 +27,12 @@ let flags = [
         shortName: "f",
         longName: "format",
         type : DrString.Configuration.OutputFormat.self,
-        description: "Output format. (automatic|terminal|plain)")
+        description: "Output format. (automatic|terminal|plain)"),
+    Flag(
+        shortName: "c",
+        longName: "first-letter",
+        type : DrString.Configuration.FirstKeywordLetterCasing.self,
+        description: "Casing for first letter in keywords such")
 ]
 
 let checkCommand = Guaka.Command(DrString.checkCommand, flags: flags)
