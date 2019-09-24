@@ -55,5 +55,9 @@ public struct DocProblem {
                 return "E014"
             }
         }
+
+        public var explainer: Explainer {
+            return explainers[self.explainerID]!
+        }
     }
 }
