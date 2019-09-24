@@ -7,7 +7,7 @@ public struct DocProblem {
     public let column: Int
     public let details: [Detail]
 
-    public enum Detail {        
+    public enum Detail {
         case redundantParameter(String)
         case missingParameter(String, String)
         case missingThrow
