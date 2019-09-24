@@ -1,7 +1,7 @@
 import Critic
 
 private extension DocProblem.Detail {
-    var description: String {
+    private var description: String {
         switch self {
         case .redundantParameter(let name):
             return "Unrecognized docstring for `\(name)`"
@@ -33,6 +33,8 @@ private extension DocProblem.Detail {
             return "`\(expected)` is misspelled as `\(actual)`"
         }
     }
+
+    var fullDescription: String { "[\(self.explainerID)] \(self.description) " }
 }
 
 private extension DocProblem {
@@ -40,8 +42,7 @@ private extension DocProblem {
         let count = self.details.count
         let pluralPostfix = count > 1 ? "s" : ""
         let header = "\(self.filePath):\(self.line):\(self.column): warning: \(count) docstring problem\(pluralPostfix) regarding `\(self.docName)`"
-        let detailPrefix = " - "
-        return ([header] + self.details.map { detailPrefix + $0.description }).joined(separator: "\n")
+        return ([header] + self.details.map { $0.fullDescription }).joined(separator: "\n")
     }
 }
 

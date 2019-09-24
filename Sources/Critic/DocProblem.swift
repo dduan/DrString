@@ -7,7 +7,7 @@ public struct DocProblem {
     public let column: Int
     public let details: [Detail]
 
-    public enum Detail {
+    public enum Detail {        
         case redundantParameter(String)
         case missingParameter(String, String)
         case missingThrow
@@ -22,5 +22,38 @@ public struct DocProblem {
         case spaceAfterColon(String, String) // Keyword, actual
         case keywordCasingForParameter(String, String, String) // Actual, expected, name
         case keywordCasing(String, String) // Actual, expected
+
+        public var explainerID: String {
+            switch self {
+            case .redundantParameter:
+                return "E001"
+            case .missingParameter:
+                return "E002"
+            case .missingThrow:
+                return "E003"
+            case .missingReturn:
+                return "E004"
+            case .preDashSpaceInParameter:
+                return "E005"
+            case .spaceBetweenDashAndParamaterKeyword:
+                return "E006"
+            case .spaceBeforeParameterName:
+                return "E007"
+            case .spaceBeforeColon:
+                return "E008"
+            case .preDashSpace:
+                return "E009"
+            case .spaceBetweenDashAndKeyword:
+                return "E010"
+            case .verticalAlignment:
+                return "E011"
+            case .spaceAfterColon:
+                return "E012"
+            case .keywordCasingForParameter:
+                return "E013"
+            case .keywordCasing:
+                return "E014"
+            }
+        }
     }
 }
