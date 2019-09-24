@@ -12,7 +12,7 @@ import Glibc
 public let checkCommand = Command(
     name: "check",
     shortDescription: "Check problems for existing doc strings")
-{ config in
+{ config, _ in
     var startTime = getTime()
     var problemCount = 0
     var fileCount = 0
