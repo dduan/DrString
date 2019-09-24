@@ -49,3 +49,25 @@ private extension DocProblem {
 public func plainText(for docProblem: DocProblem) -> String {
     return docProblem.description
 }
+
+let kExplainerSeparator = "\n------------------------------------\n"
+let kExplainerBorder = "\n====================================\n"
+
+
+private extension Explainer {
+    var description: String {
+        [
+            "\n========== DrString \(self.id) ===========\n",
+            "Summary:\(kExplainerSeparator)\(self.summary)\(kExplainerSeparator)",
+            self.wrongExample.map { "Bad example:\(kExplainerSeparator)\($0)\(kExplainerSeparator)" },
+            self.rightExample.map { "Good example:\(kExplainerSeparator)\($0)\(kExplainerSeparator)" },
+        ]
+            .compactMap { $0 }
+            .joined(separator: "\n")
+        + kExplainerBorder
+    }
+}
+
+public func plainText(for explainer: Explainer) -> String {
+    return explainer.description
+}

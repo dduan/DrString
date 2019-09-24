@@ -1,4 +1,6 @@
 import Critic
+import Informant
+
 #if canImport(Darwin)
 import Darwin
 #else
@@ -8,16 +10,13 @@ import Glibc
 public let explainCommand = Command(
     name: "explain",
     shortDescription: "Explain a problem associated with an ID")
-{ config, arguments in
+{ _, arguments in
     var unrecognizedIDs = [String]()
 
     for id in arguments {
         // TODO: make ID look-up smarter. e1, e001, 1 or 001 should match to E001, for example.
         if let explainer = Explainer.all[id.uppercased()] {
-            // TODO: print string
-            // TODO: translate sections surrounded by `*` to bold
-            // TODO: respect formatting preference from config
-            print(explainer)
+            print(plainText(for: explainer))
         } else {
             unrecognizedIDs.append(id)
         }
