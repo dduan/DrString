@@ -2,7 +2,7 @@ import Chalk
 import Critic
 
 private extension DocProblem.Detail {
-    var description: String {
+    private var description: String {
         switch self {
         case .redundantParameter(let name):
             return "Unrecognized docstring for \(name, color: .green)"
@@ -34,6 +34,10 @@ private extension DocProblem.Detail {
             return "\(expected, color: .green) is misspelled as \(actual, color: .cyan)"
         }
     }
+
+    private var id: String { "\(self.explainerID, color: .blue)" }
+
+    var fullDescription: String { "[\(self.id)] \(self.description) " }
 }
 
 private extension DocProblem {
@@ -42,8 +46,7 @@ private extension DocProblem {
         let pluralPostfix = count > 1 ? "s" : ""
         let headerText = "\(self.filePath):\(self.line):\(self.column): \("warning", color: .yellow): \(count) docstring problem\(pluralPostfix) regarding \(self.docName, color: .green)"
         let header = "\(headerText, style: .bold)"
-        let detailPrefix = " - "
-        return ([header] + self.details.map { detailPrefix + $0.description }).joined(separator: "\n")
+        return ([header] + self.details.map { $0.fullDescription }).joined(separator: "\n")
     }
 }
 
