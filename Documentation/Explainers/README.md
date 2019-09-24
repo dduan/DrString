@@ -24,3 +24,4 @@ The description can have manylines but no two consecutive empty lines.
 The examples start with a H3 saying "bad" or "good", followed by an empty line, followed by a block quoted
 example "code". Examples are optional except both must be present or missing at the same time.
 
+See [template](template.md) for an example.
