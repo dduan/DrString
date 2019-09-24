@@ -15,3 +15,10 @@ func badReturnsFormat2() -> Int {
 func badReturnsFormat3() -> Int {
     fatalError()
 }
+
+// CHECK: For `returns`, there should be exactly 1 space after `:`
+/// - returns:  returns stuff
+func badReturnsFormat4() -> Int {
+    fatalError()
+}
+

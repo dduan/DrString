@@ -49,6 +49,10 @@ func findReturnsProblems(_ docs: DocString, _ returnType: String) -> [DocProblem
         result.append(.spaceBeforeColon(returnsDoc.preColonWhitespace, "returns"))
     }
 
+    if let postColonLead = returnsDoc.description.first?.lead, postColonLead != " " {
+        result.append(.spaceAfterColon("returns", postColonLead))
+    }
+
     return result
 }
 
@@ -69,6 +73,10 @@ func findThrowsProblems(_ docs: DocString) -> [DocProblem.Detail] {
 
     if throwsDoc.preColonWhitespace != "" {
         result.append(.spaceBeforeColon(throwsDoc.preColonWhitespace, "throws"))
+    }
+
+    if let postColonLead = throwsDoc.description.first?.lead, postColonLead != " " {
+        result.append(.spaceAfterColon("throws", postColonLead))
     }
 
     return result

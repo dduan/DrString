@@ -27,6 +27,8 @@ private extension DocProblem.Detail {
             return "There should be exactly 1 space between `-` and `\(keyword)`, found `\(actual)`"
         case .verticalAlignment(let expected, let nameOrKeyword, let line):
             return "Line \(line) of `\(nameOrKeyword)`'s description is not properly vertically aligned (should have \(expected) leading spaces)"
+        case .spaceAfterColon(let keyword, let actual):
+            return "For `\(keyword)`, there should be exactly 1 space after `:`, found `\(actual)`"
         }
     }
 }

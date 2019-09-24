@@ -12,3 +12,8 @@ func badThrowsFormat2() throws {
 /// - throws : throws stuff
 func badThrowsFormat3() throws {
 }
+
+// CHECK: For `throws`, there should be exactly 1 space after `:`
+/// - throws:  throws stuff
+func badThrowsFormat4() throws {
+}
