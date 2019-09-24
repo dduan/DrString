@@ -25,8 +25,9 @@ extension DrString.Configuration {
 extension Guaka.Command {
     convenience init(_ command: DrString.Command, flags: [Flag]) {
         var result: Int32? = nil
-        self.init(usage: command.name, shortMessage: command.shortDescription, flags: flags) { flags, _ in
-            result = command.run(DrString.Configuration(flags))
+        self.init(usage: command.name, shortMessage: command.shortDescription, flags: flags)
+        { flags, arugements in
+            result = command.run(DrString.Configuration(flags), arugements)
         }
 
         if let code = result {

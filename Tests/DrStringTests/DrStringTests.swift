@@ -8,14 +8,17 @@ final class DrStringTests: XCTestCase {
     private func runTest(fileName: String, ignoreThrows: Bool = false, verticalAlign: Bool = true, expectEmpty: Bool = false, firstLetter: Configuration.FirstKeywordLetterCasing = .whatever) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
-            _ = checkCommand.run(Configuration(
-                includedPaths: [fixture],
-                excludedPaths: [],
-                options: .init(
-                    ignoreDocstringForThrows: ignoreThrows,
-                    verticalAlignParameterDescription: verticalAlign,
-                    firstKeywordLetter: firstLetter,
-                    outputFormat: .plain)))
+            _ = checkCommand.run(
+                Configuration(
+                    includedPaths: [fixture],
+                    excludedPaths: [],
+                    options: .init(
+                        ignoreDocstringForThrows: ignoreThrows,
+                        verticalAlignParameterDescription: verticalAlign,
+                        firstKeywordLetter: firstLetter,
+                        outputFormat: .plain)),
+                []
+            )
         }
     }
 

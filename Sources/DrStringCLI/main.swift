@@ -8,7 +8,12 @@ import Darwin
 import Glibc
 #endif
 
-let flags = [
+let formatFlag = Flag(
+    shortName: "f",
+    longName: "format",
+    type: DrString.Configuration.OutputFormat.self,
+    description: "Output format. (automatic|terminal|plain)")
+let checkFlags = [
     Flag(
         longName: Constants.ignoreThrows,
         value: false,
@@ -23,11 +28,7 @@ let flags = [
         longName: Constants.exclude,
         type: [String].self,
         description: "Paths excluded for DrString to operate on"),
-    Flag(
-        shortName: "f",
-        longName: "format",
-        type : DrString.Configuration.OutputFormat.self,
-        description: "Output format. (automatic|terminal|plain)"),
+    formatFlag,
     Flag(
         shortName: "c",
         longName: "first-letter",
@@ -35,7 +36,17 @@ let flags = [
         description: "Casing for first letter in keywords such")
 ]
 
-let checkCommand = Guaka.Command(DrString.checkCommand, flags: flags)
+let checkCommand = Guaka.Command(DrString.checkCommand, flags: checkFlags)
+let explainCommand = Guaka.Command(DrString.explainCommand, flags: [formatFlag])
+explainCommand.usage = "explain ID1 ID2 …"
+explainCommand.preRun = { _, arguments in
+    if arguments.count < 1 {
+        print(explainCommand.helpMessage)
+        return false
+    }
+
+    return true
+}
 
 var mainCommand = Guaka.Command(usage: "drstring") { flags, arguments in
     guard let configText = try? String(contentsOfFile: ".drstring.toml") else {
@@ -48,10 +59,11 @@ var mainCommand = Guaka.Command(usage: "drstring") { flags, arguments in
         exit(1)
     }
 
-    if let code = DrString.checkCommand.run(config) {
+    if let code = DrString.checkCommand.run(config, arguments) {
         exit(code)
     }
 }
 
 mainCommand.add(subCommand: checkCommand)
+mainCommand.add(subCommand: explainCommand)
 mainCommand.execute()
