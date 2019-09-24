@@ -9,7 +9,7 @@ Note how it's separated from the title by two blank lines.
 ### Bad
 
 ```swift
-// Here goes an example. In the examlpe, emphasized text are surrounded by `*`s.
+// Here goes an example.
 ```
 
 ### Good

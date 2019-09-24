@@ -8,11 +8,6 @@ import Darwin
 import Glibc
 #endif
 
-let formatFlag = Flag(
-    shortName: "f",
-    longName: "format",
-    type: DrString.Configuration.OutputFormat.self,
-    description: "Output format. (automatic|terminal|plain)")
 let checkFlags = [
     Flag(
         longName: Constants.ignoreThrows,
@@ -28,7 +23,11 @@ let checkFlags = [
         longName: Constants.exclude,
         type: [String].self,
         description: "Paths excluded for DrString to operate on"),
-    formatFlag,
+    Flag(
+        shortName: "f",
+        longName: "format",
+        type: DrString.Configuration.OutputFormat.self,
+        description: "Output format. (automatic|terminal|plain)"),
     Flag(
         shortName: "c",
         longName: "first-letter",
@@ -37,7 +36,7 @@ let checkFlags = [
 ]
 
 let checkCommand = Guaka.Command(DrString.checkCommand, flags: checkFlags)
-let explainCommand = Guaka.Command(DrString.explainCommand, flags: [formatFlag])
+let explainCommand = Guaka.Command(DrString.explainCommand, flags: [])
 explainCommand.usage = "explain ID1 ID2 …"
 explainCommand.preRun = { _, arguments in
     if arguments.count < 1 {

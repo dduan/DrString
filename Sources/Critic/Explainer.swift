@@ -1,6 +1,6 @@
 public struct Explainer {
-    let id: String
-    let summary: String
-    let rightExample: String?
-    let wrongExample: String?
+    public let id: String
+    public let summary: String
+    public let rightExample: String?
+    public let wrongExample: String?
 }
