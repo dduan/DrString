@@ -42,9 +42,9 @@ public struct DocProblem {
             case .spaceBeforeColon:
                 return "E008"
             case .preDashSpace:
-                return "E009"
+                return "E005"
             case .spaceBetweenDashAndKeyword:
-                return "E010"
+                return "E006"
             case .verticalAlignment:
                 return "E011"
             case .spaceAfterColon:
