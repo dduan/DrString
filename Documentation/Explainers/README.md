@@ -3,13 +3,13 @@
 Files in this folder is structured data.
 
 Each error reported by the `check` command is associated with a explanation. Each file in this folder (except
-this one) is named after the ID of an explanation. The command `explain` uses content of these files as data
-source. Therefore, it's vital that they follow the set structure.
+this one and template.md) is named after the ID of an explanation. The command `explain` uses content of these
+files as data source. Therefore, it's vital that they follow the set structure.
 
 
 ## The Structure
 
-Each explainer is composed of the following _section_s:
+Each explainer is composed of the following _section_ s:
 
 * Title
 * Description
