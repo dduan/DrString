@@ -55,7 +55,7 @@ public let checkCommand = Command(
     if problemCount > 0 {
         let summary: String
         if IsTerminal.standardError {
-            summary = "Found \(String(problemCount), color: .red) problem\(problemCount > 1 ? "s" : "") in \(String(fileCount), color: .blue) file\(problemCount > 1 ? "s" : "") in \(elapsedTime, color: .blue)\n"
+            summary = "Found \(String(problemCount), color: .red) problem\(problemCount > 1 ? "s" : "") in \(String(fileCount), color: .blue) file\(fileCount > 1 ? "s" : "") in \(elapsedTime, color: .blue)\n"
         } else {
             summary = "Found \(problemCount) problem\(problemCount > 1 ? "s" : "") in \(fileCount) file\(problemCount > 1 ? "s" : "") in \(elapsedTime)\n"
         }
