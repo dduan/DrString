@@ -6,14 +6,14 @@
 
 ## Install
 
-With Swift 5 available on your system: `make install`
+With Swift 5.1 available on your system: `make install`
 
 ## Usage
 
 ### Using the check command:
 
 ```
-drstring check SWIFT_FILE_0 SWIFT_FILE_1 ...
+drstring check -i SWIFT_FILE_0 -i GLOBBED/PATH/**/*.swift ...
 ```
 
 Use `drstring -h` for more help.
