@@ -33,26 +33,20 @@ public struct DocProblem {
                 return "E003"
             case .missingReturn:
                 return "E004"
-            case .preDashSpaceInParameter:
+            case .preDashSpaceInParameter, .preDashSpace:
                 return "E005"
-            case .spaceBetweenDashAndParamaterKeyword:
+            case .spaceBetweenDashAndParamaterKeyword, .spaceBetweenDashAndKeyword:
                 return "E006"
             case .spaceBeforeParameterName:
                 return "E007"
             case .spaceBeforeColon:
                 return "E008"
-            case .preDashSpace:
-                return "E005"
-            case .spaceBetweenDashAndKeyword:
-                return "E006"
             case .verticalAlignment:
-                return "E011"
+                return "E009"
             case .spaceAfterColon:
-                return "E012"
-            case .keywordCasingForParameter:
-                return "E013"
-            case .keywordCasing:
-                return "E014"
+                return "E010"
+            case .keywordCasingForParameter, .keywordCasing:
+                return "E011"
             }
         }
     }
