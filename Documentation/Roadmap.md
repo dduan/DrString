@@ -7,21 +7,21 @@
 - [x] Lint initial letter of keywords
     - [x] Add lint rule
     - [x] Add options: (whatever|upper|lower)
+- [x] Check whitespace errors of docstrings
+- [x] Lint keyword spelling check
+- [x] The `explain` commmand. Each problem should be associated with a code and `explain CODE` should print
+      out an explaination.
 - [ ] Support SwiftPM project menifest
 - [ ] Support Xcode project
-- [ ] Check whitespace errors of docstrings
 - [ ] Auto format docstrings
 - [ ] Expert problems in other formats (JSON)
-- [ ] Check missing docstrings for various interfaces
-- [ ] Allow exceptions
+- [ ] Check missing docstrings for various interfaces other than functions
+- [ ] Allow inline exceptions (per file exceptions are supported via excludedPaths)
 - [ ] Convert between grouped and separate parameter docstrings
 - [ ] Interactive reformatting
-- [ ] Lint keyword spelling check
 - [ ] Lint grouped parameter header `- Parameters`
 - [ ] "consistent" option for `first-letter`: as long as keywords are consistent within a documentable, it's
       ok
 - [ ] Lint empty lines between parameter/throws/returns
     - [ ] Add lint rule
     - [ ] Add options
-- [ ] The `explain` commmand. Each problem should be associated with a code and `explain CODE` should print
-      out an explaination.
