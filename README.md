@@ -13,8 +13,10 @@ With Swift 5.1 available on your system: `make install`
 ### Using the check command:
 
 ```
-drstring check -i SWIFT_FILE_0 -i GLOBBED/PATH/**/*.swift ...
+drstring check -i SWIFT_FILE_0 -i "GLOBBED/PATH/**/*.swift" ...
 ```
+
+(Make sure to quote the glob patterns so your shell won't try to intepret it.)
 
 Use `drstring -h` for more help.
 
