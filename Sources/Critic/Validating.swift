@@ -189,9 +189,8 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
     // or
     // `- [maxPeerNameLength]: ` for grouped style
     let expectedBodyLeadLength = parameter.keyword == nil ? 4 + maxPeerNameLength : 14 + maxPeerNameLength
-    let expectedBodyLead = String(Array(repeating: " ", count: 0))
     for (index, line) in parameter.description.dropFirst().enumerated() {
-        if line.lead != expectedBodyLead {
+        if !line.lead.allSatisfy({ $0 == " " }) || (line.lead.count < expectedBodyLeadLength && !line.lead.isEmpty && !line.text.isEmpty) {
             result.append(.verticalAlignment(expectedBodyLeadLength, parameter.name.text, index + 2))
         }
     }
