@@ -8,6 +8,7 @@ import Darwin
 #else
 import Glibc
 #endif
+import Dispatch
 
 public let checkCommand = Command(
     name: "check",
@@ -29,29 +30,35 @@ public let checkCommand = Command(
         firstLetterUpper = nil
     }
 
+    let group = DispatchGroup()
+    let queue = DispatchQueue.global()
     for path in config.paths {
-        do {
-            for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
-                for problem in try validate(documentable, ignoreThrows: ignoreThrows, firstLetterUpper: firstLetterUpper) {
-                    problemCount += problem.details.count
-                    let output: String
-                    switch (format, IsTerminal.standardOutput) {
-                    case (.automatic, true), (.terminal, _):
-                        output = ttyText(for: problem)
-                    case (.automatic, false), (.plain, _):
-                        output = plainText(for: problem)
+        group.enter()
+        queue.async {
+            do {
+                for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
+                    for problem in try validate(documentable, ignoreThrows: ignoreThrows, firstLetterUpper: firstLetterUpper) {
+                        problemCount += problem.details.count
+                        let output: String
+                        switch (format, IsTerminal.standardOutput) {
+                        case (.automatic, true), (.terminal, _):
+                            output = ttyText(for: problem)
+                        case (.automatic, false), (.plain, _):
+                            output = plainText(for: problem)
+                        }
+                        
+                        print("\(output)\n")
                     }
-
-                    print("\(output)\n")
                 }
-            }
-        } catch let error {}
-
+            } catch let error {}
+            group.leave()
+        }
         fileCount += 1
     }
-
+    
+    group.wait()
     let elapsedTime = readableDiff(from: startTime, to: getTime())
-
+    
     if problemCount > 0 {
         let summary: String
         if IsTerminal.standardError {
@@ -59,7 +66,7 @@ public let checkCommand = Command(
         } else {
             summary = "Found \(problemCount) problem\(problemCount > 1 ? "s" : "") in \(fileCount) file\(problemCount > 1 ? "s" : "") in \(elapsedTime)\n"
         }
-
+        
         fputs(summary, stderr)
         return 1
     } else {
