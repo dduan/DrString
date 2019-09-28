@@ -1,4 +1,4 @@
-test:
+test: generate-explainers
 	@swift test
 
 build: generate-explainers
