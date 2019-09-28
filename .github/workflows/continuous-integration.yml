@@ -3,8 +3,8 @@ name: Continuous Integration
 on: [push, pull_request]
 
 jobs:
-  swift-package-manager-build:
-    name: Build
+  macos-build:
+    name: macOS Build
     runs-on: macOS-latest
     strategy:
       matrix:
@@ -19,8 +19,8 @@ jobs:
         DEVELOPER_DIR: "${{ matrix.developer_dir }}/Contents/Developer"
       run: make build
 
-  swift-package-manager-test:
-    name: Test
+  macos-test:
+    name: macOS Test
     runs-on: macOS-latest
     strategy:
       matrix:
@@ -33,4 +33,22 @@ jobs:
     - name: test
       env:
         DEVELOPER_DIR: "${{ matrix.developer_dir }}/Contents/Developer"
-      run: make test
+      run: |
+          make test
+          make test-generate-linux-manifests
+
+  docker-test:
+    name: Docker Test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: test-docker
+      run: make test-docker
+
+  docker-build:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: build-docker
+      run: make build-docker
