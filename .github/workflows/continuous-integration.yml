@@ -6,7 +6,6 @@ jobs:
   macos:
     name: macOS
     runs-on: macOS-latest
-
     steps:
     - uses: actions/checkout@v1
     - name: Xcode version
