@@ -3,52 +3,27 @@ name: Continuous Integration
 on: [push, pull_request]
 
 jobs:
-  macos-build:
-    name: macOS Build
+  macos:
+    name: macOS
     runs-on: macOS-latest
-    strategy:
-      matrix:
-        developer_dir: [
-          "/Applications/Xcode_11.app"
-        ]
 
     steps:
     - uses: actions/checkout@v1
-    - name: build
-      env:
-        DEVELOPER_DIR: "${{ matrix.developer_dir }}/Contents/Developer"
+    - name: Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_11.app
+    - name: Build
       run: make build
+    - name: Test
+      run: make test
+    - name: Test Linux manifest
+      run: make test-generate-linux-manifests
 
-  macos-test:
-    name: macOS Test
-    runs-on: macOS-latest
-    strategy:
-      matrix:
-        developer_dir: [
-          "/Applications/Xcode_11.app"
-        ]
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: test
-      env:
-        DEVELOPER_DIR: "${{ matrix.developer_dir }}/Contents/Developer"
-      run: |
-          make test
-          make test-generate-linux-manifests
-
-  docker-test:
-    name: Docker Test
+  docker:
+    name: Docker
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: test-docker
-      run: make test-docker
-
-  docker-build:
-    name: Docker Build
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: build-docker
+    - name: Build
       run: make build-docker
+    - name: Test
+      run: make test-docker
