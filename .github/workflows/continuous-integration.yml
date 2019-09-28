@@ -1,0 +1,36 @@
+name: Continuous Integration
+
+on: [push, pull_request]
+
+jobs:
+  swift-package-manager-build:
+    name: Build
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        developer_dir: [
+          "/Applications/Xcode_11.app"
+        ]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: build
+      env:
+        DEVELOPER_DIR: "${{ matrix.developer_dir }}/Contents/Developer"
+      run: make build
+
+  swift-package-manager-test:
+    name: Test
+    runs-on: macOS-latest
+    strategy:
+      matrix:
+        developer_dir: [
+          "/Applications/Xcode_11.app"
+        ]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: test
+      env:
+        DEVELOPER_DIR: "${{ matrix.developer_dir }}/Contents/Developer"
+      run: make test
