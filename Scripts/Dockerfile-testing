@@ -1,0 +1,6 @@
+FROM swift@sha256:61104cdcaf8cfb99269f66691088b94a04f11d4d38c3c961d83c237895d7d408
+ADD . DrString
+RUN apt-get update
+RUN apt-get install -y python3
+RUN cd DrString; make test
+
