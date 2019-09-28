@@ -34,7 +34,7 @@ private extension DocProblem.Detail {
         }
     }
 
-    var fullDescription: String { "[\(self.explainerID)] \(self.description) " }
+    var fullDescription: String { "|\(self.explainerID)| \(self.description) " }
 }
 
 private extension DocProblem {

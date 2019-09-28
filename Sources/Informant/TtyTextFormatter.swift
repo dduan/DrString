@@ -37,7 +37,7 @@ private extension DocProblem.Detail {
 
     private var id: String { "\(self.explainerID, color: .blue)" }
 
-    var fullDescription: String { "[\(self.id)] \(self.description) " }
+    var fullDescription: String { "|\(self.id)| \(self.description) " }
 }
 
 private extension DocProblem {
