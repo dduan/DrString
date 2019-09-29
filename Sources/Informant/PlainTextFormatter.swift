@@ -31,6 +31,10 @@ private extension DocProblem.Detail {
             return "For `\(name)`, `\(expected)` is misspelled as `\(actual)`"
         case .keywordCasing(let actual, let expected):
             return "`\(expected)` is misspelled as `\(actual)`"
+        case .descriptionShouldEndWithEmptyLine:
+            return "Overall description should end with an empty line"
+        case .sectionShouldEndWithEmptyLine(let keywordOrName):
+            return "`\(keywordOrName)`'s description should end with an empty line"
         }
     }
 

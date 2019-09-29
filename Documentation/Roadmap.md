@@ -11,6 +11,9 @@
 - [x] Lint keyword spelling check
 - [x] The `explain` commmand. Each problem should be associated with a code and `explain CODE` should print
       out an explaination.
+- [x] Lint empty lines between parameter/throws/returns
+    - [x] Add lint rule
+    - [x] Add options
 - [ ] Support SwiftPM project menifest
 - [ ] Support Xcode project
 - [ ] Auto format docstrings
@@ -22,6 +25,3 @@
 - [ ] Lint grouped parameter header `- Parameters`
 - [ ] "consistent" option for `first-letter`: as long as keywords are consistent within a documentable, it's
       ok
-- [ ] Lint empty lines between parameter/throws/returns
-    - [ ] Add lint rule
-    - [ ] Add options

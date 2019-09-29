@@ -32,7 +32,12 @@ let checkFlags = [
         shortName: "c",
         longName: "first-letter",
         type : DrString.Configuration.FirstKeywordLetterCasing.self,
-        description: "Casing for first letter in keywords such")
+        description: "Casing for first letter in keywords such"),
+    Flag(
+        shortName: "s",
+        longName: Constants.separations,
+        type: [Section].self,
+        description: "Sections of docstring that requires separation to the next section"),
 ]
 
 let checkCommand = Guaka.Command(DrString.checkCommand, flags: checkFlags)

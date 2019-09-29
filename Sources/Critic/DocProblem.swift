@@ -22,6 +22,8 @@ public struct DocProblem {
         case spaceAfterColon(String, String) // Keyword, actual
         case keywordCasingForParameter(String, String, String) // Actual, expected, name
         case keywordCasing(String, String) // Actual, expected
+        case descriptionShouldEndWithEmptyLine
+        case sectionShouldEndWithEmptyLine(String) // keyword or parameter name
 
         public var explainerID: String {
             switch self {
@@ -47,6 +49,8 @@ public struct DocProblem {
                 return "E010"
             case .keywordCasingForParameter, .keywordCasing:
                 return "E011"
+            case .descriptionShouldEndWithEmptyLine, .sectionShouldEndWithEmptyLine:
+                return "E012"
             }
         }
     }
