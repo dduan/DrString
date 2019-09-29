@@ -1,5 +1,7 @@
+import Critic
 import Pathos
 
+public typealias Section = Critic.Section
 public struct Configuration: Decodable {
     let includedPaths: [String]
     let excludedPaths: [String]
@@ -26,7 +28,8 @@ public struct Configuration: Decodable {
                 ignoreDocstringForThrows: false,
                 verticalAlignParameterDescription: false,
                 firstKeywordLetter: .whatever,
-                outputFormat: .automatic
+                outputFormat: .automatic,
+                separatedSections: []
             )
     }
 
@@ -53,17 +56,20 @@ public struct Configuration: Decodable {
         let verticalAlignParameterDescription: Bool
         let firstKeywordLetter: FirstKeywordLetterCasing
         let outputFormat: OutputFormat
+        let separatedSections: [Section]
 
         public init(
             ignoreDocstringForThrows: Bool,
             verticalAlignParameterDescription: Bool,
             firstKeywordLetter: FirstKeywordLetterCasing,
-            outputFormat: OutputFormat)
+            outputFormat: OutputFormat,
+            separatedSections: [Section])
         {
             self.ignoreDocstringForThrows = ignoreDocstringForThrows
             self.verticalAlignParameterDescription = verticalAlignParameterDescription
             self.firstKeywordLetter = firstKeywordLetter
             self.outputFormat = outputFormat
+            self.separatedSections = separatedSections
         }
 
         public init(from decoder: Decoder) throws {
@@ -72,6 +78,7 @@ public struct Configuration: Decodable {
             self.verticalAlignParameterDescription = try values.decodeIfPresent(Bool.self, forKey: .verticalAlign) ?? false
             self.firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) ?? .whatever
             self.outputFormat = try values.decodeIfPresent(OutputFormat.self, forKey: .format) ?? .automatic
+            self.separatedSections = try values.decodeIfPresent([Section].self, forKey: .separations) ?? []
         }
 
         enum CodingKeys: String, CodingKey {
@@ -79,6 +86,7 @@ public struct Configuration: Decodable {
             case verticalAlign = "vertical-align"
             case firstKeyordLetter = "first-keyword-letter"
             case format = "format"
+            case separations = "needs-separation"
         }
     }
 }

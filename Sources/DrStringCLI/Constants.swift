@@ -5,4 +5,5 @@ enum Constants {
     static let include = "include"
     static let exclude = "exclude"
     static let format = "format"
+    static let separations = "needs-separation"
 }

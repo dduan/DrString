@@ -1,15 +1,16 @@
 import Decipher
 import Crawler
 
-public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool?) throws -> [DocProblem] {
+public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool?, needsSeparation: [Section]) throws -> [DocProblem] {
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
         return []
     }
 
     switch documentable.details {
     case let .function(doesThrow, returnType, parameters):
-        let details = try findParameterProblems(parameters, docs, firstLetterUpper)
-            + (!ignoreThrows && doesThrow ? findThrowsProblems(docs, firstLetterUpper) : [])
+        let details = try findDescriptionProblems(docs, needsSeparator: needsSeparation.contains(.description))
+            + findParameterProblems(parameters, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters))
+            + (!ignoreThrows && doesThrow ? findThrowsProblems(docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.throws)) : [])
             + (returnType != nil ? findReturnsProblems(docs, returnType!, firstLetterUpper) : [])
 
         if details.isEmpty {
@@ -28,6 +29,15 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLett
     default:
         return []
     }
+}
+
+func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool) -> [DocProblem.Detail] {
+    var result = [DocProblem.Detail]()
+    if needsSeparator, let last = docs.description.last, !last.lead.isEmpty || !last.text.isEmpty {
+        result.append(.descriptionShouldEndWithEmptyLine)
+    }
+
+    return result
 }
 
 func findReturnsProblems(_ docs: DocString, _ returnType: String, _ firstLetterUpper: Bool?) -> [DocProblem.Detail] {
@@ -71,7 +81,7 @@ func findReturnsProblems(_ docs: DocString, _ returnType: String, _ firstLetterU
     return result
 }
 
-func findThrowsProblems(_ docs: DocString, _ firstLetterUpper: Bool?) -> [DocProblem.Detail] {
+func findThrowsProblems(_ docs: DocString, _ firstLetterUpper: Bool?, needsSeparation: Bool) -> [DocProblem.Detail] {
     guard let throwsDoc = docs.throws else {
         return [.missingThrow]
     }
@@ -109,11 +119,17 @@ func findThrowsProblems(_ docs: DocString, _ firstLetterUpper: Bool?) -> [DocPro
         }
     }
 
+    if needsSeparation, let last = throwsDoc.description.last, !last.lead.isEmpty || !last.text.isEmpty {
+        let backupKeyword = firstLetterUpper == true ? "Throws" : "throws"
+        result.append(.sectionShouldEndWithEmptyLine(throwsDoc.keyword?.text ?? backupKeyword))
+    }
+
     return result
 }
 
-func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool?) throws -> [DocProblem.Detail] {
+func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool?, needsSeparation: Bool) throws -> [DocProblem.Detail] {
     var result = [DocProblem.Detail]()
+
     // 1. find longest common sequence between the signature and docstring
     let commonality = commonSequence(parameters, docs)
 
@@ -148,6 +164,10 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
     // 4. Only consider other issues if a parameter is in the common sequence
     for docParam in validDocs {
         result += findDocParameterFormatProblems(docParam, maxNameLength, firstLetterUpper)
+    }
+
+    if needsSeparation, let lastParam = docs.parameters.last, let last = lastParam.description.last, !last.lead.isEmpty || !last.text.isEmpty {
+        result.append(.sectionShouldEndWithEmptyLine(lastParam.name.text))
     }
 
     return result

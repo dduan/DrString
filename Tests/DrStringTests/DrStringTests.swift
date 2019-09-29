@@ -1,11 +1,19 @@
 import DrString
 import FileCheck
 import XCTest
+import Critic
 
 final class DrStringTests: XCTestCase {
     private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
 
-    private func runTest(fileName: String, ignoreThrows: Bool = false, verticalAlign: Bool = true, expectEmpty: Bool = false, firstLetter: Configuration.FirstKeywordLetterCasing = .whatever) -> Bool {
+    private func runTest(
+        fileName: String,
+        ignoreThrows: Bool = false,
+        verticalAlign: Bool = true,
+        expectEmpty: Bool = false,
+        firstLetter: Configuration.FirstKeywordLetterCasing = .whatever,
+        needsSeparation: [Section] = []
+    ) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
             _ = checkCommand.run(
@@ -16,7 +24,8 @@ final class DrStringTests: XCTestCase {
                         ignoreDocstringForThrows: ignoreThrows,
                         verticalAlignParameterDescription: verticalAlign,
                         firstKeywordLetter: firstLetter,
-                        outputFormat: .plain)),
+                        outputFormat: .plain,
+                        separatedSections: needsSeparation)),
                 []
             )
         }
@@ -60,5 +69,10 @@ final class DrStringTests: XCTestCase {
 
     func testUppercaseKeywords() throws {
         XCTAssert(runTest(fileName: "uppercaseKeywords", firstLetter: .uppercase))
+    }
+
+    func testMissingSectionSeparator() throws {
+        XCTAssert(runTest(fileName: "missingSectionSeparator", expectEmpty: false,
+                          needsSeparation: Section.allCases))
     }
 }

@@ -7,8 +7,8 @@ extension DrString.Configuration.Options {
             ignoreDocstringForThrows: flags.getBool(name: Constants.ignoreThrows) ?? false,
             verticalAlignParameterDescription: flags.getBool(name: Constants.verticalAlign) ?? false,
             firstKeywordLetter: flags.get(name: Constants.firstLetter, type: DrString.Configuration.FirstKeywordLetterCasing.self) ?? .whatever,
-            outputFormat: flags.get(name: Constants.format, type: DrString.Configuration.OutputFormat.self)
-                ?? .automatic
+            outputFormat: flags.get(name: Constants.format, type: DrString.Configuration.OutputFormat.self) ?? .automatic,
+            separatedSections: flags.get(name: Constants.separations, type: [Section].self) ?? []
         )
     }
 }
@@ -60,6 +60,20 @@ extension DrString.Configuration.FirstKeywordLetterCasing: FlagValue {
     }
 
     public static var typeDescription: String {
-        return "output format"
+        return "preference for casing of first letter of keywords"
+    }
+}
+
+extension Section: FlagValue {
+    public static func fromString(flagValue value: String) throws -> Section {
+        guard let section = Section(rawValue: value) else {
+            throw FlagValueError.conversionError("")
+        }
+
+        return section
+    }
+
+    public static var typeDescription: String {
+        return "section of a docstring"
     }
 }

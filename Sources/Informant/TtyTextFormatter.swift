@@ -32,6 +32,10 @@ private extension DocProblem.Detail {
             return "For \(name, color: .green), \(expected, color: .green) is misspelled as \(actual, color: .cyan)"
         case .keywordCasing(let actual, let expected):
             return "\(expected, color: .green) is misspelled as \(actual, color: .cyan)"
+        case .descriptionShouldEndWithEmptyLine:
+            return "Overall description should end with an empty line"
+        case .sectionShouldEndWithEmptyLine(let keywordOrName):
+            return "\(keywordOrName, color: .green)'s description should end with an empty line"
         }
     }
 

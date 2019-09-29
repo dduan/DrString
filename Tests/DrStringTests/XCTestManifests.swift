@@ -13,6 +13,7 @@ extension DrStringTests {
         ("testIgnoreThrows", testIgnoreThrows),
         ("testLowercaseKeywords", testLowercaseKeywords),
         ("testMisalignedParameterDescriptions", testMisalignedParameterDescriptions),
+        ("testMissingSectionSeparator", testMissingSectionSeparator),
         ("testMissingStuff", testMissingStuff),
         ("testNoDocNoError", testNoDocNoError),
         ("testUppercaseKeywords", testUppercaseKeywords),
