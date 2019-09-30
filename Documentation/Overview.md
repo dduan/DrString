@@ -43,6 +43,7 @@ Each parts of a signature corresponds to a section. This includes
 - a description for each parameter
 - a description for what it throws if it throws anything
 - a description for what it returns, if anything
+
 Sometimes sections are separated with a empty docstring line. Some codebases
 don't care about certain sections, such as `throws`.
 

@@ -1,3 +1,7 @@
+## Install
+
+With Swift 5.1 available on your system: `make install`
+
 ## Usage
 
 ### Using the check command:

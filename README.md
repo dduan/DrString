@@ -4,9 +4,7 @@
 
 … or "DrString", for short.
 
-## Getting started
-
-With Swift 5.1 available on your system: `make install`
+## Documentation
 
 * [Overview](Documentation/Overview.md)
 * [Tutorial](Documentation/Tutorial.md)
