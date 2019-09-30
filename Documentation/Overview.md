@@ -1,5 +1,10 @@
 # Overview 
 
+This document answers the following questions:
+
+- Why would one need something like DrString?
+- What's in a docstring?
+
 ## Consistency is hard
 
 [Docstring][] is an important part of a codebase. 
