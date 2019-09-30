@@ -1,7 +1,9 @@
 import Decipher
 import Crawler
 
-public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool?, needsSeparation: [Section]) throws -> [DocProblem] {
+public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool?,
+                     needsSeparation: [Section]) throws -> [DocProblem]
+{
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
         return []
     }
@@ -33,14 +35,16 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLett
 
 func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool) -> [DocProblem.Detail] {
     var result = [DocProblem.Detail]()
-    if needsSeparator, let last = docs.description.last, !last.lead.isEmpty || !last.text.isEmpty {
+    if needsSeparator, !docs.parameters.isEmpty || docs.throws != nil || docs.returns != nil, let last = docs.description.last, !last.lead.isEmpty || !last.text.isEmpty {
         result.append(.descriptionShouldEndWithEmptyLine)
     }
 
     return result
 }
 
-func findReturnsProblems(_ docs: DocString, _ returnType: String, _ firstLetterUpper: Bool?) -> [DocProblem.Detail] {
+func findReturnsProblems(_ docs: DocString, _ returnType: String, _ firstLetterUpper: Bool?)
+    -> [DocProblem.Detail]
+{
     guard let returnsDoc = docs.returns else {
         return [.missingReturn(returnType)]
     }
@@ -81,7 +85,9 @@ func findReturnsProblems(_ docs: DocString, _ returnType: String, _ firstLetterU
     return result
 }
 
-func findThrowsProblems(_ docs: DocString, _ firstLetterUpper: Bool?, needsSeparation: Bool) -> [DocProblem.Detail] {
+func findThrowsProblems(_ docs: DocString, _ firstLetterUpper: Bool?, needsSeparation: Bool)
+    -> [DocProblem.Detail]
+{
     guard let throwsDoc = docs.throws else {
         return [.missingThrow]
     }
@@ -119,7 +125,9 @@ func findThrowsProblems(_ docs: DocString, _ firstLetterUpper: Bool?, needsSepar
         }
     }
 
-    if needsSeparation, let last = throwsDoc.description.last, !last.lead.isEmpty || !last.text.isEmpty {
+    if needsSeparation, docs.returns != nil, let last = throwsDoc.description.last, !last.lead.isEmpty ||
+        !last.text.isEmpty
+    {
         let backupKeyword = firstLetterUpper == true ? "Throws" : "throws"
         result.append(.sectionShouldEndWithEmptyLine(throwsDoc.keyword?.text ?? backupKeyword))
     }
@@ -127,7 +135,9 @@ func findThrowsProblems(_ docs: DocString, _ firstLetterUpper: Bool?, needsSepar
     return result
 }
 
-func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool?, needsSeparation: Bool) throws -> [DocProblem.Detail] {
+func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool?,
+                           needsSeparation: Bool) throws -> [DocProblem.Detail]
+{
     var result = [DocProblem.Detail]()
 
     // 1. find longest common sequence between the signature and docstring
@@ -166,14 +176,18 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
         result += findDocParameterFormatProblems(docParam, maxNameLength, firstLetterUpper)
     }
 
-    if needsSeparation, let lastParam = docs.parameters.last, let last = lastParam.description.last, !last.lead.isEmpty || !last.text.isEmpty {
+    if needsSeparation, docs.returns != nil || docs.throws != nil, let lastParam = docs.parameters.last,
+        let last = lastParam.description.last, !last.lead.isEmpty || !last.text.isEmpty
+    {
         result.append(.sectionShouldEndWithEmptyLine(lastParam.name.text))
     }
 
     return result
 }
 
-func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameLength: Int, _ firstLetterUpper: Bool?) -> [DocProblem.Detail] {
+func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameLength: Int,
+                                    _ firstLetterUpper: Bool?) -> [DocProblem.Detail]
+{
     var result = [DocProblem.Detail]()
 
     if let keyword = parameter.keyword {
@@ -182,7 +196,8 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
         }
 
         if keyword.lead != " " {
-            result.append(.spaceBetweenDashAndParamaterKeyword(keyword.lead, keyword.text, parameter.name.text))
+            result.append(
+                .spaceBetweenDashAndParamaterKeyword(keyword.lead, keyword.text, parameter.name.text))
         }
 
         if parameter.name.lead != " " {
@@ -210,7 +225,9 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
     // `- [maxPeerNameLength]: ` for grouped style
     let expectedBodyLeadLength = parameter.keyword == nil ? 4 + maxPeerNameLength : 14 + maxPeerNameLength
     for (index, line) in parameter.description.dropFirst().enumerated() {
-        if !line.lead.allSatisfy({ $0 == " " }) || (line.lead.count < expectedBodyLeadLength && !line.lead.isEmpty && !line.text.isEmpty) {
+        if !line.lead.allSatisfy({ $0 == " " }) || (line.lead.count < expectedBodyLeadLength &&
+            !line.lead.isEmpty && !line.text.isEmpty)
+        {
             result.append(.verticalAlignment(expectedBodyLeadLength, parameter.name.text, index + 2))
         }
     }
