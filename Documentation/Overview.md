@@ -10,7 +10,7 @@ is time-consuming and difficult.
 
 There are many subtle ways a docstring can be "correct":
 
-[]!(docstring-example.gif)
+![](docstring-example.gif)
 
 Picking a style and sticking to it is nice, but spending time in code reviews
 to maintain a consistent style is a trade of much efforts with low rewards.
