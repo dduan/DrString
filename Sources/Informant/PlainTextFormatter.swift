@@ -35,6 +35,8 @@ private extension DocProblem.Detail {
             return "Overall description should end with an empty line"
         case .sectionShouldEndWithEmptyLine(let keywordOrName):
             return "`\(keywordOrName)`'s description should end with an empty line"
+        case .redundantKeyword(let keyword):
+            return "Redundant documentation for `\(keyword)`"
         }
     }
 

@@ -2,24 +2,24 @@ import Decipher
 import Crawler
 
 public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool?,
-                     needsSeparation: [Section]) throws -> [DocProblem]
+                     needsSeparation: [Section]) throws -> DocProblem?
 {
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
-        return []
+        return nil
     }
 
     switch documentable.details {
     case let .function(doesThrow, returnType, parameters):
         let details = try findDescriptionProblems(docs, needsSeparator: needsSeparation.contains(.description))
             + findParameterProblems(parameters, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters))
-            + (!ignoreThrows && doesThrow ? findThrowsProblems(docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.throws)) : [])
-            + (returnType != nil ? findReturnsProblems(docs, returnType!, firstLetterUpper) : [])
+            + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.throws))
+            + findReturnsProblems(docs, returnType, firstLetterUpper)
 
         if details.isEmpty {
-            return []
+            return nil
         }
 
-        return [
+        return
             DocProblem(
                 docName: documentable.name,
                 filePath: documentable.path,
@@ -27,9 +27,8 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLett
                 column: documentable.column,
                 details: details
             )
-        ]
     default:
-        return []
+        return nil
     }
 }
 
@@ -42,9 +41,17 @@ func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool) -> [DocPro
     return result
 }
 
-func findReturnsProblems(_ docs: DocString, _ returnType: String, _ firstLetterUpper: Bool?)
+func findReturnsProblems(_ docs: DocString, _ returnType: String?, _ firstLetterUpper: Bool?)
     -> [DocProblem.Detail]
 {
+    guard let returnType = returnType else {
+        if let returnsKeyword = docs.returns?.keyword?.text {
+            return [.redundantKeyword(returnsKeyword)]
+        } else {
+            return []
+        }
+    }
+
     guard let returnsDoc = docs.returns else {
         return [.missingReturn(returnType)]
     }
@@ -85,9 +92,15 @@ func findReturnsProblems(_ docs: DocString, _ returnType: String, _ firstLetterU
     return result
 }
 
-func findThrowsProblems(_ docs: DocString, _ firstLetterUpper: Bool?, needsSeparation: Bool)
+func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, _ firstLetterUpper: Bool?, needsSeparation: Bool)
     -> [DocProblem.Detail]
 {
+    if !doesThrow, let throwsKeyword = docs.throws?.keyword?.text {
+        return [.redundantKeyword(throwsKeyword)]
+    } else if ignoreThrows {
+        return []
+    }
+
     guard let throwsDoc = docs.throws else {
         return [.missingThrow]
     }

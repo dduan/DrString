@@ -16,6 +16,7 @@ extension DrStringTests {
         ("testMissingSectionSeparator", testMissingSectionSeparator),
         ("testMissingStuff", testMissingStuff),
         ("testNoDocNoError", testNoDocNoError),
+        ("testRedundantKeywords", testRedundantKeywords),
         ("testUppercaseKeywords", testUppercaseKeywords),
     ]
 }

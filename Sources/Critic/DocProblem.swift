@@ -24,6 +24,7 @@ public struct DocProblem {
         case keywordCasing(String, String) // Actual, expected
         case descriptionShouldEndWithEmptyLine
         case sectionShouldEndWithEmptyLine(String) // keyword or parameter name
+        case redundantKeyword(String) // keyword
 
         public var explainerID: String {
             switch self {
@@ -51,6 +52,8 @@ public struct DocProblem {
                 return "E011"
             case .descriptionShouldEndWithEmptyLine, .sectionShouldEndWithEmptyLine:
                 return "E012"
+            case .redundantKeyword:
+                return "E013"
             }
         }
     }
