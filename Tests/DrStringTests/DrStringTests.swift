@@ -75,4 +75,8 @@ final class DrStringTests: XCTestCase {
         XCTAssert(runTest(fileName: "missingSectionSeparator", expectEmpty: false,
                           needsSeparation: Section.allCases))
     }
+
+    func testRedundantKeywords() throws {
+        XCTAssert(runTest(fileName: "redundantKeywords", expectEmpty: false))
+    }
 }
