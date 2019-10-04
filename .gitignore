@@ -4,5 +4,4 @@
 /*.xcodeproj
 xcuserdata/
 .swiftpm/
-Sources/critic/explainers.swift
 .vscode

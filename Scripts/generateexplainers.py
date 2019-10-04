@@ -58,8 +58,7 @@ extension Explainer {
 public static var all: [String: Explainer] {
 [
 """
-footer = """
-]
+footer = """]
 }
 }
 """
