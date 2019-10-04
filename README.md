@@ -4,6 +4,8 @@
 
 … or "DrString", for short.
 
+## Documentation
+
 Read [Getting Started][] to set DrString up in your project.
 
 Read conceptual [overview][] if you are not sure if DrString is for you.
