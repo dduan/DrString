@@ -9,7 +9,7 @@ else
 	@echo "Only works on macOS"
 endif
 
-build: generate
+build:
 	@swift build --configuration release
 
 generate: generate-explainers generate-linux-manifest
