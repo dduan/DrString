@@ -6,7 +6,8 @@
 
 ## Documentation
 
-Read [Getting Started][] to set DrString up in your project.
+[Getting Started][] guides you through how to use DrString in your Swift
+project.
 
 Read conceptual [overview][] if you are not sure if DrString is for you.
 
