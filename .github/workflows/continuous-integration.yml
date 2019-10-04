@@ -14,8 +14,8 @@ jobs:
       run: make build
     - name: Test
       run: make test
-    - name: Test Linux manifest
-      run: make test-generate-linux-manifests
+    - name: Test generated artifacts
+      run: make test-generated-artifacts
 
   docker:
     name: Docker
