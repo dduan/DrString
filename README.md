@@ -16,4 +16,4 @@ Read conceptual [overview][] if you are not sure if DrString is for you.
 
 ## License
 
-MIT.
+[MIT](LICENSE.md).
