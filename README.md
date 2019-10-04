@@ -4,10 +4,12 @@
 
 … or "DrString", for short.
 
-## Documentation
+Read [Getting Started][] to set DrString up in your project.
 
-* [Overview](Documentation/Overview.md)
-* [Tutorial](Documentation/Tutorial.md)
+Read conceptual [overview][] if you are not sure if DrString is for you.
+
+[Getting Started]: Documentation/GettingStarted.md
+[Overview]: Documentation/Overview.md
 
 ## License
 
