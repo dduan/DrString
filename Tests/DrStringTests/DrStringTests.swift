@@ -79,4 +79,8 @@ final class DrStringTests: XCTestCase {
     func testRedundantKeywords() throws {
         XCTAssert(runTest(fileName: "redundantKeywords", expectEmpty: false))
     }
+
+    func testBadParametersKeywordFormat() throws {
+        XCTAssert(runTest(fileName: "badParametersKeyword", expectEmpty: false))
+    }
 }

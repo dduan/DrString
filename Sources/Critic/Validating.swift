@@ -97,7 +97,7 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
 {
     if !doesThrow, let throwsKeyword = docs.throws?.keyword?.text {
         return [.redundantKeyword(throwsKeyword)]
-    } else if ignoreThrows {
+    } else if !doesThrow || ignoreThrows {
         return []
     }
 

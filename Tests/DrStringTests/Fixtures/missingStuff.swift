@@ -10,3 +10,10 @@ struct Test0 {
     /// - parameter t0i0: this is t0i0
     func test0(_ t0i0: String, lt0i1 t0i1: Int) throws -> String { fatalError() }
 }
+
+// CHECK-NOT: Missing docstring for throws
+/// Descriptions
+///  - parameters
+///   - foo: foo's description
+///   - bar: bar's description
+func missingStuff(foo: Int, bar: Int) {}
