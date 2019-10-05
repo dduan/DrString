@@ -7,6 +7,7 @@ extension DrStringTests {
     // to regenerate.
     static let __allTests__DrStringTests = [
         ("testBadParameterFormat", testBadParameterFormat),
+        ("testBadParametersKeywordFormat", testBadParametersKeywordFormat),
         ("testBadReturnsFormat", testBadReturnsFormat),
         ("testBadThrowsFormat", testBadThrowsFormat),
         ("testCompletelyDocumentedFunction", testCompletelyDocumentedFunction),

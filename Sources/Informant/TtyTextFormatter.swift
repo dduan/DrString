@@ -38,6 +38,8 @@ private extension DocProblem.Detail {
             return "\(keywordOrName, color: .green)'s description should end with an empty line"
         case .redundantKeyword(let keyword):
             return "Redundant documentation for \(keyword, color: .green)"
+        case .redundantTextFollowingParameterHeader(let keyword):
+            return "\(":", color: .green) should be the last character on the line for \(keyword, color: .green)"
         }
     }
 

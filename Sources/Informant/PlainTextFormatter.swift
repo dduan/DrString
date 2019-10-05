@@ -37,6 +37,8 @@ private extension DocProblem.Detail {
             return "`\(keywordOrName)`'s description should end with an empty line"
         case .redundantKeyword(let keyword):
             return "Redundant documentation for `\(keyword)`"
+        case .redundantTextFollowingParameterHeader(let keyword):
+            return "`:` should be the last character on the line for `\(keyword)`"
         }
     }
 

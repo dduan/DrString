@@ -21,10 +21,12 @@ public struct DocProblem {
         case verticalAlignment(Int, String, Int) // Expected, name/keyword, line number
         case spaceAfterColon(String, String) // Keyword, actual
         case keywordCasingForParameter(String, String, String) // Actual, expected, name
+        // TODO: it's also about spelling of the keywords
         case keywordCasing(String, String) // Actual, expected
         case descriptionShouldEndWithEmptyLine
         case sectionShouldEndWithEmptyLine(String) // keyword or parameter name
         case redundantKeyword(String) // keyword
+        case redundantTextFollowingParameterHeader(String) // keyword
 
         public var explainerID: String {
             switch self {
@@ -54,6 +56,8 @@ public struct DocProblem {
                 return "E012"
             case .redundantKeyword:
                 return "E013"
+            case .redundantTextFollowingParameterHeader:
+                return "E014"
             }
         }
     }

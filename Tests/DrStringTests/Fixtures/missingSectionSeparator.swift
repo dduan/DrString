@@ -14,7 +14,7 @@ func missingSeparatorLines0(a: Int, b: Int) throws -> Int { 0 }
 /// CHECK: `b`'s description should end with an empty line
 /// Description
 /// Description continues
-/// - Parameters
+/// - Parameters:
 ///   - a: description for a
 ///   - b: description for b
 ///        b continued
@@ -36,7 +36,7 @@ func missingSeparatorLines3() { }
 /// CHECK-NOT: `b`'s description should end with an empty line
 /// Description
 /// Description continues
-/// - Parameters
+/// - Parameters:
 ///   - a: description for a
 ///   - b: description for b
 ///        b continued

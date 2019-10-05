@@ -21,6 +21,13 @@ final class StatefulParsingTests: XCTestCase {
                 .init(" ", "Overall description"),
                 .empty,
             ],
+            parameterHeader: .init(
+                preDashWhitespaces: " ",
+                keyword: .init(" ", "Parameters"),
+                name: .init("", ""),
+                preColonWhitespace: "",
+                description: []
+            ),
             parameters: [
                 .init(
                     preDashWhitespaces: "   ",
@@ -99,6 +106,7 @@ final class StatefulParsingTests: XCTestCase {
                 .init(" ", "Overall description"),
                 .empty
             ],
+            parameterHeader: nil,
             parameters: [
                 .init(
                     preDashWhitespaces: " ",

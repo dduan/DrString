@@ -17,6 +17,7 @@ final class ValidatingTests: XCTestCase {
     private func docString(with parameters: [DocString.Entry]) -> DocString {
         return DocString(
             description: [],
+            parameterHeader: nil,
             parameters: parameters,
             returns: nil,
             throws: nil

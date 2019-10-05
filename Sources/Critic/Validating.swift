@@ -153,6 +153,39 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
 {
     var result = [DocProblem.Detail]()
 
+    if let header = docs.parameterHeader, let keyword = header.keyword {
+        if header.preDashWhitespace != " " {
+            result.append(.preDashSpace(keyword.text, header.preDashWhitespace))
+        }
+
+        if keyword.lead != " " {
+            result.append(.spaceBetweenDashAndKeyword(keyword.text, keyword.lead))
+        }
+
+        if !header.preColonWhitespace.isEmpty {
+            result.append(.spaceBeforeColon(header.preColonWhitespace, keyword.text))
+        }
+
+        switch firstLetterUpper {
+        case .none:
+            break
+        case .some(true):
+            let expected = "Parameters"
+            if keyword.text != expected {
+                result.append(.keywordCasing(keyword.text, expected))
+            }
+        case .some(false):
+            let expected = "parameters"
+            if keyword.text != expected {
+                result.append(.keywordCasing(keyword.text, expected))
+            }
+        }
+
+        if !header.description.isEmpty {
+            result.append(.redundantTextFollowingParameterHeader(keyword.text))
+        }
+    }
+
     // 1. find longest common sequence between the signature and docstring
     let commonality = commonSequence(parameters, docs)
 

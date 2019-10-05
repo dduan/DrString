@@ -12,7 +12,7 @@ func badParamFormat1(a1: Int, b1: Int, c1: Int, d1: Int, e1: Int) {
 
 // CHECK: Parameter `a2` should start with exactly 3 spaces before `-`
 // CHCEK: For `e1`, there should be no whitespace before `:`
-/// - Parameters
+/// - Parameters:
 ///  - a2: a description
 ///   - b2: another description
 ///   - e1 : e1 description
