@@ -17,6 +17,7 @@ public func parse(lines: [String]) throws -> DocString {
     var parameterName: (String, TextLeadByWhitespace?, TextLeadByWhitespace, String) = ("", nil, .empty, "")
     var parameters = [DocString.Entry]()
     var state = Parsing.State.start
+    var parameterHeader: DocString.Entry?
 
     func concludeParamater() {
         parameters.append(.init(
@@ -34,8 +35,15 @@ public func parse(lines: [String]) throws -> DocString {
         case (.start, .words(let newWords)):
             state = .description
             runningDescription = [newWords]
-        case (.start, .groupedParametersHeader):
+        case (.start, .groupedParametersHeader(let preDash, let keyword, let preColon, let text)):
             state = .groupedParameterStart
+            parameterHeader = .init(
+                preDashWhitespaces: preDash,
+                keyword: keyword,
+                name: .init("", ""),
+                preColonWhitespace: preColon,
+                description: text.lead.isEmpty && text.text.isEmpty ? [] : [text]
+            )
         case (.start, let .groupedParameter(preDash, name, preColon, text)):
             state = .description
             runningDescription = [.init(preDash, "-\(name)\(preColon):\(text)")]
@@ -52,8 +60,15 @@ public func parse(lines: [String]) throws -> DocString {
             throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
-        case (.description, .groupedParametersHeader):
+        case (.description, .groupedParametersHeader(let preDash, let keyword, let preColon, let text)):
             state = .groupedParameterStart
+            parameterHeader = .init(
+                preDashWhitespaces: preDash,
+                keyword: keyword,
+                name: .init("", ""),
+                preColonWhitespace: preColon,
+                description: text.lead.isEmpty && text.text.isEmpty ? [] : [text]
+            )
             topLevelDescription = runningDescription
             runningDescription = []
         case (.description, let .groupedParameter(preDash, name, preColon, text)):
@@ -74,9 +89,16 @@ public func parse(lines: [String]) throws -> DocString {
             throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
-        case (.separateParameter, .groupedParametersHeader):
+        case (.separateParameter, .groupedParametersHeader(let preDash, let keyword, let preColon, let text)):
             concludeParamater()
             state = .groupedParameterStart
+            parameterHeader = .init(
+                preDashWhitespaces: preDash,
+                keyword: keyword,
+                name: .init("", ""),
+                preColonWhitespace: preColon,
+                description: text.lead.isEmpty && text.text.isEmpty ? [] : [text]
+            )
             runningDescription = []
         case (.separateParameter, let .groupedParameter(preDash, name, preColon, text)):
             runningDescription.append(.init(preDash, "-\(name)\(preColon):\(text)"))
@@ -115,7 +137,8 @@ public func parse(lines: [String]) throws -> DocString {
             throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
-        case (.groupedParameter, .groupedParametersHeader(_, let text)):
+        case (.groupedParameter, .groupedParametersHeader(let preDash, let keyword, let preColon, let text)):
+            let text = TextLeadByWhitespace(preDash, "-\(keyword)\(preColon):\(text)")
             runningDescription.append(text)
         case (.groupedParameter, let .groupedParameter(preDash, name, preColon, text)):
             concludeParamater()
@@ -136,7 +159,8 @@ public func parse(lines: [String]) throws -> DocString {
             throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
-        case (.returns, .groupedParametersHeader(_, let text)):
+        case (.returns, .groupedParametersHeader(let preDash, let keyword, let preColon, let text)):
+            let text = TextLeadByWhitespace(preDash, "-\(keyword)\(preColon):\(text)")
             runningDescription.append(text)
         case (.returns, let .groupedParameter(preDash, name, preColon, text)):
             runningDescription.append(.init(preDash, "-\(name)\(preColon):\(text)"))
@@ -153,7 +177,8 @@ public func parse(lines: [String]) throws -> DocString {
             throwsMeta = (preDash, keyword, preColon)
             runningDescription = [text]
 
-        case (.throws, .groupedParametersHeader(_, let text)):
+        case (.throws, .groupedParametersHeader(let preDash, let keyword, let preColon, let text)):
+            let text = TextLeadByWhitespace(preDash, "-\(keyword)\(preColon):\(text)")
             runningDescription.append(text)
         case (.throws, let .groupedParameter(preDash, name, preColon, text)):
             runningDescription.append(.init(preDash, "-\(name)\(preColon):\(text)"))
@@ -191,6 +216,7 @@ public func parse(lines: [String]) throws -> DocString {
 
     return DocString(
         description: topLevelDescription,
+        parameterHeader: parameterHeader,
         parameters: parameters,
         returns: returnsMeta.map { (preDash, keyword, preColon) in
             return .init(

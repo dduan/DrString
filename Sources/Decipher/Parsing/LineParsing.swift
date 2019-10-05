@@ -65,13 +65,9 @@ private func trimDash(fromLine line: String.SubSequence, firstLetter: Character,
     )
 }
 
-func parseGroupedParametersHeader(fromLine line: String) throws -> (String, TextLeadByWhitespace)? {
-    let (preDashLead, line) = try trimDocHead(fromLine: line)
-    guard let (leadingSpace, word, rest) = (try trimDash(fromLine: line, firstLetter: "p", rest: "arameters")) else {
-        return nil
-    }
-
-    return (String(preDashLead), TextLeadByWhitespace(String(leadingSpace), String(word + rest)))
+// ` - Parameters:`
+func parseGroupedParametersHeader(fromLine line: String) throws -> (String, TextLeadByWhitespace, String, TextLeadByWhitespace)? {
+    return try descriptionAfterDash(line: line, firstLetter: "p", rest: "arameters")
 }
 
 private func splitNameColonDescription(fromLine postDash: String.SubSequence) -> (String, String, String, String, String)? {
@@ -183,8 +179,8 @@ func parseThrows(fromLine line: String) throws -> (String, TextLeadByWhitespace,
 }
 
 func parse(line: String) throws -> Parsing.LineResult {
-    if let (preDash, keyword) = try parseGroupedParametersHeader(fromLine: line) {
-        return .groupedParametersHeader(preDash, keyword)
+    if let (preDash, keyword, preColon, description) = try parseGroupedParametersHeader(fromLine: line) {
+        return .groupedParametersHeader(preDash, keyword, preColon,  description)
     } else if let (preDash, keyword, preColon, description) = try parseReturns(fromLine: line) {
         return .returns(preDash, keyword, preColon, description)
     } else if let (preDash, keyword, preColon, description) = try parseThrows(fromLine: line) {

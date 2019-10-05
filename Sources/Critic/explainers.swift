@@ -346,6 +346,30 @@ public static var all: [String: Explainer] {
                       func f(foo: Int)
                       """
     ),
+
+    "E014": .init(
+        id: "E014",
+        summary:      """
+                      There should be no text following the parameter group header `- Parameters:` in
+                      grouped style parameter documentation.
+                      """,
+        rightExample: """
+                      /// Description
+                      ///
+                      /// - Paramaters:
+                      ///   - foo: description of foo
+                      ///   - bar: description of bar
+                      func f(foo: Int, bar Int)
+                      """,
+        wrongExample: """
+                      /// Description
+                      ///
+                      /// - Paramaters: <- nothing should be here
+                      ///   - foo: description of foo
+                      ///   - bar: description of bar
+                      func f(foo: Int, bar Int)
+                      """
+    ),
 ]
 }
 }

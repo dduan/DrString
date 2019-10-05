@@ -11,7 +11,7 @@ enum Parsing {
 
     enum LineResult: Equatable {
         case words(TextLeadByWhitespace)
-        case groupedParametersHeader(String, TextLeadByWhitespace) // raw text is preserved. it could be part of description
+        case groupedParametersHeader(String, TextLeadByWhitespace, String, TextLeadByWhitespace)
         case groupedParameter(String, TextLeadByWhitespace, String, TextLeadByWhitespace) // name, description, raw text
         case parameter(String, TextLeadByWhitespace, TextLeadByWhitespace, String, TextLeadByWhitespace)
         case `returns`(String, TextLeadByWhitespace, String, TextLeadByWhitespace)

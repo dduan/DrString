@@ -23,65 +23,107 @@ final class LineParsingTests: XCTestCase {
     }
 
     func testGroupedParameterHeader0() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parameters"))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parameters:"))
         XCTAssertEqual(preDash, " ")
         XCTAssertEqual(param, TextLeadByWhitespace(" ", "Parameters"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
-    
+
     func testGroupedParameterHeader1() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - parameters"))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - parameters:"))
         XCTAssertEqual(preDash, " ")
         XCTAssertEqual(param, TextLeadByWhitespace(" ", "parameters"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
-    
+
     func testGroupedParameterHeader2() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "///-Parameters"))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "///-Parameters:"))
         XCTAssertEqual(preDash, "")
         XCTAssertEqual(param, TextLeadByWhitespace("", "Parameters"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
-    
+
     func testGroupedParameterHeader3() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "///-parameters"))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "///-parameters:"))
         XCTAssertEqual(preDash, "")
         XCTAssertEqual(param, TextLeadByWhitespace("", "parameters"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
-    
+
     func testGroupedParameterHeader4() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "///- Parameters"))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "///- Parameters:"))
         XCTAssertEqual(preDash, "")
         XCTAssertEqual(param, TextLeadByWhitespace(" ", "Parameters"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
-    
+
     func testGroupedParameterHeader5() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// -Parameters"))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// -Parameters:"))
         XCTAssertEqual(preDash, " ")
         XCTAssertEqual(param, TextLeadByWhitespace("", "Parameters"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
-    
+
     func testGroupedParameterHeader6() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "///   -   Parameters"))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "///   -   Parameters:"))
         XCTAssertEqual(preDash, "   ")
         XCTAssertEqual(param, TextLeadByWhitespace("   ", "Parameters"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
-    
+
     func testGroupedParameterHeader7() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parameters "))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parameters: "))
         XCTAssertEqual(preDash, " ")
-        XCTAssertEqual(param, TextLeadByWhitespace(" ", "Parameters "))
+        XCTAssertEqual(param, TextLeadByWhitespace(" ", "Parameters"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace(" ", ""))
     }
-    
+
     func testGroupedParameterHeader8() throws {
-        let (preDash, param) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parametersss"))
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parametersss:"))
         XCTAssertEqual(preDash, " ")
         XCTAssertEqual(param, TextLeadByWhitespace(" ", "Parametersss"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
-    
+
     func testGroupedParameterHeader9() throws {
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parametersss:    "))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(param, TextLeadByWhitespace(" ", "Parametersss"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("    ", ""))
+    }
+
+    func testGroupedParameterHeader10() throws {
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parametersss:    sss"))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(param, TextLeadByWhitespace(" ", "Parametersss"))
+        XCTAssertEqual(preColon, "")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("    ", "sss"))
+    }
+
+    func testGroupedParameterHeader11() throws {
         XCTAssertNil(try parseGroupedParametersHeader(fromLine: "/// Parametersss"))
     }
-    
-    func testGroupedParameterHeader10() throws {
+
+    func testGroupedParameterHeader12() throws {
         XCTAssertNil(try parseGroupedParametersHeader(fromLine: "/// - xParametersss"))
+    }
+
+    func testGroupedParameterHeader13() throws {
+        let (preDash, param, preColon, postColon) = try XCTUnwrap(parseGroupedParametersHeader(fromLine: "/// - Parameters   :"))
+        XCTAssertEqual(preDash, " ")
+        XCTAssertEqual(param, TextLeadByWhitespace(" ", "Parameters"))
+        XCTAssertEqual(preColon, "   ")
+        XCTAssertEqual(postColon, TextLeadByWhitespace("", ""))
     }
 
     func testGroupedParameter0() throws {
