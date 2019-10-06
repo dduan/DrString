@@ -1,4 +1,4 @@
-![Circular Logo](Documentation/Logo-Circular-Header.png)
+![Circular Logo](Documentation/Assets/Logo-Circular-Header.png)
 
 # DrString in the Multiverse of Pedantry
 
