@@ -2,6 +2,10 @@ import Chalk
 import Critic
 
 private extension DocProblem.Detail {
+    private func actualWhitespace(_ actual: String) -> String {
+        actual.isEmpty ? "none" : "\(actual, color: .cyan)"
+    }
+
     private var description: String {
         switch self {
         case .redundantParameter(let name):
@@ -13,21 +17,21 @@ private extension DocProblem.Detail {
         case .missingReturn(let type):
             return "Missing docstring for return type \(type, color: .cyan)"
         case .preDashSpaceInParameter(let expected, let actual, let name):
-            return "Parameter \(name, color: .green) should start with exactly \(String(expected), color: .cyan) space\(expected > 1 ? "s" : "") before \("-", color: .green), found \(actual, background: .cyan)"
+            return "Parameter \(name, color: .green) should start with exactly \(String(expected), color: .cyan) space\(expected > 1 ? "s" : "") before \("-", color: .green), found \(actualWhitespace(actual))"
         case .spaceBetweenDashAndParamaterKeyword(let actual, let keyword, let name):
-            return "\(name, color: .green) should have exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actual, background: .cyan)"
+            return "\(name, color: .green) should have exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actualWhitespace(actual))"
         case .spaceBeforeParameterName(let actual, let keyword, let name):
-            return "There should be exactly 1 space between \(keyword, color: .green) and \(name, color: .green), found \(actual, background: .cyan)"
+            return "There should be exactly 1 space between \(keyword, color: .green) and \(name, color: .green), found \(actualWhitespace(actual))"
         case .spaceBeforeColon(let actual, let name):
             return "For \(name, color: .green), there should be no whitespace before \(":", color: .green), found \(actual, background: .cyan)"
         case .preDashSpace(let keyword, let actual):
-            return "\(keyword, color: .green) should start with exactly 1 space before \("-", color: .green), found \(actual, background: .cyan)"
+            return "\(keyword, color: .green) should start with exactly 1 space before \("-", color: .green), found \(actualWhitespace(actual))"
         case .spaceBetweenDashAndKeyword(let keyword, let actual):
-            return "There should be exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actual, background: .cyan)"
+            return "There should be exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actualWhitespace(actual))"
         case .verticalAlignment(let expected, let nameOrKeyword, let line):
             return "Line \(line, color: .green) of \(nameOrKeyword, color: .green)'s description is not properly vertically aligned (should have \(expected, color: .green) leading spaces)"
         case .spaceAfterColon(let keyword, let actual):
-            return "For \(keyword, color: .green), there should be exactly 1 space after \(":", color: .green), found \(actual, background: .cyan)"
+            return "For \(keyword, color: .green), there should be exactly 1 space after \(":", color: .green), found \(actualWhitespace(actual))"
         case .keywordCasingForParameter(let actual, let expected, let name):
             return "For \(name, color: .green), \(expected, color: .green) is misspelled as \(actual, color: .cyan)"
         case .keywordCasing(let actual, let expected):
