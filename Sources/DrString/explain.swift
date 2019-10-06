@@ -9,6 +9,7 @@ import Glibc
 
 public let explainCommand = Command(
     name: "explain",
+    aliases: ["e", "why", "what"],
     shortDescription: "Explain a problem associated with an ID")
 { _, arguments in
     var unrecognizedIDs = [String]()
