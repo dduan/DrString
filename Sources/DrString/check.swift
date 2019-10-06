@@ -12,6 +12,7 @@ import Dispatch
 
 public let checkCommand = Command(
     name: "check",
+    aliases: ["lint", "c", "l"],
     shortDescription: "Check problems for existing doc strings")
 { config, _ in
     var startTime = getTime()
