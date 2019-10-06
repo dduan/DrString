@@ -4,6 +4,10 @@
 
 … or "DrString", for short.
 
+DrString finds problems in your Swift docstrings.
+
+![Demo](Documentation/Assets/Demo.png)
+
 ## Documentation
 
 [Getting Started][] guides you through how to use DrString in your Swift
