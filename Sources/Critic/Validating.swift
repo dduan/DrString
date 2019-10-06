@@ -2,7 +2,7 @@ import Decipher
 import Crawler
 
 public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool,
-                     needsSeparation: [Section]) throws -> DocProblem?
+                     needsSeparation: [Section], verticalAlign: Bool) throws -> DocProblem?
 {
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
         return nil
@@ -11,7 +11,8 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLett
     switch documentable.details {
     case let .function(doesThrow, returnType, parameters):
         let details = try findDescriptionProblems(docs, needsSeparator: needsSeparation.contains(.description))
-            + findParameterProblems(parameters, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters))
+            + findParameterProblems(parameters, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters),
+                                    verticalAlign: verticalAlign)
             + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.throws))
             + findReturnsProblems(docs, returnType, firstLetterUpper)
 
@@ -143,7 +144,7 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
 }
 
 func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool,
-                           needsSeparation: Bool) throws -> [DocProblem.Detail]
+                           needsSeparation: Bool, verticalAlign: Bool) throws -> [DocProblem.Detail]
 {
     var result = [DocProblem.Detail]()
 
@@ -210,7 +211,7 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
 
     // 4. Only consider other issues if a parameter is in the common sequence
     for docParam in validDocs {
-        result += findDocParameterFormatProblems(docParam, maxNameLength, firstLetterUpper)
+        result += findDocParameterFormatProblems(docParam, maxNameLength, firstLetterUpper, verticalAlign)
     }
 
     if needsSeparation, docs.returns != nil || docs.throws != nil, let lastParam = docs.parameters.last,
@@ -223,7 +224,7 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
 }
 
 func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameLength: Int,
-                                    _ firstLetterUpper: Bool) -> [DocProblem.Detail]
+                                    _ firstLetterUpper: Bool, _ verticalAlign: Bool) -> [DocProblem.Detail]
 {
     var result = [DocProblem.Detail]()
 
@@ -248,24 +249,26 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
         result.append(.spaceBeforeColon(parameter.preColonWhitespace, parameter.name.text))
     }
 
-    // Vertical alignment
-    // Knowing the longest name's length among peers, the amount of extra space needed to vertical align the
-    // first line is
-    let expectedHeadLeadLength = maxPeerNameLength - parameter.name.text.count + 1
-    let expectedHeadLead = String(Array(repeating: " ", count: expectedHeadLeadLength))
-    if let lead = parameter.description.first?.lead, lead != expectedHeadLead {
-        result.append(.verticalAlignment(expectedHeadLeadLength, parameter.name.text, 1))
-    }
-    // For the rest of the lines in the description, it should have the length of
-    // `- parameter [maxPeerNameLength]: ` for separate style
-    // or
-    // `- [maxPeerNameLength]: ` for grouped style
-    let expectedBodyLeadLength = parameter.keyword == nil ? 4 + maxPeerNameLength : 14 + maxPeerNameLength
-    for (index, line) in parameter.description.dropFirst().enumerated() {
-        if !line.lead.allSatisfy({ $0 == " " }) || (line.lead.count < expectedBodyLeadLength &&
-            !line.lead.isEmpty && !line.text.isEmpty)
-        {
-            result.append(.verticalAlignment(expectedBodyLeadLength, parameter.name.text, index + 2))
+    if verticalAlign {
+        // Vertical alignment
+        // Knowing the longest name's length among peers, the amount of extra space needed to vertical align
+        // the first line is
+        let expectedHeadLeadLength = maxPeerNameLength - parameter.name.text.count + 1
+        let expectedHeadLead = String(Array(repeating: " ", count: expectedHeadLeadLength))
+        if let lead = parameter.description.first?.lead, lead != expectedHeadLead {
+            result.append(.verticalAlignment(expectedHeadLeadLength, parameter.name.text, 1))
+        }
+        // For the rest of the lines in the description, it should have the length of
+        // `- parameter [maxPeerNameLength]: ` for separate style
+        // or
+        // `- [maxPeerNameLength]: ` for grouped style
+        let expectedBodyLeadLength = parameter.keyword == nil ? 4 + maxPeerNameLength : 14 + maxPeerNameLength
+        for (index, line) in parameter.description.dropFirst().enumerated() {
+            if !line.lead.allSatisfy({ $0 == " " }) || (line.lead.count < expectedBodyLeadLength &&
+                !line.lead.isEmpty && !line.text.isEmpty)
+            {
+                result.append(.verticalAlignment(expectedBodyLeadLength, parameter.name.text, index + 2))
+            }
         }
     }
 

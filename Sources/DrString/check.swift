@@ -36,7 +36,7 @@ public let checkCommand = Command(
         queue.async {
             do {
                 for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
-                    if let problem = try validate(documentable, ignoreThrows: ignoreThrows, firstLetterUpper: firstLetterUpper, needsSeparation: config.options.separatedSections) {
+                    if let problem = try validate(documentable, ignoreThrows: ignoreThrows, firstLetterUpper: firstLetterUpper, needsSeparation: config.options.separatedSections, verticalAlign: config.options.verticalAlignParameterDescription) {
                         problemCount += problem.details.count
                         let output: String
                         switch (format, IsTerminal.standardOutput) {
