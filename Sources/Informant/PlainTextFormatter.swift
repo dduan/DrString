@@ -1,6 +1,10 @@
 import Critic
 
 private extension DocProblem.Detail {
+    private func actualWhitespace(_ actual: String) -> String {
+        actual.isEmpty ? "none" : "`\(actual)`"
+    }
+
     private var description: String {
         switch self {
         case .redundantParameter(let name):
@@ -14,19 +18,19 @@ private extension DocProblem.Detail {
         case .preDashSpaceInParameter(let expected, let actual, let name):
             return "Parameter `\(name)` should start with exactly \(expected) space\(expected > 1 ? "s" : "") before `-`, found `\(actual)`"
         case .spaceBetweenDashAndParamaterKeyword(let actual, let keyword, let name):
-            return "`\(name)` should have exactly 1 space between `-` and `\(keyword)`, found `\(actual)`"
+            return "`\(name)` should have exactly 1 space between `-` and `\(keyword)`, found `\(actualWhitespace(actual))`"
         case .spaceBeforeParameterName(let actual, let keyword, let name):
-            return "There should be exactly 1 space between `\(keyword)` and `\(name)`, found `\(actual)`"
+            return "There should be exactly 1 space between `\(keyword)` and `\(name)`, found `\(actualWhitespace(actual))`"
         case .spaceBeforeColon(let actual, let name):
             return "For `\(name)`, there should be no whitespace before `:`, found `\(actual)`"
         case .preDashSpace(let keyword, let actual):
-            return "`\(keyword)` should start with exactly 1 space before `-`, found `\(actual)`"
+            return "`\(keyword)` should start with exactly 1 space before `-`, found `\(actualWhitespace(actual))`"
         case .spaceBetweenDashAndKeyword(let keyword, let actual):
-            return "There should be exactly 1 space between `-` and `\(keyword)`, found `\(actual)`"
+            return "There should be exactly 1 space between `-` and `\(keyword)`, found `\(actualWhitespace(actual))`"
         case .verticalAlignment(let expected, let nameOrKeyword, let line):
             return "Line \(line) of `\(nameOrKeyword)`'s description is not properly vertically aligned (should have \(expected) leading spaces)"
         case .spaceAfterColon(let keyword, let actual):
-            return "For `\(keyword)`, there should be exactly 1 space after `:`, found `\(actual)`"
+            return "For `\(keyword)`, there should be exactly 1 space after `:`, found `\(actualWhitespace(actual))`"
         case .keywordCasingForParameter(let actual, let expected, let name):
             return "For `\(name)`, `\(expected)` is misspelled as `\(actual)`"
         case .keywordCasing(let actual, let expected):
