@@ -27,7 +27,7 @@ public struct Configuration: Decodable {
             Options(
                 ignoreDocstringForThrows: false,
                 verticalAlignParameterDescription: false,
-                firstKeywordLetter: .whatever,
+                firstKeywordLetter: .uppercase,
                 outputFormat: .automatic,
                 separatedSections: []
             )
@@ -48,7 +48,6 @@ public struct Configuration: Decodable {
     public enum FirstKeywordLetterCasing: String, Equatable, Decodable {
         case uppercase
         case lowercase
-        case whatever
     }
 
     public struct Options: Decodable {
@@ -76,7 +75,7 @@ public struct Configuration: Decodable {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             self.ignoreDocstringForThrows = try values.decodeIfPresent(Bool.self, forKey: .ignoreThrows) ?? false
             self.verticalAlignParameterDescription = try values.decodeIfPresent(Bool.self, forKey: .verticalAlign) ?? false
-            self.firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) ?? .whatever
+            self.firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) ?? .uppercase
             self.outputFormat = try values.decodeIfPresent(OutputFormat.self, forKey: .format) ?? .automatic
             self.separatedSections = try values.decodeIfPresent([Section].self, forKey: .separations) ?? []
         }

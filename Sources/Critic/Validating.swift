@@ -1,7 +1,7 @@
 import Decipher
 import Crawler
 
-public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool?,
+public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool,
                      needsSeparation: [Section]) throws -> DocProblem?
 {
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
@@ -41,7 +41,7 @@ func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool) -> [DocPro
     return result
 }
 
-func findReturnsProblems(_ docs: DocString, _ returnType: String?, _ firstLetterUpper: Bool?)
+func findReturnsProblems(_ docs: DocString, _ returnType: String?, _ firstLetterUpper: Bool)
     -> [DocProblem.Detail]
 {
     guard let returnType = returnType else {
@@ -74,15 +74,12 @@ func findReturnsProblems(_ docs: DocString, _ returnType: String?, _ firstLetter
         result.append(.spaceAfterColon("returns", postColonLead))
     }
 
-    switch firstLetterUpper {
-    case .none:
-        break
-    case .some(true):
+    if firstLetterUpper {
         let expected = "Returns"
         if let keyword = returnsDoc.keyword?.text, keyword != expected {
             result.append(.keywordCasing(keyword, expected))
         }
-    case .some(false):
+    } else {
         let expected = "returns"
         if let keyword = returnsDoc.keyword?.text, keyword != expected {
             result.append(.keywordCasing(keyword, expected))
@@ -92,7 +89,7 @@ func findReturnsProblems(_ docs: DocString, _ returnType: String?, _ firstLetter
     return result
 }
 
-func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, _ firstLetterUpper: Bool?, needsSeparation: Bool)
+func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, _ firstLetterUpper: Bool, needsSeparation: Bool)
     -> [DocProblem.Detail]
 {
     if !doesThrow, let throwsKeyword = docs.throws?.keyword?.text {
@@ -123,15 +120,12 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
         result.append(.spaceAfterColon("throws", postColonLead))
     }
 
-    switch firstLetterUpper {
-    case .none:
-        break
-    case .some(true):
+    if firstLetterUpper {
         let expected = "Throws"
         if let keyword = throwsDoc.keyword?.text, keyword != expected {
             result.append(.keywordCasing(keyword, expected))
         }
-    case .some(false):
+    } else {
         let expected = "throws"
         if let keyword = throwsDoc.keyword?.text, keyword != expected {
             result.append(.keywordCasing(keyword, expected))
@@ -141,14 +135,14 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
     if needsSeparation, docs.returns != nil, let last = throwsDoc.description.last, !last.lead.isEmpty ||
         !last.text.isEmpty
     {
-        let backupKeyword = firstLetterUpper == true ? "Throws" : "throws"
+        let backupKeyword = firstLetterUpper ? "Throws" : "throws"
         result.append(.sectionShouldEndWithEmptyLine(throwsDoc.keyword?.text ?? backupKeyword))
     }
 
     return result
 }
 
-func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool?,
+func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool,
                            needsSeparation: Bool) throws -> [DocProblem.Detail]
 {
     var result = [DocProblem.Detail]()
@@ -166,15 +160,12 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
             result.append(.spaceBeforeColon(header.preColonWhitespace, keyword.text))
         }
 
-        switch firstLetterUpper {
-        case .none:
-            break
-        case .some(true):
+        if firstLetterUpper {
             let expected = "Parameters"
             if keyword.text != expected {
                 result.append(.keywordCasing(keyword.text, expected))
             }
-        case .some(false):
+        } else {
             let expected = "parameters"
             if keyword.text != expected {
                 result.append(.keywordCasing(keyword.text, expected))
@@ -232,7 +223,7 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
 }
 
 func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameLength: Int,
-                                    _ firstLetterUpper: Bool?) -> [DocProblem.Detail]
+                                    _ firstLetterUpper: Bool) -> [DocProblem.Detail]
 {
     var result = [DocProblem.Detail]()
 
@@ -278,15 +269,12 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
         }
     }
 
-    switch firstLetterUpper {
-    case .none:
-        break
-    case .some(true):
+    if firstLetterUpper {
         let expected = "Parameter"
         if let keyword = parameter.keyword?.text, keyword != expected {
             result.append(.keywordCasingForParameter(keyword, expected, parameter.name.text))
         }
-    case .some(false):
+    } else {
         let expected = "parameter"
         if let keyword = parameter.keyword?.text, keyword != expected {
             result.append(.keywordCasingForParameter(keyword, expected, parameter.name.text))

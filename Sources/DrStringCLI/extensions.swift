@@ -6,7 +6,7 @@ extension DrString.Configuration.Options {
         self.init(
             ignoreDocstringForThrows: flags.getBool(name: Constants.ignoreThrows) ?? false,
             verticalAlignParameterDescription: flags.getBool(name: Constants.verticalAlign) ?? false,
-            firstKeywordLetter: flags.get(name: Constants.firstLetter, type: DrString.Configuration.FirstKeywordLetterCasing.self) ?? .whatever,
+            firstKeywordLetter: flags.get(name: Constants.firstLetter, type: DrString.Configuration.FirstKeywordLetterCasing.self) ?? .uppercase,
             outputFormat: flags.get(name: Constants.format, type: DrString.Configuration.OutputFormat.self) ?? .automatic,
             separatedSections: flags.get(name: Constants.separations, type: [Section].self) ?? []
         )

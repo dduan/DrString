@@ -13,7 +13,7 @@ func completelyDocumented(a: String, b: String) throws -> String {
 // CHECK-NOT: docstring problem
 /// This is awesome
 ///
-/// - Parameters:
+/// - parameters:
 ///   - a: a
 ///   - b: b
 ///

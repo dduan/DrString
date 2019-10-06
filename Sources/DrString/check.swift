@@ -19,15 +19,13 @@ public let checkCommand = Command(
     var fileCount = 0
     let ignoreThrows = config.options.ignoreDocstringForThrows
     let format = config.options.outputFormat
-    let firstLetterUpper: Bool?
+    let firstLetterUpper: Bool
 
     switch config.options.firstKeywordLetter {
     case .lowercase:
         firstLetterUpper = false
     case .uppercase:
         firstLetterUpper = true
-    case .whatever:
-        firstLetterUpper = nil
     }
 
     let group = DispatchGroup()

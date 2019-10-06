@@ -11,7 +11,7 @@ final class DrStringTests: XCTestCase {
         ignoreThrows: Bool = false,
         verticalAlign: Bool = true,
         expectEmpty: Bool = false,
-        firstLetter: Configuration.FirstKeywordLetterCasing = .whatever,
+        firstLetter: Configuration.FirstKeywordLetterCasing = .uppercase,
         needsSeparation: [Section] = []
     ) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
@@ -32,7 +32,7 @@ final class DrStringTests: XCTestCase {
     }
 
     func testCompletelyDocumentedFunction() throws {
-        XCTAssert(runTest(fileName: "complete", expectEmpty: true))
+        XCTAssert(runTest(fileName: "complete", expectEmpty: true, firstLetter: .lowercase))
     }
 
     func testNoDocNoError() throws {
@@ -40,11 +40,11 @@ final class DrStringTests: XCTestCase {
     }
 
     func testMissingStuff() throws {
-        XCTAssert(runTest(fileName: "missingStuff"))
+        XCTAssert(runTest(fileName: "missingStuff", firstLetter: .lowercase))
     }
 
     func testIgnoreThrows() throws {
-        XCTAssert(runTest(fileName: "ignoreThrows", ignoreThrows: true))
+        XCTAssert(runTest(fileName: "ignoreThrows", ignoreThrows: true, firstLetter: .lowercase))
     }
 
     func testBadParameterFormat() throws {
