@@ -18,11 +18,11 @@ public let checkCommand = Command(
     var startTime = getTime()
     var problemCount = 0
     var fileCount = 0
-    let ignoreThrows = config.options.ignoreDocstringForThrows
-    let format = config.options.outputFormat
+    let ignoreThrows = config.ignoreDocstringForThrows
+    let format = config.outputFormat
     let firstLetterUpper: Bool
 
-    switch config.options.firstKeywordLetter {
+    switch config.firstKeywordLetter {
     case .lowercase:
         firstLetterUpper = false
     case .uppercase:
@@ -36,7 +36,7 @@ public let checkCommand = Command(
         queue.async {
             do {
                 for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
-                    if let problem = try validate(documentable, ignoreThrows: ignoreThrows, firstLetterUpper: firstLetterUpper, needsSeparation: config.options.separatedSections, verticalAlign: config.options.verticalAlignParameterDescription) {
+                    if let problem = try validate(documentable, ignoreThrows: ignoreThrows, firstLetterUpper: firstLetterUpper, needsSeparation: config.separatedSections, verticalAlign: config.verticalAlignParameterDescription) {
                         problemCount += problem.details.count
                         let output: String
                         switch (format, IsTerminal.standardOutput) {
