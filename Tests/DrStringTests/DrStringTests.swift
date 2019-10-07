@@ -20,12 +20,11 @@ final class DrStringTests: XCTestCase {
                 Configuration(
                     includedPaths: [fixture],
                     excludedPaths: [],
-                    options: .init(
-                        ignoreDocstringForThrows: ignoreThrows,
-                        verticalAlignParameterDescription: verticalAlign,
-                        firstKeywordLetter: firstLetter,
-                        outputFormat: .plain,
-                        separatedSections: needsSeparation)),
+                    ignoreDocstringForThrows: ignoreThrows,
+                    verticalAlignParameterDescription: verticalAlign,
+                    firstKeywordLetter: firstLetter,
+                    outputFormat: .plain,
+                    separatedSections: needsSeparation),
                 []
             )
         }

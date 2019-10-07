@@ -1,24 +1,17 @@
 import DrString
 import Guaka
 
-extension DrString.Configuration.Options {
+extension DrString.Configuration {
     init(_ flags: Flags) {
         self.init(
+            includedPaths: flags[valuesForName: Constants.include] as? [String] ?? [],
+            excludedPaths: flags[valuesForName: Constants.exclude] as? [String] ?? [],
             ignoreDocstringForThrows: flags.getBool(name: Constants.ignoreThrows) ?? false,
             verticalAlignParameterDescription: flags.getBool(name: Constants.verticalAlign) ?? false,
             firstKeywordLetter: flags.get(name: Constants.firstLetter, type: DrString.Configuration.FirstKeywordLetterCasing.self) ?? .uppercase,
             outputFormat: flags.get(name: Constants.format, type: DrString.Configuration.OutputFormat.self) ?? .automatic,
             separatedSections: flags.get(name: Constants.separations, type: [Section].self) ?? []
         )
-    }
-}
-
-extension DrString.Configuration {
-    init(_ flags: Flags) {
-        self.init(
-            includedPaths: flags[valuesForName: Constants.include] as? [String] ?? [],
-            excludedPaths: flags[valuesForName: Constants.exclude] as? [String] ?? [],
-            options: Options(flags))
     }
 }
 
