@@ -25,6 +25,10 @@ Finally, just like code formats, whitespace errors happens all the time.
 For these reason, docstring consistency is essentially impossible.
 A linter/formatter like DrString makes life a bit easier for those who cares.
 
+DrString recognize not all codebases adhere to the same style. Therefore, it
+offers many [options][Configuration.md] that customizes its behavior to suit
+your needs.
+
 [Docstring]: https://en.wikipedia.org/wiki/Docstring
 
 ## Anatomy of a docstring in Swift
@@ -71,3 +75,4 @@ DrString analyzes all of these aspects of your docstring and reports each
 problem it finds. Each reported problem comes with an explanation linked by an
 identifier. The "explainers" are part of the CLI app as well as the
 [documentation](https://github.com/dduan/DrString/tree/master/Documentation/Explainers).
+
