@@ -39,7 +39,7 @@ extension DrString.Configuration.OutputFormat: FlagValue {
     }
 
     public static var typeDescription: String {
-        return "output format"
+        "(automatic|terminal|plain)"
     }
 }
 
@@ -53,7 +53,7 @@ extension DrString.Configuration.FirstKeywordLetterCasing: FlagValue {
     }
 
     public static var typeDescription: String {
-        return "preference for casing of first letter of keywords"
+        "(uppercase|lowercase)"
     }
 }
 
@@ -67,6 +67,6 @@ extension Section: FlagValue {
     }
 
     public static var typeDescription: String {
-        return "section of a docstring"
+        "(description|parameters|throws)"
     }
 }

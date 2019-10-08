@@ -11,8 +11,8 @@ import Glibc
 let checkFlags = [
     Flag(
         longName: Constants.ignoreThrows,
-        value: false,
-        description: "Consider it ok to not have docstring for what a function/method throws."),
+        type: Bool.self,
+        description: "Whether it's ok to not have docstring for what a function/method throws."),
     Flag(
         shortName: "i",
         longName: Constants.include,
@@ -27,7 +27,7 @@ let checkFlags = [
         shortName: "f",
         longName: "format",
         type: DrString.Configuration.OutputFormat.self,
-        description: "Output format. (automatic|terminal|plain)"),
+        description: "Output format. Terminal format turns on colored text in terminals."),
     Flag(
         shortName: "c",
         longName: "first-letter",
@@ -39,10 +39,9 @@ let checkFlags = [
         type: [Section].self,
         description: "Sections of docstring that requires separation to the next section"),
     Flag(
-        shortName: "v",
         longName: Constants.verticalAlign,
         type: Bool.self,
-        description: "Vertical align descriptions of parameters."),
+        description: "Whether to require descriptions of different parameters to all start on the same column."),
 ]
 
 let checkCommand = Guaka.Command(DrString.checkCommand, flags: checkFlags)
