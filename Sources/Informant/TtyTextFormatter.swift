@@ -3,7 +3,7 @@ import Critic
 
 private extension DocProblem.Detail {
     private func actualWhitespace(_ actual: String) -> String {
-        actual.isEmpty ? "none" : "\(actual, color: .cyan)"
+        actual.isEmpty ? "none" : "\(actual, background: .cyan)"
     }
 
     private var description: String {
@@ -17,7 +17,7 @@ private extension DocProblem.Detail {
         case .missingReturn(let type):
             return "Missing docstring for return type \(type, color: .cyan)"
         case .preDashSpaceInParameter(let expected, let actual, let name):
-            return "Parameter \(name, color: .green) should start with exactly \(String(expected), color: .cyan) space\(expected > 1 ? "s" : "") before \("-", color: .green), found \(actualWhitespace(actual))"
+            return "Parameter \(name, color: .green) should start with exactly \(expected, color: .cyan) space\(expected > 1 ? "s" : "") before \("-", color: .green), found \(actualWhitespace(actual))"
         case .spaceBetweenDashAndParamaterKeyword(let actual, let keyword, let name):
             return "\(name, color: .green) should have exactly 1 space between \("-", color: .green) and \(keyword, color: .green), found \(actualWhitespace(actual))"
         case .spaceBeforeParameterName(let actual, let keyword, let name):
