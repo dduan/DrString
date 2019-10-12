@@ -1,3 +1,9 @@
+SHELL = /bin/bash
+BUILD_PATH = .build/release
+LIB_PATH = $(BUILD_PATH)/lib/drstring
+BIN_PATH = $(BUILD_PATH)/bin/drstring
+SWIFT_PATH = $(shell xcrun --find swift)
+
 test: generate-explainers
 	@swift test
 
@@ -10,12 +16,12 @@ else
 endif
 
 build:
-	@swift build --configuration release
+	@swift build --configuration release --disable-sandbox
 
 generate: generate-explainers generate-linux-manifest
 
 install: build
-	@mv .build/release/drstring /usr/local/bin/
+	@mv .build/release/drstring /usr/local/bin
 
 generate-explainers:
 	@Scripts/generateexplainers.py 'Documentation/Explainers' > Sources/Critic/explainers.swift
@@ -28,3 +34,6 @@ test-docker:
 
 build-docker:
 	@Scripts/build-docker.sh
+
+package-darwin: build
+	@Scripts/package-darwin.sh
