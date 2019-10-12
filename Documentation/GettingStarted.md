@@ -10,8 +10,6 @@ Read [overview][] if you aren't sure about using DrString.
 
 ### With Homebrew
 
-### Homebrew
-
 ```bash
 brew install dduan/formulae/drstring
 ```
