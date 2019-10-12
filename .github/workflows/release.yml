@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - '*'
+      - 'v*'
 
 jobs:
   build:
@@ -16,11 +16,23 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_11.app
     - name: Build and package macOS executable
       run: make package-darwin
-    - name: Upload binaries
-      uses: svenstaro/upload-release-action@v1-release
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: drstring.tar.gz
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: true
+        prerelease: false
+    - name: Upload release assets
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: .build/drstring.tar.gz
         asset_name: drstring-x86_64-apple-darwin.tar.gz
-        tag: ${{ github.ref }}
-        overwrite: true
+        asset_content_type: application/zip

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 BUILD_PATH=.build/release
 LIB_PATH=$BUILD_PATH/lib/drstring
 BIN_PATH=$BUILD_PATH/bin/drstring
@@ -11,5 +13,5 @@ mkdir -p $BUILD_PATH/bin
 cp .build/release/drstring $BIN_PATH
 cp "$(dirname $SWIFT_PATH)/../lib/swift/macosx/lib_InternalSwiftSyntaxParser.dylib" $LIB_PATH/lib_InternalSwiftSyntaxParser.dylib
 install_name_tool -add_rpath @executable_path/../lib/drstring $BIN_PATH
-tar -C $BUILD_PATH -czf drstring.tar.gz bin lib
+tar -C $BUILD_PATH -czf drstring.tar.gz bin/drstring lib/drstring/lib_InternalSwiftSyntaxParser.dylib
 mv drstring.tar.gz .build
