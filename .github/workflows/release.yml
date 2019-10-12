@@ -1,0 +1,26 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    name: Publish binaries
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_11.app
+    - name: Build and package macOS executable
+      run: make package-darwin
+    - name: Upload binaries
+      uses: svenstaro/upload-release-action@v1-release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: drstring.tar.gz
+        asset_name: drstring-x86_64-apple-darwin.tar.gz
+        tag: ${{ github.ref }}
+        overwrite: true
