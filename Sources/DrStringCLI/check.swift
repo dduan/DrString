@@ -3,7 +3,7 @@ import Guaka
 import Pathos
 import TOMLDecoder
 
-let checkFlags = [
+private let checkFlags = [
     Flag(
         longName: Constants.ignoreThrows,
         type: Bool.self,
