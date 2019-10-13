@@ -11,7 +11,7 @@ let checkFlags = [
     Flag(
         shortName: "i",
         longName: Constants.include,
-        values: [String](),
+        type: [String].self,
         description: "Paths included for DrString to operate on."),
     Flag(
         shortName: "x",
