@@ -16,16 +16,14 @@ final class DrStringTests: XCTestCase {
     ) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
-            _ = checkCommand.run(
-                Configuration(
-                    includedPaths: [fixture],
-                    excludedPaths: [],
-                    ignoreDocstringForThrows: ignoreThrows,
-                    verticalAlignParameterDescription: verticalAlign,
-                    firstKeywordLetter: firstLetter,
-                    outputFormat: .plain,
-                    separatedSections: needsSeparation),
-                []
+            _ = check(with: Configuration(
+                includedPaths: [fixture],
+                excludedPaths: [],
+                ignoreDocstringForThrows: ignoreThrows,
+                verticalAlignParameterDescription: verticalAlign,
+                firstKeywordLetter: firstLetter,
+                outputFormat: .plain,
+                separatedSections: needsSeparation)
             )
         }
     }

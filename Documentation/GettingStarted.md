@@ -118,7 +118,7 @@ first-letter = "uppercase"
 
 Save this file as `.drstring.toml` in the current worknig directory and simply
 run `drstring` will cause DrString to do the exact same thing as the CLI
-argument examlpe.
+argument examlpe with `check` subcommand.
 
 The configuration file is in [TOML][] format.
 
