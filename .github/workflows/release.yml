@@ -20,7 +20,7 @@ jobs:
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: drstring.tar.gz
+        file: .build/drstring.tar.gz
         asset_name: drstring-x86_64-apple-darwin.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
