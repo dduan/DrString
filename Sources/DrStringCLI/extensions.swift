@@ -15,20 +15,6 @@ extension DrString.Configuration {
     }
 }
 
-extension Guaka.Command {
-    convenience init(_ command: DrString.Command, flags: [Flag]) {
-        var result: Int32? = nil
-        self.init(usage: command.name, shortMessage: command.shortDescription, flags: flags, aliases: command.aliases)
-        { flags, arugements in
-            result = command.run(DrString.Configuration(flags), arugements)
-        }
-
-        if let code = result {
-            exit(code)
-        }
-    }
-}
-
 extension DrString.Configuration.OutputFormat: FlagValue {
     public static func fromString(flagValue value: String) throws -> DrString.Configuration.OutputFormat {
         guard let format = Configuration.OutputFormat(rawValue: value) else {

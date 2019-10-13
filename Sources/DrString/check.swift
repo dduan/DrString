@@ -10,17 +10,13 @@ import Glibc
 #endif
 import Dispatch
 
-public let checkCommand = Command(
-    name: "check",
-    aliases: ["lint", "c", "l"],
-    shortDescription: "Check problems for existing doc strings")
-{ config, _ in
+public func check(with config: Configuration) -> Int32? {
     if config.includedPaths.isEmpty {
         fputs("[check] Paths to source files are missing. Please provide some.\n", stderr)
         return 1
     }
 
-    var startTime = getTime()
+    let startTime = getTime()
     var problemCount = 0
     var fileCount = 0
     let ignoreThrows = config.ignoreDocstringForThrows
@@ -54,7 +50,7 @@ public let checkCommand = Command(
                         print("\(output)\n")
                     }
                 }
-            } catch let error {}
+            } catch {}
             group.leave()
         }
         fileCount += 1

@@ -7,11 +7,7 @@ import Darwin
 import Glibc
 #endif
 
-public let explainCommand = Command(
-    name: "explain",
-    aliases: ["e", "why", "what"],
-    shortDescription: "Explain a problem associated with an ID")
-{ _, arguments in
+public func explain(_ arguments: [String]) -> Int32? {
     var unrecognizedIDs = [String]()
 
     for id in arguments {
