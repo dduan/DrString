@@ -39,15 +39,16 @@ let checkFlags = [
         description: "Whether to require descriptions of different parameters to all start on the same column."),
 ]
 
-func check(flags: Flags, arguments: [String]) -> Int32 {
+func check(flags: Flags, arguments: [String], help: String) {
     let config: DrString.Configuration
     let path = ".drstring.toml"
     if (try? isA(.file, atPath: path)) == .some(true) {
         guard let configText = try? readString(atPath: path),
             let decoded = try? TOMLDecoder().decode(DrString.Configuration.self, from: configText) else
         {
-            fputs("Tried to run `check`, but \(path) doesn't contain a valid config file.", stderr)
-            return EXIT_FAILURE
+            fputs("Tried to run `check`, but \(path) doesn't contain a valid config file.\n", stderr)
+            fputs(help, stderr)
+            exit(EXIT_FAILURE)
         }
 
         config = decoded
@@ -55,7 +56,15 @@ func check(flags: Flags, arguments: [String]) -> Int32 {
         config = DrString.Configuration(flags)
     }
 
-    return check(with: config) ?? EXIT_SUCCESS
+    switch check(with: config) {
+    case .ok:
+        return
+    case .foundProblems:
+        exit(EXIT_FAILURE)
+    case .missingInput:
+        fputs(help, stderr)
+        exit(EXIT_FAILURE)
+    }
 }
 
 private let longMessage = """
@@ -89,13 +98,18 @@ private let example = """
         --first-letter uppercase
 """
 
-let checkCommand = Guaka.Command(
-    usage: "check [-i PATTERN]...",
-    shortMessage: "Check problems for existing doc strings",
-    longMessage: longMessage,
-    flags: checkFlags,
-    example: example,
-    aliases: ["lint", "c", "l"])
-{
-    exit(check(flags: $0, arguments: $1))
-}
+let checkCommand: Guaka.Command = {
+    var command = Guaka.Command(
+        usage: "check [-i PATTERN]...",
+        shortMessage: "Check problems for existing doc strings",
+        longMessage: longMessage,
+        flags: checkFlags,
+        example: example,
+        aliases: ["lint", "c", "l"])
+
+    command.run = { flags, arguments in
+        check(flags: flags, arguments: arguments, help: command.helpMessage)
+    }
+
+    return command
+}()
