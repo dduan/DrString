@@ -1,6 +1,7 @@
 import DrString
 import Guaka
 import TOMLDecoder
+import Pathos
 
 #if canImport(Darwin)
 import Darwin
@@ -44,7 +45,7 @@ let checkFlags = [
         description: "Whether to require descriptions of different parameters to all start on the same column."),
 ]
 
-let checkCommand = Guaka.Command(DrString.checkCommand, flags: checkFlags)
+
 let explainCommand = Guaka.Command(DrString.explainCommand, flags: [])
 explainCommand.usage = "explain ID1 ID2 …"
 explainCommand.preRun = { _, arguments in
@@ -56,19 +57,37 @@ explainCommand.preRun = { _, arguments in
     return true
 }
 
-var mainCommand = Guaka.Command(usage: "drstring") { flags, arguments in
-    guard let configText = try? String(contentsOfFile: ".drstring.toml") else {
-        fputs("Couldn't read configruation from .drstring.toml\n", stderr)
-        exit(1)
+func check(flags: Flags, arguments: [String]) -> Int32 {
+    let config: DrString.Configuration
+    let path = ".drstring.toml"
+    if (try? isA(.file, atPath: path)) == .some(true) {
+        guard let configText = try? readString(atPath: ".drstring.toml"),
+            let decoded = try? TOMLDecoder().decode(DrString.Configuration.self, from: configText) else
+        {
+            fputs("Tried to run `check`, but \(path) doesn't contain a valid config file.", stderr)
+            return EXIT_FAILURE
+        }
+
+        config = decoded
+    } else {
+        config = DrString.Configuration(flags)
     }
 
-    guard let config = try? TOMLDecoder().decode(DrString.Configuration.self, from: configText) else {
-        fputs("Couldn't decode valid configuration from .drstring.toml", stderr)
-        exit(1)
-    }
+    return DrString.checkCommand.run(config, arguments) ?? EXIT_SUCCESS
+}
 
-    if let code = DrString.checkCommand.run(config, arguments) {
-        exit(code)
+let checkCommand = Guaka.Command(
+    usage: "check [-i PATTERN]...",
+    shortMessage: DrString.checkCommand.shortDescription,
+    flags: checkFlags)
+{
+    _ = check(flags: $0, arguments: $1)
+}
+
+var mainCommand = Guaka.Command(usage: "drstring")
+mainCommand.run = { flags, arguments in
+    if check(flags: flags, arguments: arguments) != EXIT_SUCCESS {
+        fputs("\n\(mainCommand.helpMessage)", stderr)
     }
 }
 

@@ -15,6 +15,11 @@ public let checkCommand = Command(
     aliases: ["lint", "c", "l"],
     shortDescription: "Check problems for existing doc strings")
 { config, _ in
+    if config.includedPaths.isEmpty {
+        fputs("[check] Paths to source files are missing. Please provide some.\n", stderr)
+        return 1
+    }
+
     var startTime = getTime()
     var problemCount = 0
     var fileCount = 0
