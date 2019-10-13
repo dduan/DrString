@@ -1,5 +1,7 @@
 ## master
 
+## 0.2.0
+
 ### New
 
 - Add problem IDs for each problem identified by `check`
