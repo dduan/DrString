@@ -6,6 +6,13 @@ import Darwin
 import Glibc
 #endif
 
+private let mainFlags = [
+    Flag(
+        shortName: "v",
+        longName: "version",
+        value: false,
+        description: "Prints the version"),
+]
 
 private let longMessage = """
 DrString \(version)
@@ -31,12 +38,18 @@ private let example = """
 """
 
 var mainCommand: Guaka.Command = {
-let command = Guaka.Command(
-    usage: "drstring",
-    longMessage: longMessage,
-    example: example)
+    let command = Guaka.Command(
+        usage: "drstring",
+        longMessage: longMessage,
+        flags: mainFlags,
+        example: example)
 
     command.run = { flags, arguments in
+        if let hasVersion = flags.getBool(name: "version"), hasVersion == true {
+            print("\(version)")
+            return
+        }
+
         check(flags: flags, arguments: arguments, help: command.helpMessage)
     }
 
