@@ -10,10 +10,16 @@ import Glibc
 #endif
 import Dispatch
 
-public func check(with config: Configuration) -> Int32? {
+public enum CheckResult {
+    case ok
+    case foundProblems
+    case missingInput
+}
+
+public func check(with config: Configuration) -> CheckResult {
     if config.includedPaths.isEmpty {
         fputs("[check] Paths to source files are missing. Please provide some.\n", stderr)
-        return 1
+        return .missingInput
     }
 
     let startTime = getTime()
@@ -68,8 +74,8 @@ public func check(with config: Configuration) -> Int32? {
         }
 
         fputs(summary, stderr)
-        return 1
+        return .foundProblems
     } else {
-        return nil
+        return .ok
     }
 }

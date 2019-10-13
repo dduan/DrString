@@ -30,18 +30,18 @@ private let example = """
     drstring explain E007
 """
 
-var mainCommand = Guaka.Command(
+var mainCommand: Guaka.Command = {
+let command = Guaka.Command(
     usage: "drstring",
     longMessage: longMessage,
     example: example)
 
-mainCommand.run = { flags, arguments in
-    // TODO: this is wrong. Check returning non-success could mean it found problems. We want that to be the
-    // overall status code, BUT, in that case we should not print help messages.
-    if check(flags: flags, arguments: arguments) != EXIT_SUCCESS {
-        fputs("\n\(mainCommand.helpMessage)", stderr)
+    command.run = { flags, arguments in
+        check(flags: flags, arguments: arguments, help: command.helpMessage)
     }
-}
+
+    return command
+}()
 
 mainCommand.add(subCommand: checkCommand)
 mainCommand.add(subCommand: explainCommand)
