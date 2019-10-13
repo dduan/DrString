@@ -1,6 +1,12 @@
 import DrString
 import Guaka
 
+#if canImport(Darwin)
+import Darwin
+#else
+import Glibc
+#endif
+
 private let longMessage = """
 Explains problems reported by the `check` command.
 
@@ -39,7 +45,7 @@ let explainCommand: Guaka.Command = {
 
     command.preRun = { _, arguments in
         if arguments.count < 1 {
-            print(command.helpMessage)
+            fputs(command.helpMessage, stderr)
             return false
         }
 
