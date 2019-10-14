@@ -1,5 +1,12 @@
 ## master
 
+## 0.2.1
+
+### Changes
+
+- Option for first keyword letter in config file in previous releases were `first-keyword-letter`.
+  Now it's `first-letter`, similar to command line argument for the option.
+
 ## 0.2.0
 
 ### New
