@@ -4,7 +4,7 @@ LIB_PATH = $(BUILD_PATH)/lib/drstring
 BIN_PATH = $(BUILD_PATH)/bin/drstring
 SWIFT_PATH = $(shell xcrun --find swift)
 
-test: generate-explainers
+test:
 	@swift test
 
 test-generated-artifacts:

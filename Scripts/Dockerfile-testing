@@ -1,6 +1,4 @@
-FROM swift@sha256:61104cdcaf8cfb99269f66691088b94a04f11d4d38c3c961d83c237895d7d408
+FROM swift@sha256:c4d53af406c5dc48bd43c0d313f3ed80924eee4bf78907ce4ad6eb8f5513f376
 ADD . DrString
-RUN apt-get update
-RUN apt-get install -y python3
 RUN cd DrString; make test
 
