@@ -27,7 +27,7 @@ jobs:
 
   ubuntu:
     name: Build Ubuntu binary
-    runs-on: swift@5.1.1-bionic
+    runs-on: swift:5.1.1-bionic
 
     steps:
     - uses: actions/checkout@v1
