@@ -45,7 +45,7 @@ public struct Configuration: Decodable {
         case exclude = "exclude"
         case ignoreThrows = "ignore-throws"
         case verticalAlign = "vertical-align"
-        case firstKeyordLetter = "first-keyword-letter"
+        case firstKeyordLetter = "first-letter"
         case format = "format"
         case separations = "needs-separation"
     }
