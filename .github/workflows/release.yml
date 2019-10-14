@@ -27,17 +27,17 @@ jobs:
 
   ubuntu:
     name: Build Ubuntu binary
-    runs-on: swift-5.1.1-bionic
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
     - name: Build and package executable
-      run: make build; tar cvzf .build/release/drstring drstring.tar.gz
+      run: make package-ubuntu1804
     - name: Upload binaries
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: drstring.tar.gz
-        asset_name: drstring-x86_64-ubuntu-linux.tar.gz
+        file: .build/release-ubuntu1804/drstring.tar.gz
+        asset_name: drstring-x86_64-ubuntu1804-linux.tar.gz
         tag: ${{ github.ref }}
         overwrite: true

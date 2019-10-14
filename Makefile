@@ -32,8 +32,8 @@ generate-linux-manifest:
 test-docker:
 	@Scripts/run-tests-docker.sh
 
-build-docker:
-	@Scripts/build-docker.sh
+package-ubuntu1804:
+	@Scripts/package-ubuntu1804.sh
 
 package-darwin: build
 	@Scripts/package-darwin.sh

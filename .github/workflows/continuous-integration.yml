@@ -26,7 +26,7 @@ jobs:
     strategy:
       matrix:
         action:
-          - build-docker
+          - package-ubuntu1804
           - test-docker
     steps:
     - uses: actions/checkout@v1
