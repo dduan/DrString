@@ -16,7 +16,7 @@ else
 endif
 
 build:
-	@swift build --configuration release --disable-sandbox
+	@swift build --configuration release --disable-sandbox -Xswiftc -warnings-as-errors
 
 generate: generate-explainers generate-linux-manifest
 
