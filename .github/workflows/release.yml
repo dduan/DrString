@@ -6,8 +6,8 @@ on:
       - '*'
 
 jobs:
-  build:
-    name: Publish binaries
+  macos:
+    name: Build macOS binary
     runs-on: macOS-latest
 
     steps:
@@ -22,5 +22,22 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: .build/drstring.tar.gz
         asset_name: drstring-x86_64-apple-darwin.tar.gz
+        tag: ${{ github.ref }}
+        overwrite: true
+
+  macos:
+    name: Build Ubuntu binary
+    runs-on: swift@5.1.1-bionic
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build and package executable
+      run: make build; tar cvzf .build/release/drstring drstring.tar.gz
+    - name: Upload binaries
+      uses: svenstaro/upload-release-action@v1-release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: drstring.tar.gz
+        asset_name: drstring-x86_64-ubuntu-linux.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
