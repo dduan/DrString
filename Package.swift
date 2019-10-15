@@ -15,7 +15,7 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50100.0")),
         .package(url: "https://github.com/dduan/IsTTY.git", .exact("0.1.0")),
         .package(url: "https://github.com/dduan/Pathos.git", .exact("0.2.0")),
-        .package(url: "https://github.com/dduan/TOMLDecoder.git", .exact("0.1.4")),
+        .package(url: "https://github.com/dduan/TOMLDecoder.git", .exact("0.1.5")),
         .package(url: "https://github.com/mxcl/Chalk.git", .exact("0.4.0")),
         .package(url: "https://github.com/nsomar/Guaka.git", .exact("0.4.1")),
 
