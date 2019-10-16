@@ -370,6 +370,27 @@ public static var all: [String: Explainer] {
                       func f(foo: Int, bar Int)
                       """
     ),
+
+    "E015": .init(
+        id: "E015",
+        summary:      """
+                      The full path for this file is in the excluded list, however, DrString couldn't
+                      find any problems in the file. It should be removed from the exclusion list.
+                      """,
+        rightExample: nil,
+        wrongExample: nil
+    ),
+
+    "E016": .init(
+        id: "E016",
+        summary:      """
+                      The full path for this file is in the excluded list, however, it's not part of
+                      the included paths and won't be checked anyways. It should be removed from the
+                      exclusion list.
+                      """,
+        rightExample: nil,
+        wrongExample: nil
+    ),
 ]
 }
 }

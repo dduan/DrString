@@ -1,5 +1,4 @@
 import Critic
-import Pathos
 
 public typealias Section = Critic.Section
 public struct Configuration: Decodable {
@@ -7,6 +6,7 @@ public struct Configuration: Decodable {
     let excludedPaths: [String]
     let ignoreDocstringForThrows: Bool
     let verticalAlignParameterDescription: Bool
+    let allowSuperfluousExclusion: Bool
     let firstKeywordLetter: FirstKeywordLetterCasing
     let outputFormat: OutputFormat
     let separatedSections: [Section]
@@ -16,6 +16,7 @@ public struct Configuration: Decodable {
         excludedPaths: [String],
         ignoreDocstringForThrows: Bool,
         verticalAlignParameterDescription: Bool,
+        superfluousExclusion: Bool,
         firstKeywordLetter: FirstKeywordLetterCasing,
         outputFormat: OutputFormat,
         separatedSections: [Section]
@@ -24,6 +25,7 @@ public struct Configuration: Decodable {
         self.excludedPaths = excludedPaths
         self.ignoreDocstringForThrows = ignoreDocstringForThrows
         self.verticalAlignParameterDescription = verticalAlignParameterDescription
+        self.allowSuperfluousExclusion = superfluousExclusion
         self.firstKeywordLetter = firstKeywordLetter
         self.outputFormat = outputFormat
         self.separatedSections = separatedSections
@@ -35,6 +37,7 @@ public struct Configuration: Decodable {
         self.excludedPaths = try values.decodeIfPresent([String].self, forKey: .exclude) ?? []
         self.ignoreDocstringForThrows = try values.decodeIfPresent(Bool.self, forKey: .ignoreThrows) ?? false
         self.verticalAlignParameterDescription = try values.decodeIfPresent(Bool.self, forKey: .verticalAlign) ?? false
+        self.allowSuperfluousExclusion = try values.decodeIfPresent(Bool.self, forKey: .superfluousExclusion) ?? false
         self.firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) ?? .uppercase
         self.outputFormat = try values.decodeIfPresent(OutputFormat.self, forKey: .format) ?? .automatic
         self.separatedSections = try values.decodeIfPresent([Section].self, forKey: .separations) ?? []
@@ -48,6 +51,7 @@ public struct Configuration: Decodable {
         case firstKeyordLetter = "first-letter"
         case format = "format"
         case separations = "needs-separation"
+        case superfluousExclusion = "superfluous-exclusion"
     }
 
     public enum OutputFormat: String, Equatable, Decodable {
@@ -59,11 +63,5 @@ public struct Configuration: Decodable {
     public enum FirstKeywordLetterCasing: String, Equatable, Decodable {
         case uppercase
         case lowercase
-    }
-
-    var paths: [String] {
-        let included = Set((try? self.includedPaths.flatMap(glob)) ?? [])
-        let excluded = Set((try? self.excludedPaths.flatMap(glob)) ?? [])
-        return Array(included.subtracting(excluded)).sorted()
     }
 }

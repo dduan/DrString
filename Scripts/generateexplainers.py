@@ -22,6 +22,17 @@ line_template = '''
                       """
     ),
 '''
+
+line_template_no_example = '''
+    "{id}": .init(
+        id: "{id}",
+        summary:      """
+{summary}
+                      """,
+        rightExample: nil,
+        wrongExample: nil
+    ),
+'''
 pad = "                      "
 
 
@@ -40,7 +51,7 @@ for exp_path in paths:
     with open(exp_path) as exp_file:
         sections = exp_file.read().split("\n\n\n")
         title = sections[0][3:]
-        summary = pad_lines(sections[1])
+        summary = pad_lines(sections[1].strip())
 
         bad_example = None
         good_example = None
@@ -48,7 +59,18 @@ for exp_path in paths:
             examples_content = sections[2].split("```")
             bad_example = pad_lines(examples_content[1][5:].strip())
             good_example = pad_lines(examples_content[3][5:].strip())
-    lines.append(line_template.format(id=exp_id, summary=summary, bad_example=bad_example, good_example=good_example))
+        if bad_example and good_example:
+            lines.append(
+                    line_template.format(
+                        id=exp_id,
+                        summary=summary,
+                        bad_example=bad_example,
+                        good_example=good_example))
+        else:
+            lines.append(
+                    line_template_no_example.format(
+                        id=exp_id,
+                        summary=summary))
 
 
 body = ''.join(lines)
