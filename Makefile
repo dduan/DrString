@@ -1,8 +1,4 @@
 SHELL = /bin/bash
-BUILD_PATH = .build/release
-LIB_PATH = $(BUILD_PATH)/lib/drstring
-BIN_PATH = $(BUILD_PATH)/bin/drstring
-SWIFT_PATH = $(shell xcrun --find swift)
 
 test:
 	@swift test
