@@ -3,7 +3,7 @@ import FileCheck
 import XCTest
 import Critic
 
-final class DrStringTests: XCTestCase {
+final class ProblemCheckingTests: XCTestCase {
     private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
 
     private func runTest(
@@ -21,6 +21,7 @@ final class DrStringTests: XCTestCase {
                 excludedPaths: [],
                 ignoreDocstringForThrows: ignoreThrows,
                 verticalAlignParameterDescription: verticalAlign,
+                superfluousExclusion: false,
                 firstKeywordLetter: firstLetter,
                 outputFormat: .plain,
                 separatedSections: needsSeparation)

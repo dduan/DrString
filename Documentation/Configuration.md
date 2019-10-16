@@ -146,4 +146,26 @@ considered problematic.
 |      Value | Bool  |
 |    Default | false |
 
+### superfluous-exclusion
+
+By default, a full path in the `exclude`d list may be deemed redundant,
+therefore, problematic. This behavior can be turned off if
+`superfluous-exclusion` is `true`.
+
+An excluded path is _superfluous_ if one of the following set of criteria is
+met:
+
+1. It's not an glob pattern, and DrString can't find any docstring problems in
+   the file.
+1. It's not an glob pattern, and DrString is not supposed to check for problems
+   there according to the `include`d option.
+
+|            |       |
+| ---------- | ----- |
+|   Required | No    |
+| Repeatable | No    |
+|      Value | Bool  |
+|    Default | false |
+
+
 [TOML]: https://github.com/toml-lang/toml

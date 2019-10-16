@@ -7,6 +7,14 @@ public struct DocProblem {
     public let column: Int
     public let details: [Detail]
 
+    public init(docName: String, filePath: String, line: Int, column: Int, details: [Detail]) {
+        self.docName = docName
+        self.filePath = filePath
+        self.line = line
+        self.column = column
+        self.details = details
+    }
+
     public enum Detail {
         case redundantParameter(String)
         case missingParameter(String, String)
@@ -27,6 +35,8 @@ public struct DocProblem {
         case sectionShouldEndWithEmptyLine(String) // keyword or parameter name
         case redundantKeyword(String) // keyword
         case redundantTextFollowingParameterHeader(String) // keyword
+        case excludedYetNoProblemIsFound
+        case excludedYetNotIncluded
 
         public var explainerID: String {
             switch self {
@@ -58,6 +68,10 @@ public struct DocProblem {
                 return "E013"
             case .redundantTextFollowingParameterHeader:
                 return "E014"
+            case .excludedYetNoProblemIsFound:
+                return "E015"
+            case .excludedYetNotIncluded:
+                return "E016"
             }
         }
     }

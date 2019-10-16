@@ -1,5 +1,11 @@
 ## master
 
+### New
+
+- Paths (not including glob patterns) in the `exclude` option will be deemed superfluous when the `check`
+  command can't find any docstring problems or when it's not to be checked in the first place. This behavior
+  can be turned off by `superfluous-exclusion=true`.
+
 ## 0.2.1
 
 ### Changes

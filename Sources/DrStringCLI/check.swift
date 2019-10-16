@@ -37,6 +37,10 @@ private let checkFlags = [
         longName: Constants.verticalAlign,
         type: Bool.self,
         description: "Whether to require descriptions of different parameters to all start on the same column."),
+    Flag(
+        longName: Constants.superfluousExclusion,
+        type: Bool.self,
+        description: "`True` prevents DrString from considering an excluded path superfluous."),
 ]
 
 func check(flags: Flags, arguments: [String], help: String) {

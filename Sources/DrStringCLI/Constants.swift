@@ -6,4 +6,5 @@ enum Constants {
     static let exclude = "exclude"
     static let format = "format"
     static let separations = "needs-separation"
+    static let superfluousExclusion = "superfluous-exclusion"
 }
