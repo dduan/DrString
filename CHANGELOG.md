@@ -6,6 +6,11 @@
   command can't find any docstring problems or when it's not to be checked in the first place. This behavior
   can be turned off by `superfluous-exclusion=true`.
 
+### Improved
+
+- If a function does throw, and a `throws` entry exists, whitespace problems will be detected regardless of
+  value of `ignore-throw`.
+
 ## 0.2.1
 
 ### Changes

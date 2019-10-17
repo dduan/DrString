@@ -93,14 +93,16 @@ func findReturnsProblems(_ docs: DocString, _ returnType: String?, _ firstLetter
 func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, _ firstLetterUpper: Bool, needsSeparation: Bool)
     -> [DocProblem.Detail]
 {
-    if !doesThrow, let throwsKeyword = docs.throws?.keyword?.text {
-        return [.redundantKeyword(throwsKeyword)]
-    } else if !doesThrow || ignoreThrows {
-        return []
+    if !doesThrow {
+        if let throwsKeyword = docs.throws?.keyword?.text {
+            return [.redundantKeyword(throwsKeyword)]
+        } else {
+            return []
+        }
     }
 
     guard let throwsDoc = docs.throws else {
-        return [.missingThrow]
+        return ignoreThrows ? [] : [.missingThrow]
     }
 
     var result = [DocProblem.Detail]()
