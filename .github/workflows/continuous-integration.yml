@@ -20,8 +20,8 @@ jobs:
     - name: Action
       run: make ${{ matrix.action }}
 
-  docker:
-    name: Docker
+  ubuntu:
+    name: Ubuntu
     runs-on: ubuntu-latest
     strategy:
       matrix:
