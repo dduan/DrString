@@ -28,6 +28,7 @@ extension SuperfluousExclusionTests {
     // to regenerate.
     static let __allTests__SuperfluousExclusionTests = [
         ("testAllowSuperfluousExclusion", testAllowSuperfluousExclusion),
+        ("testNormalExclusionIsNotSuperfluous", testNormalExclusionIsNotSuperfluous),
         ("testNoSuperfluousExclusion", testNoSuperfluousExclusion),
         ("testSuperfluousExclusionBecauseItsNotIncludedToBeginWith", testSuperfluousExclusionBecauseItsNotIncludedToBeginWith),
         ("testSuperfluousExclusionViaGlob", testSuperfluousExclusionViaGlob),
