@@ -20,15 +20,20 @@ jobs:
     - name: Action
       run: make ${{ matrix.action }}
 
-  docker:
-    name: Docker
+  ubuntu:
+    name: Ubuntu
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        swift:
+          - 5.1.1
+        ubuntu:
+          - xenial
+          - bionic
         action:
-          - build-docker
-          - test-docker
+          - build
+          - test
     steps:
     - uses: actions/checkout@v1
     - name: Action
-      run: make ${{ matrix.action }}
+      run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu }}

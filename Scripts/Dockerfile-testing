@@ -1,4 +1,0 @@
-FROM swift@sha256:c4d53af406c5dc48bd43c0d313f3ed80924eee4bf78907ce4ad6eb8f5513f376
-ADD . DrString
-RUN cd DrString; make test
-
