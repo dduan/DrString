@@ -1,5 +1,7 @@
 ## master
 
+## 0.2.2
+
 ### New
 
 - Paths (not including glob patterns) in the `exclude` option will be deemed superfluous when the `check`
