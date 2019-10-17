@@ -67,16 +67,19 @@ public func check(with config: Configuration) -> CheckResult {
                         documentable, ignoreThrows: ignoreThrows,
                         firstLetterUpper: firstLetterUpper,
                         needsSeparation: config.separatedSections,
-                        verticalAlign: config.verticalAlignParameterDescription),
-                        !isPathExcluded
+                        verticalAlign: config.verticalAlignParameterDescription)
                     {
                         foundProblems = true
-                        problemCount += problem.details.count
-                        report(problem, format: config.outputFormat)
+                        if !isPathExcluded {
+                            problemCount += problem.details.count
+                            report(problem, format: config.outputFormat)
+                        }
                     }
                 }
 
-                if !foundProblems && !config.allowSuperfluousExclusion && config.excludedPaths.contains(path)
+                if !foundProblems &&
+                    !config.allowSuperfluousExclusion &&
+                    config.excludedPaths.contains(path)
                 {
                     report(
                         .init(

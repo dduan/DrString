@@ -40,6 +40,15 @@ final class SuperfluousExclusionTests: XCTestCase {
         )
     }
 
+    func testNormalExclusionIsNotSuperfluous() {
+        XCTAssert(runTest(
+            expectation: "// CHECK-NOT: This file is explicitly excluded, but it has no docstring problem",
+            include: ["badParamFormat", "badReturnsFormat"],
+            exclude: ["badReturnsFormat"],
+            allowSuperfluousExclusion: false)
+        )
+    }
+
     func testYesSuperfluousExclusion() {
         let expectation = """
         // CHECK: complete.swift
@@ -48,7 +57,7 @@ final class SuperfluousExclusionTests: XCTestCase {
 
         XCTAssert(runTest(
             expectation: expectation,
-            include: ["*"],
+            include: ["complete", "badParametersKeyword"],
             exclude: ["complete", "badParametersKeyword"],
             allowSuperfluousExclusion: false)
         )
