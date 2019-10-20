@@ -4,6 +4,9 @@
 
 - The option `ignore-returns` that makes presence of `returns` docstring non-mandatory.
   (similar to `ignore-throws`)
+- The option `parameter-style` enables linting against mixed parameter organizations. "separate" and "grouped"
+  styles can be enfored by using respective values for this option. The value `whatever` disables checks for
+  this element.
 
 ## 0.2.2
 

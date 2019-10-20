@@ -2,7 +2,8 @@ import Decipher
 import Crawler
 
 public func validate(_ documentable: Documentable, ignoreThrows: Bool, ignoreReturns: Bool,
-                     firstLetterUpper: Bool, needsSeparation: [Section], verticalAlign: Bool) throws
+                     firstLetterUpper: Bool, needsSeparation: [Section], verticalAlign: Bool,
+                     parameterStyle: ParameterStyle) throws
     -> DocProblem?
 {
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
@@ -13,7 +14,7 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool, ignoreRet
     case let .function(doesThrow, returnType, parameters):
         let details = try findDescriptionProblems(docs, needsSeparator: needsSeparation.contains(.description))
             + findParameterProblems(parameters, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters),
-                                    verticalAlign: verticalAlign)
+                                    verticalAlign: verticalAlign, style: parameterStyle)
             + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.throws))
             + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType, firstLetterUpper)
 
@@ -147,7 +148,8 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
 }
 
 func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool,
-                           needsSeparation: Bool, verticalAlign: Bool) throws -> [DocProblem.Detail]
+                           needsSeparation: Bool, verticalAlign: Bool, style: ParameterStyle) throws
+    -> [DocProblem.Detail]
 {
     var result = [DocProblem.Detail]()
 
@@ -179,6 +181,12 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
         if !header.description.isEmpty {
             result.append(.redundantTextFollowingParameterHeader(keyword.text))
         }
+
+        if style == .separate {
+            result.append(.parametersAreNotSeparated)
+        }
+    } else if docs.parameterHeader == nil, style == .grouped, docs.parameters.count > 1 {
+        result.append(.parametersAreNotGrouped)
     }
 
     // 1. find longest common sequence between the signature and docstring

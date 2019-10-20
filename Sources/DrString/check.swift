@@ -70,7 +70,8 @@ public func check(with config: Configuration) -> CheckResult {
                         ignoreReturns: ignoreReturns,
                         firstLetterUpper: firstLetterUpper,
                         needsSeparation: config.separatedSections,
-                        verticalAlign: config.verticalAlignParameterDescription)
+                        verticalAlign: config.verticalAlignParameterDescription,
+                        parameterStyle: config.parameterStyle)
                     {
                         foundProblems = true
                         if !isPathExcluded {

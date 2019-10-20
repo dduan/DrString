@@ -1,6 +1,7 @@
 import Critic
 
 public typealias Section = Critic.Section
+public typealias ParameterStyle = Critic.ParameterStyle
 public struct Configuration: Decodable {
     let includedPaths: [String]
     let excludedPaths: [String]
@@ -11,6 +12,7 @@ public struct Configuration: Decodable {
     let firstKeywordLetter: FirstKeywordLetterCasing
     let outputFormat: OutputFormat
     let separatedSections: [Section]
+    let parameterStyle: ParameterStyle
 
     public init(
         includedPaths: [String],
@@ -21,7 +23,8 @@ public struct Configuration: Decodable {
         superfluousExclusion: Bool,
         firstKeywordLetter: FirstKeywordLetterCasing,
         outputFormat: OutputFormat,
-        separatedSections: [Section]
+        separatedSections: [Section],
+        parameterStyle: ParameterStyle
     ) {
         self.includedPaths = includedPaths
         self.excludedPaths = excludedPaths
@@ -32,6 +35,7 @@ public struct Configuration: Decodable {
         self.firstKeywordLetter = firstKeywordLetter
         self.outputFormat = outputFormat
         self.separatedSections = separatedSections
+        self.parameterStyle = parameterStyle
     }
 
     public init(from decoder: Decoder) throws {
@@ -45,6 +49,7 @@ public struct Configuration: Decodable {
         self.firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) ?? .uppercase
         self.outputFormat = try values.decodeIfPresent(OutputFormat.self, forKey: .format) ?? .automatic
         self.separatedSections = try values.decodeIfPresent([Section].self, forKey: .separations) ?? []
+        self.parameterStyle = try values.decodeIfPresent(ParameterStyle.self, forKey: .parameterStyle) ?? .whatever
     }
 
     enum CodingKeys: String, CodingKey {
@@ -57,6 +62,7 @@ public struct Configuration: Decodable {
         case format = "format"
         case separations = "needs-separation"
         case superfluousExclusion = "superfluous-exclusion"
+        case parameterStyle = "parameter-style"
     }
 
     public enum OutputFormat: String, Equatable, Decodable {

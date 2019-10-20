@@ -11,6 +11,7 @@ extension ProblemCheckingTests {
         ("testBadReturnsFormat", testBadReturnsFormat),
         ("testBadThrowsFormat", testBadThrowsFormat),
         ("testCompletelyDocumentedFunction", testCompletelyDocumentedFunction),
+        ("testGroupedParameterStyle", testGroupedParameterStyle),
         ("testIgnoreReturns", testIgnoreReturns),
         ("testIgnoreThrows", testIgnoreThrows),
         ("testLowercaseKeywords", testLowercaseKeywords),
@@ -19,7 +20,9 @@ extension ProblemCheckingTests {
         ("testMissingStuff", testMissingStuff),
         ("testNoDocNoError", testNoDocNoError),
         ("testRedundantKeywords", testRedundantKeywords),
+        ("testSeparateParameterStyle", testSeparateParameterStyle),
         ("testUppercaseKeywords", testUppercaseKeywords),
+        ("testWhateverParameterStyle", testWhateverParameterStyle),
     ]
 }
 

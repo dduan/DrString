@@ -47,6 +47,10 @@ private extension DocProblem.Detail {
             return "This file is explicitly excluded, but it has no docstring problems."
         case .excludedYetNotIncluded:
             return "This file is explicitly excluded, but it's not included for checking anyways."
+        case .parametersAreNotGrouped:
+            return "Parameters are organized in the \"separate\" style, but \"grouped\" style is preferred."
+        case .parametersAreNotSeparated:
+            return "Parameters are organized in the \"grouped\" style, but \"separate\" style is preferred."
         }
     }
 

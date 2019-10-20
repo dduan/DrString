@@ -37,6 +37,8 @@ public struct DocProblem {
         case redundantTextFollowingParameterHeader(String) // keyword
         case excludedYetNoProblemIsFound
         case excludedYetNotIncluded
+        case parametersAreNotGrouped
+        case parametersAreNotSeparated
 
         public var explainerID: String {
             switch self {
@@ -72,6 +74,10 @@ public struct DocProblem {
                 return "E015"
             case .excludedYetNotIncluded:
                 return "E016"
+            case .parametersAreNotGrouped:
+                return "E017"
+            case .parametersAreNotSeparated:
+                return "E018"
             }
         }
     }

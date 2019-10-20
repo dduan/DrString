@@ -12,7 +12,8 @@ extension DrString.Configuration {
             superfluousExclusion: flags.getBool(name: Constants.superfluousExclusion) ?? false,
             firstKeywordLetter: flags.get(name: Constants.firstLetter, type: DrString.Configuration.FirstKeywordLetterCasing.self) ?? .uppercase,
             outputFormat: flags.get(name: Constants.format, type: DrString.Configuration.OutputFormat.self) ?? .automatic,
-            separatedSections: flags.get(name: Constants.separations, type: [Section].self) ?? []
+            separatedSections: flags.get(name: Constants.separations, type: [Section].self) ?? [],
+            parameterStyle: flags.get(name: Constants.parameterStyle, type: DrString.ParameterStyle.self) ?? .whatever
         )
     }
 }
@@ -42,6 +43,20 @@ extension DrString.Configuration.FirstKeywordLetterCasing: FlagValue {
 
     public static var typeDescription: String {
         "(uppercase|lowercase)"
+    }
+}
+
+extension DrString.ParameterStyle: FlagValue {
+    public static func fromString(flagValue value: String) throws -> DrString.ParameterStyle {
+        guard let format = ParameterStyle(rawValue: value) else {
+            throw FlagValueError.conversionError("")
+        }
+
+        return format
+    }
+
+    public static var typeDescription: String {
+        "(whatever|separate|grouped)"
     }
 }
 

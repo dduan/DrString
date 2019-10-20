@@ -33,6 +33,10 @@ private let checkFlags = [
         type : DrString.Configuration.FirstKeywordLetterCasing.self,
         description: "Casing for first letter in keywords such as `Throws`, `Returns`, `Parameter(s)`"),
     Flag(
+        longName: Constants.parameterStyle,
+        type : DrString.ParameterStyle.self,
+        description: "The format used to organize entries of multiple parameters"),
+    Flag(
         shortName: "s",
         longName: Constants.separations,
         type: [Section].self,
