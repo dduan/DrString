@@ -13,7 +13,8 @@ final class ProblemCheckingTests: XCTestCase {
         verticalAlign: Bool = true,
         expectEmpty: Bool = false,
         firstLetter: Configuration.FirstKeywordLetterCasing = .uppercase,
-        needsSeparation: [Section] = []
+        needsSeparation: [Section] = [],
+        parameterStyle: ParameterStyle = .whatever
     ) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
@@ -26,7 +27,8 @@ final class ProblemCheckingTests: XCTestCase {
                 superfluousExclusion: false,
                 firstKeywordLetter: firstLetter,
                 outputFormat: .plain,
-                separatedSections: needsSeparation)
+                separatedSections: needsSeparation,
+                parameterStyle: parameterStyle)
             )
         }
     }
@@ -86,5 +88,17 @@ final class ProblemCheckingTests: XCTestCase {
 
     func testBadParametersKeywordFormat() throws {
         XCTAssert(runTest(fileName: "badParametersKeyword", expectEmpty: false, firstLetter: .uppercase))
+    }
+
+    func testSeparateParameterStyle() throws {
+        XCTAssert(runTest(fileName: "separateParameterStyle", expectEmpty: false, parameterStyle: .separate))
+    }
+
+    func testGroupedParameterStyle() throws {
+        XCTAssert(runTest(fileName: "groupedParameterStyle", expectEmpty: false, parameterStyle: .grouped))
+    }
+
+    func testWhateverParameterStyle() throws {
+        XCTAssert(runTest(fileName: "whateverParameterStyle", expectEmpty: true, parameterStyle: .whatever))
     }
 }

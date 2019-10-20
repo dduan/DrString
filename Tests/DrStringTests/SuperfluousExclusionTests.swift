@@ -18,7 +18,8 @@ final class SuperfluousExclusionTests: XCTestCase {
                 superfluousExclusion: allowSuperfluousExclusion,
                 firstKeywordLetter: .lowercase,
                 outputFormat: .plain,
-                separatedSections: [])
+                separatedSections: [],
+                parameterStyle: .whatever)
             )
         }
     }

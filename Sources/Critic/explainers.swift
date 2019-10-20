@@ -391,6 +391,61 @@ public static var all: [String: Explainer] {
         rightExample: nil,
         wrongExample: nil
     ),
+
+    "E017": .init(
+        id: "E017",
+        summary:      """
+                      Parameters are preferred to be organized in the "grouped" style, with the section
+                      starting with ` - Parameters:` and followed by entries for each parameter. The
+                      entry should look like `   - parameterName: description ...`.
+                      
+                      The header is not required if only one parameter exists.
+                      """,
+        rightExample: """
+                      /// Description
+                      ///
+                      /// - Parameters:
+                      ///   - foo: description of foo
+                      ///   - bar: description of bar
+                      func f(foo: Int, bar: Int)
+                      
+                      /// Description
+                      ///
+                      /// - Parameter foo: description of foo
+                      func g(baz: Int)
+                      """,
+        wrongExample: """
+                      /// Description
+                      ///
+                      /// - Parameter foo: description of foo
+                      /// - Parameter bar: description of bar
+                      func f(foo: Int, bar: Int)
+                      """
+    ),
+
+    "E018": .init(
+        id: "E018",
+        summary:      """
+                      Parameters are preferred to be organized in the "separate" style. Each entry for
+                      a parameter should begin with ` - Parameter`, followed by the parameter name,
+                      a colon and the description.
+                      """,
+        rightExample: """
+                      /// Description
+                      ///
+                      /// - Parameter foo: description of foo
+                      /// - Parameter bar: description of bar
+                      func f(foo: Int, bar: Int)
+                      """,
+        wrongExample: """
+                      /// Description
+                      ///
+                      /// - Parameters:
+                      ///   - foo: description of foo
+                      ///   - bar: description of bar
+                      func f(foo: Int, bar: Int)
+                      """
+    ),
 ]
 }
 }
