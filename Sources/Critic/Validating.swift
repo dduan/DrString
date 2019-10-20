@@ -1,37 +1,37 @@
 import Decipher
 import Crawler
 
-public func validate(_ documentable: Documentable, ignoreThrows: Bool, ignoreReturns: Bool,
-                     firstLetterUpper: Bool, needsSeparation: [Section], verticalAlign: Bool,
-                     parameterStyle: ParameterStyle) throws
-    -> DocProblem?
-{
-    guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
-        return nil
-    }
+extension Documentable {
+    public func validate(ignoreThrows: Bool, ignoreReturns: Bool, firstLetterUpper: Bool,
+                         needsSeparation: [Section], verticalAlign: Bool, parameterStyle: ParameterStyle)
+        throws -> DocProblem?
+    {
+        guard !self.docLines.isEmpty, let docs = try? parse(lines: self.docLines) else {
+            return nil
+        }
 
-    switch documentable.details {
-    case let .function(doesThrow, returnType, parameters):
-        let details = try findDescriptionProblems(docs, needsSeparator: needsSeparation.contains(.description))
+        switch self.details {
+        case let .function(doesThrow, returnType, parameters):
+            let details = try findDescriptionProblems(docs, needsSeparator: needsSeparation.contains(.description))
             + findParameterProblems(parameters, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters),
                                     verticalAlign: verticalAlign, style: parameterStyle)
             + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.throws))
             + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType, firstLetterUpper)
 
-        if details.isEmpty {
-            return nil
-        }
+            if details.isEmpty {
+                return nil
+            }
 
-        return
-            DocProblem(
-                docName: documentable.name,
-                filePath: documentable.path,
-                line: documentable.line,
-                column: documentable.column,
+            return DocProblem(
+                docName: self.name,
+                filePath: self.path,
+                line: self.line,
+                column: self.column,
                 details: details
             )
-    default:
-        return nil
+        default:
+            return nil
+        }
     }
 }
 

@@ -64,8 +64,7 @@ public func check(with config: Configuration) -> CheckResult {
             do {
                 var foundProblems = false
                 for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
-                    if let problem = try validate(
-                        documentable,
+                    if let problem = try documentable.validate(
                         ignoreThrows: ignoreThrows,
                         ignoreReturns: ignoreReturns,
                         firstLetterUpper: firstLetterUpper,
