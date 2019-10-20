@@ -185,5 +185,38 @@ met:
 |      Value | Bool  |
 |    Default | false |
 
+### parameter-style
+
+As discussed in [overview][], there are two common format for organizing
+docstrings for parameters. The _grouped_ format starts with a ` - Parameters:`
+line. The _separate_ format does not. Examples:
+
+```
+/// This is the "grouped" format. Note how it has a "header" and individual
+/// entries doesn't each begin with a `parameter` keyword.
+///
+/// - Parameters:
+///   - foo: description for foo
+///   - bar: description for bar
+```
+
+```
+/// This is the "sepacate" format. Each parameter start with ` - Parameter`
+/// entries doesn't each begin with a `parameter` keyword.
+///
+/// - Parameter foo: description for foo
+/// - Parameter bar: description for bar
+```
+
+This option lets you specify which of the two styles, if any, is preferred.
+Preferring one style makes the other one problematic.
+
+|            |                                   |
+| ---------- | --------------------------------- |
+|   Required | No                                |
+| Repeatable | No                                |
+|      Value | `whatever`, `grouped`, `separate` |
+|    Default | `whatever`                        |
 
 [TOML]: https://github.com/toml-lang/toml
+[overview]: Overview.md
