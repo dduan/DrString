@@ -4,51 +4,16 @@ import Pathos
 import TOMLDecoder
 
 private let checkFlags = [
-    Flag(
-        longName: Constants.ignoreThrows,
-        type: Bool.self,
-        description: "Whether it's ok to not have docstring for what a function/method throws."),
-    Flag(
-        longName: Constants.ignoreReturns,
-        type: Bool.self,
-        description: "Whether it's ok to not have docstring for what a function/method returns."),
-    Flag(
-        shortName: "i",
-        longName: Constants.include,
-        type: [String].self,
-        description: "Paths included for DrString to operate on."),
-    Flag(
-        shortName: "x",
-        longName: Constants.exclude,
-        type: [String].self,
-        description: "Paths excluded for DrString to operate on"),
-    Flag(
-        shortName: "f",
-        longName: "format",
-        type: DrString.Configuration.OutputFormat.self,
-        description: "Output format. Terminal format turns on colored text in terminals."),
-    Flag(
-        shortName: "c",
-        longName: "first-letter",
-        type : DrString.Configuration.FirstKeywordLetterCasing.self,
-        description: "Casing for first letter in keywords such as `Throws`, `Returns`, `Parameter(s)`"),
-    Flag(
-        longName: Constants.parameterStyle,
-        type : DrString.ParameterStyle.self,
-        description: "The format used to organize entries of multiple parameters"),
-    Flag(
-        shortName: "s",
-        longName: Constants.separations,
-        type: [Section].self,
-        description: "Sections of docstring that requires separation to the next section"),
-    Flag(
-        longName: Constants.verticalAlign,
-        type: Bool.self,
-        description: "Whether to require descriptions of different parameters to all start on the same column."),
-    Flag(
-        longName: Constants.superfluousExclusion,
-        type: Bool.self,
-        description: "`True` prevents DrString from considering an excluded path superfluous."),
+    Options.ignoreThrows,
+    Options.ignoreReturns,
+    Options.include,
+    Options.exclude,
+    Options.format,
+    Options.firstLetter,
+    Options.parameterStyle,
+    Options.separations,
+    Options.verticalAlign,
+    Options.superfluousExclusion,
 ]
 
 func check(flags: Flags, arguments: [String], help: String) {
