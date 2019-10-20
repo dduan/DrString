@@ -356,7 +356,7 @@ public static var all: [String: Explainer] {
         rightExample: """
                       /// Description
                       ///
-                      /// - Paramaters:
+                      /// - Parameters:
                       ///   - foo: description of foo
                       ///   - bar: description of bar
                       func f(foo: Int, bar Int)
@@ -364,7 +364,7 @@ public static var all: [String: Explainer] {
         wrongExample: """
                       /// Description
                       ///
-                      /// - Paramaters: <- nothing should be here
+                      /// - Parameters: <- nothing should be here
                       ///   - foo: description of foo
                       ///   - bar: description of bar
                       func f(foo: Int, bar Int)

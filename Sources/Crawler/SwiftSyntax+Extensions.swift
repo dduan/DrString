@@ -2,7 +2,7 @@ import Decipher
 import SwiftSyntax
 
 extension FunctionParameterSyntax {
-    var paramater: Parameter {
+    var parameter: Parameter {
         let label = self.firstName?.text
         let name = self.secondName?.text ?? self.firstName?.text ?? ""
         let type = self.type?.description ?? ""
@@ -25,7 +25,7 @@ extension FunctionDeclSyntax {
 
     var parameters: [Parameter] {
         return self.signature.input.parameterList.children.compactMap { syntax in
-            return (syntax as? FunctionParameterSyntax)?.paramater
+            return (syntax as? FunctionParameterSyntax)?.parameter
         }
     }
 }
