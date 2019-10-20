@@ -246,7 +246,7 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
 
         if keyword.lead != " " {
             result.append(
-                .spaceBetweenDashAndParamaterKeyword(keyword.lead, keyword.text, parameter.name.text))
+                .spaceBetweenDashAndParameterKeyword(keyword.lead, keyword.text, parameter.name.text))
         }
 
         if parameter.name.lead != " " {

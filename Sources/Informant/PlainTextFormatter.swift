@@ -17,7 +17,7 @@ private extension DocProblem.Detail {
             return "Missing docstring for return type `\(type)`"
         case .preDashSpaceInParameter(let expected, let actual, let name):
             return "Parameter `\(name)` should start with exactly \(expected) space\(expected > 1 ? "s" : "") before `-`, found `\(actual)`"
-        case .spaceBetweenDashAndParamaterKeyword(let actual, let keyword, let name):
+        case .spaceBetweenDashAndParameterKeyword(let actual, let keyword, let name):
             return "`\(name)` should have exactly 1 space between `-` and `\(keyword)`, found \(actualWhitespace(actual))"
         case .spaceBeforeParameterName(let actual, let keyword, let name):
             return "There should be exactly 1 space between `\(keyword)` and `\(name)`, found \(actualWhitespace(actual))"

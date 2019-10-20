@@ -21,7 +21,7 @@ public struct DocProblem {
         case missingThrow
         case missingReturn(String)
         case preDashSpaceInParameter(Int, String, String) // expected, actual, name
-        case spaceBetweenDashAndParamaterKeyword(String, String, String) // Actual, keyword, name
+        case spaceBetweenDashAndParameterKeyword(String, String, String) // Actual, keyword, name
         case spaceBeforeParameterName(String, String, String) // Actual, keyword, name
         case spaceBeforeColon(String, String) // Actual, name
         case preDashSpace(String, String) // Keyword, actual
@@ -52,7 +52,7 @@ public struct DocProblem {
                 return "E004"
             case .preDashSpaceInParameter, .preDashSpace:
                 return "E005"
-            case .spaceBetweenDashAndParamaterKeyword, .spaceBetweenDashAndKeyword:
+            case .spaceBetweenDashAndParameterKeyword, .spaceBetweenDashAndKeyword:
                 return "E006"
             case .spaceBeforeParameterName:
                 return "E007"
