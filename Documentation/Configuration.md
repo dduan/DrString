@@ -86,8 +86,26 @@ Similar to _include_ except it substracts paths from the list of included files.
 
 ### ignore-throws
 
-Whether to make documentation for throws mandatory. When this is true, missing
-documentation for `throws` won't be considered problematic.
+Whether to make documentation for `throws` mandatory. When this is `false`,
+missing documentation for `throws` is considered problematic.
+
+Note: if docstring for `throws` exists for a function that throws, its
+whitespace error will be considered regardless of this option.
+
+|            |       |
+| ---------- | ----- |
+|   Required | No    |
+| Repeatable | No    |
+|      Value | Bool  |
+|    Default | false |
+
+### ignore-returns
+
+Whether to make documentation for `returns` mandatory. When this is `false`,
+missing documentation for `returns` is considered problematic.
+
+Note: if docstring for `returns` exists for a function that throws, its
+whitespace error will be considered regardless of this option.
 
 |            |       |
 | ---------- | ----- |

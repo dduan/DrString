@@ -39,6 +39,7 @@ public func check(with config: Configuration) -> CheckResult {
     var problemCount = 0
     var fileCount = 0
     let ignoreThrows = config.ignoreDocstringForThrows
+    let ignoreReturns = config.ignoreDocstringForReturns
     let firstLetterUpper: Bool
 
     switch config.firstKeywordLetter {
@@ -64,7 +65,9 @@ public func check(with config: Configuration) -> CheckResult {
                 var foundProblems = false
                 for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
                     if let problem = try validate(
-                        documentable, ignoreThrows: ignoreThrows,
+                        documentable,
+                        ignoreThrows: ignoreThrows,
+                        ignoreReturns: ignoreReturns,
                         firstLetterUpper: firstLetterUpper,
                         needsSeparation: config.separatedSections,
                         verticalAlign: config.verticalAlignParameterDescription)

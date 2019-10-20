@@ -1,8 +1,9 @@
 import Decipher
 import Crawler
 
-public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLetterUpper: Bool,
-                     needsSeparation: [Section], verticalAlign: Bool) throws -> DocProblem?
+public func validate(_ documentable: Documentable, ignoreThrows: Bool, ignoreReturns: Bool,
+                     firstLetterUpper: Bool, needsSeparation: [Section], verticalAlign: Bool) throws
+    -> DocProblem?
 {
     guard !documentable.docLines.isEmpty, let docs = try? parse(lines: documentable.docLines) else {
         return nil
@@ -14,7 +15,7 @@ public func validate(_ documentable: Documentable, ignoreThrows: Bool, firstLett
             + findParameterProblems(parameters, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters),
                                     verticalAlign: verticalAlign)
             + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.throws))
-            + findReturnsProblems(docs, returnType, firstLetterUpper)
+            + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType, firstLetterUpper)
 
         if details.isEmpty {
             return nil
@@ -42,7 +43,7 @@ func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool) -> [DocPro
     return result
 }
 
-func findReturnsProblems(_ docs: DocString, _ returnType: String?, _ firstLetterUpper: Bool)
+func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, _ returnType: String?, _ firstLetterUpper: Bool)
     -> [DocProblem.Detail]
 {
     guard let returnType = returnType else {
@@ -54,7 +55,7 @@ func findReturnsProblems(_ docs: DocString, _ returnType: String?, _ firstLetter
     }
 
     guard let returnsDoc = docs.returns else {
-        return [.missingReturn(returnType)]
+        return ignoreReturns ? [] : [.missingReturn(returnType)]
     }
 
     var result = [DocProblem.Detail]()

@@ -9,6 +9,10 @@ private let checkFlags = [
         type: Bool.self,
         description: "Whether it's ok to not have docstring for what a function/method throws."),
     Flag(
+        longName: Constants.ignoreReturns,
+        type: Bool.self,
+        description: "Whether it's ok to not have docstring for what a function/method returns."),
+    Flag(
         shortName: "i",
         longName: Constants.include,
         type: [String].self,

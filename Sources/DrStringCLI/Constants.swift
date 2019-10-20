@@ -1,5 +1,6 @@
 enum Constants {
     static let ignoreThrows = "ignore-throws"
+    static let ignoreReturns = "ignore-returns"
     static let verticalAlign = "vertical-align"
     static let firstLetter = "first-letter"
     static let include = "include"

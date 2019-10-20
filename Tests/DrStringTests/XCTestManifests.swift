@@ -11,6 +11,7 @@ extension ProblemCheckingTests {
         ("testBadReturnsFormat", testBadReturnsFormat),
         ("testBadThrowsFormat", testBadThrowsFormat),
         ("testCompletelyDocumentedFunction", testCompletelyDocumentedFunction),
+        ("testIgnoreReturns", testIgnoreReturns),
         ("testIgnoreThrows", testIgnoreThrows),
         ("testLowercaseKeywords", testLowercaseKeywords),
         ("testMisalignedParameterDescriptions", testMisalignedParameterDescriptions),
