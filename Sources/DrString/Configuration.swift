@@ -5,6 +5,7 @@ public struct Configuration: Decodable {
     let includedPaths: [String]
     let excludedPaths: [String]
     let ignoreDocstringForThrows: Bool
+    let ignoreDocstringForReturns: Bool
     let verticalAlignParameterDescription: Bool
     let allowSuperfluousExclusion: Bool
     let firstKeywordLetter: FirstKeywordLetterCasing
@@ -15,6 +16,7 @@ public struct Configuration: Decodable {
         includedPaths: [String],
         excludedPaths: [String],
         ignoreDocstringForThrows: Bool,
+        ignoreDocstringForReturns: Bool,
         verticalAlignParameterDescription: Bool,
         superfluousExclusion: Bool,
         firstKeywordLetter: FirstKeywordLetterCasing,
@@ -24,6 +26,7 @@ public struct Configuration: Decodable {
         self.includedPaths = includedPaths
         self.excludedPaths = excludedPaths
         self.ignoreDocstringForThrows = ignoreDocstringForThrows
+        self.ignoreDocstringForReturns = ignoreDocstringForReturns
         self.verticalAlignParameterDescription = verticalAlignParameterDescription
         self.allowSuperfluousExclusion = superfluousExclusion
         self.firstKeywordLetter = firstKeywordLetter
@@ -36,6 +39,7 @@ public struct Configuration: Decodable {
         self.includedPaths = try values.decode([String].self, forKey: .include)
         self.excludedPaths = try values.decodeIfPresent([String].self, forKey: .exclude) ?? []
         self.ignoreDocstringForThrows = try values.decodeIfPresent(Bool.self, forKey: .ignoreThrows) ?? false
+        self.ignoreDocstringForReturns = try values.decodeIfPresent(Bool.self, forKey: .ignoreReturns) ?? false
         self.verticalAlignParameterDescription = try values.decodeIfPresent(Bool.self, forKey: .verticalAlign) ?? false
         self.allowSuperfluousExclusion = try values.decodeIfPresent(Bool.self, forKey: .superfluousExclusion) ?? false
         self.firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) ?? .uppercase
@@ -47,6 +51,7 @@ public struct Configuration: Decodable {
         case include = "include"
         case exclude = "exclude"
         case ignoreThrows = "ignore-throws"
+        case ignoreReturns = "ignore-returns"
         case verticalAlign = "vertical-align"
         case firstKeyordLetter = "first-letter"
         case format = "format"

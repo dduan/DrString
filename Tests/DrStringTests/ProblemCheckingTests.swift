@@ -9,6 +9,7 @@ final class ProblemCheckingTests: XCTestCase {
     private func runTest(
         fileName: String,
         ignoreThrows: Bool = false,
+        ignoreReturns: Bool = false,
         verticalAlign: Bool = true,
         expectEmpty: Bool = false,
         firstLetter: Configuration.FirstKeywordLetterCasing = .uppercase,
@@ -20,6 +21,7 @@ final class ProblemCheckingTests: XCTestCase {
                 includedPaths: [fixture],
                 excludedPaths: [],
                 ignoreDocstringForThrows: ignoreThrows,
+                ignoreDocstringForReturns: ignoreReturns,
                 verticalAlignParameterDescription: verticalAlign,
                 superfluousExclusion: false,
                 firstKeywordLetter: firstLetter,
@@ -43,6 +45,10 @@ final class ProblemCheckingTests: XCTestCase {
 
     func testIgnoreThrows() throws {
         XCTAssert(runTest(fileName: "ignoreThrows", ignoreThrows: true, firstLetter: .lowercase))
+    }
+
+    func testIgnoreReturns() throws {
+        XCTAssert(runTest(fileName: "ignoreReturns", ignoreReturns: true, firstLetter: .lowercase))
     }
 
     func testBadParameterFormat() throws {

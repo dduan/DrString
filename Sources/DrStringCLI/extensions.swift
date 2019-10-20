@@ -7,6 +7,7 @@ extension DrString.Configuration {
             includedPaths: flags[valuesForName: Constants.include] as? [String] ?? [],
             excludedPaths: flags[valuesForName: Constants.exclude] as? [String] ?? [],
             ignoreDocstringForThrows: flags.getBool(name: Constants.ignoreThrows) ?? false,
+            ignoreDocstringForReturns: flags.getBool(name: Constants.ignoreReturns) ?? false,
             verticalAlignParameterDescription: flags.getBool(name: Constants.verticalAlign) ?? false,
             superfluousExclusion: flags.getBool(name: Constants.superfluousExclusion) ?? false,
             firstKeywordLetter: flags.get(name: Constants.firstLetter, type: DrString.Configuration.FirstKeywordLetterCasing.self) ?? .uppercase,

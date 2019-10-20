@@ -1,5 +1,10 @@
 ## master
 
+### New
+
+- The option `ignore-returns` that makes presence of `returns` docstring non-mandatory.
+  (similar to `ignore-throws`)
+
 ## 0.2.2
 
 ### New

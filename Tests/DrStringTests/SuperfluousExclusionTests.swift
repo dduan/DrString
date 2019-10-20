@@ -13,6 +13,7 @@ final class SuperfluousExclusionTests: XCTestCase {
                 includedPaths: include,
                 excludedPaths: exclude,
                 ignoreDocstringForThrows: false,
+                ignoreDocstringForReturns: false,
                 verticalAlignParameterDescription: false,
                 superfluousExclusion: allowSuperfluousExclusion,
                 firstKeywordLetter: .lowercase,
