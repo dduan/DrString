@@ -44,8 +44,8 @@ private extension DocProblem.Detail {
             return "Redundant documentation for \(keyword, color: .green)"
         case .redundantTextFollowingParameterHeader(let keyword):
             return "\(":", color: .green) should be the last character on the line for \(keyword, color: .green)"
-        case .excludedYetNoProblemIsFound:
-            return "This file is explicitly excluded, but it has no docstring problems (except for this)."
+        case .excludedYetNoProblemIsFound(let configFile):
+            return "This file is explicitly excluded in \(configFile), but it has no docstring problems (except for this)."
         case .excludedYetNotIncluded:
             return "This file is explicitly excluded, but it's not included for checking anyways."
         case .parametersAreNotGrouped:

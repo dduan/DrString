@@ -33,7 +33,7 @@ func check(flags: Flags, arguments: [String], help: String) {
         config = DrString.Configuration(flags)
     }
 
-    switch check(with: config) {
+    switch check(with: config, configFile: path) {
     case .ok:
         return
     case .foundProblems:

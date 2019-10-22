@@ -29,7 +29,7 @@ func report(_ problem: DocProblem, format: Configuration.OutputFormat) {
     print("\(output)\n")
 }
 
-public func check(with config: Configuration) -> CheckResult {
+public func check(with config: Configuration, configFile: String) -> CheckResult {
     if config.includedPaths.isEmpty {
         fputs("[check] Paths to source files are missing. Please provide some.\n", stderr)
         return .missingInput
@@ -90,7 +90,7 @@ public func check(with config: Configuration) -> CheckResult {
                             filePath: path,
                             line: 0,
                             column: 0,
-                            details: [.excludedYetNoProblemIsFound]
+                            details: [.excludedYetNoProblemIsFound(configFile)]
                         ),
                         format: config.outputFormat
                     )
