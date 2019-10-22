@@ -28,7 +28,8 @@ final class ProblemCheckingTests: XCTestCase {
                 firstKeywordLetter: firstLetter,
                 outputFormat: .plain,
                 separatedSections: needsSeparation,
-                parameterStyle: parameterStyle)
+                parameterStyle: parameterStyle),
+                configFile: ".drstring.toml"
             )
         }
     }
