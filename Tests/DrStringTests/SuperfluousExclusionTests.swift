@@ -19,14 +19,15 @@ final class SuperfluousExclusionTests: XCTestCase {
                 firstKeywordLetter: .lowercase,
                 outputFormat: .plain,
                 separatedSections: [],
-                parameterStyle: .whatever)
+                parameterStyle: .whatever),
+                configFile: ".drstring.toml"
             )
         }
     }
 
     func testAllowSuperfluousExclusion() {
         XCTAssert(runTest(
-            expectation: "// CHECK-NOT: This file is explicitly excluded, but it has no docstring problem",
+            expectation: "// CHECK-NOT: This file is explicitly excluded in .drstring.toml, but it has no docstring problem",
             include: ["complete"],
             exclude: ["complete"],
             allowSuperfluousExclusion: true)
@@ -35,7 +36,7 @@ final class SuperfluousExclusionTests: XCTestCase {
 
     func testNoSuperfluousExclusion() {
         XCTAssert(runTest(
-            expectation: "// CHECK-NOT: This file is explicitly excluded, but it has no docstring problem",
+            expectation: "// CHECK-NOT: This file is explicitly excluded .drstring.toml, but it has no docstring problem",
             include: ["badParamFormat"],
             exclude: ["badReturnsFormat"],
             allowSuperfluousExclusion: false)
@@ -44,7 +45,7 @@ final class SuperfluousExclusionTests: XCTestCase {
 
     func testNormalExclusionIsNotSuperfluous() {
         XCTAssert(runTest(
-            expectation: "// CHECK-NOT: This file is explicitly excluded, but it has no docstring problem",
+            expectation: "// CHECK-NOT: This file is explicitly excluded .drstring.toml, but it has no docstring problem",
             include: ["badParamFormat", "badReturnsFormat"],
             exclude: ["badReturnsFormat"],
             allowSuperfluousExclusion: false)
@@ -54,7 +55,7 @@ final class SuperfluousExclusionTests: XCTestCase {
     func testYesSuperfluousExclusion() {
         let expectation = """
         // CHECK: complete.swift
-        // CHECK: This file is explicitly excluded, but it has no docstring problem
+        // CHECK: This file is explicitly excluded in .drstring.toml, but it has no docstring problem
         """
 
         XCTAssert(runTest(
@@ -67,7 +68,7 @@ final class SuperfluousExclusionTests: XCTestCase {
 
     func testSuperfluousExclusionViaGlob() {
         XCTAssert(runTest(
-            expectation: "// CHECK-NOT: This file is explicitly excluded, but it has no docstring problem",
+            expectation: "// CHECK-NOT: This file is explicitly excluded in .drstring.toml, but it has no docstring problem",
             include: ["badParamFormat"],
             exclude: ["*omplete"],
             allowSuperfluousExclusion: false)
