@@ -18,8 +18,8 @@ private let checkFlags = [
 
 func check(flags: Flags, arguments: [String], help: String) {
     let config: DrString.Configuration
-    let path = ".drstring.toml"
-    if (try? isA(.file, atPath: path)) == .some(true) {
+    var path: String? = ".drstring.toml"
+    if let path = path, (try? isA(.file, atPath: path)) == .some(true) {
         guard let configText = try? readString(atPath: path),
             let decoded = try? TOMLDecoder().decode(DrString.Configuration.self, from: configText) else
         {
@@ -31,9 +31,10 @@ func check(flags: Flags, arguments: [String], help: String) {
         config = decoded
     } else {
         config = DrString.Configuration(flags)
+        path = nil
     }
 
-    switch check(with: config) {
+    switch check(with: config, configFile: path) {
     case .ok:
         return
     case .foundProblems:

@@ -35,7 +35,7 @@ public struct DocProblem {
         case sectionShouldEndWithEmptyLine(String) // keyword or parameter name
         case redundantKeyword(String) // keyword
         case redundantTextFollowingParameterHeader(String) // keyword
-        case excludedYetNoProblemIsFound
+        case excludedYetNoProblemIsFound(String?) // config path
         case excludedYetNotIncluded
         case parametersAreNotGrouped
         case parametersAreNotSeparated
