@@ -4,6 +4,13 @@ This tutorial teaches the basics of installing and using DrString.
 
 Read [overview][] if you aren't sure about using DrString.
 
+This tutorial assumes that you are comfortable with the command line. If not,
+then read this introduction to the command line:
+
+- [Learn Enough Command Line to Be Dangerous][cli]
+
+[cli]: https://www.learnenough.com/command-line-tutorial
+
 [overview]: overview.md
 
 ## Install
