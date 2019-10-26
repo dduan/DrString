@@ -16,7 +16,7 @@ final class ProblemCheckingTests: XCTestCase {
         needsSeparation: [Section] = [],
         parameterStyle: ParameterStyle = .whatever
     ) -> Bool {
-        let fixture = self.directory + "/Fixtures/" + "\(fileName).swift"
+        let fixture = self.directory + "/Fixtures/" + "\(fileName).fixture"
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
             _ = check(with: Configuration(
                 includedPaths: [fixture],
