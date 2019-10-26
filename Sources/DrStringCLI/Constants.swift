@@ -9,4 +9,5 @@ enum Constants {
     static let separations = "needs-separation"
     static let superfluousExclusion = "superfluous-exclusion"
     static let parameterStyle = "parameter-style"
+    static let alignAfterColon = "align-after-colon"
 }

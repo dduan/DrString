@@ -13,6 +13,7 @@ public struct Configuration: Decodable {
     let outputFormat: OutputFormat
     let separatedSections: [Section]
     let parameterStyle: ParameterStyle
+    let alignAfterColon: [Section]
 
     public init(
         includedPaths: [String],
@@ -24,7 +25,8 @@ public struct Configuration: Decodable {
         firstKeywordLetter: FirstKeywordLetterCasing,
         outputFormat: OutputFormat,
         separatedSections: [Section],
-        parameterStyle: ParameterStyle
+        parameterStyle: ParameterStyle,
+        alignAfterColon: [Section]
     ) {
         self.includedPaths = includedPaths
         self.excludedPaths = excludedPaths
@@ -36,6 +38,7 @@ public struct Configuration: Decodable {
         self.outputFormat = outputFormat
         self.separatedSections = separatedSections
         self.parameterStyle = parameterStyle
+        self.alignAfterColon = alignAfterColon
     }
 
     public init(from decoder: Decoder) throws {
@@ -50,6 +53,7 @@ public struct Configuration: Decodable {
         self.outputFormat = try values.decodeIfPresent(OutputFormat.self, forKey: .format) ?? .automatic
         self.separatedSections = try values.decodeIfPresent([Section].self, forKey: .separations) ?? []
         self.parameterStyle = try values.decodeIfPresent(ParameterStyle.self, forKey: .parameterStyle) ?? .whatever
+        self.alignAfterColon = try values.decodeIfPresent([Section].self, forKey: .alignAfterColon) ?? []
     }
 
     enum CodingKeys: String, CodingKey {
@@ -63,6 +67,7 @@ public struct Configuration: Decodable {
         case separations = "needs-separation"
         case superfluousExclusion = "superfluous-exclusion"
         case parameterStyle = "parameter-style"
+        case alignAfterColon = "align-after-colon"
     }
 
     public enum OutputFormat: String, Equatable, Decodable {
