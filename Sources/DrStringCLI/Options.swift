@@ -47,4 +47,8 @@ enum Options {
         longName: Constants.superfluousExclusion,
         type: Bool.self,
         description: "`True` prevents DrString from considering an excluded path superfluous.")
+    static let alignAfterColon = Flag(
+        longName: Constants.alignAfterColon,
+        type: [Section].self,
+        description: "Consecutive lines of description should align after `:`")
 }

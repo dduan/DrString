@@ -1,0 +1,28 @@
+// CHECK: Line 2 of `foo`'s description is not properly vertically aligned
+// CHECK-NOT: Line 3 of `foo`'s description is not properly vertically aligned
+/// - Parameter foo: description of foo
+///   start of second line
+///                  start of third line
+func f(foo: Int) {}
+
+// CHECK: Line 2 of `Throws`'s description is not properly vertically aligned
+// CHECK-NOT: Line 3 of `foo`'s description is not properly vertically aligned
+/// - Throws: description of returns
+///   start of second line
+///           start of third line
+func g() throws {}
+
+// CHECK: Line 2 of `Returns`'s description is not properly vertically aligned
+// CHECK-NOT: Line 3 of `foo`'s description is not properly vertically aligned
+/// - Returns: description of returns
+///   start of second line
+///            start of third line
+func h() -> Int {}
+
+// CHECK: Line 2 of `foo`'s description is not properly vertically aligned
+// CHECK-NOT: Line 3 of `foo`'s description is not properly vertically aligned
+/// - Parameters:
+///   - foo: description of foo
+///   start of second line
+///          start of third line
+func i(foo: Int) {}

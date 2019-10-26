@@ -19,7 +19,8 @@ final class SuperfluousExclusionTests: XCTestCase {
                 firstKeywordLetter: .lowercase,
                 outputFormat: .plain,
                 separatedSections: [],
-                parameterStyle: .whatever),
+                parameterStyle: .whatever,
+                alignAfterColon: []),
                 configFile: ".drstring.toml"
             )
         }

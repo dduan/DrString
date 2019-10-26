@@ -11,6 +11,7 @@ final class ProblemCheckingTests: XCTestCase {
         ignoreThrows: Bool = false,
         ignoreReturns: Bool = false,
         verticalAlign: Bool = true,
+        alignAfterColon: [Section] = [],
         expectEmpty: Bool = false,
         firstLetter: Configuration.FirstKeywordLetterCasing = .uppercase,
         needsSeparation: [Section] = [],
@@ -28,7 +29,8 @@ final class ProblemCheckingTests: XCTestCase {
                 firstKeywordLetter: firstLetter,
                 outputFormat: .plain,
                 separatedSections: needsSeparation,
-                parameterStyle: parameterStyle),
+                parameterStyle: parameterStyle,
+                alignAfterColon: alignAfterColon),
                 configFile: ".drstring.toml"
             )
         }
@@ -101,5 +103,15 @@ final class ProblemCheckingTests: XCTestCase {
 
     func testWhateverParameterStyle() throws {
         XCTAssert(runTest(fileName: "whateverParameterStyle", expectEmpty: true, parameterStyle: .whatever))
+    }
+
+    func testAlignAfterColon() throws {
+        XCTAssert(runTest(fileName: "alignAfterColon", alignAfterColon: [.parameters, .throws, .returns],
+                          expectEmpty: false))
+    }
+
+    func testAlignAfterColonNotRequired() throws {
+        XCTAssert(runTest(fileName: "alignAfterColonNetRequired",
+                          alignAfterColon: [.parameters, .throws, .returns], expectEmpty: true))
     }
 }

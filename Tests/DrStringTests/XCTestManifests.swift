@@ -6,6 +6,8 @@ extension ProblemCheckingTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__ProblemCheckingTests = [
+        ("testAlignAfterColon", testAlignAfterColon),
+        ("testAlignAfterColonNotRequired", testAlignAfterColonNotRequired),
         ("testBadParameterFormat", testBadParameterFormat),
         ("testBadParametersKeywordFormat", testBadParametersKeywordFormat),
         ("testBadReturnsFormat", testBadReturnsFormat),

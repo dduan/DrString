@@ -13,7 +13,8 @@ extension DrString.Configuration {
             firstKeywordLetter: flags.get(name: Constants.firstLetter, type: DrString.Configuration.FirstKeywordLetterCasing.self) ?? .uppercase,
             outputFormat: flags.get(name: Constants.format, type: DrString.Configuration.OutputFormat.self) ?? .automatic,
             separatedSections: flags.get(name: Constants.separations, type: [Section].self) ?? [],
-            parameterStyle: flags.get(name: Constants.parameterStyle, type: DrString.ParameterStyle.self) ?? .whatever
+            parameterStyle: flags.get(name: Constants.parameterStyle, type: DrString.ParameterStyle.self) ?? .whatever,
+            alignAfterColon: flags.get(name: Constants.alignAfterColon, type: [Section].self) ?? []
         )
     }
 }
@@ -70,6 +71,6 @@ extension Section: FlagValue {
     }
 
     public static var typeDescription: String {
-        "(description|parameters|throws)"
+        "(description|parameters|throws|returns)"
     }
 }

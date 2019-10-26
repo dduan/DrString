@@ -13,6 +13,7 @@ private let checkFlags = [
     Options.parameterStyle,
     Options.separations,
     Options.verticalAlign,
+    Options.alignAfterColon,
     Options.superfluousExclusion,
 ]
 

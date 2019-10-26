@@ -3,7 +3,8 @@ import Crawler
 
 extension Documentable {
     public func validate(ignoreThrows: Bool, ignoreReturns: Bool, firstLetterUpper: Bool,
-                         needsSeparation: [Section], verticalAlign: Bool, parameterStyle: ParameterStyle)
+                         needsSeparation: [Section], verticalAlign: Bool, parameterStyle: ParameterStyle,
+                         alignAfterColon: [Section])
         throws -> DocProblem?
     {
         guard !self.docLines.isEmpty, let docs = try? parse(lines: self.docLines) else {
@@ -12,11 +13,17 @@ extension Documentable {
 
         switch self.details {
         case let .function(doesThrow, returnType, parameters):
-            let details = try findDescriptionProblems(docs, needsSeparator: needsSeparation.contains(.description))
-            + findParameterProblems(parameters, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters),
-                                    verticalAlign: verticalAlign, style: parameterStyle)
-            + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs, firstLetterUpper, needsSeparation: needsSeparation.contains(.throws))
-            + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType, firstLetterUpper)
+            let details = try findDescriptionProblems(
+                docs, needsSeparator: needsSeparation.contains(.description))
+            + findParameterProblems(parameters, docs, firstLetterUpper,
+                                    needsSeparation: needsSeparation.contains(.parameters),
+                                    verticalAlign: verticalAlign, style: parameterStyle,
+                                    alignAfterColon: alignAfterColon.contains(.parameters))
+            + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs, firstLetterUpper,
+                                 needsSeparation: needsSeparation.contains(.throws),
+                                 alignAfterColon: alignAfterColon.contains(.throws))
+            + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType, firstLetterUpper,
+                                  alignAfterColon: alignAfterColon.contains(.throws))
 
             if details.isEmpty {
                 return nil
@@ -37,14 +44,19 @@ extension Documentable {
 
 func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool) -> [DocProblem.Detail] {
     var result = [DocProblem.Detail]()
-    if needsSeparator, !docs.parameters.isEmpty || docs.throws != nil || docs.returns != nil, let last = docs.description.last, !last.lead.isEmpty || !last.text.isEmpty {
+    if needsSeparator, !docs.parameters.isEmpty ||
+        docs.throws != nil ||
+        docs.returns != nil, let last = docs.description.last, !last.lead.isEmpty ||
+        !last.text.isEmpty
+    {
         result.append(.descriptionShouldEndWithEmptyLine)
     }
 
     return result
 }
 
-func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, _ returnType: String?, _ firstLetterUpper: Bool)
+func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, _ returnType: String?,
+                         _ firstLetterUpper: Bool, alignAfterColon: Bool)
     -> [DocProblem.Detail]
 {
     guard let returnType = returnType else {
@@ -59,22 +71,31 @@ func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, _ returnType: S
         return ignoreReturns ? [] : [.missingReturn(returnType)]
     }
 
+    let keywordText = returnsDoc.keyword?.text ?? ((firstLetterUpper ? "R" : "r") + "eturns")
     var result = [DocProblem.Detail]()
 
     if returnsDoc.preDashWhitespace != " " {
-        result.append(.preDashSpace("returns", returnsDoc.preDashWhitespace))
+        result.append(.preDashSpace(keywordText, returnsDoc.preDashWhitespace))
     }
 
     if let preKeyword = returnsDoc.keyword?.lead, preKeyword != " " {
-        result.append(.spaceBetweenDashAndKeyword("returns", preKeyword))
+        result.append(.spaceBetweenDashAndKeyword(keywordText, preKeyword))
     }
 
     if returnsDoc.preColonWhitespace != "" {
-        result.append(.spaceBeforeColon(returnsDoc.preColonWhitespace, "returns"))
+        result.append(.spaceBeforeColon(returnsDoc.preColonWhitespace, keywordText))
     }
 
     if let postColonLead = returnsDoc.description.first?.lead, postColonLead != " " {
-        result.append(.spaceAfterColon("returns", postColonLead))
+        result.append(.spaceAfterColon(keywordText, postColonLead))
+    }
+
+    let standardPaddingLength = 11
+    let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
+    for (index, line) in returnsDoc.description.dropFirst().enumerated() {
+        if line.lead != standardPadding {
+            result.append(.verticalAlignment(standardPaddingLength, keywordText, index + 2))
+        }
     }
 
     if firstLetterUpper {
@@ -92,8 +113,8 @@ func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, _ returnType: S
     return result
 }
 
-func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, _ firstLetterUpper: Bool, needsSeparation: Bool)
-    -> [DocProblem.Detail]
+func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, _ firstLetterUpper: Bool,
+                        needsSeparation: Bool, alignAfterColon: Bool) -> [DocProblem.Detail]
 {
     if !doesThrow {
         if let throwsKeyword = docs.throws?.keyword?.text {
@@ -107,6 +128,7 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
         return ignoreThrows ? [] : [.missingThrow]
     }
 
+    let keywordText = throwsDoc.keyword?.text ?? ((firstLetterUpper ? "T" : "t") + "hrows")
     var result = [DocProblem.Detail]()
 
     if throwsDoc.preDashWhitespace != " " {
@@ -114,15 +136,23 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
     }
 
     if let preKeyword = throwsDoc.keyword?.lead, preKeyword != " " {
-        result.append(.spaceBetweenDashAndKeyword("throws", preKeyword))
+        result.append(.spaceBetweenDashAndKeyword(keywordText, preKeyword))
     }
 
     if throwsDoc.preColonWhitespace != "" {
-        result.append(.spaceBeforeColon(throwsDoc.preColonWhitespace, "throws"))
+        result.append(.spaceBeforeColon(throwsDoc.preColonWhitespace, keywordText))
     }
 
     if let postColonLead = throwsDoc.description.first?.lead, postColonLead != " " {
-        result.append(.spaceAfterColon("throws", postColonLead))
+        result.append(.spaceAfterColon(keywordText, postColonLead))
+    }
+
+    let standardPaddingLength = 11
+    let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
+    for (index, line) in throwsDoc.description.dropFirst().enumerated() {
+        if line.lead != standardPadding {
+            result.append(.verticalAlignment(standardPaddingLength, keywordText, index + 2))
+        }
     }
 
     if firstLetterUpper {
@@ -148,7 +178,8 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
 }
 
 func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ firstLetterUpper: Bool,
-                           needsSeparation: Bool, verticalAlign: Bool, style: ParameterStyle) throws
+                           needsSeparation: Bool, verticalAlign: Bool, style: ParameterStyle,
+                           alignAfterColon: Bool) throws
     -> [DocProblem.Detail]
 {
     var result = [DocProblem.Detail]()
@@ -222,7 +253,8 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
 
     // 4. Only consider other issues if a parameter is in the common sequence
     for docParam in validDocs {
-        result += findDocParameterFormatProblems(docParam, maxNameLength, firstLetterUpper, verticalAlign)
+        result += findDocParameterFormatProblems(docParam, maxNameLength, firstLetterUpper, verticalAlign,
+                                                 alignAfterColon: alignAfterColon)
     }
 
     if needsSeparation, docs.returns != nil || docs.throws != nil, let lastParam = docs.parameters.last,
@@ -235,7 +267,8 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
 }
 
 func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameLength: Int,
-                                    _ firstLetterUpper: Bool, _ verticalAlign: Bool) -> [DocProblem.Detail]
+                                    _ firstLetterUpper: Bool, _ verticalAlign: Bool, alignAfterColon: Bool)
+    -> [DocProblem.Detail]
 {
     var result = [DocProblem.Detail]()
 
@@ -279,6 +312,24 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
                 !line.lead.isEmpty && !line.text.isEmpty)
             {
                 result.append(.verticalAlignment(expectedBodyLeadLength, parameter.name.text, index + 2))
+            }
+        }
+    } else if alignAfterColon {
+        if let lead = parameter.description.first?.lead, lead != " " {
+            result.append(.verticalAlignment(1, parameter.name.text, 1))
+        }
+
+        let standardPaddingLength: Int
+        if parameter.keyword != nil {
+            standardPaddingLength = 15 + parameter.name.text.count
+        } else {
+            standardPaddingLength = 7 + parameter.name.text.count
+        }
+
+        let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
+        for (index, line) in parameter.description.dropFirst().enumerated() {
+            if line.lead != standardPadding {
+                result.append(.verticalAlignment(standardPaddingLength, parameter.name.text, index + 2))
             }
         }
     }
