@@ -1,0 +1,11 @@
+/// Description
+/// - Parameter foo: foo
+/// - Throws: throws stuff
+func formattingTest0a(foo: Int) throws {}
+
+/// Description
+/// - Parameter foob: foo
+/// - Returns: some string
+func formattingTest0b(foob: Int) -> String {
+    ""
+}

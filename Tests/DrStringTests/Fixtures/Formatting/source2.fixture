@@ -1,0 +1,11 @@
+    /// Submits raw data extracted from the driver license, including the barcode string and the
+    /// photo upload
+    /// url.
+    ///
+    /// - parameter driverLicenseData: driver license data to submit, which includes the barcode raw
+    ///                                data and
+    ///                                                               the url where the photo data
+    ///                                                               was uploaded to.
+    /// - parameter completion:               completion block.
+    func submit(driverLicenseData: DriverLicenseData,
+                completion: @escaping DriverLicenseSubmitCallback) {}

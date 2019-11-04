@@ -32,6 +32,7 @@ let package = Package(
         .target(name: "DrString", dependencies: ["Editor", "Decipher", "Informant", "Critic", "Pathos", "IsTTY"]),
         .target(name: "DrStringCLI", dependencies: ["DrString", "Pathos", "Guaka", "TOMLDecoder"]),
         .testTarget(name: "CriticTests", dependencies: ["Crawler", "Decipher", "Critic"]),
+        .testTarget(name: "EditorTests", dependencies: ["Crawler", "Decipher", "Editor"]),
         .testTarget(name: "DecipherTests", dependencies: ["Decipher"]),
         .testTarget(name: "DrStringTests", dependencies: ["DrString", "FileCheck"],
                     exclude: ["Tests/DrStringTests/Fixtures"]),
