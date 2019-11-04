@@ -20,7 +20,8 @@ final class SuperfluousExclusionTests: XCTestCase {
                 outputFormat: .plain,
                 separatedSections: [],
                 parameterStyle: .whatever,
-                alignAfterColon: []),
+                alignAfterColon: [],
+                columnLimit: 100),
                 configFile: ".drstring.toml"
             )
         }

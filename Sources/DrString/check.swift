@@ -63,7 +63,8 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
         queue.async {
             do {
                 var foundProblems = false
-                for documentable in try extractDocs(fromSourcePath: path).compactMap({ $0 }) {
+                let (documentables, _) = try extractDocs(fromSourcePath: path)
+                for documentable in documentables.compactMap({ $0 }) {
                     if let problem = try documentable.validate(
                         ignoreThrows: ignoreThrows,
                         ignoreReturns: ignoreReturns,

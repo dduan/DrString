@@ -14,7 +14,8 @@ extension DrString.Configuration {
             outputFormat: flags.get(name: Constants.format, type: DrString.Configuration.OutputFormat.self) ?? .automatic,
             separatedSections: flags.get(name: Constants.separations, type: [Section].self) ?? [],
             parameterStyle: flags.get(name: Constants.parameterStyle, type: DrString.ParameterStyle.self) ?? .whatever,
-            alignAfterColon: flags.get(name: Constants.alignAfterColon, type: [Section].self) ?? []
+            alignAfterColon: flags.get(name: Constants.alignAfterColon, type: [Section].self) ?? [],
+            columnLimit: flags.get(name: Constants.columnLimit, type: Int.self)
         )
     }
 }

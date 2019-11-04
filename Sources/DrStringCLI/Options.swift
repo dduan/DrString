@@ -51,4 +51,8 @@ enum Options {
         longName: Constants.alignAfterColon,
         type: [Section].self,
         description: "Consecutive lines of description should align after `:`")
+    static let columnLimit = Flag(
+        longName: Constants.columnLimit,
+        type: Int.self,
+        description: "Max number of columns a line can fit, beyond which is problematic.")
 }

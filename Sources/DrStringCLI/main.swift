@@ -57,5 +57,6 @@ var mainCommand: Guaka.Command = {
 }()
 
 mainCommand.add(subCommand: checkCommand)
+mainCommand.add(subCommand: formatCommand)
 mainCommand.add(subCommand: explainCommand)
 mainCommand.execute()
