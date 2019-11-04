@@ -7,6 +7,10 @@
 - The option `parameter-style` enables linting against mixed parameter organizations. "separate" and "grouped"
   styles can be enfored by using respective values for this option. The value `whatever` disables checks for
   this element.
+- The option `align-after-colon` enables enforcement of starting colomn of descriptions for parameters,
+  returns and throws. For each of these sections, if the setting is set, all lines of descriptions must begin
+  after the `:` characeter from the first line.
+
 
 ## 0.2.2
 
