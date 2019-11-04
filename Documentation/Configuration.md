@@ -31,15 +31,19 @@ aspects are included:
   the list of valid values are listed instead of a type.
 - **Default**: A default value if none is explicitly specfied. Not applicable
   if the option is *required*.
+- **Command**: The command(s) this option is effective for.
 
-## Options for all commands
+*Read [Getting Started](GettingStarted.md) to see examples of using these
+options*
+
+## The Options
+
+### format
 
 This option controls output format for DrString. `terminal` directs DrString to
 output ANSI colors to parts of the output to enhance its readability in terminal
 (TTY) devices. `plain` disables ANSI color in output. `automatic` makes DrString
 detect whether output device is a terminal and do the right thing.
-
-### format
 
 |            |                                  |
 | ---------- | -------------------------------- |
@@ -47,14 +51,8 @@ detect whether output device is a terminal and do the right thing.
 | Repeatable | No                               |
 |      Value | `automatic`, `terminal`, `plain` |
 |    Default | `automatic`                      |
+|    Command | _all commands_                   |
 
-## Options for the `check` command
-
-Each of the options for the `check` subcommand can be used as both a command
-line argument as well as a key-value in the .drstring.toml configuration file. 
-
-*Read [Getting Started](GettingStarted.md) to see examples of using these
-options*
 
 ### include
 
@@ -66,23 +64,25 @@ specify all files in a path or recursively in a path. For example:
 
 This is sometimes known as "globstar" patterns.
 
-|            |        |
-| ---------- | ------ |
-|   Required | Yes    |
-| Repeatable | Yes    |
-|      Value | String |
-|    Default | N/A    |
+|            |               |
+| ---------- | ------------- |
+|   Required | Yes           |
+| Repeatable | Yes           |
+|      Value | String        |
+|    Default | N/A           |
+|    Command | check, format |
 
 ### exclude
 
 Similar to _include_ except it substracts paths from the list of included files.
 
-|            |        |
-| ---------- | ------ |
-|   Required | No     |
-| Repeatable | Yes    |
-|      Value | String |
-|    Default | []     |
+|            |               |
+| ---------- | ------------- |
+|   Required | No            |
+| Repeatable | Yes           |
+|      Value | String        |
+|    Default | []            |
+|    Command | check, format |
 
 ### ignore-throws
 
@@ -98,6 +98,7 @@ whitespace error will be considered regardless of this option.
 | Repeatable | No    |
 |      Value | Bool  |
 |    Default | false |
+|    Command | check |
 
 ### ignore-returns
 
@@ -113,6 +114,7 @@ whitespace error will be considered regardless of this option.
 | Repeatable | No    |
 |      Value | Bool  |
 |    Default | false |
+|    Command | check |
 
 ### first-letter
 
@@ -128,6 +130,7 @@ considered problematic.
 | Repeatable | No                       |
 |      Value | `uppercase`, `lowercase` |
 |    Default | `uppercase`              |
+|    Command | check, format            |
 
 
 ### needs-separation
@@ -149,6 +152,7 @@ docstring line after the overall description a problem.
 | Repeatable | Yes                                   |
 |      Value | `description`, `parameters`, `throws` |
 |    Default | []                                    |
+|    Command | check, format                         |
 
 ### vertical-align
 
@@ -157,12 +161,13 @@ each parameter may be required to all start on the same column. When this option
 is turned on, parameter descriptions that aren't vertically aligned are
 considered problematic.
 
-|            |       |
-| ---------- | ----- |
-|   Required | No    |
-| Repeatable | No    |
-|      Value | Bool  |
-|    Default | false |
+|            |               |
+| ---------- | ------------- |
+|   Required | No            |
+| Repeatable | No            |
+|      Value | Bool          |
+|    Default | false         |
+|    Command | check, format |
 
 ### superfluous-exclusion
 
@@ -184,6 +189,7 @@ met:
 | Repeatable | No    |
 |      Value | Bool  |
 |    Default | false |
+|    Command | check |
 
 ### parameter-style
 
@@ -217,6 +223,24 @@ Preferring one style makes the other one problematic.
 | Repeatable | No                                |
 |      Value | `whatever`, `grouped`, `separate` |
 |    Default | `whatever`                        |
+|    Command | check, format                     |
+
+### column-limit
+
+Some codebases choose to limit the maximum length of a line in source files.
+When this option is set, docstring lines that goes beyond the set column will be
+broken down into multiple lines so that the result won't be over the limit.
+
+If this option is not explicit set, there won't be any limit (put another way,
+the limit is infinity).
+
+|            |        |
+| ---------- | ------ |
+|   Required | No     |
+| Repeatable | No     |
+|      Value | Int    |
+|    Default | nil    |
+|    Command | format |
 
 ### parameter-style
 
@@ -250,6 +274,7 @@ Preferring one style makes the other one problematic.
 | Repeatable | No                                |
 |      Value | `whatever`, `grouped`, `separate` |
 |    Default | `whatever`                        |
+|    Command | check, format                     |
 
 ### align-after-colon
 
@@ -272,6 +297,7 @@ configured separately.
 | Repeatable | Yes                               |
 |      Value | `parameters`, `returns`, `throws` |
 |    Default | []                                |
+|    Command | check, format                     |
 
 [TOML]: https://github.com/toml-lang/toml
 [overview]: Overview.md
