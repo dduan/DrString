@@ -1,0 +1,2 @@
+    /// - returns:                The new button mode
+    public func f() -> B
