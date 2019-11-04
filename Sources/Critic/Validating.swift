@@ -19,11 +19,13 @@ extension Documentable {
                                     needsSeparation: needsSeparation.contains(.parameters),
                                     verticalAlign: verticalAlign, style: parameterStyle,
                                     alignAfterColon: alignAfterColon.contains(.parameters))
-            + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs, firstLetterUpper,
-                                 needsSeparation: needsSeparation.contains(.throws),
-                                 alignAfterColon: alignAfterColon.contains(.throws))
-            + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType, firstLetterUpper,
-                                  alignAfterColon: alignAfterColon.contains(.throws))
+                + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs,
+                                     firstLetterUpper: firstLetterUpper,
+                                     needsSeparation: needsSeparation.contains(.throws),
+                                     alignAfterColon: alignAfterColon.contains(.throws))
+                + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType: returnType,
+                                      firstLetterUpper: firstLetterUpper,
+                                      alignAfterColon: alignAfterColon.contains(.throws))
 
             if details.isEmpty {
                 return nil
@@ -55,8 +57,8 @@ func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool) -> [DocPro
     return result
 }
 
-func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, _ returnType: String?,
-                         _ firstLetterUpper: Bool, alignAfterColon: Bool)
+func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, returnType: String?,
+                         firstLetterUpper: Bool, alignAfterColon: Bool)
     -> [DocProblem.Detail]
 {
     guard let returnType = returnType else {
@@ -90,11 +92,13 @@ func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, _ returnType: S
         result.append(.spaceAfterColon(keywordText, postColonLead))
     }
 
-    let standardPaddingLength = 11
-    let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
-    for (index, line) in returnsDoc.description.dropFirst().enumerated() {
-        if line.lead != standardPadding {
-            result.append(.verticalAlignment(standardPaddingLength, keywordText, index + 2))
+    if alignAfterColon {
+        let standardPaddingLength = 12
+        let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
+        for (index, line) in returnsDoc.description.dropFirst().enumerated() {
+            if line.lead < standardPadding {
+                result.append(.verticalAlignment(standardPaddingLength, keywordText, index + 2))
+            }
         }
     }
 
@@ -113,7 +117,7 @@ func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, _ returnType: S
     return result
 }
 
-func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, _ firstLetterUpper: Bool,
+func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, firstLetterUpper: Bool,
                         needsSeparation: Bool, alignAfterColon: Bool) -> [DocProblem.Detail]
 {
     if !doesThrow {
@@ -147,11 +151,13 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
         result.append(.spaceAfterColon(keywordText, postColonLead))
     }
 
-    let standardPaddingLength = 11
-    let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
-    for (index, line) in throwsDoc.description.dropFirst().enumerated() {
-        if line.lead != standardPadding {
-            result.append(.verticalAlignment(standardPaddingLength, keywordText, index + 2))
+    if alignAfterColon {
+        let standardPaddingLength = 11
+        let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
+        for (index, line) in throwsDoc.description.dropFirst().enumerated() {
+            if line.lead < standardPadding {
+                result.append(.verticalAlignment(standardPaddingLength, keywordText, index + 2))
+            }
         }
     }
 
