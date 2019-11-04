@@ -30,7 +30,8 @@ final class ProblemCheckingTests: XCTestCase {
                 outputFormat: .plain,
                 separatedSections: needsSeparation,
                 parameterStyle: parameterStyle,
-                alignAfterColon: alignAfterColon),
+                alignAfterColon: alignAfterColon,
+                columnLimit: 100),
                 configFile: ".drstring.toml"
             )
         }

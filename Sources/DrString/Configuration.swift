@@ -1,7 +1,8 @@
-import Critic
+import Decipher
 
-public typealias Section = Critic.Section
-public typealias ParameterStyle = Critic.ParameterStyle
+public typealias Section = Decipher.Section
+public typealias ParameterStyle = Decipher.ParameterStyle
+
 public struct Configuration: Decodable {
     let includedPaths: [String]
     let excludedPaths: [String]
@@ -14,6 +15,7 @@ public struct Configuration: Decodable {
     let separatedSections: [Section]
     let parameterStyle: ParameterStyle
     let alignAfterColon: [Section]
+    let columnLimit: Int?
 
     public init(
         includedPaths: [String],
@@ -26,7 +28,8 @@ public struct Configuration: Decodable {
         outputFormat: OutputFormat,
         separatedSections: [Section],
         parameterStyle: ParameterStyle,
-        alignAfterColon: [Section]
+        alignAfterColon: [Section],
+        columnLimit: Int?
     ) {
         self.includedPaths = includedPaths
         self.excludedPaths = excludedPaths
@@ -39,6 +42,7 @@ public struct Configuration: Decodable {
         self.separatedSections = separatedSections
         self.parameterStyle = parameterStyle
         self.alignAfterColon = alignAfterColon
+        self.columnLimit = columnLimit
     }
 
     public init(from decoder: Decoder) throws {
@@ -54,6 +58,7 @@ public struct Configuration: Decodable {
         self.separatedSections = try values.decodeIfPresent([Section].self, forKey: .separations) ?? []
         self.parameterStyle = try values.decodeIfPresent(ParameterStyle.self, forKey: .parameterStyle) ?? .whatever
         self.alignAfterColon = try values.decodeIfPresent([Section].self, forKey: .alignAfterColon) ?? []
+        self.columnLimit = try values.decodeIfPresent(Int.self, forKey: .columnLimit)
     }
 
     enum CodingKeys: String, CodingKey {
@@ -68,6 +73,7 @@ public struct Configuration: Decodable {
         case superfluousExclusion = "superfluous-exclusion"
         case parameterStyle = "parameter-style"
         case alignAfterColon = "align-after-colon"
+        case columnLimit = "column-limit"
     }
 
     public enum OutputFormat: String, Equatable, Decodable {

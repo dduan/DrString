@@ -1,24 +1,28 @@
 import Pathos
 import SwiftSyntax
 
-public func extractDocs(fromSourcePath sourcePath: String) throws -> [Documentable] {
-    return try DocExtractor(filePath: sourcePath).extractDocs()
+public func extractDocs(fromSourcePath sourcePath: String) throws -> ([Documentable], String) {
+    let extractor = try DocExtractor(filePath: sourcePath)
+    return (try extractor.extractDocs(), extractor.source)
 }
 
 private final class DocExtractor: SyntaxRewriter {
     private var findings: [Documentable] = []
-    private let source: SourceFileSyntax
+    private let syntax: SourceFileSyntax
     private let converter: SourceLocationConverter
+
+    let source: String
 
     init(filePath: String) throws {
         let sourceText = try readString(atPath: filePath)
+        self.source = sourceText
         let tree = try SyntaxParser.parse(source: sourceText)
-        self.source = tree
+        self.syntax = tree
         self.converter = SourceLocationConverter(file: filePath, source: sourceText)
     }
 
     func extractDocs() throws -> [Documentable] {
-        _ = self.visit(source)
+        _ = self.visit(syntax)
         return self.findings
     }
 
@@ -29,8 +33,8 @@ private final class DocExtractor: SyntaxRewriter {
             + "(\(parameters.reduce("") { $0 + ($1.label ?? $1.name) + ":" }))"
         let finding = Documentable(
             path: location.file ?? "",
-            line: location.line ?? 0,
-            column: location.column ?? 0,
+            line: (location.line ?? 0) - 1,
+            column: (location.column ?? 0) - 1,
             name: signatureText,
             docLines: node.leadingTrivia?.docStringLines ?? [],
             children: [],

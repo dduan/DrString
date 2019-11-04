@@ -10,4 +10,5 @@ enum Constants {
     static let superfluousExclusion = "superfluous-exclusion"
     static let parameterStyle = "parameter-style"
     static let alignAfterColon = "align-after-colon"
+    static let columnLimit = "column-limit"
 }
