@@ -259,7 +259,7 @@ the `:` character on the first line. For example:
 
 ```
 /// - Returns: <- Start here. This is the first line
-///               Second line starts here.
+///            Second line starts here.
 ```
 For parameters, the option `vertical-align` takes priority over this one.
 
