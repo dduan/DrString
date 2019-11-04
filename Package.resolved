@@ -50,9 +50,9 @@
         "package": "Pathos",
         "repositoryURL": "https://github.com/dduan/Pathos.git",
         "state": {
-          "branch": null,
-          "revision": "8541adb66a08b879d91cd19e73750fa00d47f4b4",
-          "version": "0.2.0"
+          "branch": "0.2.1",
+          "revision": "72e74fa8bf504427d0534d104fe38ccf8855e247",
+          "version": null
         }
       },
       {
