@@ -50,7 +50,8 @@ var mainCommand: Guaka.Command = {
             return
         }
 
-        check(flags: flags, arguments: arguments, help: command.helpMessage)
+        let options = ParsedOptions(from: flags, arguments: arguments)
+        check(with: options, help: command.helpMessage)
     }
 
     return command
