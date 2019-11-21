@@ -24,11 +24,33 @@ private let formatFlags = [
 ]
 
 private let longMessage = """
-TODO
+Fix docstring formatting errors for sources in given paths.
+
+Paths are specfied using the `-i/--include` option, they can be repeated.
+Globstar is supported (see example).
+
+Flags can be used to specify preferred styles for docstrings.
+
+A configuration file can be used instead of command line options to specify
+preferred styles. The options are equivalent in both methods.
 """
 
 private let example = """
-TODO
+  Fix all Swift files under `./Sources` recursively:
+
+    drstring format -i 'Sources/**/*.swift'
+
+  Use full name for `-i` (include), exclude some paths from being checked,
+  ignore throws, require an empty docstring line after parameters, and
+  continuation of descriptions to vertical align after ':'s.
+
+
+    drstring format \\
+        --include 'Sources/**/*.swift' \\
+        --include 'Tests/**/*.swift' \\
+        --exclude 'Tests/Fixtures/*.swift' \\
+        --needs-separation parameters \\
+        --align-after-colon parameters
 """
 
 let formatCommand: Guaka.Command = {

@@ -35,7 +35,7 @@ func check(with options: ParsedOptions, help: String) {
 }
 
 private let longMessage = """
-Check (lint) source files for docsttring problems in given paths.
+Check (lint) source files for docstring problems in given paths.
 
 Paths are specfied using the `-i/--include` option, they can be repeated.
 Globstar is supported (see example).
