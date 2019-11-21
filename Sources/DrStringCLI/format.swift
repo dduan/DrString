@@ -1,27 +1,16 @@
 import DrString
 import Editor
 import Guaka
-import Pathos
-import TOMLDecoder
 
-func format(flags: Flags, arguments: [String], help: String) {
-    let config: DrString.Configuration
-    let path = ".drstring.toml"
-    if (try? isA(.file, atPath: path)) == .some(true) {
-        guard let configText = try? readString(atPath: path),
-            let decoded = try? TOMLDecoder().decode(DrString.Configuration.self, from: configText) else
-        {
-            fputs("Tried to run `format`, but \(path) doesn't contain a valid config file.\n", stderr)
-            fputs(help, stderr)
-            exit(EXIT_FAILURE)
-        }
-
-        config = decoded
-    } else {
-        config = DrString.Configuration(flags)
+func format(with options: ParsedOptions, help: String) {
+    switch options {
+    case .configDecodeFailure(let path):
+        fputs("Tried to run `format`, but \(path) doesn't contain a valid config file.\n", stderr)
+        fputs(help, stderr)
+        exit(EXIT_FAILURE)
+    case .success(let config, _):
+        format(with: config)
     }
-
-    format(with: config)
 }
 
 private let formatFlags = [
@@ -51,7 +40,8 @@ let formatCommand: Guaka.Command = {
         example: example,
         aliases: ["fix", "f"])
     command.run = { flags, arguments in
-        format(flags: flags, arguments: arguments, help: command.helpMessage)
+        let options = ParsedOptions(from: flags, arguments: arguments)
+        format(with: options, help: command.helpMessage)
     }
     return command
 }()

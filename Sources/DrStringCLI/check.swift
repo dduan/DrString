@@ -1,7 +1,5 @@
 import DrString
 import Guaka
-import Pathos
-import TOMLDecoder
 
 private let checkFlags = [
     Options.ignoreThrows,
@@ -17,32 +15,22 @@ private let checkFlags = [
     Options.superfluousExclusion,
 ]
 
-func check(flags: Flags, arguments: [String], help: String) {
-    let config: DrString.Configuration
-    var path: String? = ".drstring.toml"
-    if let path = path, (try? isA(.file, atPath: path)) == .some(true) {
-        guard let configText = try? readString(atPath: path),
-            let decoded = try? TOMLDecoder().decode(DrString.Configuration.self, from: configText) else
-        {
-            fputs("Tried to run `check`, but \(path) doesn't contain a valid config file.\n", stderr)
+func check(with options: ParsedOptions, help: String) {
+    switch options {
+    case .configDecodeFailure(let path):
+        fputs("Tried to run `check`, but \(path) doesn't contain a valid config file.\n", stderr)
+        fputs(help, stderr)
+        exit(EXIT_FAILURE)
+    case .success(let config, let path):
+        switch check(with: config, configFile: path) {
+        case .ok:
+            return
+        case .foundProblems:
+            exit(EXIT_FAILURE)
+        case .missingInput:
             fputs(help, stderr)
             exit(EXIT_FAILURE)
         }
-
-        config = decoded
-    } else {
-        config = DrString.Configuration(flags)
-        path = nil
-    }
-
-    switch check(with: config, configFile: path) {
-    case .ok:
-        return
-    case .foundProblems:
-        exit(EXIT_FAILURE)
-    case .missingInput:
-        fputs(help, stderr)
-        exit(EXIT_FAILURE)
     }
 }
 
@@ -87,7 +75,8 @@ let checkCommand: Guaka.Command = {
         aliases: ["lint", "c", "l"])
 
     command.run = { flags, arguments in
-        check(flags: flags, arguments: arguments, help: command.helpMessage)
+        let options = ParsedOptions(from: flags, arguments: arguments)
+        check(with: options, help: command.helpMessage)
     }
 
     return command
