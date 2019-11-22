@@ -127,9 +127,29 @@ Save this file as `.drstring.toml` in the current worknig directory and simply
 run `drstring` will cause DrString to do the exact same thing as the CLI
 argument examlpe with `check` subcommand.
 
+Different location for the config file can be specified as a command-line
+argument via `--config-file`. For example:
+
+```bash
+drstring format --config-file PATH_TO_CONFIG_TOML
+```
+
 The configuration file is in [TOML][] format.
 
 [TOML]: https://github.com/toml-lang/toml
+
+### Automatically fix whitespace errors
+
+The `format` subcommand finds and fixes formatting errors in your docstrings.
+
+```bash
+drstring check -i 'Sources/**/*.swift'
+```
+
+It shares most [options][] with the `check` subcommand, which can be specified
+as command-line arguments or via the config file.
+
+[options]: Configuration.md
 
 ### Getting help
 

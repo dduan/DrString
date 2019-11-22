@@ -2,6 +2,8 @@
 
 ### New
 
+- New subcommand `format` automatically fixes whitespace errors in docstrings according to options specified
+  via command line options or config file.
 - The option `ignore-returns` that makes presence of `returns` docstring non-mandatory.
   (similar to `ignore-throws`)
 - The option `parameter-style` enables linting against mixed parameter organizations. "separate" and "grouped"
