@@ -10,7 +10,8 @@
 - The option `align-after-colon` enables enforcement of starting colomn of descriptions for parameters,
   returns and throws. For each of these sections, if the setting is set, all lines of descriptions must begin
   after the `:` characeter from the first line.
-
+- The path to config file can now be specified via the `--config-file` command line option. The default path
+  is `.drstring.toml`.
 
 ## 0.2.2
 
