@@ -21,6 +21,7 @@ private let formatFlags = [
     Options.separations,
     Options.verticalAlign,
     Options.columnLimit,
+    Options.configFile,
 ]
 
 private let longMessage = """

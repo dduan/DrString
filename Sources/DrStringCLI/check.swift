@@ -13,6 +13,7 @@ private let checkFlags = [
     Options.verticalAlign,
     Options.alignAfterColon,
     Options.superfluousExclusion,
+    Options.configFile,
 ]
 
 func check(with options: ParsedOptions, help: String) {

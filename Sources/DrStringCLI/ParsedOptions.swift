@@ -3,13 +3,14 @@ import DrString
 import Pathos
 import TOMLDecoder
 
+private let kDefaultConfigurationPath = ".drstring.toml"
 enum ParsedOptions {
     case success(DrString.Configuration, configPath: String?)
     case configDecodeFailure(configPath: String)
 
     init(from flags: Flags, arguments: [String]) {
         let config: DrString.Configuration
-        var path: String? = ".drstring.toml"
+        var path: String? = flags.getString(name: Constants.configFile) ?? kDefaultConfigurationPath
         if let path = path, (try? isA(.file, atPath: path)) == .some(true) {
             guard let configText = try? readString(atPath: path),
                 let decoded = try? TOMLDecoder().decode(DrString.Configuration.self, from: configText) else
