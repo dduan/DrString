@@ -55,4 +55,8 @@ enum Options {
         longName: Constants.columnLimit,
         type: Int.self,
         description: "Max number of columns a line can fit, beyond which is problematic.")
+    static let configFile = Flag(
+        longName: Constants.configFile,
+        type: String.self,
+        description: "Path to the configuration TOML file.")
 }

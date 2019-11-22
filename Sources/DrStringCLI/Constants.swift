@@ -11,4 +11,5 @@ enum Constants {
     static let parameterStyle = "parameter-style"
     static let alignAfterColon = "align-after-colon"
     static let columnLimit = "column-limit"
+    static let configFile = "config-file"
 }
