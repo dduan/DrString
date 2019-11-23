@@ -1,0 +1,6 @@
+// CHECK-NOT: Redundant documentation for `throws`
+/// description
+/// - parameter a: description for a
+/// - throws: wat
+/// - returns: zero
+func redundantKeywords0(a: Int) -> Int { 0 }

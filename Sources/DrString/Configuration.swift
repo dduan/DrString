@@ -80,6 +80,7 @@ public struct Configuration: Decodable {
         case automatic
         case terminal
         case plain
+        case paths
     }
 
     public enum FirstKeywordLetterCasing: String, Equatable, Decodable {

@@ -160,3 +160,28 @@ Read the [documentation for options][options] to learn more about ways to
 enforec different docstring styles.
 
 [options]: Configuration.md
+
+### Tips and tricks
+
+#### Starting off in a big codebase
+
+In a big project, DrString might complain a lot at time of introduction. It's
+totally reasonable to exclude files that contains these problems to begin with
+(and slowly fix the problems, of course. How? I'll leave that as a reader
+exercise…)
+
+DrString has a `paths` format that outputs only paths to the problematic files:
+
+```bash
+drstring check --format paths
+```
+
+With some light processing, this can become the list of paths to exclude.
+
+#### Running in CI
+
+`drstring check` exits with status code 0 when no docstring problem is found,
+and non-zero otherwise. Description of problems is printed to stdout and
+a summary of problem ("found N problems in M files...") is printed in stderr.
+
+This information should help you collect signal for failure, logs, etc.
