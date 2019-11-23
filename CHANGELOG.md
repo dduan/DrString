@@ -14,6 +14,8 @@
   after the `:` characeter from the first line.
 - The path to config file can now be specified via the `--config-file` command line option. The default path
   is `.drstring.toml`.
+- The `format` option gained a new value `paths`, which causes `drstring check` to print out only paths to
+  problematic files, and not the rest of the problems details.
 
 ## 0.2.2
 
