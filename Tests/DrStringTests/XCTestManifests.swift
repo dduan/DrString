@@ -33,6 +33,7 @@ extension ProblemCheckingTests {
         ("testMissingStuff", testMissingStuff),
         ("testNoDocNoError", testNoDocNoError),
         ("testRedundantKeywords", testRedundantKeywords),
+        ("testRedundantKeywordsPathsOnly", testRedundantKeywordsPathsOnly),
         ("testSeparateParameterStyle", testSeparateParameterStyle),
         ("testUppercaseKeywords", testUppercaseKeywords),
         ("testWhateverParameterStyle", testWhateverParameterStyle),

@@ -43,15 +43,17 @@ options*
 This option controls output format for DrString. `terminal` directs DrString to
 output ANSI colors to parts of the output to enhance its readability in terminal
 (TTY) devices. `plain` disables ANSI color in output. `automatic` makes DrString
-detect whether output device is a terminal and do the right thing.
+detect whether output device is a terminal and do the right thing. `paths`
+suppresses all details of output except paths to the source file. This is very
+useful for getting a list of paths to exclude, for example.
 
-|            |                                  |
-| ---------- | -------------------------------- |
-|   Required | No                               |
-| Repeatable | No                               |
-|      Value | `automatic`, `terminal`, `plain` |
-|    Default | `automatic`                      |
-|    Command | _all commands_                   |
+|            |                                           |
+| ---------- | ----------------------------------------- |
+|   Required | No                                        |
+| Repeatable | No                                        |
+|      Value | `automatic`, `terminal`, `plain`, `paths` |
+|    Default | `automatic`                               |
+|    Command | _all commands_                            |
 
 
 ### include

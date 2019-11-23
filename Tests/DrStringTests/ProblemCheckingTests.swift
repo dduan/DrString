@@ -15,7 +15,8 @@ final class ProblemCheckingTests: XCTestCase {
         expectEmpty: Bool = false,
         firstLetter: Configuration.FirstKeywordLetterCasing = .uppercase,
         needsSeparation: [Section] = [],
-        parameterStyle: ParameterStyle = .whatever
+        parameterStyle: ParameterStyle = .whatever,
+        format: Configuration.OutputFormat = .plain
     ) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).fixture"
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
@@ -27,7 +28,7 @@ final class ProblemCheckingTests: XCTestCase {
                 verticalAlignParameterDescription: verticalAlign,
                 superfluousExclusion: false,
                 firstKeywordLetter: firstLetter,
-                outputFormat: .plain,
+                outputFormat: format,
                 separatedSections: needsSeparation,
                 parameterStyle: parameterStyle,
                 alignAfterColon: alignAfterColon,
@@ -88,6 +89,10 @@ final class ProblemCheckingTests: XCTestCase {
 
     func testRedundantKeywords() throws {
         XCTAssert(runTest(fileName: "redundantKeywords", expectEmpty: false))
+    }
+
+    func testRedundantKeywordsPathsOnly() throws {
+        XCTAssert(runTest(fileName: "redundantKeywordsPathsOnly", expectEmpty: false, format: .paths))
     }
 
     func testBadParametersKeywordFormat() throws {

@@ -20,6 +20,8 @@ public enum CheckResult {
 func report(_ problem: DocProblem, format: Configuration.OutputFormat) {
     let output: String
     switch (format, IsTerminal.standardOutput) {
+    case (.paths, _):
+        output = problem.filePath
     case (.automatic, true), (.terminal, _):
         output = ttyText(for: problem)
     case (.automatic, false), (.plain, _):
