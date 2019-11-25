@@ -1,8 +1,0 @@
-- [ ] Support SwiftPM project menifest
-- [ ] Support Xcode project
-- [ ] Auto format docstrings
-- [ ] Expert problems in other formats (JSON)
-- [ ] Check missing docstrings for various interfaces other than functions
-- [ ] Allow inline exceptions (per file exceptions are supported via excludedPaths)
-- [ ] Convert between grouped and separate parameter docstrings
-- [ ] Interactive reformatting
