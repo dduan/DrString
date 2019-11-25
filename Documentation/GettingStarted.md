@@ -151,6 +151,25 @@ as command-line arguments or via the config file.
 
 [options]: Configuration.md
 
+### Integration with Xcode
+
+Add a "Run Script" build phase in your project target:
+
+```bash
+if which drstring >/dev/null; then
+  drstring check --config-file "$SRCROOT/.drstring.toml" || true
+else
+  echo "warning: DrString not installed. Run \
+    `brew install dduan/formulae/drstring` or learn more at \
+    https://github.com/dduan/DrString/blob/master/Documentation/GettingStarted.md#install"
+fi
+```
+
+Note the second command should be however you would run drstring in command
+line. `$SRCROOT` is a environment variable that mayb come in handy for locating
+your config file.
+
+
 ### Getting help
 
 `-h` or `--help` is an option for all subcommands as well as the "root" command.

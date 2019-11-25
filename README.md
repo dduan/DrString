@@ -7,6 +7,7 @@
 DrString finds problems in your Swift docstrings.
 
 ![Demo](Documentation/Assets/Demo.png)
+![Xcode Demo](Documentation/Assets/Demo-Xcode.png)
 
 ## Documentation
 
