@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/llvm-swift/FileCheck.git",
         "state": {
           "branch": null,
-          "revision": "0eb888b85ca08c7ce85c8a6a459c94d7f282c1bb",
-          "version": "0.2.1"
+          "revision": "8c1961ccca06427ba4bb25051ecd18af716e465c",
+          "version": "0.2.2"
         }
       },
       {
@@ -50,9 +50,9 @@
         "package": "Pathos",
         "repositoryURL": "https://github.com/dduan/Pathos.git",
         "state": {
-          "branch": "0.2.1",
+          "branch": null,
           "revision": "72e74fa8bf504427d0534d104fe38ccf8855e247",
-          "version": null
+          "version": "0.2.1"
         }
       },
       {
@@ -74,30 +74,21 @@
         }
       },
       {
-        "package": "llbuild",
-        "repositoryURL": "https://github.com/apple/swift-llbuild.git",
-        "state": {
-          "branch": null,
-          "revision": "f1c9ad9a253cdf1aa89a7f5c99c30b4513b06ddb",
-          "version": "0.1.1"
-        }
-      },
-      {
-        "package": "SwiftPM",
-        "repositoryURL": "https://github.com/apple/swift-package-manager.git",
-        "state": {
-          "branch": null,
-          "revision": "8656a25cb906c1896339f950ac960ee1b4fe8034",
-          "version": "0.4.0"
-        }
-      },
-      {
         "package": "SwiftSyntax",
         "repositoryURL": "https://github.com/apple/swift-syntax.git",
         "state": {
           "branch": null,
           "revision": "3e3eb191fcdbecc6031522660c4ed6ce25282c25",
           "version": "0.50100.0"
+        }
+      },
+      {
+        "package": "swift-tools-support-core",
+        "repositoryURL": "https://github.com/apple/swift-tools-support-core.git",
+        "state": {
+          "branch": null,
+          "revision": "693aba4c4c9dcc4767cc853a0dd38bf90ad8c258",
+          "version": "0.0.1"
         }
       },
       {
