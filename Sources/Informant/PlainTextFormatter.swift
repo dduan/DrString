@@ -1,4 +1,5 @@
 import Critic
+import Pathos
 
 private extension DocProblem.Detail {
     private func actualWhitespace(_ actual: String) -> String {
@@ -62,7 +63,8 @@ private extension DocProblem {
     var description: String {
         let count = self.details.count
         let pluralPostfix = count > 1 ? "s" : ""
-        let header = "\(self.filePath):\(self.line):\(self.column): warning: \(count) docstring problem\(pluralPostfix) regarding `\(self.docName)`"
+        let path = (try? absolutePath(ofPath: self.filePath)) ?? self.filePath
+        let header = "\(path):\(self.line + 1):\(self.column): warning: \(count) docstring problem\(pluralPostfix) regarding `\(self.docName)`"
         return ([header] + self.details.map { $0.fullDescription }).joined(separator: "\n")
     }
 }
