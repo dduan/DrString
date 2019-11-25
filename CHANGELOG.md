@@ -1,5 +1,7 @@
 ## master
 
+## 0.3.0
+
 ### New
 
 - New subcommand `format` automatically fixes whitespace errors in docstrings according to options specified
