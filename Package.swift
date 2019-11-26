@@ -21,7 +21,7 @@ let package = Package(
         .package(url: "https://github.com/nsomar/Guaka.git", .exact("0.4.1")),
 
         // For testing
-        .package(url: "https://github.com/llvm-swift/FileCheck.git", .exact("0.2.2")),
+        .package(url: "https://github.com/llvm-swift/FileCheck.git", .exact("0.2.3")),
     ],
     targets: [
         .target(name: "Crawler", dependencies: ["Decipher", "SwiftSyntax", "Pathos"]),

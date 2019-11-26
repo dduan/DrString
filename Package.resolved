@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/llvm-swift/FileCheck.git",
         "state": {
           "branch": null,
-          "revision": "8c1961ccca06427ba4bb25051ecd18af716e465c",
-          "version": "0.2.2"
+          "revision": "9ed91cc30a1a325d989fac117f3f3065a16b9f76",
+          "version": "0.2.3"
         }
       },
       {
@@ -53,15 +53,6 @@
           "branch": null,
           "revision": "72e74fa8bf504427d0534d104fe38ccf8855e247",
           "version": "0.2.1"
-        }
-      },
-      {
-        "package": "Rainbow",
-        "repositoryURL": "https://github.com/onevcat/Rainbow.git",
-        "state": {
-          "branch": null,
-          "revision": "9c52c1952e9b2305d4507cf473392ac2d7c9b155",
-          "version": "3.1.5"
         }
       },
       {
