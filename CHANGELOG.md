@@ -1,5 +1,8 @@
 ## master
 
+- Improved problem description when it's not related to a particular part of code. For example, when a file is
+  superfically excluded (#90).
+
 ## 0.3.0
 
 ### New
