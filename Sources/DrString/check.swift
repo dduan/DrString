@@ -23,12 +23,12 @@ func report(_ problem: DocProblem, format: Configuration.OutputFormat) {
     case (.paths, _):
         output = problem.filePath
     case (.automatic, true), (.terminal, _):
-        output = ttyText(for: problem)
+        output = ttyText(for: problem) + "\n"
     case (.automatic, false), (.plain, _):
-        output = plainText(for: problem)
+        output = plainText(for: problem) + "\n"
     }
 
-    print("\(output)\n")
+    print(output)
 }
 
 public func check(with config: Configuration, configFile: String?) -> CheckResult {
