@@ -1,5 +1,9 @@
 ## master
 
+### New
+
+- `init`s are now treated the same as functions. Prior to this release, they were ignored.
+
 ## 0.3.0
 
 ### New
