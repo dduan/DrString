@@ -67,7 +67,8 @@ private extension DocProblem {
         let count = self.details.count
         let pluralPostfix = count > 1 ? "s" : ""
         let path = (try? absolutePath(ofPath: self.filePath)) ?? self.filePath
-        let headerText = "\(path):\(self.line + 1):\(self.column): \("warning", color: .yellow): \(count) docstring problem\(pluralPostfix) regarding \(self.docName, color: .green)"
+        let subjectClause = self.docName.isEmpty ? "" : " regarding \(self.docName, color: .green)"
+        let headerText = "\(path):\(self.line + 1):\(self.column): \("warning", color: .yellow): \(count) docstring problem\(pluralPostfix)\(subjectClause)"
         let header = "\(headerText, style: .bold)"
         return ([header] + self.details.map { $0.fullDescription }).joined(separator: "\n")
     }
