@@ -46,4 +46,24 @@ private final class DocExtractor: SyntaxRewriter {
         self.findings.append(finding)
         return node
     }
+
+    override func visit(_ node: InitializerDeclSyntax) -> DeclSyntax {
+        let location = node.startLocation(converter: self.converter)
+        let parameters = node.parameters.parameterList.map { $0.parameter }
+        let signatureText = "init(\(parameters.reduce("") { $0 + ($1.label ?? $1.name) + ":" }))"
+        let finding = Documentable(
+            path: location.file ?? "",
+            line: (location.line ?? 0) - 1,
+            column: (location.column ?? 0) - 1,
+            name: signatureText,
+            docLines: node.leadingTrivia?.docStringLines ?? [],
+            children: [],
+            details: .function(
+                throws: false,
+                returnType: nil,
+                parameters: parameters)
+        )
+        self.findings.append(finding)
+        return node
+    }
 }

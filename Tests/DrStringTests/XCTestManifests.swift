@@ -27,6 +27,7 @@ extension ProblemCheckingTests {
         ("testGroupedParameterStyle", testGroupedParameterStyle),
         ("testIgnoreReturns", testIgnoreReturns),
         ("testIgnoreThrows", testIgnoreThrows),
+        ("testInitProblemsAreChecked", testInitProblemsAreChecked),
         ("testLowercaseKeywords", testLowercaseKeywords),
         ("testMisalignedParameterDescriptions", testMisalignedParameterDescriptions),
         ("testMissingSectionSeparator", testMissingSectionSeparator),

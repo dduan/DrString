@@ -1,0 +1,5 @@
+struct InitTest {
+    // CHECK: Missing docstring for `x` of type `Int`
+    /// Description
+    init(_ x: Int) {}
+}

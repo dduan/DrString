@@ -120,4 +120,8 @@ final class ProblemCheckingTests: XCTestCase {
         XCTAssert(runTest(fileName: "alignAfterColonNetRequired",
                           alignAfterColon: [.parameters, .throws, .returns], expectEmpty: true))
     }
+
+    func testInitProblemsAreChecked() throws {
+        XCTAssert(runTest(fileName: "init"))
+    }
 }
