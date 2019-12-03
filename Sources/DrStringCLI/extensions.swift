@@ -1,77 +1,68 @@
 import DrString
-import Guaka
+import TSCUtility
 
-extension DrString.Configuration {
-    init(_ flags: Flags) {
-        self.init(
-            includedPaths: flags[valuesForName: Constants.include] as? [String] ?? [],
-            excludedPaths: flags[valuesForName: Constants.exclude] as? [String] ?? [],
-            ignoreDocstringForThrows: flags.getBool(name: Constants.ignoreThrows) ?? false,
-            ignoreDocstringForReturns: flags.getBool(name: Constants.ignoreReturns) ?? false,
-            verticalAlignParameterDescription: flags.getBool(name: Constants.verticalAlign) ?? false,
-            superfluousExclusion: flags.getBool(name: Constants.superfluousExclusion) ?? false,
-            firstKeywordLetter: flags.get(name: Constants.firstLetter, type: DrString.Configuration.FirstKeywordLetterCasing.self) ?? .uppercase,
-            outputFormat: flags.get(name: Constants.format, type: DrString.Configuration.OutputFormat.self) ?? .automatic,
-            separatedSections: flags.get(name: Constants.separations, type: [Section].self) ?? [],
-            parameterStyle: flags.get(name: Constants.parameterStyle, type: DrString.ParameterStyle.self) ?? .whatever,
-            alignAfterColon: flags.get(name: Constants.alignAfterColon, type: [Section].self) ?? [],
-            columnLimit: flags.get(name: Constants.columnLimit, type: Int.self)
-        )
-    }
-}
-
-extension DrString.Configuration.OutputFormat: FlagValue {
-    public static func fromString(flagValue value: String) throws -> DrString.Configuration.OutputFormat {
-        guard let format = Configuration.OutputFormat(rawValue: value) else {
-            throw FlagValueError.conversionError("")
+private let kDefaultConfigurationPath = ".drstring.toml"
+extension Section: ArgumentKind {
+    public init(argument: String) throws {
+        guard let section = Section(rawValue: argument) else {
+            throw ArgumentConversionError.typeMismatch(value: argument, expectedType: Section.self)
         }
 
-        return format
+        self = section
     }
 
-    public static var typeDescription: String {
-        "(automatic|terminal|plain)"
-    }
+    public static let completion: ShellCompletion = .values([
+        (value: "description", description: "Overall description of the docstring"),
+        (value: "parameters", description: "Docstring for parameters"),
+        (value: "throws", description: "Docstring for what a function throws"),
+        (value: "returns", description: "Docstring for what a function returns"),
+    ])
 }
 
-extension DrString.Configuration.FirstKeywordLetterCasing: FlagValue {
-    public static func fromString(flagValue value: String) throws -> DrString.Configuration.FirstKeywordLetterCasing {
-        guard let format = Configuration.FirstKeywordLetterCasing(rawValue: value) else {
-            throw FlagValueError.conversionError("")
+extension Configuration.OutputFormat: ArgumentKind {
+    public init(argument: String) throws {
+        guard let format = Self(rawValue: argument) else {
+            throw ArgumentConversionError.typeMismatch(value: argument, expectedType: Self.self)
         }
 
-        return format
+        self = format
     }
 
-    public static var typeDescription: String {
-        "(uppercase|lowercase)"
-    }
+    public static let completion: ShellCompletion = .values([
+        (value: "automatic", description: "Enable and disable colored output automatically"),
+        (value: "terminal", description: "Assume output is ANSI terminal that can display colors"),
+        (value: "plain", description: "Output plain text"),
+        (value: "paths", description: "Only display paths to files with prolems"),
+    ])
 }
 
-extension DrString.ParameterStyle: FlagValue {
-    public static func fromString(flagValue value: String) throws -> DrString.ParameterStyle {
-        guard let format = ParameterStyle(rawValue: value) else {
-            throw FlagValueError.conversionError("")
+extension Configuration.FirstKeywordLetterCasing: ArgumentKind {
+    public init(argument: String) throws {
+        guard let format = Self(rawValue: argument) else {
+            throw ArgumentConversionError.typeMismatch(value: argument, expectedType: Self.self)
         }
 
-        return format
+        self = format
     }
 
-    public static var typeDescription: String {
-        "(whatever|separate|grouped)"
-    }
+    public static let completion: ShellCompletion = .values([
+        (value: "lowercase", description: "Expect first letter of docstring keyword to be lowercase"),
+        (value: "uppercase", description: "Expect first letter of docstring keyword to be uppercase"),
+    ])
 }
 
-extension Section: FlagValue {
-    public static func fromString(flagValue value: String) throws -> Section {
-        guard let section = Section(rawValue: value) else {
-            throw FlagValueError.conversionError("")
+extension ParameterStyle: ArgumentKind {
+    public init(argument: String) throws {
+        guard let format = Self(rawValue: argument) else {
+            throw ArgumentConversionError.typeMismatch(value: argument, expectedType: Self.self)
         }
 
-        return section
+        self = format
     }
 
-    public static var typeDescription: String {
-        "(description|parameters|throws|returns)"
-    }
+    public static let completion: ShellCompletion = .values([
+        (value: "grouped", description: "Expect all parameter docstring should share a header"),
+        (value: "separate", description: "Expect each parameter docstring to include a header"),
+        (value: "whatever", description: "Have no expectation of which style is correct"),
+    ])
 }

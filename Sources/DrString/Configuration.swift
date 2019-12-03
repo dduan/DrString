@@ -4,19 +4,20 @@ public typealias Section = Decipher.Section
 public typealias ParameterStyle = Decipher.ParameterStyle
 
 public struct Configuration: Decodable {
-    let includedPaths: [String]
-    let excludedPaths: [String]
-    let ignoreDocstringForThrows: Bool
-    let ignoreDocstringForReturns: Bool
-    let verticalAlignParameterDescription: Bool
-    let allowSuperfluousExclusion: Bool
-    let firstKeywordLetter: FirstKeywordLetterCasing
-    let outputFormat: OutputFormat
-    let separatedSections: [Section]
-    let parameterStyle: ParameterStyle
-    let alignAfterColon: [Section]
-    let columnLimit: Int?
+    public var includedPaths: [String] = []
+    public var excludedPaths: [String] = []
+    public var ignoreDocstringForThrows: Bool = false
+    public var ignoreDocstringForReturns: Bool = false
+    public var verticalAlignParameterDescription: Bool = false
+    public var allowSuperfluousExclusion: Bool = false
+    public var firstKeywordLetter: FirstKeywordLetterCasing = .uppercase
+    public var outputFormat: OutputFormat = .automatic
+    public var separatedSections: [Section] = []
+    public var parameterStyle: ParameterStyle = .whatever
+    public var alignAfterColon: [Section] = []
+    public var columnLimit: Int?
 
+    public init() {}
     public init(
         includedPaths: [String],
         excludedPaths: [String],
