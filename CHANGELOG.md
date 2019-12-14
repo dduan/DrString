@@ -4,6 +4,7 @@
 
 - The commandline interface has been re-implemented in a new framework. Notable changes include
   - subcommands no longer have aliases
+  - command line options no longer have short names, except for `-i` and `-x`.
   - `help` and `version` are now subcommands
   - help message layout changes
   - running without subcommand no longer runs the `check` subcommand
