@@ -20,15 +20,6 @@
         }
       },
       {
-        "package": "Guaka",
-        "repositoryURL": "https://github.com/nsomar/Guaka.git",
-        "state": {
-          "branch": null,
-          "revision": "6fb29b2378166a30d72120980e1c099c664598de",
-          "version": "0.4.1"
-        }
-      },
-      {
         "package": "IsTTY",
         "repositoryURL": "https://github.com/dduan/IsTTY.git",
         "state": {
@@ -53,15 +44,6 @@
           "branch": null,
           "revision": "72e74fa8bf504427d0534d104fe38ccf8855e247",
           "version": "0.2.1"
-        }
-      },
-      {
-        "package": "StringScanner",
-        "repositoryURL": "https://github.com/getGuaka/StringScanner.git",
-        "state": {
-          "branch": null,
-          "revision": "de1685ad202cb586d626ed52d6de904dd34189f3",
-          "version": "0.4.1"
         }
       },
       {

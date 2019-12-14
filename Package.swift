@@ -20,7 +20,7 @@ let package = Package(
         .package(url: "https://github.com/dduan/Pathos.git", .exact("0.2.1")),
         .package(url: "https://github.com/dduan/TOMLDecoder.git", .exact("0.1.5")),
         .package(url: "https://github.com/mxcl/Chalk.git", .exact("0.4.0")),
-        .package(url: "https://github.com/nsomar/Guaka.git", .exact("0.4.1")),
+        .package(url: "https://github.com/apple/swift-tools-support-core.git", .exact("0.0.1")),
 
         // For testing
         .package(url: "https://github.com/llvm-swift/FileCheck.git", .exact("0.2.3")),
@@ -32,7 +32,7 @@ let package = Package(
         .target(name: "Decipher", dependencies: []),
         .target(name: "Informant", dependencies: ["Critic", "Chalk"]),
         .target(name: "DrString", dependencies: ["Editor", "Decipher", "Informant", "Critic", "Pathos", "IsTTY"]),
-        .target(name: "DrStringCLI", dependencies: ["DrString", "Pathos", "Guaka", "TOMLDecoder"]),
+        .target(name: "DrStringCLI", dependencies: ["SwiftToolsSupport-auto", "DrString", "Pathos", "TOMLDecoder"]),
         .testTarget(name: "CriticTests", dependencies: ["Crawler", "Decipher", "Critic"]),
         .testTarget(name: "EditorTests", dependencies: ["Crawler", "Decipher", "Editor"]),
         .testTarget(name: "DecipherTests", dependencies: ["Decipher"]),
