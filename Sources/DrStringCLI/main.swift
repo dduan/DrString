@@ -5,4 +5,3 @@ import func Glibc.exit
 #endif
 
 exit(run(arguments: Array(CommandLine.arguments.dropFirst())))
-
