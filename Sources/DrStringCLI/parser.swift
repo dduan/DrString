@@ -14,7 +14,7 @@ Learn more at: https://github.com/dduan/DrString
 """
 
 private let mainUsage = """
-drstring SUBCOMMAND [OPTIONS]...
+SUBCOMMAND [OPTIONS]...
 
 EXAMPLES:
 
