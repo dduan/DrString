@@ -25,6 +25,7 @@ func execute(_ command: Command) -> Int32 {
         case .foundProblems:
             return EXIT_FAILURE
         case .missingInput:
+            stderrStream.write("\n")
             printHelp(stderrStream)
             return EXIT_FAILURE
         }
