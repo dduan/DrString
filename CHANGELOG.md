@@ -1,5 +1,7 @@
 ## master
 
+## 0.3.1
+
 ### Changes
 
 - The commandline interface has been re-implemented in a new framework. Notable changes include
