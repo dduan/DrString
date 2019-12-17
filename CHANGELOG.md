@@ -1,5 +1,9 @@
 ## master
 
+### Improved
+
+- Fixed bug #127, where docstring item with empty content is incorrectly formatted.
+
 ## 0.3.1
 
 ### Changes

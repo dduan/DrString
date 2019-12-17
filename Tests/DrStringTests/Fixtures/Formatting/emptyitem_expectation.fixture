@@ -1,0 +1,8 @@
+enum init {
+    /// description
+    ///
+    /// - Parameter lineItem:
+    /// - Returns:
+    init(_ lineItem: LineItem) -> Int {
+    }
+}
