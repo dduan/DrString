@@ -1,5 +1,7 @@
 ## master
 
+## 0.3.2
+
 ### Improved
 
 - Fixed bug #127, where docstring item with empty content is incorrectly formatted.
