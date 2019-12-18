@@ -40,7 +40,7 @@ extension DocString.Entry {
 
         var result = self.description.enumerated().flatMap { (index, line) -> [String] in
             if line.text.isEmpty {
-                return ["///"]
+                return index > 0 ? ["///"] : [""]
             }
 
             let lead = line.lead.starts(with: " ") ? line.lead : " "
@@ -81,7 +81,11 @@ extension DocString.Entry {
         }
 
         if let firstLineContent = result.first {
-            result[0] = "///\(firstLineHeader)\(firstLineContent)"
+            if firstLineContent.allSatisfy({ $0.isWhitespace }) {
+                result[0] = "///\(firstLineHeader.dropLast())" // remove excessive trailing space
+            } else {
+                result[0] = "///\(firstLineHeader)\(firstLineContent)"
+            }
         }
 
         return result
@@ -110,7 +114,7 @@ extension DocString.Entry {
         let headerReplacement = String(Array(repeating: " ", count: firstLineHeader.count))
         var result = self.description.enumerated().flatMap { (index, line) -> [String] in
             if line.text.isEmpty {
-                return ["///"]
+                return index > 0 ? ["///"] : [""]
             }
 
             let lead = line.lead.starts(with: " ") ? line.lead : " "
@@ -151,7 +155,11 @@ extension DocString.Entry {
         }
 
         if let firstLineContent = result.first {
-            result[0] = "///\(firstLineHeader)\(firstLineContent)"
+            if firstLineContent.allSatisfy({ $0.isWhitespace }) {
+                result[0] = "///\(firstLineHeader.dropLast())" // remove excessive trailing space
+            } else {
+                result[0] = "///\(firstLineHeader)\(firstLineContent)"
+            }
         }
 
         return result
