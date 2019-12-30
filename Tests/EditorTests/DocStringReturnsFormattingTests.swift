@@ -13,6 +13,41 @@ final class DocStringReturnsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
+                description: [
+                    .init(" ", "description for returns.")
+                ]),
+            throws: nil)
+
+        let result = doc.reformat(
+            initialColumn: 0,
+            columnLimit: 100,
+            verticalAlign: false,
+            alignAfterColon: [],
+            firstLetterUpperCase: true,
+            parameterStyle: .whatever,
+            separations: []
+        )
+
+        XCTAssertEqual(
+            result,
+            [
+                "/// - Returns: description for returns."
+            ]
+        )
+    }
+
+    func testFormattingBasicReturnsWithMissingColon() {
+        let doc = DocString(
+            description: [],
+            parameterHeader: nil,
+            parameters: [],
+            returns: .init(
+                preDashWhitespaces: " ",
+                keyword: .init(" ", "Returns"),
+                name: .init("", ""),
+                preColonWhitespace: "",
+                hasColon: false,
                 description: [
                     .init(" ", "description for returns.")
                 ]),
@@ -46,6 +81,7 @@ final class DocStringReturnsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns.")
                 ]),
@@ -79,6 +115,7 @@ final class DocStringReturnsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns.")
                 ]),
@@ -113,6 +150,7 @@ final class DocStringReturnsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns.")
                 ]),
@@ -146,6 +184,7 @@ final class DocStringReturnsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns."),
                     .init("   ", "line 2 description for returns."),
@@ -183,6 +222,7 @@ final class DocStringReturnsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns."),
                     .init("   ", "line 2 description for returns."),

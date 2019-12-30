@@ -14,6 +14,41 @@ final class DocStringThrowsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
+                description: [
+                    .init(" ", "description for throws.")
+                ]))
+
+        let result = doc.reformat(
+            initialColumn: 0,
+            columnLimit: 100,
+            verticalAlign: false,
+            alignAfterColon: [],
+            firstLetterUpperCase: true,
+            parameterStyle: .whatever,
+            separations: []
+        )
+
+        XCTAssertEqual(
+            result,
+            [
+                "/// - Throws: description for throws."
+            ]
+        )
+    }
+
+    func testFormattingBasicThrowsWithMissingColon() {
+        let doc = DocString(
+            description: [],
+            parameterHeader: nil,
+            parameters: [],
+            returns: nil,
+            throws: .init(
+                preDashWhitespaces: " ",
+                keyword: .init(" ", "Throws"),
+                name: .init("", ""),
+                preColonWhitespace: "",
+                hasColon: false,
                 description: [
                     .init(" ", "description for throws.")
                 ]))
@@ -47,6 +82,7 @@ final class DocStringThrowsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws.")
                 ]))
@@ -80,6 +116,7 @@ final class DocStringThrowsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws.")
                 ]))
@@ -114,6 +151,7 @@ final class DocStringThrowsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws.")
                 ]))
@@ -148,6 +186,7 @@ final class DocStringThrowsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws."),
                     .init("   ", "line 2 description for throws."),
@@ -185,6 +224,7 @@ final class DocStringThrowsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws."),
                     .init("   ", "line 2 description for throws."),
@@ -222,6 +262,7 @@ final class DocStringThrowsFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws."),
                     .init("            ", "line 2 description for throws."),

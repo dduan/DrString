@@ -14,6 +14,7 @@ final class ThrowsTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "start"),
                     .init("            ", "next line")
@@ -35,6 +36,7 @@ final class ThrowsTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "start"),
                     .init("   ", "next line")

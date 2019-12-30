@@ -35,6 +35,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description")
                     ])
@@ -75,6 +76,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description")
                     ])
@@ -141,6 +143,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description")
                     ])
@@ -150,6 +153,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns.")
                 ]),
@@ -185,6 +189,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init("", ""),
@@ -195,6 +200,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns.")
                 ]),
@@ -231,6 +237,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                     ])
@@ -267,6 +274,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns.")
                 ]),
@@ -275,6 +283,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws.")
                 ]))
@@ -309,6 +318,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for returns.")
                 ]),
@@ -317,6 +327,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws."),
                     .init("", ""),
@@ -353,6 +364,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "description for throws."),
                 ]))

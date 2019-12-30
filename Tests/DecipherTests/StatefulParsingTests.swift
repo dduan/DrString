@@ -26,6 +26,7 @@ final class StatefulParsingTests: XCTestCase {
                 keyword: .init(" ", "Parameters"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: []
             ),
             parameters: [
@@ -34,6 +35,7 @@ final class StatefulParsingTests: XCTestCase {
                     keyword: nil,
                     name: .init(" ", "d"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "d description")
                     ]
@@ -43,6 +45,7 @@ final class StatefulParsingTests: XCTestCase {
                     keyword: nil,
                     name: .init(" ", "c"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "c description")
                     ]
@@ -52,6 +55,7 @@ final class StatefulParsingTests: XCTestCase {
                     keyword: nil,
                     name: .init(" ", "b"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "b description")
                     ]
@@ -61,6 +65,7 @@ final class StatefulParsingTests: XCTestCase {
                     keyword: nil,
                     name: .init(" ", "a"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "a description"),
                         .init("        ", "a description continues"),
@@ -72,6 +77,7 @@ final class StatefulParsingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .empty,
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [.init(" ", "Returns description")]
             ),
             throws: .init(
@@ -79,6 +85,7 @@ final class StatefulParsingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .empty,
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [.init(" ", "Throws description")]
             )
         )
@@ -113,6 +120,7 @@ final class StatefulParsingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "d"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "d description")
                     ]
@@ -122,6 +130,7 @@ final class StatefulParsingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "c"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "c description")
                     ]
@@ -131,6 +140,7 @@ final class StatefulParsingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "b"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "b description")
                     ]
@@ -140,6 +150,7 @@ final class StatefulParsingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "a description"),
                         .init("                ", "a description continues")
@@ -151,6 +162,7 @@ final class StatefulParsingTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .empty,
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [.init(" ", "Returns description")]
             ),
             throws: .init(
@@ -158,6 +170,7 @@ final class StatefulParsingTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .empty,
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [.init(" ", "Throws description")]
             )
         )

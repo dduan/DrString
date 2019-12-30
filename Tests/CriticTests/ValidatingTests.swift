@@ -8,10 +8,10 @@ private let kParamB = Parameter(label: nil, name: "b", type: "B", isVariadic: fa
 private let kParamC = Parameter(label: nil, name: "c", type: "C", isVariadic: false, hasDefault: false)
 private let kParamD = Parameter(label: nil, name: "d", type: "D", isVariadic: false, hasDefault: false)
 
-private let kDocParamA = DocString.Entry(preDashWhitespaces: "", keyword: nil, name: .init("", "a"), preColonWhitespace: "", description: [])
-private let kDocParamB = DocString.Entry(preDashWhitespaces: "", keyword: nil, name: .init("", "b"), preColonWhitespace: "", description: [])
-private let kDocParamC = DocString.Entry(preDashWhitespaces: "", keyword: nil, name: .init("", "c"), preColonWhitespace: "", description: [])
-private let kDocParamE = DocString.Entry(preDashWhitespaces: "", keyword: nil, name: .init("", "e"), preColonWhitespace: "", description: [])
+private let kDocParamA = DocString.Entry(preDashWhitespaces: "", keyword: nil, name: .init("", "a"), preColonWhitespace: "", hasColon: true, description: [])
+private let kDocParamB = DocString.Entry(preDashWhitespaces: "", keyword: nil, name: .init("", "b"), preColonWhitespace: "", hasColon: true, description: [])
+private let kDocParamC = DocString.Entry(preDashWhitespaces: "", keyword: nil, name: .init("", "c"), preColonWhitespace: "", hasColon: true, description: [])
+private let kDocParamE = DocString.Entry(preDashWhitespaces: "", keyword: nil, name: .init("", "e"), preColonWhitespace: "", hasColon: true, description: [])
 
 final class ValidatingTests: XCTestCase {
     private func docString(with parameters: [DocString.Entry]) -> DocString {
