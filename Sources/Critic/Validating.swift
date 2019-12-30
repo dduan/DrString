@@ -15,10 +15,10 @@ extension Documentable {
         case let .function(doesThrow, returnType, parameters):
             let details = try findDescriptionProblems(
                 docs, needsSeparator: needsSeparation.contains(.description))
-            + findParameterProblems(parameters, docs, firstLetterUpper,
-                                    needsSeparation: needsSeparation.contains(.parameters),
-                                    verticalAlign: verticalAlign, style: parameterStyle,
-                                    alignAfterColon: alignAfterColon.contains(.parameters))
+                + findParameterProblems(parameters, docs, firstLetterUpper,
+                                        needsSeparation: needsSeparation.contains(.parameters),
+                                        verticalAlign: verticalAlign, style: parameterStyle,
+                                        alignAfterColon: alignAfterColon.contains(.parameters))
                 + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs,
                                      firstLetterUpper: firstLetterUpper,
                                      needsSeparation: needsSeparation.contains(.throws),
@@ -88,6 +88,12 @@ func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, returnType: Str
         result.append(.spaceBeforeColon(returnsDoc.preColonWhitespace, keywordText))
     }
 
+    let expectedKeyword = firstLetterUpper ? "Returns" : "returns"
+
+    if !returnsDoc.hasColon {
+        result.append(.missingColon(expectedKeyword))
+    }
+
     if let postColonLead = returnsDoc.description.first?.lead, postColonLead != " " {
         result.append(.spaceAfterColon(keywordText, postColonLead))
     }
@@ -102,16 +108,8 @@ func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, returnType: Str
         }
     }
 
-    if firstLetterUpper {
-        let expected = "Returns"
-        if let keyword = returnsDoc.keyword?.text, keyword != expected {
-            result.append(.keywordCasing(keyword, expected))
-        }
-    } else {
-        let expected = "returns"
-        if let keyword = returnsDoc.keyword?.text, keyword != expected {
-            result.append(.keywordCasing(keyword, expected))
-        }
+    if let keyword = returnsDoc.keyword?.text, keyword != expectedKeyword {
+        result.append(.keywordCasing(keyword, expectedKeyword))
     }
 
     return result
@@ -147,6 +145,12 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
         result.append(.spaceBeforeColon(throwsDoc.preColonWhitespace, keywordText))
     }
 
+    let expectedKeyword = firstLetterUpper ? "Throws" : "throws"
+
+    if !throwsDoc.hasColon {
+        result.append(.missingColon(expectedKeyword))
+    }
+
     if let postColonLead = throwsDoc.description.first?.lead, postColonLead != " " {
         result.append(.spaceAfterColon(keywordText, postColonLead))
     }
@@ -161,16 +165,8 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
         }
     }
 
-    if firstLetterUpper {
-        let expected = "Throws"
-        if let keyword = throwsDoc.keyword?.text, keyword != expected {
-            result.append(.keywordCasing(keyword, expected))
-        }
-    } else {
-        let expected = "throws"
-        if let keyword = throwsDoc.keyword?.text, keyword != expected {
-            result.append(.keywordCasing(keyword, expected))
-        }
+    if let keyword = throwsDoc.keyword?.text, keyword != expectedKeyword {
+        result.append(.keywordCasing(keyword, expectedKeyword))
     }
 
     if needsSeparation, docs.returns != nil, let last = throwsDoc.description.last, !last.lead.isEmpty ||
@@ -203,16 +199,13 @@ func findParameterProblems(_ parameters: [Parameter], _ docs: DocString, _ first
             result.append(.spaceBeforeColon(header.preColonWhitespace, keyword.text))
         }
 
-        if firstLetterUpper {
-            let expected = "Parameters"
-            if keyword.text != expected {
-                result.append(.keywordCasing(keyword.text, expected))
-            }
-        } else {
-            let expected = "parameters"
-            if keyword.text != expected {
-                result.append(.keywordCasing(keyword.text, expected))
-            }
+        let expectedKeyword = firstLetterUpper ? "Parameters" : "parameters"
+        if keyword.text != expectedKeyword {
+            result.append(.keywordCasing(keyword.text, expectedKeyword))
+        }
+
+        if !header.hasColon {
+            result.append(.missingColon(expectedKeyword))
         }
 
         if !header.description.isEmpty {
@@ -299,6 +292,10 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
         result.append(.spaceBeforeColon(parameter.preColonWhitespace, parameter.name.text))
     }
 
+    if !parameter.hasColon {
+        result.append(.missingColon(parameter.name.text))
+    }
+
     if verticalAlign {
         // Vertical alignment
         // Knowing the longest name's length among peers, the amount of extra space needed to vertical align
@@ -340,16 +337,9 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
         }
     }
 
-    if firstLetterUpper {
-        let expected = "Parameter"
-        if let keyword = parameter.keyword?.text, keyword != expected {
-            result.append(.keywordCasingForParameter(keyword, expected, parameter.name.text))
-        }
-    } else {
-        let expected = "parameter"
-        if let keyword = parameter.keyword?.text, keyword != expected {
-            result.append(.keywordCasingForParameter(keyword, expected, parameter.name.text))
-        }
+    let expectedKeyword = firstLetterUpper ? "Parameter" : "parameter"
+    if let keyword = parameter.keyword?.text, keyword != expectedKeyword {
+        result.append(.keywordCasingForParameter(keyword, expectedKeyword, parameter.name.text))
     }
 
     return result

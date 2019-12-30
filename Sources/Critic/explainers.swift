@@ -446,6 +446,24 @@ public static var all: [String: Explainer] {
                       func f(foo: Int, bar: Int)
                       """
     ),
+
+    "E019": .init(
+        id: "E019",
+        summary:      """
+                      Docstring entries for parameters, returns, throws, etc, should begin with
+                      a header such as `- returns:` with a colon character at the end.
+                      """,
+        rightExample: """
+                      /// Some function
+                      ///
+                      /// - returns: The answer to life, universe, and everything.
+                      """,
+        wrongExample: """
+                      /// Some function
+                      ///
+                      /// - returns The answer to life, universe, and everything.
+                      """
+    ),
 ]
 }
 }

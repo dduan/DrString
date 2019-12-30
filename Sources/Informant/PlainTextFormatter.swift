@@ -53,6 +53,8 @@ private extension DocProblem.Detail {
             return "Parameters are organized in the \"separate\" style, but \"grouped\" style is preferred."
         case .parametersAreNotSeparated:
             return "Parameters are organized in the \"grouped\" style, but \"separate\" style is preferred."
+        case .missingColon(let name):
+            return "`\(name)` should be followed by a `:` character."
         }
     }
 

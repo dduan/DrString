@@ -39,6 +39,7 @@ public struct DocProblem {
         case excludedYetNotIncluded
         case parametersAreNotGrouped
         case parametersAreNotSeparated
+        case missingColon(String) // parameter name/keyword
 
         public var explainerID: String {
             switch self {
@@ -78,6 +79,8 @@ public struct DocProblem {
                 return "E017"
             case .parametersAreNotSeparated:
                 return "E018"
+            case .missingColon:
+                return "E019"
             }
         }
     }
