@@ -1,5 +1,11 @@
 ## master
 
+### New
+
+- Docstring entries that does not contain a `:` in their header (for example, `- parameter:`) were previously
+  thrown out as invalid. They now are recogonized as entries and DrString will complain about and fix the
+  missing colon character.
+
 ## 0.3.2
 
 ### Improved
