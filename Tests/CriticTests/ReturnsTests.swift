@@ -13,9 +13,10 @@ final class ReturnsTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
-                .init(" ", "start"),
-                .init("            ", "next line")
+                    .init(" ", "start"),
+                    .init("            ", "next line")
                 ]),
             throws: nil)
         let problems = findReturnsProblems(ignoreReturns: false, returnDoc, returnType: "Int", firstLetterUpper: true,
@@ -33,6 +34,7 @@ final class ReturnsTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "start"),
                     .init("    ", "next line")

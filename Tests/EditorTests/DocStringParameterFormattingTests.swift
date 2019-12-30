@@ -13,6 +13,41 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
+                    description: [
+                        .init(" ", "foo's description")
+                    ])
+            ],
+            returns: nil,
+            throws: nil)
+
+        XCTAssertEqual(
+            doc.reformat(
+                initialColumn: 0,
+                columnLimit: 100,
+                verticalAlign: false,
+                alignAfterColon: [.parameters],
+                firstLetterUpperCase: true,
+                parameterStyle: .separate,
+                separations: []
+            ),
+            [
+                "/// - Parameter foo: foo's description"
+            ]
+        )
+    }
+
+    func testSeparateSingleParameterWithMissingColon() {
+        let doc = DocString(
+            description: [],
+            parameterHeader: nil,
+            parameters: [
+                .init(
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "foo"),
+                    preColonWhitespace: "",
+                    hasColon: false,
                     description: [
                         .init(" ", "foo's description")
                     ])
@@ -46,6 +81,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description")
                     ])
@@ -79,6 +115,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init(" ", "line 2 of foo's description"),
@@ -114,6 +151,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init(" ", "line 2 of foo's description"),
@@ -149,6 +187,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init(" ", "line 2 of foo's description"),
@@ -185,6 +224,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init(" ", "line 2 of foo's description"),
@@ -194,6 +234,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "barbaz's description"),
                         .init(" ", "line 2 of barbaz's description"),
@@ -231,6 +272,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init(" ", "line 2 of foo's description"),
@@ -240,6 +282,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "barbaz's description"),
                         .init(" ", "line 2 of barbaz's description"),
@@ -277,6 +320,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init(" ", "line 2 of foo's description"),
@@ -286,6 +330,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "barbaz's description"),
                         .init(" ", "line 2 of barbaz's description"),
@@ -324,6 +369,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init(" ", "line 2 of foo's description"),
@@ -333,6 +379,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "barbaz's description"),
                         .init(" ", "line 2 of barbaz's description"),
@@ -371,6 +418,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init(" ", "line 2 of foo's description"),
@@ -380,6 +428,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "barbaz's description"),
                         .init(" ", "line 2 of barbaz's description"),
@@ -419,6 +468,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init("             ", "continues"),
@@ -454,6 +504,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init("                    ", "continues"),
@@ -489,6 +540,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init("              ", "continues"),
@@ -524,6 +576,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "foo's description"),
                         .init("                  ", "continues"),
@@ -559,6 +612,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init("  ", "foo's description continues"),
                         .init("                   ", "it continues"),
@@ -595,6 +649,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                      keyword: .init(" ", "Parameter"),
                      name: .init(" ", "foo"),
                      preColonWhitespace: "",
+                     hasColon: true,
                      description: [
                          .init("    ", "foo's description continues"),
                          .init("   ", "foo's description continues"),
@@ -607,6 +662,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                      keyword: .init(" ", "Parameter"),
                      name: .init(" ", "barzz"),
                      preColonWhitespace: "",
+                     hasColon: true,
                      description: [
                          .init("  ", "barzz's des"),
                     ]),
@@ -646,6 +702,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                        keyword: .init(" ", "Parameter"),
                        name: .init(" ", "mapPadding"),
                        preColonWhitespace: "",
+                       hasColon: true,
                        description: [
                            .init("        ", "The padding for the map view in which the pin will"),
                            .init("                                 ", "appear to be centered."),
@@ -656,6 +713,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                        keyword: .init(" ", "Parameter"),
                        name: .init(" ", "presentationDelay"),
                        preColonWhitespace: "",
+                       hasColon: true,
                        description: [
                            .init(" ", "The delay before the"),
                       ]),

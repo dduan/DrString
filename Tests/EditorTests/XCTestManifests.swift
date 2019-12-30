@@ -39,6 +39,7 @@ extension DocStringParameterFormattingTests {
         ("testSeparateSingleParameterLowercase", testSeparateSingleParameterLowercase),
         ("testSeparateSingleParameterMultlineDescription", testSeparateSingleParameterMultlineDescription),
         ("testSeparateSingleParameterMultlineDescriptionWithInitialColumn", testSeparateSingleParameterMultlineDescriptionWithInitialColumn),
+        ("testSeparateSingleParameterWithMissingColon", testSeparateSingleParameterWithMissingColon),
         ("testVerticalAlign", testVerticalAlign),
     ]
 }
@@ -49,6 +50,7 @@ extension DocStringReturnsFormattingTests {
     // to regenerate.
     static let __allTests__DocStringReturnsFormattingTests = [
         ("testFormattingBasicReturns", testFormattingBasicReturns),
+        ("testFormattingBasicReturnsWithMissingColon", testFormattingBasicReturnsWithMissingColon),
         ("testFormattingColumnLimitPreservesLeadingWhitespaces", testFormattingColumnLimitPreservesLeadingWhitespaces),
         ("testFormattingColumnLimitRemoveExcessLeadingSpaceBeforeColon", testFormattingColumnLimitRemoveExcessLeadingSpaceBeforeColon),
         ("testFormattingColumnLimitWithAlignAfterColon", testFormattingColumnLimitWithAlignAfterColon),
@@ -98,6 +100,7 @@ extension DocStringThrowsFormattingTests {
     // to regenerate.
     static let __allTests__DocStringThrowsFormattingTests = [
         ("testFormattingBasicThrows", testFormattingBasicThrows),
+        ("testFormattingBasicThrowsWithMissingColon", testFormattingBasicThrowsWithMissingColon),
         ("testFormattingColumnLimitPreservesExcessLeadingSpaceAfterColon", testFormattingColumnLimitPreservesExcessLeadingSpaceAfterColon),
         ("testFormattingColumnLimitPreservesLeadingWhitespaces", testFormattingColumnLimitPreservesLeadingWhitespaces),
         ("testFormattingColumnLimitRemoveExcessLeadingSpaceBeforeColon", testFormattingColumnLimitRemoveExcessLeadingSpaceBeforeColon),

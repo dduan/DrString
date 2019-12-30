@@ -15,6 +15,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "a line 1")
                     ])
@@ -54,6 +55,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "a line 1")
                     ])
@@ -92,6 +94,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "a line 1")
                     ])
@@ -127,6 +130,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "a line 1")
                     ])
@@ -136,6 +140,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff")
                 ]),
@@ -170,6 +175,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "a line 1"),
                         .init("", ""),
@@ -180,6 +186,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff")
                 ]),
@@ -214,6 +221,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
                     preColonWhitespace: "",
+                    hasColon: true,
                     description: [
                         .init(" ", "a line 1"),
                     ])
@@ -223,6 +231,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff")
                 ]),
@@ -255,6 +264,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff")
                 ]),
@@ -263,6 +273,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff")
                 ])
@@ -297,6 +308,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff"),
                 ]),
@@ -305,6 +317,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff"),
                     .init("", ""),
@@ -340,6 +353,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff"),
                 ]),
@@ -348,6 +362,7 @@ final class DocStringSeparatorTests: XCTestCase {
                 keyword: .init(" ", "Throws"),
                 name: .init(" ", ""),
                 preColonWhitespace: "",
+                hasColon: true,
                 description: [
                     .init(" ", "stuff"),
                 ])
