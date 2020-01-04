@@ -48,18 +48,52 @@ public struct Configuration: Decodable {
 
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.includedPaths = try values.decode([String].self, forKey: .include)
-        self.excludedPaths = try values.decodeIfPresent([String].self, forKey: .exclude) ?? []
-        self.ignoreDocstringForThrows = try values.decodeIfPresent(Bool.self, forKey: .ignoreThrows) ?? false
-        self.ignoreDocstringForReturns = try values.decodeIfPresent(Bool.self, forKey: .ignoreReturns) ?? false
-        self.verticalAlignParameterDescription = try values.decodeIfPresent(Bool.self, forKey: .verticalAlign) ?? false
-        self.allowSuperfluousExclusion = try values.decodeIfPresent(Bool.self, forKey: .superfluousExclusion) ?? false
-        self.firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) ?? .uppercase
-        self.outputFormat = try values.decodeIfPresent(OutputFormat.self, forKey: .format) ?? .automatic
-        self.separatedSections = try values.decodeIfPresent([Section].self, forKey: .separations) ?? []
-        self.parameterStyle = try values.decodeIfPresent(ParameterStyle.self, forKey: .parameterStyle) ?? .whatever
-        self.alignAfterColon = try values.decodeIfPresent([Section].self, forKey: .alignAfterColon) ?? []
-        self.columnLimit = try values.decodeIfPresent(Int.self, forKey: .columnLimit)
+        var config = Configuration()
+
+        config.includedPaths = try values.decode([String].self, forKey: .include)
+        config.columnLimit = try values.decodeIfPresent(Int.self, forKey: .columnLimit)
+
+        if let excludedPaths = try values.decodeIfPresent([String].self, forKey: .exclude) {
+            config.excludedPaths = excludedPaths
+        }
+
+        if let ignoreDocstringForThrows = try values.decodeIfPresent(Bool.self, forKey: .ignoreThrows) {
+            config.ignoreDocstringForThrows = ignoreDocstringForThrows
+        }
+
+        if let ignoreDocstringForReturns = try values.decodeIfPresent(Bool.self, forKey: .ignoreReturns) {
+            config.ignoreDocstringForReturns = ignoreDocstringForReturns
+        }
+
+        if let verticalAlignParameterDescription = try values.decodeIfPresent(Bool.self, forKey: .verticalAlign) {
+            config.verticalAlignParameterDescription = verticalAlignParameterDescription
+        }
+
+        if let allowSuperfluousExclusion = try values.decodeIfPresent(Bool.self, forKey: .superfluousExclusion) {
+            config.allowSuperfluousExclusion = allowSuperfluousExclusion
+        }
+
+        if let firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) {
+            config.firstKeywordLetter = firstKeywordLetter
+        }
+
+        if let outputFormat = try values.decodeIfPresent(OutputFormat.self, forKey: .format) {
+            config.outputFormat = outputFormat
+        }
+
+        if let separatedSections = try values.decodeIfPresent([Section].self, forKey: .separations) {
+            config.separatedSections = separatedSections
+        }
+
+        if let parameterStyle = try values.decodeIfPresent(ParameterStyle.self, forKey: .parameterStyle) {
+            config.parameterStyle = parameterStyle
+        }
+
+        if let alignAfterColon = try values.decodeIfPresent([Section].self, forKey: .alignAfterColon) {
+            config.alignAfterColon = alignAfterColon
+        }
+
+        self = config
     }
 
     enum CodingKeys: String, CodingKey {
