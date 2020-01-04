@@ -9,21 +9,13 @@ final class SuperfluousExclusionTests: XCTestCase {
         let include = include.map { self.directory + "/Fixtures/" + "\($0).swift" }
         let exclude = exclude.map { self.directory + "/Fixtures/" + "\($0).swift" }
         return fileCheckOutput(against: .buffer(expectation), options: .allowEmptyInput) {
-            _ = check(with: Configuration(
-                includedPaths: include,
-                excludedPaths: exclude,
-                ignoreDocstringForThrows: false,
-                ignoreDocstringForReturns: false,
-                verticalAlignParameterDescription: false,
-                superfluousExclusion: allowSuperfluousExclusion,
-                firstKeywordLetter: .lowercase,
-                outputFormat: .plain,
-                separatedSections: [],
-                parameterStyle: .whatever,
-                alignAfterColon: [],
-                columnLimit: 100),
-                configFile: ".drstring.toml"
-            )
+            var config = Configuration()
+            config.includedPaths = include
+            config.excludedPaths = exclude
+            config.allowSuperfluousExclusion = allowSuperfluousExclusion
+            config.firstKeywordLetter = .lowercase
+            config.columnLimit = 100
+            _ = check(with: config, configFile: ".drstring.toml")
         }
     }
 

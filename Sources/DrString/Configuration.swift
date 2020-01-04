@@ -18,34 +18,6 @@ public struct Configuration: Decodable {
     public var columnLimit: Int?
 
     public init() {}
-    public init(
-        includedPaths: [String],
-        excludedPaths: [String],
-        ignoreDocstringForThrows: Bool,
-        ignoreDocstringForReturns: Bool,
-        verticalAlignParameterDescription: Bool,
-        superfluousExclusion: Bool,
-        firstKeywordLetter: FirstKeywordLetterCasing,
-        outputFormat: OutputFormat,
-        separatedSections: [Section],
-        parameterStyle: ParameterStyle,
-        alignAfterColon: [Section],
-        columnLimit: Int?
-    ) {
-        self.includedPaths = includedPaths
-        self.excludedPaths = excludedPaths
-        self.ignoreDocstringForThrows = ignoreDocstringForThrows
-        self.ignoreDocstringForReturns = ignoreDocstringForReturns
-        self.verticalAlignParameterDescription = verticalAlignParameterDescription
-        self.allowSuperfluousExclusion = superfluousExclusion
-        self.firstKeywordLetter = firstKeywordLetter
-        self.outputFormat = outputFormat
-        self.separatedSections = separatedSections
-        self.parameterStyle = parameterStyle
-        self.alignAfterColon = alignAfterColon
-        self.columnLimit = columnLimit
-    }
-
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         var config = Configuration()
