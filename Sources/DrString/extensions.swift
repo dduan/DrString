@@ -1,4 +1,3 @@
-import DrString
 import TSCUtility
 
 private let kDefaultConfigurationPath = ".drstring.toml"

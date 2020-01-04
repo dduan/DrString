@@ -1,3 +1,5 @@
+import DrString
+
 #if canImport(Darwin)
 import func Darwin.exit
 #else

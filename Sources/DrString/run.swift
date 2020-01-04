@@ -15,7 +15,7 @@ private func handle(_ error: Command.ReceivingError) -> Int32 {
     return EXIT_FAILURE
 }
 
-func run(arguments: [String]) -> Int32 {
+public func run(arguments: [String]) -> Int32 {
     do {
         return try execute(Command(arguments: arguments))
     } catch let error as Command.ReceivingError {

@@ -5,7 +5,6 @@ import var Darwin.C.EXIT_SUCCESS
 import var Glibc.EXIT_FAILURE
 import var Glibc.EXIT_SUCCESS
 #endif
-import DrString
 import TSCBasic
 
 func printHelp(_ stream: OutputByteStream) {

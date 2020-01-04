@@ -1,6 +1,4 @@
-import DrString
-
-enum Command {
+public enum Command {
     case check(configFile: String?, config: Configuration)
     case format(Configuration)
     case explain([String])
