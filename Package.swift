@@ -6,6 +6,7 @@ let package = Package(
     products: [
         .executable(name: "drstring", targets: ["DrStringCLI"]),
         .library(name: "DrString", targets: [
+            "DrStringCLI",
             "DrString",
             "Crawler",
             "Critic",
@@ -31,12 +32,12 @@ let package = Package(
         .target(name: "Editor", dependencies: ["Crawler", "Decipher"]),
         .target(name: "Decipher", dependencies: []),
         .target(name: "Informant", dependencies: ["Critic", "Chalk"]),
-        .target(name: "DrString", dependencies: ["Editor", "Decipher", "Informant", "Critic", "Pathos", "IsTTY"]),
-        .target(name: "DrStringCLI", dependencies: ["SwiftToolsSupport-auto", "DrString", "Pathos", "TOMLDecoder"]),
+        .target(name: "DrString", dependencies: ["SwiftToolsSupport-auto", "Editor", "TOMLDecoder", "Decipher", "Informant", "Critic", "Pathos", "IsTTY"]),
+        .target(name: "DrStringCLI", dependencies: [ "DrString"]),
         .testTarget(name: "CriticTests", dependencies: ["Crawler", "Decipher", "Critic"]),
         .testTarget(name: "EditorTests", dependencies: ["Crawler", "Decipher", "Editor"]),
         .testTarget(name: "DecipherTests", dependencies: ["Decipher"]),
-        .testTarget(name: "DrStringTests", dependencies: ["DrString", "FileCheck"],
+        .testTarget(name: "DrStringTests", dependencies: ["DrString", "FileCheck", "Pathos"],
                     exclude: ["Tests/DrStringTests/Fixtures"]),
     ]
 )

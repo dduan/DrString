@@ -136,6 +136,8 @@ drstring format --config-file PATH_TO_CONFIG_TOML
 
 The configuration file is in [TOML][] format.
 
+Options from command-line arguments overrides those found in config files.
+
 [TOML]: https://github.com/toml-lang/toml
 
 ### Automatically fix whitespace errors

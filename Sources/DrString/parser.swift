@@ -1,4 +1,3 @@
-import DrString
 import TSCUtility
 
 private let mainOverview = """
@@ -44,7 +43,8 @@ Globstar is supported (see example).
 Flags can be used to specify preferred styles for docstrings.
 
 A configuration file can be used instead of command line options to specify
-preferred styles. The options are equivalent in both methods.
+preferred styles. The options are equivalent in both methods. If an option is
+present in both places, command line takes priority.
 
 EXAMPLES:
   Examine all Swift files under `./Sources` recursively:
@@ -133,9 +133,9 @@ let (kArgParser, kArgBinder): (ArgumentParser, ArgumentBinder<Command>) = {
     binder.bind(parser: main) { command, subcommand in
         switch subcommand {
         case "check":
-            command = .check(configFile: nil, config: Configuration())
+            command = .check(configFile: nil, config: command.config ?? Configuration())
         case "format":
-            command = .format(Configuration())
+            command = .format(command.config ?? Configuration())
         case "version":
             command = .version
         default:

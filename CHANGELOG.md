@@ -1,5 +1,11 @@
 ## master
 
+### Improved
+
+- Options from command-line arguments now compliments those from a configuration file. Previously a valid
+  configuration cause options from command-line to be completely ignored. Now, the command-line options take
+  precedence over config file.
+
 ### New
 
 - Docstring entries that does not contain a `:` in their header (for example, `- parameter:`) were previously

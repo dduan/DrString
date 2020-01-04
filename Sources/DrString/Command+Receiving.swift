@@ -1,4 +1,3 @@
-import DrString
 import Pathos
 import TOMLDecoder
 import TSCUtility
@@ -10,17 +9,17 @@ extension Command {
         case configFileIsInvalid(String)
     }
 
-    init(arguments: [String]) throws {
+    public init(arguments: [String]) throws {
         let (parser, binder) = (kArgParser, kArgBinder)
         let result = try parser.parse(arguments)
 
         var command = Command.help
         try binder.fill(parseResult: result, into: &command)
 
-        let configPath = command.configFile ?? kDefaultConfigurationPath
-        let explicitPath = command.configFile != nil
+        let explicitPath: String? = try? result.get("--config-file")
+        let configPath = explicitPath ?? kDefaultConfigurationPath
 
-        if explicitPath && (try? isA(.file, atPath: configPath)) != .some(true) {
+        if explicitPath != nil && (try? isA(.file, atPath: configPath)) != .some(true) {
             throw ReceivingError.configFileDoesNotExist(configPath)
         }
 
@@ -30,7 +29,9 @@ extension Command {
             let decoded = try? TOMLDecoder().decode(Configuration.self, from: configText)
         {
             command.config = decoded
-        } else if explicitPath {
+            // Override config with command line arguments
+            try binder.fill(parseResult: result, into: &command)
+        } else if explicitPath != nil {
             throw ReceivingError.configFileIsInvalid(configPath)
         }
 
