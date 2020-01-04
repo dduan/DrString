@@ -15,19 +15,14 @@ final class FormattingTests: XCTestCase {
                     toPath: join(paths: path, "\(fileName).swift"))
             }
 
-            format(with: .init(
-                includedPaths: [join(paths: path, "source0.swift"), join(paths: path, "source1.swift")],
-                excludedPaths: [],
-                ignoreDocstringForThrows: false,
-                ignoreDocstringForReturns: false,
-                verticalAlignParameterDescription: true,
-                superfluousExclusion: false,
-                firstKeywordLetter: .uppercase,
-                outputFormat: .automatic,
-                separatedSections: [],
-                parameterStyle: .separate,
-                alignAfterColon: [],
-                columnLimit: 100))
+            var config = Configuration()
+            config.includedPaths = [join(paths: path, "source0.swift"), join(paths: path, "source1.swift")]
+            config.verticalAlignParameterDescription = true
+            config.parameterStyle = .separate
+            config.columnLimit = 100
+
+            format(with: config)
+
             XCTAssertEqual(
                 try! readString(atPath: join(paths: path, "source0.swift")),
                 try! readString(atPath: join(paths: path, "expectation0.swift"))
@@ -47,19 +42,12 @@ final class FormattingTests: XCTestCase {
                     toPath: join(paths: path, "\(fileName).swift"))
             }
 
-            format(with: .init(
-                includedPaths: [join(paths: path, "\(sourceName).swift")],
-                excludedPaths: [],
-                ignoreDocstringForThrows: false,
-                ignoreDocstringForReturns: false,
-                verticalAlignParameterDescription: true,
-                superfluousExclusion: false,
-                firstKeywordLetter: .uppercase,
-                outputFormat: .automatic,
-                separatedSections: [],
-                parameterStyle: .separate,
-                alignAfterColon: [],
-                columnLimit: 100))
+            var config = Configuration()
+            config.includedPaths = [join(paths: path, "\(sourceName).swift")]
+            config.verticalAlignParameterDescription = true
+            config.parameterStyle = .separate
+            config.columnLimit = 100
+            format(with: config)
 
             XCTAssertEqual(
                 try! readString(atPath: join(paths: path, "\(sourceName).swift")),

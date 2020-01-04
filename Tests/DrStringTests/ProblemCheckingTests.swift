@@ -19,22 +19,19 @@ final class ProblemCheckingTests: XCTestCase {
         format: Configuration.OutputFormat = .plain
     ) -> Bool {
         let fixture = self.directory + "/Fixtures/" + "\(fileName).fixture"
+        var config = Configuration()
+        config.includedPaths = [fixture]
+        config.ignoreDocstringForThrows = ignoreThrows
+        config.ignoreDocstringForReturns = ignoreReturns
+        config.verticalAlignParameterDescription = verticalAlign
+        config.firstKeywordLetter = firstLetter
+        config.outputFormat = format
+        config.separatedSections = needsSeparation
+        config.parameterStyle = parameterStyle
+        config.alignAfterColon = alignAfterColon
+        config.columnLimit = 100
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
-            _ = check(with: Configuration(
-                includedPaths: [fixture],
-                excludedPaths: [],
-                ignoreDocstringForThrows: ignoreThrows,
-                ignoreDocstringForReturns: ignoreReturns,
-                verticalAlignParameterDescription: verticalAlign,
-                superfluousExclusion: false,
-                firstKeywordLetter: firstLetter,
-                outputFormat: format,
-                separatedSections: needsSeparation,
-                parameterStyle: parameterStyle,
-                alignAfterColon: alignAfterColon,
-                columnLimit: 100),
-                configFile: ".drstring.toml"
-            )
+            _ = check(with: config, configFile: ".drstring.toml")
         }
     }
 
