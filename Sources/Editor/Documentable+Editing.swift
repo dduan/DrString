@@ -18,7 +18,7 @@ extension Documentable {
         }
 
         let formatted = docs.reformat(
-            initialColumn: self.column,
+            initialColumn: self.startColumn,
             columnLimit: columnLimit,
             verticalAlign: verticalAlign,
             alignAfterColon: alignAfterColon,
@@ -27,11 +27,11 @@ extension Documentable {
             separations: separations)
 
         if formatted != self.docLines {
-            let padding = String(Array(repeating: " ", count: self.column))
+            let padding = String(Array(repeating: " ", count: self.startColumn))
             return [
                 Edit(
-                    startingLine: self.line - self.docLines.count,
-                    endingLine: self.line,
+                    startingLine: self.startLine - self.docLines.count,
+                    endingLine: self.startLine,
                     text: formatted.map { padding + $0 })
             ]
         } else {

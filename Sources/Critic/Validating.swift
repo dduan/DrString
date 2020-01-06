@@ -34,8 +34,8 @@ extension Documentable {
             return DocProblem(
                 docName: self.name,
                 filePath: self.path,
-                line: self.line,
-                column: self.column,
+                line: self.startLine,
+                column: self.startColumn,
                 details: details
             )
         default:

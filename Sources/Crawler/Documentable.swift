@@ -15,8 +15,9 @@ public struct EnumCase: Equatable {
 
 public struct Documentable: Equatable {
     public let path: String
-    public let line: Int
-    public let column: Int
+    public let startLine: Int
+    public let startColumn: Int
+    public let endLine: Int
     public let name: String
     public let docLines: [String]
     public let children: [Documentable]

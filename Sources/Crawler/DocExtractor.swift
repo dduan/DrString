@@ -2,8 +2,10 @@ import Pathos
 import SwiftSyntax
 
 public func extractDocs(fromSourcePath sourcePath: String) throws -> ([Documentable], String) {
-    let extractor = try DocExtractor(filePath: sourcePath)
-    return (try extractor.extractDocs(), extractor.source)
+    let sourceText = try readString(atPath: sourcePath)
+    let extractor = try DocExtractor(sourceText: sourceText, sourcePath: sourcePath)
+
+    return (try extractor.extractDocs(), sourceText)
 }
 
 private final class DocExtractor: SyntaxRewriter {
@@ -11,14 +13,10 @@ private final class DocExtractor: SyntaxRewriter {
     private let syntax: SourceFileSyntax
     private let converter: SourceLocationConverter
 
-    let source: String
-
-    init(filePath: String) throws {
-        let sourceText = try readString(atPath: filePath)
-        self.source = sourceText
+    init(sourceText: String, sourcePath: String?) throws {
         let tree = try SyntaxParser.parse(source: sourceText)
         self.syntax = tree
-        self.converter = SourceLocationConverter(file: filePath, source: sourceText)
+        self.converter = SourceLocationConverter(file: sourcePath ?? "", source: sourceText)
     }
 
     func extractDocs() throws -> [Documentable] {
@@ -28,13 +26,15 @@ private final class DocExtractor: SyntaxRewriter {
 
     override func visit(_ node: FunctionDeclSyntax) -> DeclSyntax {
         let location = node.startLocation(converter: self.converter)
+        let endLocation = node.endLocation(converter: self.converter)
         let parameters = node.parameters
         let signatureText = node.identifier.description
             + "(\(parameters.reduce("") { $0 + ($1.label ?? $1.name) + ":" }))"
         let finding = Documentable(
             path: location.file ?? "",
-            line: (location.line ?? 0) - 1,
-            column: (location.column ?? 0) - 1,
+            startLine: (location.line ?? 0) - 1,
+            startColumn: (location.column ?? 0) - 1,
+            endLine: (endLocation.line ?? 0) - 1,
             name: signatureText,
             docLines: node.leadingTrivia?.docStringLines ?? [],
             children: [],
@@ -49,12 +49,14 @@ private final class DocExtractor: SyntaxRewriter {
 
     override func visit(_ node: InitializerDeclSyntax) -> DeclSyntax {
         let location = node.startLocation(converter: self.converter)
+        let endLocation = node.endLocation(converter: self.converter)
         let parameters = node.parameters.parameterList.map { $0.parameter }
         let signatureText = "init(\(parameters.reduce("") { $0 + ($1.label ?? $1.name) + ":" }))"
         let finding = Documentable(
             path: location.file ?? "",
-            line: (location.line ?? 0) - 1,
-            column: (location.column ?? 0) - 1,
+            startLine: (location.line ?? 0) - 1,
+            startColumn: (location.column ?? 0) - 1,
+            endLine: (endLocation.line ?? 0) - 1,
             name: signatureText,
             docLines: node.leadingTrivia?.docStringLines ?? [],
             children: [],
