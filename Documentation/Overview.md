@@ -26,7 +26,7 @@ For these reason, docstring consistency is essentially impossible.
 A linter/formatter like DrString makes life a bit easier for those who cares.
 
 DrString recognize not all codebases adhere to the same style. Therefore, it
-offers many [options][Configuration.md] that customizes its behavior to suit
+offers many [options](Configuration.md) that customizes its behavior to suit
 your needs.
 
 [Docstring]: https://en.wikipedia.org/wiki/Docstring
@@ -35,9 +35,6 @@ your needs.
 
 Pedantry begins with a glossary. So let's look at what elements of a docstring
 we can scrutinize about.
-
-(_TODO: this section only talks about docstring for function signatures, there
-are other docstring-worthy stuff._)
 
 A docstring is a block of consecutive lines that all starts with `///`. The
 first `/` is indented to the same column as its "documentee".
