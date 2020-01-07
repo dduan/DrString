@@ -53,7 +53,7 @@ useful for getting a list of paths to exclude, for example.
 | Repeatable | No                                        |
 |      Value | `automatic`, `terminal`, `plain`, `paths` |
 |    Default | `automatic`                               |
-|    Command | _all commands_                            |
+|    Command | check, format                             |
 
 
 ### include
