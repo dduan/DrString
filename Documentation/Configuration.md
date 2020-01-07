@@ -24,11 +24,11 @@ aspects are included:
   ("String", "Bool") follows Unix command line arguments conventions. For
   example: `drstring check -i "path/to/a.swift" --ignore-throws true`. The
   String value could be quoted or not (do quote if want to pass a glob pattern
-  to drstring as opposed to your shell); a Bool value could also be written as
-  `1`/`0` etc. In a config file, the types refers to TOML types. When an option
-  is *repeatable*, this is the type for the elements in a TOML list in a config
-  file. Some option's value can only be one of several strings. For these,
-  the list of valid values are listed instead of a type.
+  to drstring as opposed to your shell). In a config file, the types refers to
+  TOML types. When an option is *repeatable*, this is the type for the elements
+  in a TOML list in a config file. Some option's value can only be one of
+  several strings. For these, the list of valid values are listed instead of
+  a type.
 - **Default**: A default value if none is explicitly specfied. Not applicable
   if the option is *required*.
 - **Command**: The command(s) this option is effective for.
