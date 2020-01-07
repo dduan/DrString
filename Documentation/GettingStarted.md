@@ -11,7 +11,7 @@ then read this introduction to the command line:
 
 [cli]: https://www.learnenough.com/command-line-tutorial
 
-[overview]: overview.md
+[overview]: Overview.md
 
 ## Install
 
