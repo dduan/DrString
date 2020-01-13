@@ -267,6 +267,15 @@ let (kArgParser, kArgBinder): (ArgumentParser, ArgumentBinder<Command>) = {
     }
 
     binder.bind(
+        option: format.add(
+            option: "--add-placeholder",
+            shortName: nil,
+            kind: Bool.self,
+            usage: "Add placeholder for an docstring entry if it doesn't exist. Optional (true|false). Default to `false`."
+        )
+    ) { $0.config?.addPlaceholder = $1 }
+
+    binder.bind(
         positional: explain.add(
             positional: "problem-id",
             kind: [String].self,
