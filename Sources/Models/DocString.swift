@@ -19,11 +19,11 @@ public struct DocString: Equatable {
         }
     }
 
-    public let description: [TextLeadByWhitespace]
-    public let parameterHeader: Entry?
-    public let parameters: [Entry]
-    public let returns: Entry?
-    public let `throws`: Entry?
+    public var description: [TextLeadByWhitespace]
+    public var parameterHeader: Entry?
+    public var parameters: [Entry]
+    public var returns: Entry?
+    public var `throws`: Entry?
 
     public init(description: [TextLeadByWhitespace], parameterHeader: Entry?, parameters: [Entry], returns: Entry?, throws: Entry?) {
         self.description = description

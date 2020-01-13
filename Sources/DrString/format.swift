@@ -33,7 +33,10 @@ public func format(with config: Configuration) {
                         alignAfterColon: config.alignAfterColon,
                         firstLetterUpperCase: config.firstKeywordLetter == .uppercase,
                         parameterStyle: config.parameterStyle,
-                        separations: config.separatedSections)
+                        separations: config.separatedSections,
+                        ignoreThrows: config.ignoreDocstringForThrows,
+                        ignoreReturns: config.ignoreDocstringForReturns,
+                        addPlaceholder: config.addPlaceholder)
                 }
 
                 if !edits.isEmpty {

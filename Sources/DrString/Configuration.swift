@@ -13,6 +13,7 @@ public struct Configuration: Decodable {
     public var parameterStyle: ParameterStyle = .whatever
     public var alignAfterColon: [Section] = []
     public var columnLimit: Int?
+    public var addPlaceholder: Bool = false
 
     public init() {}
     public init(from decoder: Decoder) throws {
@@ -62,6 +63,10 @@ public struct Configuration: Decodable {
             config.alignAfterColon = alignAfterColon
         }
 
+        if let addPlaceholder = try values.decodeIfPresent(Bool.self, forKey: .addPlaceholder) {
+            config.addPlaceholder = addPlaceholder
+        }
+
         self = config
     }
 
@@ -78,6 +83,7 @@ public struct Configuration: Decodable {
         case parameterStyle = "parameter-style"
         case alignAfterColon = "align-after-colon"
         case columnLimit = "column-limit"
+        case addPlaceholder = "add-placeholder"
     }
 
     public enum OutputFormat: String, Equatable, Decodable {
