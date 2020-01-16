@@ -1,5 +1,10 @@
 ## master
 
+### Improved
+
+- Fixed a bug where small amount of missing spaces prefixing continuation lines in docstring entries are not
+  reported as a problem when vertical alignment is required (#144)
+
 ## 0.3.3
 
 ### Improved

@@ -296,7 +296,7 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
         result.append(.missingColon(parameter.name.text))
     }
 
-    if verticalAlign {
+    if verticalAlign || alignAfterColon {
         // Vertical alignment
         // Knowing the longest name's length among peers, the amount of extra space needed to vertical align
         // the first line is
@@ -308,31 +308,13 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
         // For the rest of the lines in the description, it should have the length of
         // `- parameter [maxPeerNameLength]: ` for separate style
         // or
-        // `- [maxPeerNameLength]: ` for grouped style
-        let expectedBodyLeadLength = parameter.keyword == nil ? 4 + maxPeerNameLength : 14 + maxPeerNameLength
+        // `   - [maxPeerNameLength]: ` for grouped style
+        let expectedBodyLeadLength = (parameter.keyword == nil ? 7 : 15) + maxPeerNameLength
         for (index, line) in parameter.description.dropFirst().enumerated() {
             if !line.lead.allSatisfy({ $0 == " " }) || (line.lead.count < expectedBodyLeadLength &&
                 !line.lead.isEmpty && !line.text.isEmpty)
             {
                 result.append(.verticalAlignment(expectedBodyLeadLength, parameter.name.text, index + 2))
-            }
-        }
-    } else if alignAfterColon {
-        if let lead = parameter.description.first?.lead, lead != " " {
-            result.append(.verticalAlignment(1, parameter.name.text, 1))
-        }
-
-        let standardPaddingLength: Int
-        if parameter.keyword != nil {
-            standardPaddingLength = 15 + parameter.name.text.count
-        } else {
-            standardPaddingLength = 7 + parameter.name.text.count
-        }
-
-        let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
-        for (index, line) in parameter.description.dropFirst().enumerated() {
-            if line.lead != standardPadding {
-                result.append(.verticalAlignment(standardPaddingLength, parameter.name.text, index + 2))
             }
         }
     }
