@@ -1,0 +1,10 @@
+// CHECK-NOT: Redundant documentation for `throws`
+/// An executable value that can identify issues (violations) in Swift source code.
+public protocol Rule {
+    /// Creates a rule by applying its configuration.
+    ///
+    /// - parameter configuration: The untyped configuration value to apply.
+    ///
+    /// - throws: Throws if the configuration didn't match the expected format.
+    init(configuration: Any) throws
+}
