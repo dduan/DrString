@@ -1,5 +1,7 @@
 ## master
 
+## 0.3.3
+
 ### Improved
 
 - Options from command-line arguments now compliments those from a configuration file. Previously a valid
