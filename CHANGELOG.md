@@ -10,6 +10,9 @@
 
 - Fixed bug #140, where `throws` for `init`s were ignored when extracting code signature.
 
+- Fixed a bug where small amount of missing spaces prefixing continuation lines in docstring entries are not
+  reported as a problem when vertical alignment is required (#144)
+
 ### New
 
 - Docstring entries that does not contain a `:` in their header (for example, `- parameter:`) were previously
