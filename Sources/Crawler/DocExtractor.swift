@@ -61,7 +61,7 @@ private final class DocExtractor: SyntaxRewriter {
             docLines: node.leadingTrivia?.docStringLines ?? [],
             children: [],
             details: .function(
-                throws: false,
+                throws: node.throws,
                 returnType: nil,
                 parameters: parameters)
         )

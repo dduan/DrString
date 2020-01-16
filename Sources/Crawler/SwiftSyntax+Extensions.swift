@@ -30,6 +30,12 @@ extension FunctionDeclSyntax {
     }
 }
 
+extension InitializerDeclSyntax {
+    var `throws`: Bool {
+        return self.throwsOrRethrowsKeyword != nil
+    }
+}
+
 extension Trivia {
     var docStringLines: [String] {
         var result = [String]()

@@ -6,6 +6,8 @@
   configuration cause options from command-line to be completely ignored. Now, the command-line options take
   precedence over config file.
 
+- Fixed bug #140, where `throws` for `init`s were ignored when extracting code signature.
+
 ### New
 
 - Docstring entries that does not contain a `:` in their header (for example, `- parameter:`) were previously

@@ -41,6 +41,7 @@ extension ProblemCheckingTests {
         ("testIgnoreReturns", testIgnoreReturns),
         ("testIgnoreThrows", testIgnoreThrows),
         ("testInitProblemsAreChecked", testInitProblemsAreChecked),
+        ("testInitThrowsIsNotRedundant", testInitThrowsIsNotRedundant),
         ("testLowercaseKeywords", testLowercaseKeywords),
         ("testMisalignedParameterDescriptions", testMisalignedParameterDescriptions),
         ("testMissingSectionSeparator", testMissingSectionSeparator),

@@ -121,4 +121,8 @@ final class ProblemCheckingTests: XCTestCase {
     func testInitProblemsAreChecked() throws {
         XCTAssert(runTest(fileName: "init"))
     }
+
+    func testInitThrowsIsNotRedundant() throws {
+        XCTAssert(runTest(fileName: "140", ignoreThrows: true))
+    }
 }
