@@ -69,11 +69,11 @@ drstring check \
     --first-letter uppercase
 ```
 
-1. `--include` is the longer form of `-i`. Most options have a long form and
+1. `--include` is the longer form of `-i`. Some options have a long form and
    a short form. This should be a familar Unix pattern.
 2. You can exampt paths from being checked with `--exclude` (or `-e`).
 3. `--include` and `--exclude` can repeat. In fact, this is true for all options
-   that takes a list of values.
+   that take a list of values.
 4. `--ignore-throws` tells DrString documentation for `throws` is not required.
    `--first-letter` tells DrString to expect keywords in docstring such as
    `Parameter` should start with an uppercase letter. These are examples of
@@ -99,15 +99,12 @@ drstring explain E008
 In this example, DrString will proceed to print out an explanation of the
 problem with examples that demonstrates the violation.
 
-**Protip**: You can use partial IDs and DrString will try its best to guess what
-you want to know. For example, instead of typing `E008`, `E8` or `8` or `008`
-all get you the same result.
 
 ### Using a config file
 
 Instead of specifying request with command line arguments, DrString can read
-from a configuration file instead. The second example for `check` command can
-be expressed in a configuration file as
+from a configuration file. The second example for `check` command can be
+expressed in a configuration file as
 
 ```toml
 include = [
@@ -183,6 +180,12 @@ enforec different docstring styles.
 [options]: Configuration.md
 
 ### Tips and tricks
+
+#### Explain faster
+
+For the `explain`subcommand You can use partial IDs and DrString will try its
+best to guess what you want to know. For example, instead of typing `E008`, `E8`
+or `8` or `008` all get you the same result.
 
 #### Starting off in a big codebase
 
