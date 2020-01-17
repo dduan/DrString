@@ -102,7 +102,7 @@ func findReturnsProblems(ignoreReturns: Bool, _ docs: DocString, returnType: Str
         let standardPaddingLength = 12
         let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
         for (index, line) in returnsDoc.description.dropFirst().enumerated() {
-            if line.lead < standardPadding {
+            if line.lead < standardPadding && !(line.lead.isEmpty && line.text.isEmpty) {
                 result.append(.verticalAlignment(standardPaddingLength, keywordText, index + 2))
             }
         }
@@ -159,7 +159,7 @@ func findThrowsProblems(ignoreThrows: Bool, doesThrow: Bool, _ docs: DocString, 
         let standardPaddingLength = 11
         let standardPadding = String(Array(repeating: " ", count: standardPaddingLength))
         for (index, line) in throwsDoc.description.dropFirst().enumerated() {
-            if line.lead < standardPadding {
+            if line.lead < standardPadding && !(line.lead.isEmpty && line.text.isEmpty) {
                 result.append(.verticalAlignment(standardPaddingLength, keywordText, index + 2))
             }
         }

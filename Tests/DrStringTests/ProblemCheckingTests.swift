@@ -125,4 +125,8 @@ final class ProblemCheckingTests: XCTestCase {
     func testInitThrowsIsNotRedundant() throws {
         XCTAssert(runTest(fileName: "140", ignoreThrows: true))
     }
+
+    func testSeparateLineInThrowsIsNotTreatedAsContinuedBody() throws {
+        XCTAssert(runTest(fileName: "147", alignAfterColon: [.throws], expectEmpty: true))
+    }
 }

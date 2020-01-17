@@ -1,0 +1,11 @@
+// CHECK-NOT: not properly vertically aligned
+/// Check whether the entire input sequence can be matched against the regular expression.
+///
+/// - Parameter regex: The regular expression to match against.
+///
+/// - Throws: If the regex cannot be created with the given pattern.
+///
+/// - Returns: True if str can be matched entirely against regex.
+public func matchesEntirely(_ regex: String) throws -> Bool {
+    return true
+}
