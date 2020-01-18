@@ -49,6 +49,7 @@ extension ProblemCheckingTests {
         ("testNoDocNoError", testNoDocNoError),
         ("testRedundantKeywords", testRedundantKeywords),
         ("testRedundantKeywordsPathsOnly", testRedundantKeywordsPathsOnly),
+        ("testSeparateLineInThrowsIsNotTreatedAsContinuedBody", testSeparateLineInThrowsIsNotTreatedAsContinuedBody),
         ("testSeparateParameterStyle", testSeparateParameterStyle),
         ("testUppercaseKeywords", testUppercaseKeywords),
         ("testWhateverParameterStyle", testWhateverParameterStyle),
