@@ -1,5 +1,7 @@
 ## master
 
+## 0.3.4
+
 ### Improved
 
 - Fixed bug #149, in which continued line with no prefix whitespace and content were incorrectly included in
