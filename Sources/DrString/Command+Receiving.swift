@@ -23,7 +23,6 @@ extension Command {
             throw ReceivingError.configFileDoesNotExist(configPath)
         }
 
-        command.configFile = configPath
 
         if let configText = try? readString(atPath: configPath),
             let decoded = try? TOMLDecoder().decode(Configuration.self, from: configText)
@@ -31,6 +30,7 @@ extension Command {
             command.config = decoded
             // Override config with command line arguments
             try binder.fill(parseResult: result, into: &command)
+            command.configFile = configPath
         } else if explicitPath != nil {
             throw ReceivingError.configFileIsInvalid(configPath)
         }
