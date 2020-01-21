@@ -1,5 +1,10 @@
 ## master
 
+### Improved
+
+- Fixed bug #148, in which superfluously excluded files in config file is reported to have been excluded from
+  command line arguments.
+
 ## 0.3.3
 
 ### Improved
