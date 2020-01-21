@@ -2,6 +2,8 @@
 
 ### Improved
 
+- Fixed bug #149, in which continued line with no prefix whitespace and content were incorrectly included in
+  consideration for vertical alignment.
 - Fixed bug #148, in which superfluously excluded files in config file is reported to have been excluded from
   command line arguments.
 
