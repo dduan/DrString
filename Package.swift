@@ -5,15 +5,7 @@ let package = Package(
     name: "DrString",
     products: [
         .executable(name: "drstring", targets: ["DrStringCLI"]),
-        .library(name: "DrString", targets: [
-            "DrStringCLI",
-            "DrString",
-            "Crawler",
-            "Critic",
-            "Editor",
-            "Decipher",
-            "Informant",
-        ]),
+        .library(name: "DrString", targets: ["DrString"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.50100.0")),
