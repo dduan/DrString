@@ -22,7 +22,7 @@ aspects are included:
   option is a TOML list.
 - **Value**: The type or candidate of valid values for this option. A type
   ("String", "Bool") follows Unix command line arguments conventions. For
-  example: `drstring check -i "path/to/a.swift" --ignore-throws true`. The
+  example: `drstring check -i "path/to/a.swift" --ignore-throws=false`. The
   String value could be quoted or not (do quote if want to pass a glob pattern
   to drstring as opposed to your shell). In a config file, the types refers to
   TOML types. When an option is *repeatable*, this is the type for the elements
