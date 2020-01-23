@@ -1,5 +1,10 @@
 ## master
 
+### New
+
+- Ability to generate placeholder documentation for parameters, returns, throws as needed. The option is
+  `add-placeholder` and works in conjunction with `ignore-throws` and `ignore-returns`.
+
 ## 0.3.4
 
 ### Improved
