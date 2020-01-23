@@ -1,3 +1,5 @@
+import Models
+
 extension String {
     func endIndex(ofFirst other: String) -> String.Index? {
         guard

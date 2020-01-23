@@ -1,6 +1,4 @@
-@testable import Critic
-@testable import Crawler
-@testable import Decipher
+import Models
 import XCTest
 
 private let kParamA = Parameter(label: nil, name: "a", type: "A", isVariadic: false, hasDefault: false)

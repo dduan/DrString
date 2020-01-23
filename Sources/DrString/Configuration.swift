@@ -1,7 +1,4 @@
-import Decipher
-
-public typealias Section = Decipher.Section
-public typealias ParameterStyle = Decipher.ParameterStyle
+import Models
 
 public struct Configuration: Decodable {
     public var includedPaths: [String] = []

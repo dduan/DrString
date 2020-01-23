@@ -1,3 +1,4 @@
+import Models
 @testable import Decipher
 import XCTest
 
