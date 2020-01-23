@@ -301,5 +301,20 @@ configured separately.
 |    Default | []                                |
 |    Command | check, format                     |
 
+### add-placeholder
+
+|            |        |
+| ---------- | ------ |
+|   Required | No     |
+| Repeatable | No     |
+|      Value | Bool   |
+|    Default | false  |
+|    Command | format |
+
+When formatting, generate placeholder entries for parametecs, throws, and
+returns, if necessary. `ignore-throws` and `ignore-returns` could cancel
+generation for throws and returns, respectively.
+
+
 [TOML]: https://github.com/toml-lang/toml
 [overview]: Overview.md
