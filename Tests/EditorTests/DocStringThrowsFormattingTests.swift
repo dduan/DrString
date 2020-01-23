@@ -1,6 +1,6 @@
+import Models
 import XCTest
 @testable import Editor
-@testable import Decipher
 
 final class DocStringThrowsFormattingTests: XCTestCase {
     func testFormattingBasicThrows() {

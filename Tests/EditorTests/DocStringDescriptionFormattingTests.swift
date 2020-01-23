@@ -1,4 +1,4 @@
-@testable import Decipher
+import Models
 @testable import Editor
 import XCTest
 

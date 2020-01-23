@@ -1,6 +1,5 @@
+import Models
 @testable import Critic
-@testable import Decipher
-@testable import Crawler
 import XCTest
 
 final class AlignmentTests: XCTestCase {

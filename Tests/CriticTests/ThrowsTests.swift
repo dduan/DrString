@@ -1,5 +1,5 @@
+import Models
 @testable import Critic
-@testable import Decipher
 import XCTest
 
 final class ThrowsTests: XCTestCase {

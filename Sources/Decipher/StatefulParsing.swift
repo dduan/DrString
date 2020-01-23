@@ -1,3 +1,5 @@
+import Models
+
 public func parse(lines: [String]) throws -> DocString {
     assert(!lines.isEmpty)
     guard

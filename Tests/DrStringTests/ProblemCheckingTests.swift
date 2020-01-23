@@ -1,7 +1,7 @@
 import DrString
 import FileCheck
 import XCTest
-import Critic
+import Models
 
 final class ProblemCheckingTests: XCTestCase {
     private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
