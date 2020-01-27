@@ -315,6 +315,33 @@ When formatting, generate placeholder entries for parametecs, throws, and
 returns, if necessary. `ignore-throws` and `ignore-returns` could cancel
 generation for throws and returns, respectively.
 
+### start-line
+
+The earliest line to consider when formatting docstrings. This value has no
+effect unless `end-line` is also present. If the line is in the range of
+a function, the function is included for consideration.
+
+|            |        |
+| ---------- | ------ |
+|   Required | No     |
+| Repeatable | No     |
+|      Value | Int    |
+|    Default | nil    |
+|    Command | format |
+
+### end-line
+
+The last line to consider when formatting docstrings. This value has no
+effect unless `start-line` is also present. If the line is in the range of
+a function, the function is included for consideration.
+
+|            |        |
+| ---------- | ------ |
+|   Required | No     |
+| Repeatable | No     |
+|      Value | Int    |
+|    Default | nil    |
+|    Command | format |
 
 [TOML]: https://github.com/toml-lang/toml
 [overview]: Overview.md

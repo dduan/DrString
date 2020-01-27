@@ -26,7 +26,9 @@ final class ReturnsPlaceholderTests: XCTestCase {
             separations: [],
             ignoreThrows: false,
             ignoreReturns: ignore,
-            addPlaceholder: true
+            addPlaceholder: true,
+            startLine: nil,
+            endLine: nil
         ).first?.text ?? []
     }
 

@@ -26,7 +26,9 @@ final class DocStringReturnsFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: []
+            separations: [],
+            startLine: nil,
+            endLine: nil
         )
 
         XCTAssertEqual(
@@ -60,7 +62,9 @@ final class DocStringReturnsFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: []
+            separations: [],
+            startLine: nil,
+            endLine: nil
         )
 
         XCTAssertEqual(
@@ -94,7 +98,9 @@ final class DocStringReturnsFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: false,
             parameterStyle: .whatever,
-            separations: []
+            separations: [],
+            startLine: nil,
+            endLine: nil
         )
 
         XCTAssertEqual(
@@ -128,7 +134,9 @@ final class DocStringReturnsFormattingTests: XCTestCase {
             alignAfterColon: [.returns],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: []
+            separations: [],
+            startLine: nil,
+            endLine: nil
         )
 
         XCTAssertEqual(
@@ -163,7 +171,9 @@ final class DocStringReturnsFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: []
+            separations: [],
+            startLine: nil,
+            endLine: nil
         )
 
         XCTAssertEqual(
@@ -198,7 +208,9 @@ final class DocStringReturnsFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: []
+            separations: [],
+            startLine: nil,
+            endLine: nil
         )
 
         XCTAssertEqual(
@@ -236,7 +248,9 @@ final class DocStringReturnsFormattingTests: XCTestCase {
             alignAfterColon: [.returns],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: []
+            separations: [],
+            startLine: nil,
+            endLine: nil
         )
 
         XCTAssertEqual(

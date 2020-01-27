@@ -4,6 +4,9 @@
 
 - Ability to generate placeholder documentation for parameters, returns, throws as needed. The option is
   `add-placeholder` and works in conjunction with `ignore-throws` and `ignore-returns`.
+- `start-line` and `end-line` are options that, together, specifies a range of lines for the `format`
+  subcommand to consider. Any docstring for functions covered in this range will be formatted, and those
+  outside of this range won't be.
 
 ## 0.3.4
 

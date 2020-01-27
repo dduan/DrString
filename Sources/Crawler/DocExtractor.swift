@@ -9,7 +9,7 @@ public func extractDocs(fromSourcePath sourcePath: String) throws -> ([Documenta
     return (try extractor.extractDocs(), sourceText)
 }
 
-private final class DocExtractor: SyntaxRewriter {
+final class DocExtractor: SyntaxRewriter {
     private var findings: [Documentable] = []
     private let syntax: SourceFileSyntax
     private let converter: SourceLocationConverter
