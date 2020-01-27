@@ -14,9 +14,7 @@ extension Documentable {
         addPlaceholder: Bool
     ) -> [Edit]
     {
-        guard case let .function(doesThrow, returnType, parameters) = self.details,
-            (!self.docLines.isEmpty || addPlaceholder) else
-        {
+        guard !self.docLines.isEmpty || addPlaceholder else {
             return []
         }
 
@@ -28,62 +26,11 @@ extension Documentable {
         var docs = perhapsDocs ?? DocString(
             description: [], parameterHeader: nil, parameters: [], returns: nil, throws: nil)
 
-        var parameterDocs = [DocString.Entry]()
         if addPlaceholder {
-            let commonality = commonSequence(parameters, docs)
-            var commonIter = commonality.makeIterator()
-            var nextCommon = commonIter.next()
-            var docsIter = docs.parameters.makeIterator()
-            var nextDoc = docsIter.next()
-
-            for param in parameters {
-                if param == nextCommon {
-                    while let doc = nextDoc, doc.name.text != param.name {
-                        parameterDocs.append(doc)
-                        nextDoc = docsIter.next()
-                    }
-
-                    if let doc = nextDoc {
-                        parameterDocs.append(doc)
-                        nextDoc = docsIter.next()
-                    }
-
-                    nextCommon = commonIter.next()
-                } else {
-                    parameterDocs.append(
-                        .init(
-                            preDashWhitespaces: "",
-                            keyword: nil,
-                            name: .init("", param.name),
-                            preColonWhitespace: "",
-                            hasColon: true,
-                            description: [.init("", "<#\(param.type)#>")]))
-                }
-            }
-
-            docs.parameters = parameterDocs
-
-            if doesThrow && docs.throws == nil && !ignoreThrows {
-                docs.throws = .init(
-                    preDashWhitespaces: "",
-                    keyword: nil,
-                    name: .empty,
-                    preColonWhitespace: "",
-                    hasColon: true,
-                    description: [.init(" ", "<#Error#>")]
-                )
-            }
-
-            if let returnType = returnType, docs.returns == nil && !ignoreReturns {
-                docs.returns = .init(
-                    preDashWhitespaces: "",
-                    keyword: nil,
-                    name: .empty,
-                    preColonWhitespace: "",
-                    hasColon: true,
-                    description: [.init(" ", "<#\(returnType)#>")]
-                )
-            }
+            self.addDescription(to: &docs)
+            self.addParameters(to: &docs)
+            self.addThrows(to: &docs, ignoreThrows: ignoreThrows)
+            self.addReturns(to: &docs, ignoreReturns: ignoreReturns)
         }
 
         let formatted = docs.reformat(
@@ -105,6 +52,87 @@ extension Documentable {
             ]
         } else {
             return []
+        }
+    }
+
+    private func addDescription(to docs: inout DocString) {
+        if docs.description.isEmpty {
+            docs.description.append(.init(" ", "<#\(self.name)#>"))
+        }
+    }
+
+    private func addParameters(to docs: inout DocString) {
+        guard case let .function(_, _, parameters) = self.details else {
+            return
+        }
+
+        var parameterDocs = [DocString.Entry]()
+
+        let commonality = commonSequence(parameters, docs)
+        var commonIter = commonality.makeIterator()
+        var nextCommon = commonIter.next()
+        var docsIter = docs.parameters.makeIterator()
+        var nextDoc = docsIter.next()
+
+        for param in parameters {
+            if param == nextCommon {
+                while let doc = nextDoc, doc.name.text != param.name {
+                    parameterDocs.append(doc)
+                    nextDoc = docsIter.next()
+                }
+
+                if let doc = nextDoc {
+                    parameterDocs.append(doc)
+                    nextDoc = docsIter.next()
+                }
+
+                nextCommon = commonIter.next()
+            } else {
+                parameterDocs.append(
+                    .init(
+                        preDashWhitespaces: "",
+                        keyword: nil,
+                        name: .init("", param.name),
+                        preColonWhitespace: "",
+                        hasColon: true,
+                        description: [.init("", "<#\(param.type)#>")]))
+            }
+        }
+
+        docs.parameters = parameterDocs
+    }
+
+    private func addThrows(to docs: inout DocString, ignoreThrows: Bool) {
+        guard case let .function(doesThrow, _, _) = self.details else {
+            return
+        }
+
+        if doesThrow && docs.throws == nil && !ignoreThrows {
+            docs.throws = .init(
+                preDashWhitespaces: "",
+                keyword: nil,
+                name: .empty,
+                preColonWhitespace: "",
+                hasColon: true,
+                description: [.init(" ", "<#Error#>")]
+            )
+        }
+    }
+
+    private func addReturns(to docs: inout DocString, ignoreReturns: Bool) {
+        guard case let .function(_, returnType, _) = self.details else {
+            return
+        }
+
+        if let returnType = returnType, docs.returns == nil && !ignoreReturns {
+            docs.returns = .init(
+                preDashWhitespaces: "",
+                keyword: nil,
+                name: .empty,
+                preColonWhitespace: "",
+                hasColon: true,
+                description: [.init(" ", "<#\(returnType)#>")]
+            )
         }
     }
 }
