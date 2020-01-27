@@ -131,6 +131,11 @@ argument via `--config-file`. For example:
 drstring format --config-file PATH_TO_CONFIG_TOML
 ```
 
+When the config file is not explicitly specified, but at least one file path is
+present as a command-line argument, DrString will look for `.drstring.toml` in
+its directory. If it's not there, then its parent directory… until the config
+file is found, or root directory is encountered.
+
 The configuration file is in [TOML][] format.
 
 Options from command-line arguments overrides those found in config files.
