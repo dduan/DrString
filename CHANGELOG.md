@@ -1,5 +1,7 @@
 ## master
 
+## 0.3.5
+
 ### New
 
 - Ability to generate placeholder documentation for parameters, returns, throws as needed. The option is
@@ -7,6 +9,9 @@
 - `start-line` and `end-line` are options that, together, specifies a range of lines for the `format`
   subcommand to consider. Any docstring for functions covered in this range will be formatted, and those
   outside of this range won't be.
+
+### Improved
+
 - If a path to config file is not specified, in addition to looking at `./.drstring.toml`, DrString will look
   for a `.drstring.toml` from either the current working directory or directory of a included path for
   checking/formatting from command line. It'll keep looking in the parent directory until a `.drstring.toml`
