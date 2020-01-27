@@ -174,7 +174,9 @@ extension DocString {
         alignAfterColon: [Section],
         firstLetterUpperCase: Bool,
         parameterStyle: ParameterStyle,
-        separations: [Section]
+        separations: [Section],
+        startLine: Int?,
+        endLine: Int?
     ) -> [String]
     {
 

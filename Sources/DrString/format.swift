@@ -36,7 +36,9 @@ public func format(with config: Configuration) {
                         separations: config.separatedSections,
                         ignoreThrows: config.ignoreDocstringForThrows,
                         ignoreReturns: config.ignoreDocstringForReturns,
-                        addPlaceholder: config.addPlaceholder)
+                        addPlaceholder: config.addPlaceholder,
+                        startLine: config.startLine,
+                        endLine: config.endLine)
                 }
 
                 if !edits.isEmpty {

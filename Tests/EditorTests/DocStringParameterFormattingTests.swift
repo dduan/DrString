@@ -29,7 +29,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description"
@@ -63,7 +65,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description"
@@ -97,7 +101,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: false,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - parameter foo: foo's description"
@@ -132,7 +138,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -168,7 +176,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -204,7 +214,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -251,7 +263,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -299,7 +313,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo:    foo's description",
@@ -347,7 +363,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .grouped,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameters:",
@@ -396,7 +414,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .grouped,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameters:",
@@ -445,7 +465,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .grouped,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameters:",
@@ -485,7 +507,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -521,7 +545,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -557,7 +583,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -593,7 +621,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -629,7 +659,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                 alignAfterColon: [.parameters],
                 firstLetterUpperCase: true,
                 parameterStyle: .separate,
-                separations: []
+                separations: [],
+                startLine: nil,
+                endLine: nil
             ),
             [
                 "/// - Parameter foo: foo's description",
@@ -678,7 +710,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                  alignAfterColon: [.parameters],
                  firstLetterUpperCase: true,
                  parameterStyle: .separate,
-                 separations: []
+                 separations: [],
+                 startLine: nil,
+                 endLine: nil
              ),
              [
                  "/// - Parameter foo:   foo's description",
@@ -729,7 +763,9 @@ final class DocStringParameterFormattingTests: XCTestCase {
                    alignAfterColon: [.parameters],
                    firstLetterUpperCase: true,
                    parameterStyle: .separate,
-                   separations: []
+                   separations: [],
+                   startLine: nil,
+                   endLine: nil
                ),
                [
                     "/// - Parameter mapPadding:        The padding for the map view in which the pin will",

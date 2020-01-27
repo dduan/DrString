@@ -26,7 +26,9 @@ final class ThrowsPlaceholderTests: XCTestCase {
             separations: [],
             ignoreThrows: ignore,
             ignoreReturns: false,
-            addPlaceholder: true
+            addPlaceholder: true,
+            startLine: nil,
+            endLine: nil
         ).first?.text ?? []
     }
 

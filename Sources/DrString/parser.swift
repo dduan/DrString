@@ -276,6 +276,24 @@ let (kArgParser, kArgBinder): (ArgumentParser, ArgumentBinder<Command>) = {
     ) { $0.config?.addPlaceholder = $1 }
 
     binder.bind(
+        option: format.add(
+            option: "--start-line",
+            shortName: nil,
+            kind: Int.self,
+            usage: "First line formatting subcommand should consider affecting, 0 based. Optional number."
+        )
+    ) { $0.config?.startLine = $1 }
+
+    binder.bind(
+        option: format.add(
+            option: "--end-line",
+            shortName: nil,
+            kind: Int.self,
+            usage: "Last line formatting subcommand should consider affecting, 0 based. Optional number."
+        )
+    ) { $0.config?.endLine = $1 }
+
+    binder.bind(
         positional: explain.add(
             positional: "problem-id",
             kind: [String].self,

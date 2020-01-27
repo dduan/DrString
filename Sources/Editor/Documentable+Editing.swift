@@ -11,10 +11,14 @@ extension Documentable {
         separations: [Section],
         ignoreThrows: Bool,
         ignoreReturns: Bool,
-        addPlaceholder: Bool
+        addPlaceholder: Bool,
+        startLine: Int?,
+        endLine: Int?
     ) -> [Edit]
     {
-        guard !self.docLines.isEmpty || addPlaceholder else {
+        if let startLine = startLine, let endLine = endLine,
+            self.endLine < startLine || (self.startLine - self.docLines.count) > endLine
+        {
             return []
         }
 
@@ -40,7 +44,9 @@ extension Documentable {
             alignAfterColon: alignAfterColon,
             firstLetterUpperCase: firstLetterUpperCase,
             parameterStyle: parameterStyle,
-            separations: separations)
+            separations: separations,
+            startLine: startLine,
+            endLine: endLine)
 
         if formatted != self.docLines {
             let padding = String(Array(repeating: " ", count: self.startColumn))

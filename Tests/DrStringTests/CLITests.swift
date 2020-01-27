@@ -32,4 +32,16 @@ final class CLITests: XCTestCase {
         XCTAssertEqual(command.config?.firstKeywordLetter, .uppercase)
         XCTAssertEqual(command.config?.separatedSections, [.description])
     }
+
+    func testStartLineIsProperlyParsed() throws {
+        let line = 42
+        let command = try Command(arguments: ["format", "--start-line", "\(line)", "-i", "a"])
+        XCTAssertEqual(command.config?.startLine, .some(line))
+    }
+
+    func testEndLineIsProperlyParsed() throws {
+        let line = 42
+        let command = try Command(arguments: ["format", "--end-line", "\(line)", "-i", "a"])
+        XCTAssertEqual(command.config?.endLine, .some(line))
+    }
 }

@@ -10,6 +10,8 @@ extension CLITests {
         ("testCommandLineArgumentOverridesConfigFileOptionForFormatSubcommand", testCommandLineArgumentOverridesConfigFileOptionForFormatSubcommand),
         ("testConfigFileOptionsAreProperlyParsedForCheckSubcommand", testConfigFileOptionsAreProperlyParsedForCheckSubcommand),
         ("testConfigFileOptionsAreProperlyParsedForFormatSubcommand", testConfigFileOptionsAreProperlyParsedForFormatSubcommand),
+        ("testEndLineIsProperlyParsed", testEndLineIsProperlyParsed),
+        ("testStartLineIsProperlyParsed", testStartLineIsProperlyParsed),
     ]
 }
 
