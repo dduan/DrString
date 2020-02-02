@@ -8,6 +8,10 @@ let package = Package(
             name: "drstring",
             targets: ["DrStringCLI"]
         ),
+        .library(
+            name: "DrString",
+            targets: ["DrString"]
+        ),
     ],
     dependencies: [
         .package(
