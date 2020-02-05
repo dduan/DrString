@@ -58,7 +58,7 @@ private extension DocProblem.Detail {
             return "\(name, color: .green) should be followed by a \(":", color: .green) character."
         case .invalidPattern(let type, let configFile):
             let source = "\(configFile ?? "a command line argument")"
-            return "Could not find file matching \(type) pattern specified in \(source)."
+            return "Could not find any files matching this \(type) pattern specified in \(source)."
         }
     }
 

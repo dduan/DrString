@@ -18,28 +18,28 @@ final class InvalidPatternTests: XCTestCase {
 
     func testInvalidPatternForInclusionIsReported() {
         let expect = """
-        // CHECK: Could not find file matching inclusion pattern
+        // CHECK: Could not find any files matching this inclusion pattern
         """
         XCTAssert(self.runTest(expectation: expect, include: ["_iDoNotExist_"], exclude: []))
     }
 
     func testValidPatternForInclusionIsNotReported() {
         let expect = """
-        // CHECK-NOT: Could not find file matching inclusion pattern
+        // CHECK-NOT: Could not find any files matching this inclusion pattern
         """
         XCTAssert(self.runTest(expectation: expect, include: ["complete"], exclude: []))
     }
 
     func testInvalidPatternForExclusionIsReported() {
         let expect = """
-        // CHECK: Could not find file matching inclusion pattern
+        // CHECK: Could not find any files matching this inclusion pattern
         """
         XCTAssert(self.runTest(expectation: expect, include: [], exclude: ["_iDoNotExist_"]))
     }
 
     func testValidPatternForExclusionIsNotReported() {
         let expect = """
-        // CHECK-NOT: Could not find file matching exclusion pattern
+        // CHECK-NOT: Could not find any files matching this inclusion pattern
         """
         XCTAssert(self.runTest(expectation: expect, include: ["*"], exclude: ["complete"]))
     }
