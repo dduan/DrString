@@ -464,6 +464,16 @@ public static var all: [String: Explainer] {
                       /// - returns The answer to life, universe, and everything.
                       """
     ),
+
+    "E020": .init(
+        id: "E020",
+        summary:      """
+                      Patterns specified for included/excluded paths must match one or more files on
+                      disk. Otherwise it is invalid.
+                      """,
+        rightExample: nil,
+        wrongExample: nil
+    ),
 ]
 }
 }
