@@ -56,6 +56,9 @@ private extension DocProblem.Detail {
             return "Parameters are organized in the \("grouped", color: .green) style, but \("separate", color: .green) style is preferred."
         case .missingColon(let name):
             return "\(name, color: .green) should be followed by a \(":", color: .green) character."
+        case .invalidPattern(let type, let configFile):
+            let source = "\(configFile ?? "a command line argument")"
+            return "Could not find file matching \(type) pattern specified in \(source)."
         }
     }
 

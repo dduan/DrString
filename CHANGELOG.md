@@ -1,5 +1,10 @@
 ## master
 
+### New
+
+- Patterns used as part of inclusion/exclusion list may not match any files in the file system. This is now
+  detected and reported as a problem.
+
 ## 0.3.5
 
 ### New

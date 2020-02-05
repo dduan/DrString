@@ -54,8 +54,26 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
     let group = DispatchGroup()
     let queue = DispatchQueue(label: "ca.duan.DrString.concurrent", attributes: .concurrent)
     let serialQueue = DispatchQueue(label: "ca.duan.DrString.serial")
-    let included = config.globbedIncludedPaths
-    let excluded = config.globbedExcludedPaths
+    let (included, invalidInclude) = expandGlob(patterns: config.includedPaths)
+    let (excluded, invalidExclude) = expandGlob(patterns: config.excludedPaths)
+
+    let allInvalidPatterns = invalidInclude.map { ($0, "inclusion") }
+        + invalidExclude.map { ($0, "exclusion") }
+
+    for (pattern, description) in allInvalidPatterns {
+        report(
+            .init(
+                docName: pattern,
+                filePath: pattern,
+                line: 0,
+                column: 0,
+                details: [.invalidPattern(description, configFile)]),
+            format: config.outputFormat
+        )
+    }
+
+    problemCount += allInvalidPatterns.count
+
     for path in included {
         let isPathExcluded = excluded.contains(path)
         guard !(isPathExcluded && config.allowSuperfluousExclusion) else {
@@ -149,12 +167,17 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
     }
 }
 
-extension Configuration {
-    var globbedIncludedPaths: Set<String> {
-        Set((try? self.includedPaths.flatMap(glob)) ?? [])
+private func expandGlob(patterns: [String]) -> (Set<String>, Set<String>) {
+    var valid = Set<String>()
+    var invalid = Set<String>()
+    for pattern in patterns {
+        let expanded = (try? Pathos.glob(pattern)) ?? []
+        if expanded.isEmpty {
+            invalid.insert(pattern)
+        } else {
+            valid.formUnion(expanded)
+        }
     }
 
-    var globbedExcludedPaths: Set<String> {
-        Set((try? self.excludedPaths.flatMap(glob)) ?? [])
-    }
+    return (valid, invalid)
 }

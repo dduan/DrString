@@ -40,6 +40,7 @@ public struct DocProblem {
         case parametersAreNotGrouped
         case parametersAreNotSeparated
         case missingColon(String) // parameter name/keyword
+        case invalidPattern(String, String?) // adjective (e.g. "included"), config path
 
         public var explainerID: String {
             switch self {
@@ -81,6 +82,8 @@ public struct DocProblem {
                 return "E018"
             case .missingColon:
                 return "E019"
+            case .invalidPattern:
+                return "E020"
             }
         }
     }
