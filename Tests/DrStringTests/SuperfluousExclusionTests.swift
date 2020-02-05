@@ -6,8 +6,8 @@ final class SuperfluousExclusionTests: XCTestCase {
     private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
 
     private func runTest(expectation: String, include: [String], exclude: [String], allowSuperfluousExclusion: Bool) -> Bool {
-        let include = include.map { self.directory + "/Fixtures/" + "\($0).swift" }
-        let exclude = exclude.map { self.directory + "/Fixtures/" + "\($0).swift" }
+        let include = include.map { self.directory + "/Fixtures/" + "\($0).fixture" }
+        let exclude = exclude.map { self.directory + "/Fixtures/" + "\($0).fixture" }
         return fileCheckOutput(against: .buffer(expectation), options: .allowEmptyInput) {
             var config = Configuration()
             config.includedPaths = include
@@ -48,7 +48,7 @@ final class SuperfluousExclusionTests: XCTestCase {
 
     func testYesSuperfluousExclusion() {
         let expectation = """
-        // CHECK: complete.swift
+        // CHECK: complete
         // CHECK: This file is explicitly excluded in .drstring.toml, but it has no docstring problem
         """
 
@@ -71,7 +71,7 @@ final class SuperfluousExclusionTests: XCTestCase {
 
     func testSuperfluousExclusionBecauseItsNotIncludedToBeginWith() {
         let expectation = """
-        // CHECK: badParamFormat.swift
+        // CHECK: badParamFormat
         // CHECK: This file is explicitly excluded, but it's not included for checking anyways
         """
 
