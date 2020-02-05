@@ -6,7 +6,7 @@ enum WhateverParameterStyle {
     /// - Parameter bar: bar description
     func f(foo: Int, bar: Int) {}
 
-    // CHECK: Parameters are organized
+    // CHECK-NOT: Parameters are organized
     /// Description
     /// - Parameters:
     ///   - foo: foo description
