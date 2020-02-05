@@ -5,6 +5,10 @@
 - Patterns used as part of inclusion/exclusion list may not match any files in the file system. This is now
   detected and reported as a problem.
 
+### Improved
+
+- The count of issues is now accurate no matter how many issues were found.
+
 ## 0.3.5
 
 ### New
