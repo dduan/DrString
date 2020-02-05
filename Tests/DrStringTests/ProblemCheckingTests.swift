@@ -114,7 +114,7 @@ final class ProblemCheckingTests: XCTestCase {
     }
 
     func testAlignAfterColonNotRequired() throws {
-        XCTAssert(runTest(fileName: "alignAfterColonNetRequired",
+        XCTAssert(runTest(fileName: "alignAfterColonNotRequired",
                           alignAfterColon: [.parameters, .throws, .returns], expectEmpty: true))
     }
 
