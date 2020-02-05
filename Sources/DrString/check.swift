@@ -52,7 +52,8 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
     }
 
     let group = DispatchGroup()
-    let queue = DispatchQueue.global()
+    let queue = DispatchQueue(label: "ca.duan.DrString.concurrent", attributes: .concurrent)
+    let serialQueue = DispatchQueue(label: "ca.duan.DrString.serial")
     let included = config.globbedIncludedPaths
     let excluded = config.globbedExcludedPaths
     for path in included {
@@ -61,8 +62,7 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
             continue
         }
 
-        group.enter()
-        queue.async {
+        queue.async(group: group) {
             do {
                 var foundProblems = false
                 let (documentables, _) = try extractDocs(fromSourcePath: path)
@@ -78,7 +78,9 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
                     {
                         foundProblems = true
                         if !isPathExcluded {
-                            problemCount += problem.details.count
+                            serialQueue.async {
+                                problemCount += problem.details.count
+                            }
                             report(problem, format: config.outputFormat)
                         }
                     }
@@ -98,10 +100,12 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
                         ),
                         format: config.outputFormat
                     )
-                    problemCount += 1
+
+                    serialQueue.async {
+                        problemCount += 1
+                    }
                 }
             } catch {}
-            group.leave()
         }
 
         fileCount += 1
@@ -122,7 +126,9 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
                 format: config.outputFormat
             )
 
-            problemCount += 1
+            serialQueue.async {
+                problemCount += 1
+            }
         }
     }
 
