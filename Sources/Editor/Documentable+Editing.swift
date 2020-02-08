@@ -22,7 +22,7 @@ extension Documentable {
             return []
         }
 
-        let perhapsDocs = try? parse(lines: self.docLines)
+        let perhapsDocs = self.docLines.isEmpty && addPlaceholder ? nil : try? parse(lines: self.docLines)
         if !addPlaceholder && perhapsDocs == nil {
             return []
         }
