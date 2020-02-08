@@ -10,6 +10,27 @@ import Darwin
 import Glibc
 #endif
 
+public func formatEdits(fromSource source: String, path: String? = nil, with config: Configuration) throws -> [Edit] {
+    var edits = [Edit]()
+    let documentables = try extractDocs(fromSource: source, sourcePath: path)
+    for documentable in documentables.compactMap({ $0 }) {
+        edits += documentable.format(
+            columnLimit: config.columnLimit,
+            verticalAlign: config.verticalAlignParameterDescription,
+            alignAfterColon: config.alignAfterColon,
+            firstLetterUpperCase: config.firstKeywordLetter == .uppercase,
+            parameterStyle: config.parameterStyle,
+            separations: config.separatedSections,
+            ignoreThrows: config.ignoreDocstringForThrows,
+            ignoreReturns: config.ignoreDocstringForReturns,
+            addPlaceholder: config.addPlaceholder,
+            startLine: config.startLine,
+            endLine: config.endLine)
+    }
+
+    return edits
+}
+
 public func format(with config: Configuration) {
     let startTime = getTime()
     var editCount = 0
@@ -24,22 +45,8 @@ public func format(with config: Configuration) {
         group.enter()
         queue.async {
             do {
-                var edits = [Edit]()
-                let (documentables, source) = try extractDocs(fromSourcePath: path)
-                for documentable in documentables.compactMap({ $0 }) {
-                    edits += documentable.format(
-                        columnLimit: config.columnLimit,
-                        verticalAlign: config.verticalAlignParameterDescription,
-                        alignAfterColon: config.alignAfterColon,
-                        firstLetterUpperCase: config.firstKeywordLetter == .uppercase,
-                        parameterStyle: config.parameterStyle,
-                        separations: config.separatedSections,
-                        ignoreThrows: config.ignoreDocstringForThrows,
-                        ignoreReturns: config.ignoreDocstringForReturns,
-                        addPlaceholder: config.addPlaceholder,
-                        startLine: config.startLine,
-                        endLine: config.endLine)
-                }
+                let source = try readString(atPath: path)
+                let edits = try formatEdits(fromSource: source, path: path, with: config)
 
                 if !edits.isEmpty {
                     var editedLines = [String]()

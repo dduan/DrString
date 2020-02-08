@@ -3,10 +3,14 @@ import Pathos
 import SwiftSyntax
 
 public func extractDocs(fromSourcePath sourcePath: String) throws -> ([Documentable], String) {
-    let sourceText = try readString(atPath: sourcePath)
-    let extractor = try DocExtractor(sourceText: sourceText, sourcePath: sourcePath)
+    let source = try readString(atPath: sourcePath)
+    let extractor = try DocExtractor(sourceText: source, sourcePath: sourcePath)
+    return (try extractor.extractDocs(), source)
+}
 
-    return (try extractor.extractDocs(), sourceText)
+public func extractDocs(fromSource source: String, sourcePath: String?) throws -> [Documentable] {
+    let extractor = try DocExtractor(sourceText: source, sourcePath: sourcePath)
+    return try extractor.extractDocs()
 }
 
 final class DocExtractor: SyntaxRewriter {
