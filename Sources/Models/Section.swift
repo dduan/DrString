@@ -1,4 +1,4 @@
-public enum Section: String, Hashable, Decodable, CaseIterable {
+public enum Section: String, Hashable, Codable, CaseIterable {
     case description
     case parameters
     case `throws`
