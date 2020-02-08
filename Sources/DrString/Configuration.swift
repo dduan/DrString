@@ -1,6 +1,6 @@
 import Models
 
-public struct Configuration: Decodable {
+public struct Configuration: Codable {
     public var includedPaths: [String] = []
     public var excludedPaths: [String] = []
     public var ignoreDocstringForThrows: Bool = false
@@ -45,7 +45,7 @@ public struct Configuration: Decodable {
             config.allowSuperfluousExclusion = allowSuperfluousExclusion
         }
 
-        if let firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeyordLetter) {
+        if let firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeywordLetter) {
             config.firstKeywordLetter = firstKeywordLetter
         }
 
@@ -80,13 +80,33 @@ public struct Configuration: Decodable {
         self = config
     }
 
+    public func encode(to encoder: Encoder) throws {
+        var values = encoder.container(keyedBy: CodingKeys.self)
+        try values.encodeIfPresent(self.endLine, forKey: .endLine)
+        try values.encodeIfPresent(self.startLine, forKey: .startLine)
+        try values.encodeIfPresent(self.columnLimit, forKey: .columnLimit)
+        try values.encode(self.addPlaceholder, forKey: .addPlaceholder)
+        try values.encode(self.alignAfterColon, forKey: .alignAfterColon)
+        try values.encode(self.parameterStyle, forKey: .parameterStyle)
+        try values.encode(self.separatedSections, forKey: .separations)
+        try values.encode(self.outputFormat, forKey: .format)
+        try values.encode(self.firstKeywordLetter, forKey: .firstKeywordLetter)
+        try values.encode(self.allowSuperfluousExclusion, forKey: .superfluousExclusion)
+        try values.encode(self.verticalAlignParameterDescription, forKey: .verticalAlign)
+        try values.encode(self.ignoreDocstringForReturns, forKey: .ignoreReturns)
+        try values.encode(self.ignoreDocstringForThrows, forKey: .ignoreThrows)
+        try values.encode(self.excludedPaths, forKey: .exclude)
+        try values.encode(self.includedPaths, forKey: .include)
+    }
+
+
     enum CodingKeys: String, CodingKey {
         case include = "include"
         case exclude = "exclude"
         case ignoreThrows = "ignore-throws"
         case ignoreReturns = "ignore-returns"
         case verticalAlign = "vertical-align"
-        case firstKeyordLetter = "first-letter"
+        case firstKeywordLetter = "first-letter"
         case format = "format"
         case separations = "needs-separation"
         case superfluousExclusion = "superfluous-exclusion"
@@ -98,14 +118,14 @@ public struct Configuration: Decodable {
         case endLine = "end-line"
     }
 
-    public enum OutputFormat: String, Equatable, Decodable {
+    public enum OutputFormat: String, Equatable, Codable {
         case automatic
         case terminal
         case plain
         case paths
     }
 
-    public enum FirstKeywordLetterCasing: String, Equatable, Decodable {
+    public enum FirstKeywordLetterCasing: String, Equatable, Codable {
         case uppercase
         case lowercase
     }
