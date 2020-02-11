@@ -16,8 +16,7 @@ endif
 .PHONY: build
 build:
 	@swift build --configuration release --disable-sandbox -Xswiftc -warnings-as-errors
-
-.build/release/drstring:
+	@mv .build/release/drstring-cli .build/release/drstring
 
 .PHONY: generate
 generate: generate-explainers generate-linux-manifest
@@ -36,11 +35,11 @@ generate-linux-manifest:
 
 .PHONY: test-docker
 test-docker:
-	@Scripts/ubuntu.sh test 5.1.1 bionic
+	@Scripts/ubuntu.sh test 5.1.4 bionic
 
 .PHONY: build-docker
 build-docker:
-	@Scripts/ubuntu.sh build 5.1.1 bionic
+	@Scripts/ubuntu.sh build 5.1.4 bionic
 
 .PHONY: package-darwin
 package-darwin: build
