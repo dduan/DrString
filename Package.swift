@@ -5,7 +5,7 @@ let package = Package(
     name: "DrString",
     products: [
         .executable(
-            name: "drstring",
+            name: "drstring-cli",
             targets: ["DrStringCLI"]
         ),
         .library(
