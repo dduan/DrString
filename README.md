@@ -4,7 +4,8 @@
 
 … or "DrString", for short.
 
-DrString finds problems in your Swift docstrings.
+DrString helps you take control of docstrings in your Swift codebase by finding
+and fixing inconsistencies among them.
 
 ![Demo](Documentation/Assets/Demo.png)
 ![Xcode Demo](Documentation/Assets/Demo-Xcode.png)
