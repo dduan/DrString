@@ -65,7 +65,7 @@ drstring check \
     --include 'Sources/**/*.swift' \
     --include 'Tests/**/*.swift' \
     --exclude 'Tests/Fixtures/*.swift' \
-    --ignore-throws \
+    --ignore-throws true \
     --first-letter uppercase
 ```
 

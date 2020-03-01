@@ -12,7 +12,7 @@ final class InvalidPatternTests: XCTestCase {
             var config = Configuration()
             config.includedPaths = include
             config.excludedPaths = exclude
-            _ = check(with: config, configFile: nil)
+            _ = try? check(with: config, configFile: nil)
         }
     }
 

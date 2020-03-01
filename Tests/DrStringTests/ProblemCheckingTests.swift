@@ -31,7 +31,7 @@ final class ProblemCheckingTests: XCTestCase {
         config.alignAfterColon = alignAfterColon
         config.columnLimit = 100
         return fileCheckOutput(against: .filePath(fixture), options: expectEmpty ? .allowEmptyInput : []) {
-            _ = check(with: config, configFile: ".drstring.toml")
+            _ = try? check(with: config, configFile: ".drstring.toml")
         }
     }
 

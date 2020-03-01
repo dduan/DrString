@@ -53,7 +53,7 @@ useful for getting a list of paths to exclude, for example.
 | Repeatable | No                                        |
 |      Value | `automatic`, `terminal`, `plain`, `paths` |
 |    Default | `automatic`                               |
-|    Command | check, format                             |
+|    Command | check                                     |
 
 
 ### include
@@ -94,13 +94,13 @@ missing documentation for `throws` is considered problematic.
 Note: if docstring for `throws` exists for a function that throws, its
 whitespace error will be considered regardless of this option.
 
-|            |       |
-| ---------- | ----- |
-|   Required | No    |
-| Repeatable | No    |
-|      Value | Bool  |
-|    Default | false |
-|    Command | check |
+|            |               |
+| ---------- | ------------- |
+|   Required | No            |
+| Repeatable | No            |
+|      Value | Bool          |
+|    Default | false         |
+|    Command | check, format |
 
 ### ignore-returns
 
@@ -110,13 +110,13 @@ missing documentation for `returns` is considered problematic.
 Note: if docstring for `returns` exists for a function that throws, its
 whitespace error will be considered regardless of this option.
 
-|            |       |
-| ---------- | ----- |
-|   Required | No    |
-| Repeatable | No    |
-|      Value | Bool  |
-|    Default | false |
-|    Command | check |
+|            |               |
+| ---------- | ------------- |
+|   Required | No            |
+| Repeatable | No            |
+|      Value | Bool          |
+|    Default | false         |
+|    Command | check, format |
 
 ### first-letter
 

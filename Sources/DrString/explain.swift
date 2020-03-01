@@ -7,7 +7,20 @@ import Darwin
 import Glibc
 #endif
 
-public func explain(_ arguments: [String]) -> Int32? {
+import Foundation
+
+enum ExplainError: Error, LocalizedError {
+    case unrecognizedID(String)
+
+    var errorDescription: String? {
+        switch self {
+        case .unrecognizedID(let summary):
+            return summary
+        }
+    }
+}
+
+public func explain(_ arguments: [String]) throws {
     var unrecognizedIDs = [String]()
 
     for id in arguments {
@@ -19,12 +32,11 @@ public func explain(_ arguments: [String]) -> Int32? {
     }
 
     if !unrecognizedIDs.isEmpty {
-        fputs("Unrecgonized IDs:   \(unrecognizedIDs.joined(separator: ", ")) \n", stderr)
-        fputs("Please choose from: \(Explainer.all.keys.sorted().joined(separator: ", "))", stderr)
-        return 1
+        throw ExplainError.unrecognizedID(
+            "Unrecgonized ID\(unrecognizedIDs.count > 1 ? "s" : ""): \(unrecognizedIDs.joined(separator: ", ")). " +
+            "Please choose from: \(Explainer.all.keys.sorted().joined(separator: ", "))"
+        )
     }
-
-    return nil
 }
 
 private func guessID(_ badID: String) -> String? {
