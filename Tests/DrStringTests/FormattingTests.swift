@@ -21,7 +21,7 @@ final class FormattingTests: XCTestCase {
             config.parameterStyle = .separate
             config.columnLimit = 100
 
-            format(with: config)
+            try format(with: config)
 
             XCTAssertEqual(
                 try! readString(atPath: join(paths: path, "source0.swift")),
@@ -47,7 +47,7 @@ final class FormattingTests: XCTestCase {
             config.verticalAlignParameterDescription = true
             config.parameterStyle = .separate
             config.columnLimit = 100
-            format(with: config)
+            try format(with: config)
 
             XCTAssertEqual(
                 try! readString(atPath: join(paths: path, "\(sourceName).swift")),

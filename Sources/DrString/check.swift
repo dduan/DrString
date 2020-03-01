@@ -10,12 +10,7 @@ import Darwin
 import Glibc
 #endif
 import Dispatch
-
-public enum CheckResult {
-    case ok
-    case foundProblems
-    case missingInput
-}
+import Foundation
 
 func report(_ problem: DocProblem, format: Configuration.OutputFormat) {
     let output: String
@@ -31,10 +26,23 @@ func report(_ problem: DocProblem, format: Configuration.OutputFormat) {
     print(output)
 }
 
-public func check(with config: Configuration, configFile: String?) -> CheckResult {
+enum CheckError: Error, LocalizedError {
+    case missingInput
+    case foundProblems(String)
+
+    var errorDescription: String? {
+        switch self {
+        case .missingInput:
+            return "Paths to source files are missing. Please provide some."
+        case .foundProblems(let summary):
+            return summary
+        }
+    }
+}
+
+public func check(with config: Configuration, configFile: String?) throws {
     if config.includedPaths.isEmpty {
-        fputs("[check] Paths to source files are missing. Please provide some.\n", stderr)
-        return .missingInput
+        throw CheckError.missingInput
     }
 
     let startTime = getTime()
@@ -160,10 +168,7 @@ public func check(with config: Configuration, configFile: String?) -> CheckResul
             summary = "Found \(problemCount) problem\(problemCount > 1 ? "s" : "") in \(fileCount) file\(problemCount > 1 ? "s" : "") in \(elapsedTime)\n"
         }
 
-        fputs(summary, stderr)
-        return .foundProblems
-    } else {
-        return .ok
+        throw CheckError.foundProblems(summary)
     }
 }
 

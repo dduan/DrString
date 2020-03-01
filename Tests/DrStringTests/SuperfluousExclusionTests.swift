@@ -15,7 +15,7 @@ final class SuperfluousExclusionTests: XCTestCase {
             config.allowSuperfluousExclusion = allowSuperfluousExclusion
             config.firstKeywordLetter = .lowercase
             config.columnLimit = 100
-            _ = check(with: config, configFile: ".drstring.toml")
+            _ = try? check(with: config, configFile: ".drstring.toml")
         }
     }
 

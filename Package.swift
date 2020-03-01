@@ -35,7 +35,7 @@ let package = Package(
             .exact("0.4.0")
         ),
         .package(
-            url: "https://github.com/apple/swift-tools-support-core.git",
+            url: "https://github.com/apple/swift-argument-parser",
             .exact("0.0.1")
         ),
 
@@ -88,6 +88,7 @@ let package = Package(
         .target(
             name: "DrString",
             dependencies: [
+                "ArgumentParser",
                 "Critic",
                 "Decipher",
                 "Editor",
@@ -95,7 +96,6 @@ let package = Package(
                 "IsTTY",
                 "Models",
                 "Pathos",
-                "SwiftToolsSupport-auto",
                 "TOMLDecoder",
             ]
         ),

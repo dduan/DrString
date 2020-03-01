@@ -9,6 +9,18 @@ import Darwin
 #else
 import Glibc
 #endif
+import Foundation
+
+enum FormatError: Error, LocalizedError {
+    case missingInput
+
+    var errorDescription: String? {
+        switch self {
+        case .missingInput:
+            return "Paths to source files are missing. Please provide some."
+        }
+    }
+}
 
 public func formatEdits(fromSource source: String, path: String? = nil, with config: Configuration) throws -> [Edit] {
     var edits = [Edit]()
@@ -31,7 +43,11 @@ public func formatEdits(fromSource source: String, path: String? = nil, with con
     return edits
 }
 
-public func format(with config: Configuration) {
+public func format(with config: Configuration) throws {
+    if config.includedPaths.isEmpty {
+        throw FormatError.missingInput
+    }
+
     let startTime = getTime()
     var editCount = 0
     var fileCount = 0
