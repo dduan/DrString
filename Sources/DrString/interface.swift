@@ -15,20 +15,52 @@ struct SharedCommandLineOptions: ParsableArguments {
     @Option(name: [.customShort("x"), .long], help: "Paths excluded for DrString to operate on. Repeatable, optional path.")
     var exclude: [String]
 
-    @Option(help: "Whether it's ok to not have docstring for what a function/method throws. Optional (true|false). Default to `false`.")
-    var ignoreThrows: Bool?
+    private enum IgnoreThrows: String, CaseIterable, ExpressibleByArgument {
+        case ignoreThrows, noIgnoreThrows
+    }
 
-    @Option(help: "Whether it's ok to not have docstring for what a function/method returns. Optional (true|false). Default to `true`.")
-    var ignoreReturns: Bool?
+    @Flag(help: "Whether it's ok to not have docstring for what a function/method throws. Optional. Default to 'yes'.")
+    private var _ignoreThrows: IgnoreThrows?
+    var ignoreThrows: Bool? {
+        _ignoreThrows.map { $0 == .ignoreThrows }
+    }
 
-    @Option(help: "Casing for first letter in keywords such as `Throws`, `Returns`, `Parameter(s)`. Optional (uppercase|lowercase). Default to `uppercase`.")
-    var firstLetter: Configuration.FirstKeywordLetterCasing?
+    private enum IgnoreReturns: String, CaseIterable, ExpressibleByArgument {
+        case ignoreReturns, noIgnoreReturns
+    }
+
+    @Flag(help: "Whether it's ok to not have docstring for what a function/method returns. Optional. Default to 'no'.")
+    private var _ignoreReturns: IgnoreReturns?
+    var ignoreReturns: Bool? {
+        _ignoreReturns.map { $0 == .ignoreReturns }
+    }
+
+    private enum FirstLetter: String, CaseIterable, ExpressibleByArgument {
+        case firstLetterUppercase, firstLetterLowercase
+    }
+
+    @Flag(help: "Casing for first letter in keywords such as `Throws`, `Returns`, `Parameter(s)`. Optional. Default to 'uppercase'.")
+    private var _firstLetter: FirstLetter?
+    var firstLetter: Configuration.FirstKeywordLetterCasing? {
+        switch _firstLetter {
+        case .some(.firstLetterUppercase): return .uppercase
+        case .some(.firstLetterLowercase): return .lowercase
+        case .none: return nil
+        }
+    }
 
     @Option(help: "Sections of docstring that requires separation to the next section. Repeatable, optional (description|parameters|throws).,")
     var needsSeparation: [Section]
 
-    @Option(help: "Whether to require descriptions of different parameters to all start on the same column. Optional (true|false). Default to `false`.")
-    var verticalAlign: Bool?
+    private enum VerticalAlign: String, CaseIterable, ExpressibleByArgument {
+        case verticalAlign, noVerticalAlign
+    }
+
+    @Flag(help: "Whether to require descriptions of different parameters to all start on the same column. Optional (true|false). Default to `false`.")
+    private var _verticalAlign: VerticalAlign?
+    var verticalAlign: Bool? {
+        _verticalAlign.map { $0 == .verticalAlign }
+    }
 
     @Option(help: "The format used to organize entries of multiple parameters. Optional (grouped|separate|whatever). Defaults to `whatever`.")
     var parameterStyle: ParameterStyle?
@@ -114,8 +146,15 @@ struct Check: ParsableCommand {
     @Option(help: "Output format. Terminal format turns on colored text in terminals. Optional (automatic|terminal|plain|paths) default to `automatic`.")
     var format: Configuration.OutputFormat?
 
-    @Option(help: "`true` prevents DrString from considering an excluded path superfluous. Optional (true|false). Default to `false`.")
-    var superfluousExclusion: Bool?
+    private enum SuperfluousExclusion: String, CaseIterable, ExpressibleByArgument {
+        case superfluousExclusion, noSuperfluousExclusion
+    }
+
+    @Flag(help: "`true` prevents DrString from considering an excluded path superfluous. Optional (true|false). Default to `false`.")
+    private var _superfluousExclusion: SuperfluousExclusion?
+    var superfluousExclusion: Bool? {
+        _superfluousExclusion.map { $0 == .superfluousExclusion }
+    }
 }
 
 struct Format: ParsableCommand {
@@ -155,8 +194,16 @@ struct Format: ParsableCommand {
     @Option(help: "Max number of columns a line can fit, beyond which is problematic. Optional integer.")
     var columnLimit: Int?
 
-    @Option(help: "Add placeholder for an docstring entry if it doesn't exist. Optional (true|false). Default to `false`.")
-    var addPlaceholder: Bool?
+    enum AddPlaceholder: String, CaseIterable, ExpressibleByArgument {
+        case addPlaceholder
+        case noAddPlaceholder
+    }
+
+    @Flag(help: "Add placeholder for an docstring entry if it doesn't exist. Optional (true|false). Default to `false`.")
+    var _addPlaceholder: AddPlaceholder?
+    var addPlaceholder: Bool? {
+        _addPlaceholder.map { $0 == .addPlaceholder }
+    }
 
     @Option(help: "First line formatting subcommand should consider affecting, 0 based. Optional number.")
     var startLine: Int?
