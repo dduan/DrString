@@ -6,6 +6,7 @@ extension CLITests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__CLITests = [
+        ("testCommandLineArgumentOverridesConfigFileOptionByExplicitNegation", testCommandLineArgumentOverridesConfigFileOptionByExplicitNegation),
         ("testCommandLineArgumentOverridesConfigFileOptionForCheckSubcommand", testCommandLineArgumentOverridesConfigFileOptionForCheckSubcommand),
         ("testCommandLineArgumentOverridesConfigFileOptionForFormatSubcommand", testCommandLineArgumentOverridesConfigFileOptionForFormatSubcommand),
         ("testConfigFileOptionsAreProperlyParsedForCheckSubcommand", testConfigFileOptionsAreProperlyParsedForCheckSubcommand),

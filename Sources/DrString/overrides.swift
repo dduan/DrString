@@ -8,6 +8,10 @@ extension Configuration {
             self.excludedPaths = options.exclude
         }
 
+        if options.noExclude {
+            self.excludedPaths = []
+        }
+
         self.ignoreDocstringForThrows = options.ignoreThrows ?? self.ignoreDocstringForThrows
         self.ignoreDocstringForReturns = options.ignoreReturns ?? self.ignoreDocstringForReturns
         self.verticalAlignParameterDescription = options.verticalAlign ?? self.verticalAlignParameterDescription
@@ -17,8 +21,16 @@ extension Configuration {
             self.separatedSections = options.needsSeparation
         }
 
+        if options.noNeedsSeparation {
+            self.separatedSections = []
+        }
+
         if !options.alignAfterColon.isEmpty {
             self.alignAfterColon = options.alignAfterColon
+        }
+
+        if options.noAlignAfterColon {
+            self.alignAfterColon = []
         }
     }
 }

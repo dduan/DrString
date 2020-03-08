@@ -1,5 +1,18 @@
 ## master
 
+### Changes
+
+- For boolean options, instead of specifying negative value with `false` following the flag on the command
+  line, a new corresponding negative flag should be used. For example, previously, not ignoring docstring
+  section for `throws` can be specified by `--ignore-throws false`. Now it should be `--no-ignore-throws`.
+  The help texts for all boolean commands have been updated to reflect this.
+
+### New
+
+- Similar to boolean options, now there's negative flags to override repeatable values on the command line.
+  Example: `--no-needs-separation` will negate any `needs-separation` values.
+
+
 ## 0.3.6
 
 ### New

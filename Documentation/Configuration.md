@@ -23,7 +23,10 @@ aspects are included:
 - **Repeatable**: Whether the option is a list of values. As command line
   arguments, being repeatable means the option can be specified one ore more
   times: `drstring check -i a.swift -i b.swift`. In a config file, a repeatable
-  option is a TOML list.
+  option is a TOML list. If a repeatable option is not required, a corresponding
+  flag with prefix "--no-" can be used on the command line to override its
+  otherwise specified value. For example, `--no-needs-separation` will make
+  `needs-separation`'s value to be empty.
 - **Value**: The type or candidate of valid values for this option. A type
   ("String", "Bool") follows Unix command line arguments conventions. For
   example: `drstring check -i "path/to/a.swift" --ignore-throws=false`. The

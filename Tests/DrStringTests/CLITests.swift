@@ -42,6 +42,14 @@ final class CLITests: XCTestCase {
         XCTAssertEqual(command?.config?.separatedSections, [.description])
     }
 
+    func testCommandLineArgumentOverridesConfigFileOptionByExplicitNegation() throws {
+        let configFilePath = join(paths: self.directory, "Fixtures", "config0.toml")
+        let arguments = ["format", "--config-file", configFilePath, "--no-needs-separation"]
+        let parsedCommand = try Main.parseAsRoot(arguments)
+        let command = try Command(command: parsedCommand)
+        XCTAssertEqual(command?.config?.separatedSections, .some([]))
+    }
+
     func testStartLineIsProperlyParsed() throws {
         let line = 42
         let arguments = ["format", "--start-line", "\(line)", "-i", "a"]
