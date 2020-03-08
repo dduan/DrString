@@ -12,7 +12,10 @@ struct SharedCommandLineOptions: ParsableArguments {
     @Option(name: [.short, .long], help: "Paths included for DrString to operate on. Repeatable path.")
     var include: [String]
 
-    @Option(name: [.customShort("x"), .long], help: "Paths excluded for DrString to operate on. Repeatable, optional path.")
+    @Option(
+        name: [.customShort("x"), .long],
+        help: "Paths excluded for DrString to operate on. Repeatable, optional path."
+    )
     var exclude: [String]
 
     private enum IgnoreThrows: String, CaseIterable, ExpressibleByArgument {
@@ -49,7 +52,7 @@ struct SharedCommandLineOptions: ParsableArguments {
         }
     }
 
-    @Option(help: "Sections of docstring that requires separation to the next section. Repeatable, optional (description|parameters|throws).,")
+    @Option(help: "Sections of docstring that requires separation to the next section. Repeatable, optional (description|parameters|throws).")
     var needsSeparation: [Section]
 
     private enum VerticalAlign: String, CaseIterable, ExpressibleByArgument {
@@ -135,7 +138,7 @@ struct Check: ParsableCommand {
                 --include 'Sources/**/*.swift' \\
                 --include 'Tests/**/*.swift' \\
                 --exclude 'Tests/Fixtures/*.swift' \\
-                --ignore-throws true \\
+                --ignore-throws \\
                 --first-letter uppercase
         """
     )

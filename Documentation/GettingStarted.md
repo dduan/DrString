@@ -65,7 +65,7 @@ drstring check \
     --include 'Sources/**/*.swift' \
     --include 'Tests/**/*.swift' \
     --exclude 'Tests/Fixtures/*.swift' \
-    --ignore-throws true \
+    --ignore-throws \
     --first-letter uppercase
 ```
 
@@ -214,3 +214,8 @@ and non-zero otherwise. Description of problems is printed to stdout and
 a summary of problem ("found N problems in M files...") is printed in stderr.
 
 This information should help you collect signal for failure, logs, etc.
+
+#### Negative flags
+
+On the command line, if `--x` means `true` for an option, `--no-x` can be used
+for the corresponding `false` value.

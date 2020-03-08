@@ -12,6 +12,10 @@ more command line arguments. As a command line argument, the options as listed
 are the long/full name of the argument. So "include" would be used as
 `--include`, for example. In config files, they are keys for [TOML][] tables.
 
+For boolean options, add `no` in front of the command line flag for `false`
+value.  For example, `--no-ignore-throws` is the `false` value for
+`ignore-throws`.
+
 Besides a general description that states purpose of the option, a few common
 aspects are included:
 
