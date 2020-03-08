@@ -19,6 +19,9 @@ struct SharedCommandLineOptions: ParsableArguments {
         help: .init("Paths excluded for DrString to operate on. Repeatable, optional path.", valueName: "path"))
     var exclude: [String]
 
+    @Flag(help: "Override `exclude` so that its value is empty.")
+    var noExclude: Bool
+
     @Flag(
         inversion: .prefixedNo,
         help: "Whether it's ok to not have docstring for what a function/method throws. Optional. Default to 'yes'.")
@@ -35,6 +38,9 @@ struct SharedCommandLineOptions: ParsableArguments {
     @Option(help: .init("Sections of docstring that requires separation to the next section. Repeatable, optional (description|parameters|throws).", valueName: "section"))
     var needsSeparation: [Section]
 
+    @Flag(help: "Override `needs-separation` so that none is empty.")
+    var noNeedsSeparation: Bool
+
     @Flag(
         inversion: .prefixedNo,
         help: "Whether to require descriptions of different parameters to all start on the same column. Optional. Default to 'no'.")
@@ -45,6 +51,9 @@ struct SharedCommandLineOptions: ParsableArguments {
 
     @Option(help: .init("Consecutive lines of description should align after `:`. Repeatable, optional (parameters|throws|returns).", valueName: "section"))
     var alignAfterColon: [Section]
+
+    @Flag(help: "Override `align-after-colon` so that none is empty.")
+    var noAlignAfterColon: Bool
 }
 
 struct Main: ParsableCommand {
