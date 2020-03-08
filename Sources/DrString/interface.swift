@@ -28,7 +28,7 @@ struct SharedCommandLineOptions: ParsableArguments {
         help: "Whether it's ok to not have docstring for what a function/method returns. Optional. Default to 'no'.")
     var ignoreReturns: Bool?
 
-    @Option(help: "Casing for first letter in keywords such as `Throws`, `Returns`, `Parameter(s)`. Optional. Default to 'uppercase'.")
+    @Option(help: "Casing for first letter in keywords such as `Throws`, `Returns`, `Parameter(s)`. Optional (uppercase|lowercase). Default to 'uppercase'.")
     var firstLetter: Configuration.FirstKeywordLetterCasing?
 
     @Option(help: "Sections of docstring that requires separation to the next section. Repeatable, optional (description|parameters|throws).")
@@ -36,7 +36,7 @@ struct SharedCommandLineOptions: ParsableArguments {
 
     @Flag(
         inversion: .prefixedNo,
-        help: "Whether to require descriptions of different parameters to all start on the same column. Optional (true|false). Default to `false`.")
+        help: "Whether to require descriptions of different parameters to all start on the same column. Optional. Default to 'no'.")
     var verticalAlign: Bool?
 
     @Option(help: "The format used to organize entries of multiple parameters. Optional (grouped|separate|whatever). Defaults to `whatever`.")
@@ -81,7 +81,7 @@ struct Main: ParsableCommand {
 }
 
 struct Version: ParsableCommand {
-    static var configuration = CommandConfiguration(abstract: "Print version.")
+    static var configuration = CommandConfiguration(abstract: "Show version.")
 }
 
 extension Configuration.OutputFormat: ExpressibleByArgument {}
@@ -120,12 +120,12 @@ struct Check: ParsableCommand {
     @OptionGroup()
     var options: SharedCommandLineOptions
 
-    @Option(help: "Output format. Terminal format turns on colored text in terminals. Optional (automatic|terminal|plain|paths) default to `automatic`.")
+    @Option(help: "Output format. Terminal format turns on colored text in terminals. Optional (automatic|terminal|plain|paths). Default to `automatic`.")
     var format: Configuration.OutputFormat?
 
     @Flag(
         inversion: .prefixedNo,
-        help: "`true` prevents DrString from considering an excluded path superfluous. Optional (true|false). Default to `false`.")
+        help: "'yes' prevents DrString from considering an excluded path superfluous. Optional. Default to `no`.")
     var superfluousExclusion: Bool?
 }
 
@@ -168,7 +168,7 @@ struct Format: ParsableCommand {
 
     @Flag(
         inversion: .prefixedNo,
-        help: "Add placeholder for an docstring entry if it doesn't exist. Optional (true|false). Default to `false`.")
+        help: "Add placeholder for an docstring entry if it doesn't exist. Optional. Default to 'no'.")
     var addPlaceholder: Bool?
 
     @Option(help: "First line formatting subcommand should consider affecting, 0 based. Optional number.")
