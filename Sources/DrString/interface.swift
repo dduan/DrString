@@ -6,16 +6,17 @@ extension Section: ExpressibleByArgument {}
 extension ParameterStyle: ExpressibleByArgument {}
 
 struct SharedCommandLineOptions: ParsableArguments {
-    @Option(help: "Path to the configuration TOML file. Optional path.")
+    @Option(help: .init("Path to the configuration TOML file. Optional path.", valueName: "path"))
     var configFile: String?
 
-    @Option(name: [.short, .long], help: "Paths included for DrString to operate on. Repeatable path.")
+    @Option(
+        name: [.short, .long],
+        help: .init("Paths included for DrString to operate on. Repeatable path.", valueName: "path"))
     var include: [String]
 
     @Option(
         name: [.customShort("x"), .long],
-        help: "Paths excluded for DrString to operate on. Repeatable, optional path."
-    )
+        help: .init("Paths excluded for DrString to operate on. Repeatable, optional path.", valueName: "path"))
     var exclude: [String]
 
     @Flag(
@@ -28,10 +29,10 @@ struct SharedCommandLineOptions: ParsableArguments {
         help: "Whether it's ok to not have docstring for what a function/method returns. Optional. Default to 'no'.")
     var ignoreReturns: Bool?
 
-    @Option(help: "Casing for first letter in keywords such as `Throws`, `Returns`, `Parameter(s)`. Optional (uppercase|lowercase). Default to 'uppercase'.")
+    @Option(help: .init("Casing for first letter in keywords such as `Throws`, `Returns`, `Parameter(s)`. Optional (uppercase|lowercase). Default to 'uppercase'.", valueName: "casing"))
     var firstLetter: Configuration.FirstKeywordLetterCasing?
 
-    @Option(help: "Sections of docstring that requires separation to the next section. Repeatable, optional (description|parameters|throws).")
+    @Option(help: .init("Sections of docstring that requires separation to the next section. Repeatable, optional (description|parameters|throws).", valueName: "section"))
     var needsSeparation: [Section]
 
     @Flag(
@@ -39,10 +40,10 @@ struct SharedCommandLineOptions: ParsableArguments {
         help: "Whether to require descriptions of different parameters to all start on the same column. Optional. Default to 'no'.")
     var verticalAlign: Bool?
 
-    @Option(help: "The format used to organize entries of multiple parameters. Optional (grouped|separate|whatever). Defaults to `whatever`.")
+    @Option(help: .init("The format used to organize entries of multiple parameters. Optional (grouped|separate|whatever). Defaults to `whatever`.", valueName: "style"))
     var parameterStyle: ParameterStyle?
 
-    @Option(help: "Consecutive lines of description should align after `:`. Repeatable, optional (parameters|throws|returns).")
+    @Option(help: .init("Consecutive lines of description should align after `:`. Repeatable, optional (parameters|throws|returns).", valueName: "section"))
     var alignAfterColon: [Section]
 }
 
@@ -163,7 +164,7 @@ struct Format: ParsableCommand {
     @OptionGroup()
     var options: SharedCommandLineOptions
 
-    @Option(help: "Max number of columns a line can fit, beyond which is problematic. Optional integer.")
+    @Option(help: .init("Max number of columns a line can fit, beyond which is problematic. Optional integer.", valueName: "column"))
     var columnLimit: Int?
 
     @Flag(
@@ -171,10 +172,10 @@ struct Format: ParsableCommand {
         help: "Add placeholder for an docstring entry if it doesn't exist. Optional. Default to 'no'.")
     var addPlaceholder: Bool?
 
-    @Option(help: "First line formatting subcommand should consider affecting, 0 based. Optional number.")
+    @Option(help: .init("First line formatting subcommand should consider affecting, 0 based. Optional number.", valueName: "line"))
     var startLine: Int?
 
-    @Option(help: "Last line formatting subcommand should consider affecting, 0 based. Optional number.")
+    @Option(help: .init("Last line formatting subcommand should consider affecting, 0 based. Optional number.", valueName: "line"))
     var endLine: Int?
 }
 
