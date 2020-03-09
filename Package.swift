@@ -24,7 +24,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/dduan/Pathos.git",
-            .exact("0.2.1")
+            .exact("0.2.2")
         ),
         .package(
             url: "https://github.com/dduan/TOMLDecoder.git",
