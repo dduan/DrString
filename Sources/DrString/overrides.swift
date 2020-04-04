@@ -1,7 +1,7 @@
 extension Configuration {
     mutating func extend(with options: SharedCommandLineOptions) {
         if !options.include.isEmpty {
-            self.includedPaths += options.include
+            self.includedPaths = options.include
         }
 
         if !options.exclude.isEmpty {
