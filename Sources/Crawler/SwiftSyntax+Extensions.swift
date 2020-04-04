@@ -25,7 +25,7 @@ extension FunctionDeclSyntax {
 
     var parameters: [Parameter] {
         return self.signature.input.parameterList.children.compactMap { syntax in
-            return (syntax as? FunctionParameterSyntax)?.parameter
+            return FunctionParameterSyntax(syntax)?.parameter
         }
     }
 }
