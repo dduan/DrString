@@ -2,6 +2,7 @@
 
 ### Changes
 
+- Supports Swift 5.2 syntax, which also means the project requires 5.2 to build.
 - For boolean options, instead of specifying negative value with `false` following the flag on the command
   line, a new corresponding negative flag should be used. For example, previously, not ignoring docstring
   section for `throws` can be specified by `--ignore-throws false`. Now it should be `--no-ignore-throws`.
