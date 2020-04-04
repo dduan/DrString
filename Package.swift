@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.2
 import PackageDescription
 
 let package = Package(
@@ -15,8 +15,9 @@ let package = Package(
     ],
     dependencies: [
         .package(
+            name: "SwiftSyntax",
             url: "https://github.com/apple/swift-syntax.git",
-            .exact("0.50100.0")
+            .exact("0.50200.0")
         ),
         .package(
             url: "https://github.com/dduan/IsTTY.git",
@@ -88,7 +89,7 @@ let package = Package(
         .target(
             name: "DrString",
             dependencies: [
-                "ArgumentParser",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "Critic",
                 "Decipher",
                 "Editor",

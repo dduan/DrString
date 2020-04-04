@@ -35,11 +35,11 @@ generate-linux-manifest:
 
 .PHONY: test-docker
 test-docker:
-	@Scripts/ubuntu.sh test 5.1.4 bionic
+	@Scripts/ubuntu.sh test 5.2 bionic
 
 .PHONY: build-docker
 build-docker:
-	@Scripts/ubuntu.sh build 5.1.4 bionic
+	@Scripts/ubuntu.sh build 5.2 bionic
 
 .PHONY: package-darwin
 package-darwin: build

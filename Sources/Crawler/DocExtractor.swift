@@ -49,7 +49,7 @@ final class DocExtractor: SyntaxRewriter {
                 parameters: parameters)
         )
         self.findings.append(finding)
-        return node
+        return DeclSyntax(node)
     }
 
     override func visit(_ node: InitializerDeclSyntax) -> DeclSyntax {
@@ -71,6 +71,6 @@ final class DocExtractor: SyntaxRewriter {
                 parameters: parameters)
         )
         self.findings.append(finding)
-        return node
+        return DeclSyntax(node)
     }
 }
