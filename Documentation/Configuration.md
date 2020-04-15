@@ -12,10 +12,6 @@ more command line arguments. As a command line argument, the options as listed
 are the long/full name of the argument. So "include" would be used as
 `--include`, for example. In config files, they are keys for [TOML][] tables.
 
-For boolean options, add `no` in front of the command line flag for `false`
-value.  For example, `--no-ignore-throws` is the `false` value for
-`ignore-throws`.
-
 Besides a general description that states purpose of the option, a few common
 aspects are included:
 
@@ -27,15 +23,20 @@ aspects are included:
   flag with prefix "--no-" can be used on the command line to override its
   otherwise specified value. For example, `--no-needs-separation` will make
   `needs-separation`'s value to be empty.
-- **Value**: The type or candidate of valid values for this option. A type
-  ("String", "Bool") follows Unix command line arguments conventions. For
-  example: `drstring check -i "path/to/a.swift" --ignore-throws=false`. The
-  String value could be quoted or not (do quote if want to pass a glob pattern
-  to drstring as opposed to your shell). In a config file, the types refers to
+- **Value**: Valid values for this option. In a config file, the types refers to
   TOML types. When an option is *repeatable*, this is the type for the elements
-  in a TOML list in a config file. Some option's value can only be one of
-  several strings. For these, the list of valid values are listed instead of
-  a type.
+  in a TOML list in a config file. Some option's value is a _enum_. For these,
+  the list of valid values are listed instead of a type. Here's some notes on
+  each value types:
+  * enums: these should be given as strings, but only one of the listed value is
+    valid. take `format`, for example, as command-line argument it should be
+    written as `--format "plain"`.
+  * Int: integer.
+  * String: free form string. But its content should still make sense for its
+    purpose (a file path, a pattern, etc).
+  * Bool: In command-line, the option name alone signifies the "true" value. Add
+    `no` in front of the command line flag for `false` value. For example,
+    `--no-ignore-throws` is the `false` value for `ignore-throws`.
 - **Default**: A default value if none is explicitly specfied. Not applicable
   if the option is *required*.
 - **Command**: The command(s) this option is effective for.
