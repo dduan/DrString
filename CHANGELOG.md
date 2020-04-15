@@ -1,5 +1,7 @@
 ## master
 
+## 0.4.0
+
 ### Changes
 
 - Supports Swift 5.2 syntax, which also means the project requires 5.2 to build.
