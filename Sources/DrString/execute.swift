@@ -1,7 +1,3 @@
-func printVersion() {
-    print(version)
-}
-
 public func execute(_ command: Command) throws {
     switch command {
     case .check(let configFile, let config):
@@ -10,7 +6,5 @@ public func execute(_ command: Command) throws {
         try format(with: config)
     case .explain(let problemIDs):
         try explain(problemIDs)
-    case .version:
-        printVersion()
     }
 }

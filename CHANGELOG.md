@@ -1,5 +1,11 @@
 ## master
 
+### Changes
+
+The `version` subcommand is replaced by a flag on the main command. So `drstring --version` instead of
+`drstring version`.
+
+
 ## 0.4.0
 
 ### Changes

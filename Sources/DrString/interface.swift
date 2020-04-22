@@ -81,17 +81,13 @@ struct Main: ParsableCommand {
 
             drstring format --config-file path/to/.drstring.toml
         """,
+        version: version,
         subcommands: [
             Check.self,
             Explain.self,
             Format.self,
-            Version.self,
         ]
     )
-}
-
-struct Version: ParsableCommand {
-    static var configuration = CommandConfiguration(abstract: "Show version.")
 }
 
 extension Configuration.OutputFormat: ExpressibleByArgument {}
