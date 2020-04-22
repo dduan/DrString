@@ -58,8 +58,6 @@ extension Command {
             self = .format(config)
         case let command as Explain:
             self = .explain(command.problemID)
-        case _ where command is Version:
-            self = .version
         default:
             return nil
         }

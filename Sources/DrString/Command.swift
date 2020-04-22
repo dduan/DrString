@@ -2,7 +2,6 @@ public enum Command {
     case check(configFile: String?, config: Configuration)
     case format(Configuration)
     case explain([String])
-    case version
 
     var config: Configuration? {
         switch self {
@@ -10,7 +9,7 @@ public enum Command {
             return config
         case .format(let config):
             return config
-        default:
+        case .explain:
             return nil
         }
     }
