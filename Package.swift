@@ -37,7 +37,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser",
-            .exact("0.0.5")
+            .exact("0.0.6")
         ),
 
         // For testing
