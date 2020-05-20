@@ -15,16 +15,18 @@ private func makeConfig(from options: SharedCommandLineOptions) throws -> (Strin
     var configPathResult: String?
     config.extend(with: options)
 
-    do {
-        let configText = try readString(atPath: configPath)
-        let decoded = try TOMLDecoder().decode(Configuration.self, from: configText)
-        config = decoded
-        configPathResult = configPath
-        config.extend(with: options)
-        return (configPathResult, config)
-    } catch let error {
-        throw ConfigFileError.configFileIsInvalid(path: configPath, underlyingError: error)
+    if let configText = try? readString(atPath: configPath) {
+        do {
+            let decoded = try TOMLDecoder().decode(Configuration.self, from: configText)
+            config = decoded
+            configPathResult = configPath
+            config.extend(with: options)
+        } catch let error {
+            throw ConfigFileError.configFileIsInvalid(path: configPath, underlyingError: error)
+        }
     }
+
+    return (configPathResult, config)
 }
 
 private let kDefaultConfigurationPath = ".drstring.toml"
