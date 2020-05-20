@@ -15,13 +15,15 @@ private func makeConfig(from options: SharedCommandLineOptions) throws -> (Strin
     var configPathResult: String?
     config.extend(with: options)
 
-    if let configText = try? readString(atPath: configPath),
-    let decoded = try? TOMLDecoder().decode(Configuration.self, from: configText) {
-        config = decoded
-        configPathResult = configPath
-        config.extend(with: options)
-    } else if explicitPath != nil {
-        throw ConfigFileError.configFileIsInvalid(configPath)
+    if let configText = try? readString(atPath: configPath) {
+        do {
+            let decoded = try TOMLDecoder().decode(Configuration.self, from: configText)
+            config = decoded
+            configPathResult = configPath
+            config.extend(with: options)
+        } catch let error {
+            throw ConfigFileError.configFileIsInvalid(path: configPath, underlyingError: error)
+        }
     }
 
     return (configPathResult, config)
