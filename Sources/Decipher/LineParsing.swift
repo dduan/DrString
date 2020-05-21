@@ -201,7 +201,12 @@ func parseThrows(fromLine line: String) throws -> (String, TextLeadByWhitespace,
 
 func parse(line: String) throws -> Parsing.LineResult {
     if let (preDash, keyword, preColon, hasColon, description) = try parseGroupedParametersHeader(fromLine: line) {
-        return .groupedParametersHeader(preDash, keyword, preColon, hasColon, description)
+        if preColon.allSatisfy({ $0.isWhitespace }) {
+            return .groupedParametersHeader(preDash, keyword, preColon, hasColon, description)
+        } else if let (preDash, keyword, name, preColon, hasColon, description) = try parseParameter(fromLine: line) {
+            // in case of `- paramaters blah: ...`, we proceed to parse it as a parameter entry
+            return .parameter(preDash, keyword, name, preColon, hasColon, description)
+        }
     } else if let (preDash, keyword, preColon, hasColon, description) = try parseReturns(fromLine: line) {
         return .returns(preDash, keyword, preColon, hasColon, description)
     } else if let (preDash, keyword, preColon, hasColon, description) = try parseThrows(fromLine: line) {

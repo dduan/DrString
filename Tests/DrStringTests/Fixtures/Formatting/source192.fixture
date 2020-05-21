@@ -1,0 +1,7 @@
+/// This method will transform any types that are generic
+///
+/// - Parameters type:            The type to normalize
+/// - Parameters replaceSelfWith: If type == "Self"/"Self?"/"Optional<Self>" will return this value
+///                               instead
+/// - Parameters stripInOut:      Whether or not to strip the inout keyword from the type name
+func storedParamType(from type: String, replaceSelfWith: String? = nil, stripInOut: Bool = true) -> String {}
