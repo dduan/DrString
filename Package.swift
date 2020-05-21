@@ -29,7 +29,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/dduan/TOMLDecoder.git",
-            .exact("0.1.5")
+            .exact("0.1.6")
         ),
         .package(
             url: "https://github.com/mxcl/Chalk.git",
@@ -43,7 +43,7 @@ let package = Package(
         // For testing
         .package(
             url: "https://github.com/llvm-swift/FileCheck.git",
-            .exact("0.2.3")
+            .exact("0.2.4")
         ),
     ],
     targets: [

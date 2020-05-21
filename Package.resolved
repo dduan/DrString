@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/llvm-swift/FileCheck.git",
         "state": {
           "branch": null,
-          "revision": "9ed91cc30a1a325d989fac117f3f3065a16b9f76",
-          "version": "0.2.3"
+          "revision": "f25bfb4c69b9e05bf6b8d0862dcedb875c1b0f68",
+          "version": "0.2.4"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/dduan/NetTime",
         "state": {
           "branch": null,
-          "revision": "cc71922e621731b59b2b909eac7d6748c4a5a752",
-          "version": "0.2.2"
+          "revision": "0b242344ea78e5f9b3eef50ddb9695f580a6d772",
+          "version": "0.2.3"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/dduan/TOMLDecoder.git",
         "state": {
           "branch": null,
-          "revision": "e591bee4e5d624b99519d563ba87cc762ab7a308",
-          "version": "0.1.5"
+          "revision": "2cbc51e50b74ad2b12c849825af393c284446d8b",
+          "version": "0.1.6"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/dduan/TOMLDeserializer",
         "state": {
           "branch": null,
-          "revision": "ea6b941e53cdedc9f4737903769eb9f2cf8d2acf",
-          "version": "0.2.4"
+          "revision": "28762efcff64ad1bb482d4e9632b8a4e817edb4a",
+          "version": "0.2.5"
         }
       }
     ]
