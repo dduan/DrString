@@ -1,9 +1,17 @@
 ## master
 
+### Improvements
+
+- Parameter entries mistakenly start with `- Parameters` is now parsed as entries, whereas before they were
+  treated as multi-parameter headers, and their descriptions get dropped as a consequence.
+- When a config file is invalid TOML, and its location is inferred, DrString now properly reports this.
+  Previously it just complains as if there isn't any configuration (missing input).
+- Updated dependencies which brings some fixes for bugs that lead to crash in edge cases.
+
 ### Changes
 
-The `version` subcommand is replaced by a flag on the main command. So `drstring --version` instead of
-`drstring version`.
+- The `version` subcommand is replaced by a flag on the main command. So `drstring --version` instead of
+  `drstring version`.
 
 
 ## 0.4.0
