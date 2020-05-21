@@ -21,6 +21,7 @@ extension FormattingTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__FormattingTests = [
+        ("testBug192", testBug192),
         ("testFormatHandlesEmptyDocstringItemsCorrectly", testFormatHandlesEmptyDocstringItemsCorrectly),
         ("testFormatPatchesFilesProperly0", testFormatPatchesFilesProperly0),
         ("testFormatPatchesFilesProperly1", testFormatPatchesFilesProperly1),

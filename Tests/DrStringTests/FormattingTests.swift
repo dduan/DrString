@@ -68,4 +68,8 @@ final class FormattingTests: XCTestCase {
     func testFormatHandlesEmptyDocstringItemsCorrectly() throws {
         try self.verify(sourceName: "emptyitem", expectationName: "emptyitem_expectation", file: #file, line: #line)
     }
+
+    func testBug192() throws {
+        try self.verify(sourceName: "source192", expectationName: "expectation192", file: #file, line: #line)
+    }
 }
