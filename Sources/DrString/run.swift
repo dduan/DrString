@@ -68,7 +68,7 @@ extension Command {
 
 public func run(arguments: [String]) {
     do {
-        let parsedCommand = try Main.parseAsRoot(arguments)
+        var parsedCommand = try Main.parseAsRoot(arguments)
         if let command = try Command(command: parsedCommand) {
             try execute(command)
         } else {
