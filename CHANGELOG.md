@@ -1,5 +1,7 @@
 ## master
 
+## 0.4.1
+
 ### Improvements
 
 - Parameter entries mistakenly start with `- Parameters` is now parsed as entries, whereas before they were
