@@ -7,6 +7,7 @@
 - When a config file is invalid TOML, and its location is inferred, DrString now properly reports this.
   Previously it just complains as if there isn't any configuration (missing input).
 - Updated dependencies which brings some fixes for bugs that lead to crash in edge cases.
+- Fixed a bug where paths caused by exclusion pattern is seen as "explicitly" excluded.
 
 ### Changes
 
