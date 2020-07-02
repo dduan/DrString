@@ -11,6 +11,7 @@ dockerfile=$(mktemp)
 echo "FROM swift:$swift-$ubuntu"    >  $dockerfile
 echo 'ADD . DrString'               >> $dockerfile
 echo 'WORKDIR DrString'             >> $dockerfile
+echo 'RUN apt-get update && apt-get install -y make' >> $dockerfile
 echo "RUN make $action"             >> $dockerfile
 image=drstring
 docker image rm -f "$image" > /dev/null
