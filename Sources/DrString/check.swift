@@ -140,7 +140,7 @@ public func check(with config: Configuration, configFile: String?) throws {
     group.wait()
 
     if !config.allowSuperfluousExclusion {
-        for path in excluded.filter({ !$0.contains("*") && !included.contains($0) }) {
+        for path in config.excludedPaths.filter({ !$0.contains("*") && !included.contains($0) }) {
             report(
                 .init(
                     docName: "",
