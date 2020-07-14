@@ -1,4 +1,4 @@
-import DrString
+import DrStringCore
 import XCTest
 import FileCheck
 

@@ -1,4 +1,4 @@
-import DrString
+import DrStringCore
 import Pathos
 import XCTest
 
