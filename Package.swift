@@ -9,8 +9,8 @@ let package = Package(
             targets: ["DrStringCLI"]
         ),
         .library(
-            name: "DrString",
-            targets: ["DrString"]
+            name: "DrStringCore",
+            targets: ["DrStringCore"]
         ),
     ],
     dependencies: [
@@ -87,7 +87,7 @@ let package = Package(
             ]
         ),
         .target(
-            name: "DrString",
+            name: "DrStringCore",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "Critic",
@@ -102,7 +102,7 @@ let package = Package(
         ),
         .target(
             name: "DrStringCLI",
-            dependencies: ["DrString"]
+            dependencies: ["DrStringCore"]
         ),
         .testTarget(
             name: "ModelsTests",
@@ -130,9 +130,9 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "DrStringTests",
+            name: "DrStringCoreTests",
             dependencies: [
-                "DrString",
+                "DrStringCore",
                 "FileCheck",
                 "Models",
                 "Pathos",

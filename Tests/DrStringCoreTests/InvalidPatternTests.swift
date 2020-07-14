@@ -1,6 +1,6 @@
 import XCTest
 import FileCheck
-@testable import DrString
+@testable import DrStringCore
 
 final class InvalidPatternTests: XCTestCase {
     private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
