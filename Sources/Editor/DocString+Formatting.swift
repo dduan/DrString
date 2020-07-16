@@ -302,7 +302,7 @@ extension DocString {
 // Fold a line of text with natural language breaks until it fits in a colmun
 // limit.
 func fold(line: String, byLimit limit: Int) -> [String] {
-    assert(limit > 0, "attempt to reflow text to by a non-positive limit: \(limit)")
+    assert(limit >= 0, "attempt to reflow text to by a negative limit: \(limit)")
 
     var remainder = line[...]
     var result = [String]()
