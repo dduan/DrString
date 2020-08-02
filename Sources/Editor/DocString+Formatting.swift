@@ -136,7 +136,10 @@ extension DocString.Entry {
                     - (contentStart > columnLimit ? standardStart : contentStart)
                 if maxContentWidth > 0 {
                     if index == 0 {
-                        let firsts = fold(line: line.text, byLimit: columnLimit - (initialColumn + 3 + firstLineHeader.count))
+                        let firsts = fold(
+                            line: line.text,
+                            byLimit: max(0, columnLimit - (initialColumn + 3 + firstLineHeader.count))
+                        )
                         let rest = fold(line: firsts.dropFirst().joined(separator: " "),
                                         byLimit: maxContentWidth)
                         lines = [firsts[0]] + rest
