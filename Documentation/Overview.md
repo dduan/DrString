@@ -71,5 +71,5 @@ to Xcode changing its generated docstring over the years).
 DrString analyzes all of these aspects of your docstring and reports each
 problem it finds. Each reported problem comes with an explanation linked by an
 identifier. The "explainers" are part of the CLI app as well as the
-[documentation](https://github.com/dduan/DrString/tree/master/Documentation/Explainers).
+[documentation](https://github.com/dduan/DrString/tree/main/Documentation/Explainers).
 

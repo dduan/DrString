@@ -8,7 +8,7 @@ if which drstring >/dev/null; then
 else
   echo "warning: DrString not installed. Run \
     `brew install dduan/formulae/drstring` or learn more at \
-    https://github.com/dduan/DrString/blob/master/Documentation/GettingStarted.md#install"
+    https://github.com/dduan/DrString/blob/main/Documentation/GettingStarted.md#install"
 fi
 ```
 
