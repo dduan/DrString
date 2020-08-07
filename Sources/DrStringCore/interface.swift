@@ -131,8 +131,13 @@ struct Check: ParsableCommand {
 
     @Flag(
         inversion: .prefixedNo,
-        help: "'yes' prevents DrString from considering an excluded path superfluous. Optional. Default to `no`.")
+        help: "'yes' prevents DrString from considering an explicitly excluded path superfluous. Optional. Default to `no`.")
     var superfluousExclusion: Bool?
+
+    @Flag(
+        inversion: .prefixedNo,
+        help: "'yes' prevents DrString from considering a pattern for inclusion or exlusion invalid when the pattern matches no file paths. Optional. Default to `no`.")
+    var emptyPatterns: Bool?
 }
 
 struct Format: ParsableCommand {
