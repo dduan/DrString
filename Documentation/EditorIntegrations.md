@@ -1,5 +1,13 @@
 ## Xcode
 
+### Formatting
+
+Use the [Xcode source editor extention][] implemented on top of DrString.
+
+[Xcode source editor extention]: https://apps.apple.com/us/app/drstring/id1523251484?mt=12
+
+### Linting
+
 For linting, add a "Run Script" build phase in your project target:
 
 ```bash
