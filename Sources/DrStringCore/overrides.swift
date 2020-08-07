@@ -40,6 +40,7 @@ extension Configuration {
     mutating func extend(with checkCommand: Check) {
         self.outputFormat = checkCommand.format ?? self.outputFormat
         self.allowSuperfluousExclusion = checkCommand.superfluousExclusion ?? self.allowSuperfluousExclusion
+        self.allowEmptyPatterns = checkCommand.emptyPatterns ?? self.allowEmptyPatterns
     }
 }
 

@@ -7,6 +7,7 @@ public struct Configuration: Codable {
     public var ignoreDocstringForReturns: Bool = false
     public var verticalAlignParameterDescription: Bool = false
     public var allowSuperfluousExclusion: Bool = false
+    public var allowEmptyPatterns: Bool = false
     public var firstKeywordLetter: FirstKeywordLetterCasing = .uppercase
     public var outputFormat: OutputFormat = .automatic
     public var separatedSections: [Section] = []
@@ -43,6 +44,10 @@ public struct Configuration: Codable {
 
         if let allowSuperfluousExclusion = try values.decodeIfPresent(Bool.self, forKey: .superfluousExclusion) {
             config.allowSuperfluousExclusion = allowSuperfluousExclusion
+        }
+
+        if let allowEmptyPatterns = try values.decodeIfPresent(Bool.self, forKey: .emptyPatterns) {
+            config.allowEmptyPatterns = allowEmptyPatterns
         }
 
         if let firstKeywordLetter = try values.decodeIfPresent(FirstKeywordLetterCasing.self, forKey: .firstKeywordLetter) {
@@ -92,6 +97,7 @@ public struct Configuration: Codable {
         try values.encode(self.outputFormat, forKey: .format)
         try values.encode(self.firstKeywordLetter, forKey: .firstKeywordLetter)
         try values.encode(self.allowSuperfluousExclusion, forKey: .superfluousExclusion)
+        try values.encode(self.allowEmptyPatterns, forKey: .emptyPatterns)
         try values.encode(self.verticalAlignParameterDescription, forKey: .verticalAlign)
         try values.encode(self.ignoreDocstringForReturns, forKey: .ignoreReturns)
         try values.encode(self.ignoreDocstringForThrows, forKey: .ignoreThrows)
@@ -110,6 +116,7 @@ public struct Configuration: Codable {
         case format = "format"
         case separations = "needs-separation"
         case superfluousExclusion = "superfluous-exclusion"
+        case emptyPatterns = "empty-patterns"
         case parameterStyle = "parameter-style"
         case alignAfterColon = "align-after-colon"
         case columnLimit = "column-limit"

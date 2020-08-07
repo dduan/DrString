@@ -201,6 +201,20 @@ met:
 |    Default | false |
 |    Command | check |
 
+### empty-pattern
+
+By default, a path pattern in the `included`/`exclude`d list may be deemed
+redundant when it doesn't match any actual existing paths. These patterns are
+problematic. This behavior can be turned off if `empty-patterns` is `true`.
+
+|            |       |
+| ---------- | ----- |
+|   Required | No    |
+| Repeatable | No    |
+|      Value | Bool  |
+|    Default | false |
+|    Command | check |
+
 ### column-limit
 
 Some codebases choose to limit the maximum length of a line in source files.
