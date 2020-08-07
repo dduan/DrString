@@ -16,7 +16,8 @@ and fixing inconsistencies among them.
   project.
 - [Overview][] provides the _why_ s and _what_ s of docstring linting.
 - [Configuration][] is a reference to all options for behavior customization.
-- [Editor Integrations][] exist to improve your user experience.
+- [Editor Integrations][] exist to improve your user experience with Xcode, and
+  more!
 
 [Getting Started]: Documentation/GettingStarted.md
 [Overview]: Documentation/Overview.md
