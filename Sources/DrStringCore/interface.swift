@@ -12,15 +12,15 @@ struct SharedCommandLineOptions: ParsableArguments {
     @Option(
         name: [.short, .long],
         help: .init("Paths included for DrString to operate on. Repeatable path.", valueName: "path"))
-    var include: [String]
+    var include: [String] = []
 
     @Option(
         name: [.customShort("x"), .long],
         help: .init("Paths excluded for DrString to operate on. Repeatable, optional path.", valueName: "path"))
-    var exclude: [String]
+    var exclude: [String] = []
 
     @Flag(help: "Override `exclude` so that its value is empty.")
-    var noExclude: Bool
+    var noExclude: Bool = false
 
     @Flag(
         inversion: .prefixedNo,
@@ -36,10 +36,10 @@ struct SharedCommandLineOptions: ParsableArguments {
     var firstLetter: Configuration.FirstKeywordLetterCasing?
 
     @Option(help: .init("Sections of docstring that requires separation to the next section. Repeatable, optional (description|parameters|throws).", valueName: "section"))
-    var needsSeparation: [Section]
+    var needsSeparation: [Section] = []
 
     @Flag(help: "Override `needs-separation` so that none is empty.")
-    var noNeedsSeparation: Bool
+    var noNeedsSeparation: Bool = false
 
     @Flag(
         inversion: .prefixedNo,
@@ -50,10 +50,10 @@ struct SharedCommandLineOptions: ParsableArguments {
     var parameterStyle: ParameterStyle?
 
     @Option(help: .init("Consecutive lines of description should align after `:`. Repeatable, optional (parameters|throws|returns).", valueName: "section"))
-    var alignAfterColon: [Section]
+    var alignAfterColon: [Section] = []
 
     @Flag(help: "Override `align-after-colon` so that none is empty.")
-    var noAlignAfterColon: Bool
+    var noAlignAfterColon: Bool = false
 }
 
 struct Main: ParsableCommand {
@@ -208,5 +208,5 @@ struct Explain: ParsableCommand {
     )
 
     @Argument(help: "Problem ID (from `check` subcommand).")
-    var problemID: [String]
+    var problemID: [String] = []
 }
