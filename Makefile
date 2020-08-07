@@ -19,7 +19,7 @@ build:
 	@mv .build/release/drstring-cli .build/release/drstring
 
 .PHONY: generate
-generate: generate-explainers generate-linux-manifest
+generate: generate-explainers generate-linux-manifest generate-completion-scripts
 
 .PHONY: build
 install: build
@@ -32,6 +32,11 @@ generate-explainers:
 .PHONY: generate-linux-manifest
 generate-linux-manifest:
 	@swift test --generate-linuxmain
+
+.PHONY: generate-completion-scripts
+generate-completion-scripts:
+	@swift run drstring-cli --generate-completion-script zsh > completions/zsh/_drstring
+	@swift run drstring-cli --generate-completion-script bash > completions/bash/_drstring
 
 .PHONY: test-docker
 test-docker:

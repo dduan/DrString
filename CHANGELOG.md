@@ -3,6 +3,7 @@
 ### New
 
 - A boolean option `empty-patterns` that allows empty path patterns to exist in include/exclude list.
+- CLI auto-complete scripts for Bash and Zsh.
 
 ## 0.4.1
 
