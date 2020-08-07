@@ -62,25 +62,28 @@ public func check(with config: Configuration, configFile: String?) throws {
     let group = DispatchGroup()
     let queue = DispatchQueue(label: "ca.duan.DrString.concurrent", attributes: .concurrent)
     let serialQueue = DispatchQueue(label: "ca.duan.DrString.serial")
-    let (included, invalidInclude) = expandGlob(patterns: config.includedPaths)
-    let (excluded, invalidExclude) = expandGlob(patterns: config.excludedPaths)
 
-    let allInvalidPatterns = invalidInclude.map { ($0, "inclusion") }
-        + invalidExclude.map { ($0, "exclusion") }
+    let (included, invalidIncludePatterns) = expandGlob(patterns: config.includedPaths)
+    let (excluded, invalidExcludePatterns) = expandGlob(patterns: config.excludedPaths)
 
-    for (pattern, description) in allInvalidPatterns {
-        report(
-            .init(
-                docName: pattern,
-                filePath: pattern,
-                line: 0,
-                column: 0,
-                details: [.invalidPattern(description, configFile)]),
-            format: config.outputFormat
-        )
+    if !config.allowEmptyPatterns {
+        let allInvalidPatterns = invalidIncludePatterns.map { ($0, "inclusion") }
+            + invalidExcludePatterns.map { ($0, "exclusion") }
+
+        for (pattern, description) in allInvalidPatterns {
+            report(
+                .init(
+                    docName: pattern,
+                    filePath: pattern,
+                    line: 0,
+                    column: 0,
+                    details: [.invalidPattern(description, configFile)]),
+                format: config.outputFormat
+            )
+        }
+
+        problemCount += allInvalidPatterns.count
     }
-
-    problemCount += allInvalidPatterns.count
 
     for path in included {
         let isPathExcluded = excluded.contains(path)
