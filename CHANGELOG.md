@@ -1,5 +1,7 @@
 ## main
 
+## 0.4.2
+
 ### New
 
 - A boolean option `empty-patterns` that allows empty path patterns to exist in include/exclude list.
