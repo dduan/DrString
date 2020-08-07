@@ -224,4 +224,4 @@ for the corresponding `false` value.
 
 DrString has a lot of CLI options! You may install one of the completion scripts
 included in the project if one exists for your shell. You can find them
-[here](../../Scirpts/completions).
+[here](../../Scripts/completions).
