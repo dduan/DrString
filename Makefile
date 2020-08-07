@@ -35,8 +35,8 @@ generate-linux-manifest:
 
 .PHONY: generate-completion-scripts
 generate-completion-scripts:
-	@swift run drstring-cli --generate-completion-script zsh > completions/zsh/_drstring
-	@swift run drstring-cli --generate-completion-script bash > completions/bash/_drstring
+	@swift run drstring-cli --generate-completion-script zsh > Scripts/completions/drstring-completion.zsh
+	@swift run drstring-cli --generate-completion-script bash > Scripts/completions/drstring-completion.bash
 
 .PHONY: test-docker
 test-docker:

@@ -219,3 +219,9 @@ This information should help you collect signal for failure, logs, etc.
 
 On the command line, if `--x` means `true` for an option, `--no-x` can be used
 for the corresponding `false` value.
+
+### Shell Completion Script
+
+DrString has a lot of CLI options! You may install one of the completion scripts
+included in the project if one exists for your shell. You can find them
+[here](../../Scirpts/completions).
