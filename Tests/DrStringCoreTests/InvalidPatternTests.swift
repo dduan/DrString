@@ -39,7 +39,7 @@ final class InvalidPatternTests: XCTestCase {
 
     func testValidPatternForExclusionIsNotReported() {
         let expect = """
-        // CHECK-NOT: Could not find any files matching this inclusion pattern
+        // CHECK-NOT: Could not find any files matching this
         """
         XCTAssert(self.runTest(expectation: expect, include: ["*"], exclude: ["complete"]))
     }
