@@ -37,7 +37,7 @@ aspects are included:
   * Bool: In command-line, the option name alone signifies the "true" value. Add
     `no` in front of the command line flag for `false` value. For example,
     `--no-ignore-throws` is the `false` value for `ignore-throws`.
-- **Default**: A default value if none is explicitly specfied. Not applicable
+- **Default**: A default value if none is explicitly specified. Not applicable
   if the option is *required*.
 - **Command**: The command(s) this option is effective for.
 
@@ -84,7 +84,7 @@ This is sometimes known as "globstar" patterns.
 
 ### exclude
 
-Similar to _include_ except it substracts paths from the list of included files.
+Similar to _include_ except it subtracts paths from the list of included files.
 
 |            |               |
 | ---------- | ------------- |
@@ -248,7 +248,7 @@ line. The _separate_ format does not. Examples:
 ```
 
 ```
-/// This is the "sepacate" format. Each parameter start with ` - Parameter`
+/// This is the "separate" format. Each parameter start with ` - Parameter`
 /// entries doesn't each begin with a `parameter` keyword.
 ///
 /// - Parameter foo: description for foo
@@ -299,7 +299,7 @@ configured separately.
 |    Default | false  |
 |    Command | format |
 
-When formatting, generate placeholder entries for parametecs, throws, and
+When formatting, generate placeholder entries for parameters, throws, and
 returns, if necessary. `ignore-throws` and `ignore-returns` could cancel
 generation for throws and returns, respectively.
 
