@@ -12,7 +12,7 @@ final class ReturnsPlaceholderTests: XCTestCase {
             name: "f",
             docLines: rawDoc,
             children: [],
-            details: .function(
+            details: .init(
                 throws: false,
                 returnType: returnType,
                 parameters: []

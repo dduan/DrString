@@ -1,5 +1,5 @@
-public struct DocString: Equatable {
-    public struct Entry: Equatable {
+public struct DocString: Equatable, Codable {
+    public struct Entry: Equatable, Codable {
         public let preDashWhitespace: String
         public let keyword: TextLeadByWhitespace?
         public let name: TextLeadByWhitespace

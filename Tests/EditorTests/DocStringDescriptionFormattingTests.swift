@@ -17,9 +17,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [],
-            startLine: nil,
-            endLine: nil
+            separations: []
         )
         XCTAssertTrue(result.isEmpty)
     }
@@ -48,9 +46,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .whatever,
-                separations: [],
-                startLine: nil,
-                endLine: nil
+                separations: []
             ),
             expectation
         )
@@ -80,9 +76,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .whatever,
-                separations: [],
-                startLine: nil,
-                endLine: nil
+                separations: []
             ),
             expectation
         )
@@ -118,9 +112,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .whatever,
-                separations: [],
-                startLine: nil,
-                endLine: nil
+                separations: []
             ),
             expectation
         )
@@ -150,9 +142,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .whatever,
-                separations: [],
-                startLine: nil,
-                endLine: nil
+                separations: []
             ),
             expectation
         )
@@ -186,9 +176,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .whatever,
-                separations: [],
-                startLine: nil,
-                endLine: nil
+                separations: []
             ),
             expectation
         )
@@ -220,9 +208,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .whatever,
-                separations: [],
-                startLine: nil,
-                endLine: nil
+                separations: []
             ),
             expectation
         )
@@ -255,9 +241,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .whatever,
-                separations: [],
-                startLine: nil,
-                endLine: nil
+                separations: []
             ),
             expectation
         )
@@ -290,9 +274,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
                 alignAfterColon: [],
                 firstLetterUpperCase: true,
                 parameterStyle: .whatever,
-                separations: [],
-                startLine: nil,
-                endLine: nil
+                separations: []
             ),
             expectation
         )

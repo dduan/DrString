@@ -3,27 +3,32 @@ import Pathos
 import TOMLDecoder
 import Models
 
-private func makeConfig(from options: SharedCommandLineOptions) throws -> (String?, Configuration) {
-    var config = Configuration()
-    let explicitPath: String? = options.configFile
+private func configFromFile(_ configPath: String) throws -> Configuration? {
+    if let configText = try? readString(atPath: configPath) {
+        do {
+            let decoded = try TOMLDecoder().decode(Configuration.self, from: configText)
+            return decoded
+        } catch let error {
+            throw ConfigFileError.configFileIsInvalid(path: configPath, underlyingError: error)
+        }
+    }
+
+    return nil
+}
+
+private func makeConfig(from basicOptions: SharedCommandLineBasicOptions) throws -> (String?, Configuration) {
+    let explicitPath: String? = basicOptions.configFile
     if let explicitPath = explicitPath, (try? isA(.file, atPath: explicitPath)) != .some(true) {
         throw ConfigFileError.configFileDoesNotExist(explicitPath)
     }
 
-    let exampleInput = options.include.first { !$0.contains("*") }
+    let exampleInput = basicOptions.include.first { !$0.contains("*") }
     let configPath = explicitPath ?? seekConfigFile(forPath: exampleInput ?? ".")
+    var config = Configuration()
     var configPathResult: String?
-    config.extend(with: options)
-
-    if let configText = try? readString(atPath: configPath) {
-        do {
-            let decoded = try TOMLDecoder().decode(Configuration.self, from: configText)
-            config = decoded
-            configPathResult = configPath
-            config.extend(with: options)
-        } catch let error {
-            throw ConfigFileError.configFileIsInvalid(path: configPath, underlyingError: error)
-        }
+    if let decoded = try configFromFile(configPath) {
+        config = decoded
+        configPathResult = configPath
     }
 
     return (configPathResult, config)
@@ -51,15 +56,19 @@ extension Command {
     init?(command: ParsableCommand) throws {
         switch command {
         case let command as Check:
-            var (configPath, config) = try makeConfig(from: command.options)
+            var (configPath, config) = try makeConfig(from: command.options.basics)
             config.extend(with: command)
             self = .check(configFile: configPath, config: config)
         case let command as Format:
-            var (_, config) = try makeConfig(from: command.options)
+            var (_, config) = try makeConfig(from: command.options.basics)
             config.extend(with: command)
             self = .format(config)
         case let command as Explain:
             self = .explain(command.problemID)
+        case let command as Extract:
+            var (_, config) = try makeConfig(from: command.basics)
+            config.extend(with: command.basics)
+            self = .extract(config)
         default:
             return nil
         }

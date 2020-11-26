@@ -1,8 +1,11 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 import PackageDescription
 
 let package = Package(
     name: "DrString",
+    platforms: [
+        .macOS(.v10_15),
+    ],
     products: [
         .executable(
             name: "drstring-cli",
@@ -17,7 +20,7 @@ let package = Package(
         .package(
             name: "SwiftSyntax",
             url: "https://github.com/apple/swift-syntax.git",
-            .exact("0.50200.0")
+            .exact("0.50300.0")
         ),
         .package(
             url: "https://github.com/dduan/IsTTY.git",
@@ -25,7 +28,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/dduan/Pathos.git",
-            .exact("0.2.3")
+            .exact("0.3.2")
         ),
         .package(
             url: "https://github.com/dduan/TOMLDecoder.git",
@@ -137,7 +140,9 @@ let package = Package(
                 "Models",
                 "Pathos",
             ],
-            exclude: ["Tests/DrStringTests/Fixtures"]
+            exclude: [
+                "Fixtures/",
+            ]
         ),
     ]
 )

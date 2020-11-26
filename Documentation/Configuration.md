@@ -74,25 +74,25 @@ specify all files in a path or recursively in a path. For example:
 
 This is sometimes known as "globstar" patterns.
 
-|            |               |
-| ---------- | ------------- |
-|   Required | Yes           |
-| Repeatable | Yes           |
-|      Value | String        |
-|    Default | N/A           |
-|    Command | check, format |
+|            |                        |
+| ---------- | ---------------------- |
+|   Required | Yes                    |
+| Repeatable | Yes                    |
+|      Value | String                 |
+|    Default | N/A                    |
+|    Command | check, format, extract |
 
 ### exclude
 
 Similar to _include_ except it subtracts paths from the list of included files.
 
-|            |               |
-| ---------- | ------------- |
-|   Required | No            |
-| Repeatable | Yes           |
-|      Value | String        |
-|    Default | []            |
-|    Command | check, format |
+|            |                        |
+| ---------- | ---------------------- |
+|   Required | No                     |
+| Repeatable | Yes                    |
+|      Value | String                 |
+|    Default | []                     |
+|    Command | check, format, extract |
 
 ### ignore-throws
 

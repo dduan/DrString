@@ -180,9 +180,7 @@ extension DocString {
         alignAfterColon: [Section],
         firstLetterUpperCase: Bool,
         parameterStyle: ParameterStyle,
-        separations: [Section],
-        startLine: Int?,
-        endLine: Int?
+        separations: [Section]
     ) -> [String]
     {
 

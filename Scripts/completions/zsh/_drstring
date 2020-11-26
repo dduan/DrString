@@ -19,6 +19,7 @@ _drstring() {
                 'check:Check source files for docstring problems in given paths.'
                 'explain:Explains problems (reported by the `check` command).'
                 'format:Fix docstring formatting errors for sources in given paths.'
+                'extract:Extract existing docstrings and print out as JSON.'
                 'help:Show subcommand help information.'
             )
             _describe "subcommand" subcommands
@@ -33,6 +34,9 @@ _drstring() {
                     ;;
                 (format)
                     _drstring_format
+                    ;;
+                (extract)
+                    _drstring_extract
                     ;;
                 (help)
                     _drstring_help
@@ -51,6 +55,7 @@ _drstring_check() {
         '--config-file[Path to the configuration TOML file. Optional path.]:path:'
         '(-i --include)'{-i,--include}'[Paths included for DrString to operate on. Repeatable path.]:path:'
         '(-x --exclude)'{-x,--exclude}'[Paths excluded for DrString to operate on. Repeatable, optional path.]:path:'
+        '--no-exclude[Override `exclude` so that its value is empty.]'
         '--no-exclude[Override `exclude` so that its value is empty.]'
         '--ignore-throws[Whether it'"'"'s ok to not have docstring for what a function/method throws. Optional. Default to '"'"'yes'"'"'.]'
         '--no-ignore-throws'
@@ -96,6 +101,7 @@ _drstring_format() {
         '(-i --include)'{-i,--include}'[Paths included for DrString to operate on. Repeatable path.]:path:'
         '(-x --exclude)'{-x,--exclude}'[Paths excluded for DrString to operate on. Repeatable, optional path.]:path:'
         '--no-exclude[Override `exclude` so that its value is empty.]'
+        '--no-exclude[Override `exclude` so that its value is empty.]'
         '--ignore-throws[Whether it'"'"'s ok to not have docstring for what a function/method throws. Optional. Default to '"'"'yes'"'"'.]'
         '--no-ignore-throws'
         '--ignore-returns[Whether it'"'"'s ok to not have docstring for what a function/method returns. Optional. Default to '"'"'no'"'"'.]'
@@ -113,6 +119,21 @@ _drstring_format() {
         '--no-add-placeholder'
         '--start-line[First line formatting subcommand should consider affecting, 0 based. Optional number.]:line:'
         '--end-line[Last line formatting subcommand should consider affecting, 0 based. Optional number.]:line:'
+        '(-h --help)'{-h,--help}'[Print help information.]'
+    )
+    _arguments -w -s -S $args[@] && ret=0
+
+    return ret
+}
+
+_drstring_extract() {
+    integer ret=1
+    local -a args
+    args+=(
+        '--config-file[Path to the configuration TOML file. Optional path.]:path:'
+        '(-i --include)'{-i,--include}'[Paths included for DrString to operate on. Repeatable path.]:path:'
+        '(-x --exclude)'{-x,--exclude}'[Paths excluded for DrString to operate on. Repeatable, optional path.]:path:'
+        '--no-exclude[Override `exclude` so that its value is empty.]'
         '(-h --help)'{-h,--help}'[Print help information.]'
     )
     _arguments -w -s -S $args[@] && ret=0

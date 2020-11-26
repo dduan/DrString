@@ -5,7 +5,7 @@ extension Configuration.FirstKeywordLetterCasing: ExpressibleByArgument {}
 extension Section: ExpressibleByArgument {}
 extension ParameterStyle: ExpressibleByArgument {}
 
-struct SharedCommandLineOptions: ParsableArguments {
+struct SharedCommandLineBasicOptions: ParsableArguments {
     @Option(help: .init("Path to the configuration TOML file. Optional path.", valueName: "path"))
     var configFile: String?
 
@@ -18,6 +18,14 @@ struct SharedCommandLineOptions: ParsableArguments {
         name: [.customShort("x"), .long],
         help: .init("Paths excluded for DrString to operate on. Repeatable, optional path.", valueName: "path"))
     var exclude: [String] = []
+
+    @Flag(help: "Override `exclude` so that its value is empty.")
+    var noExclude: Bool = false
+}
+
+struct SharedCommandLineOptions: ParsableArguments {
+    @OptionGroup()
+    var basics: SharedCommandLineBasicOptions
 
     @Flag(help: "Override `exclude` so that its value is empty.")
     var noExclude: Bool = false
@@ -86,6 +94,7 @@ struct Main: ParsableCommand {
             Check.self,
             Explain.self,
             Format.self,
+            Extract.self,
         ]
     )
 }
@@ -214,4 +223,18 @@ struct Explain: ParsableCommand {
 
     @Argument(help: "Problem ID (from `check` subcommand).")
     var problemID: [String] = []
+}
+
+struct Extract: ParsableCommand {
+    static var configuration = CommandConfiguration(
+        abstract: "Extract existing docstrings and print out as JSON.",
+        discussion: """
+        `extract` output each existing docstring, along with the signature associated with it, in
+        JSON. These two pieces of information may not necessarily match up (there might be missing
+        entries in docstring, for example).
+        """
+    )
+
+    @OptionGroup()
+    var basics: SharedCommandLineBasicOptions
 }

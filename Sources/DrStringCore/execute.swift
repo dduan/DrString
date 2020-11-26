@@ -6,5 +6,7 @@ public func execute(_ command: Command) throws {
         try format(with: config)
     case .explain(let problemIDs):
         try explain(problemIDs)
+    case .extract(let config):
+        try extract(with: config)
     }
 }

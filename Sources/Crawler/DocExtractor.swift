@@ -43,7 +43,7 @@ final class DocExtractor: SyntaxRewriter {
             name: signatureText,
             docLines: node.leadingTrivia?.docStringLines ?? [],
             children: [],
-            details: .function(
+            details: Documentable.Details(
                 throws: node.throws,
                 returnType: node.returnType,
                 parameters: parameters)
@@ -65,7 +65,7 @@ final class DocExtractor: SyntaxRewriter {
             name: signatureText,
             docLines: node.leadingTrivia?.docStringLines ?? [],
             children: [],
-            details: .function(
+            details: .init(
                 throws: node.throws,
                 returnType: nil,
                 parameters: parameters)

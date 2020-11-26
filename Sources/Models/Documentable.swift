@@ -1,4 +1,4 @@
-public struct Parameter: Equatable {
+public struct Parameter: Equatable, Codable {
     public let label: String?
     public let name: String
     public let type: String
@@ -20,12 +20,7 @@ public struct Parameter: Equatable {
     }
 }
 
-public struct EnumCase: Equatable {
-    let name: String
-    let parameters: [Parameter]
-}
-
-public struct Documentable: Equatable {
+public struct Documentable: Equatable, Codable {
     public let path: String
     public let startLine: Int
     public let startColumn: Int
@@ -35,14 +30,16 @@ public struct Documentable: Equatable {
     public let children: [Documentable]
     public let details: Details
 
-    public enum Details: Equatable {
-        case function(`throws`: Bool, returnType: String?, parameters: [Parameter])
-        case variable(mutable: Bool)
-        case `class`
-        case `enum`(cases: [EnumCase])
-        case `extension`
-        case `protocol`
-        case `struct`
+    public struct Details: Equatable, Codable {
+        public let `throws`: Bool
+        public let returnType: String?
+        public let parameters: [Parameter]
+
+        public init(throws: Bool, returnType: String?, parameters: [Parameter]) {
+            self.throws = `throws`
+            self.returnType = returnType
+            self.parameters = parameters
+        }
     }
 
     public init(

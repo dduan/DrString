@@ -12,7 +12,7 @@ final class ThrowsPlaceholderTests: XCTestCase {
             name: "f",
             docLines: rawDoc,
             children: [],
-            details: .function(
+            details: .init(
                 throws: doesThrow,
                 returnType: nil,
                 parameters: []

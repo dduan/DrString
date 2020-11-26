@@ -30,9 +30,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.description],
-            startLine: nil,
-            endLine: nil
+            separations: [.description]
         )
 
         let expectation = [
@@ -72,9 +70,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.description],
-            startLine: nil,
-            endLine: nil
+            separations: [.description]
         )
 
         let expectation = [
@@ -113,9 +109,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [],
-            startLine: nil,
-            endLine: nil
+            separations: []
         )
 
         let expectation = [
@@ -159,9 +153,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.parameters],
-            startLine: nil,
-            endLine: nil
+            separations: [.parameters]
         )
 
         let expectation = [
@@ -207,9 +199,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.parameters],
-            startLine: nil,
-            endLine: nil
+            separations: [.parameters]
         )
 
         let expectation = [
@@ -254,9 +244,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [],
-            startLine: nil,
-            endLine: nil
+            separations: []
         )
 
         let expectation = [
@@ -298,9 +286,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.throws],
-            startLine: nil,
-            endLine: nil
+            separations: [.throws]
         )
 
         let expectation = [
@@ -345,9 +331,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.throws],
-            startLine: nil,
-            endLine: nil
+            separations: [.throws]
         )
 
         let expectation = [
@@ -391,9 +375,7 @@ final class DocStringSeparatorTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [],
-            startLine: nil,
-            endLine: nil
+            separations: []
         )
 
         let expectation = [
