@@ -17,9 +17,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.description, .parameters, .throws],
-            startLine: nil,
-            endLine: nil
+            separations: [.description, .parameters, .throws]
         )
 
         XCTAssertTrue(result.isEmpty)
@@ -52,9 +50,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.description],
-            startLine: nil,
-            endLine: nil
+            separations: [.description]
         )
 
         XCTAssertEqual(
@@ -95,9 +91,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.description],
-            startLine: nil,
-            endLine: nil
+            separations: [.description]
         )
 
         XCTAssertEqual(
@@ -127,9 +121,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.description],
-            startLine: nil,
-            endLine: nil
+            separations: [.description]
         )
 
         XCTAssertEqual(
@@ -174,9 +166,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.parameters],
-            startLine: nil,
-            endLine: nil
+            separations: [.parameters]
         )
 
         XCTAssertEqual(
@@ -224,9 +214,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.parameters],
-            startLine: nil,
-            endLine: nil
+            separations: [.parameters]
         )
 
         XCTAssertEqual(
@@ -265,9 +253,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.parameters],
-            startLine: nil,
-            endLine: nil
+            separations: [.parameters]
         )
 
         XCTAssertEqual(
@@ -309,9 +295,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.throws],
-            startLine: nil,
-            endLine: nil
+            separations: [.throws]
         )
 
         XCTAssertEqual(
@@ -356,9 +340,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.throws],
-            startLine: nil,
-            endLine: nil
+            separations: [.throws]
         )
 
         XCTAssertEqual(
@@ -394,9 +376,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             alignAfterColon: [],
             firstLetterUpperCase: true,
             parameterStyle: .whatever,
-            separations: [.throws],
-            startLine: nil,
-            endLine: nil
+            separations: [.throws]
         )
 
         XCTAssertEqual(

@@ -21,12 +21,10 @@ enum Parsing {
     }
 
     enum LineError: Error {
-        case mismatchWithExpectedResult(String)
         case missingCommentHead(String)
     }
 
     enum StructuralError: Error {
         case invalidStart
-        case badFormat
     }
 }

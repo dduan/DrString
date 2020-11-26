@@ -40,11 +40,11 @@ generate-completion-scripts:
 
 .PHONY: test-docker
 test-docker:
-	@Scripts/ubuntu.sh test 5.2 bionic
+	@Scripts/ubuntu.sh test 5.3.1 bionic
 
 .PHONY: build-docker
 build-docker:
-	@Scripts/ubuntu.sh build 5.2 bionic
+	@Scripts/ubuntu.sh build 5.3.1 bionic
 
 .PHONY: package-darwin
 package-darwin: build

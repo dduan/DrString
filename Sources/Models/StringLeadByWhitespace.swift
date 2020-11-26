@@ -1,4 +1,4 @@
-public struct TextLeadByWhitespace: Equatable {
+public struct TextLeadByWhitespace: Equatable, Codable {
     public let lead: String
     public let text: String
 

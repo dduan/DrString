@@ -44,9 +44,7 @@ extension Documentable {
             alignAfterColon: alignAfterColon,
             firstLetterUpperCase: firstLetterUpperCase,
             parameterStyle: parameterStyle,
-            separations: separations,
-            startLine: startLine,
-            endLine: endLine)
+            separations: separations)
 
         if formatted != self.docLines {
             let padding = String(Array(repeating: " ", count: self.startColumn))
@@ -68,9 +66,7 @@ extension Documentable {
     }
 
     private func addParameters(to docs: inout DocString) {
-        guard case let .function(_, _, parameters) = self.details else {
-            return
-        }
+        let parameters = self.details.parameters
 
         var parameterDocs = [DocString.Entry]()
 
@@ -109,10 +105,7 @@ extension Documentable {
     }
 
     private func addThrows(to docs: inout DocString, ignoreThrows: Bool) {
-        guard case let .function(doesThrow, _, _) = self.details else {
-            return
-        }
-
+        let doesThrow = self.details.throws
         if doesThrow && docs.throws == nil && !ignoreThrows {
             docs.throws = .init(
                 preDashWhitespaces: "",
@@ -126,10 +119,7 @@ extension Documentable {
     }
 
     private func addReturns(to docs: inout DocString, ignoreReturns: Bool) {
-        guard case let .function(_, returnType, _) = self.details else {
-            return
-        }
-
+        let returnType = self.details.returnType
         if let returnType = returnType, docs.returns == nil && !ignoreReturns {
             docs.returns = .init(
                 preDashWhitespaces: "",

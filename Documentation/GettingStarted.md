@@ -29,7 +29,7 @@ mint install dduan/DrString
 
 ### From source
 
-You'll need Swift 5.1 on your system.
+You'll need Swift 5.3 on your system.
 
 ```bash
 git clone https://github.com/dduan/DrString.git
@@ -154,6 +154,15 @@ It shares most [options][] with the `check` subcommand, which can be specified
 as command-line arguments or via the config file.
 
 [options]: Configuration.md
+
+### Extract docstrings in JSON
+
+Sometimes it's desirable to process existing docstring yourself. With the
+`extract` subcommand, DrString output the signature and associated docstring
+in JSON format, so that you can do whatever you like.
+
+This subcommand uses the same information as `check`, and `format` to determine
+the list of files to extract from.
 
 ### Integration with Xcode
 

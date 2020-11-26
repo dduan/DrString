@@ -12,7 +12,7 @@ final class ParameterPlaceholderTests: XCTestCase {
             name: "f",
             docLines: rawDoc,
             children: [],
-            details: .function(
+            details: .init(
                 throws: false,
                 returnType: nil,
                 parameters: parameters

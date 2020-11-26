@@ -11,36 +11,35 @@ extension Documentable {
             return nil
         }
 
-        switch self.details {
-        case let .function(doesThrow, returnType, parameters):
-            let details = try findDescriptionProblems(
-                docs, needsSeparator: needsSeparation.contains(.description))
-                + findParameterProblems(parameters, docs, firstLetterUpper,
-                                        needsSeparation: needsSeparation.contains(.parameters),
-                                        verticalAlign: verticalAlign, style: parameterStyle,
-                                        alignAfterColon: alignAfterColon.contains(.parameters))
-                + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs,
-                                     firstLetterUpper: firstLetterUpper,
-                                     needsSeparation: needsSeparation.contains(.throws),
-                                     alignAfterColon: alignAfterColon.contains(.throws))
-                + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType: returnType,
-                                      firstLetterUpper: firstLetterUpper,
-                                      alignAfterColon: alignAfterColon.contains(.throws))
+        let doesThrow = self.details.throws
+        let returnType = self.details.returnType
+        let parameters = self.details.parameters
 
-            if details.isEmpty {
-                return nil
-            }
+        let details = try findDescriptionProblems(
+            docs, needsSeparator: needsSeparation.contains(.description))
+            + findParameterProblems(parameters, docs, firstLetterUpper,
+                                    needsSeparation: needsSeparation.contains(.parameters),
+                                    verticalAlign: verticalAlign, style: parameterStyle,
+                                    alignAfterColon: alignAfterColon.contains(.parameters))
+            + findThrowsProblems(ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs,
+                                 firstLetterUpper: firstLetterUpper,
+                                 needsSeparation: needsSeparation.contains(.throws),
+                                 alignAfterColon: alignAfterColon.contains(.throws))
+            + findReturnsProblems(ignoreReturns: ignoreReturns, docs, returnType: returnType,
+                                  firstLetterUpper: firstLetterUpper,
+                                  alignAfterColon: alignAfterColon.contains(.throws))
 
-            return DocProblem(
-                docName: self.name,
-                filePath: self.path,
-                line: self.startLine,
-                column: self.startColumn,
-                details: details
-            )
-        default:
+        if details.isEmpty {
             return nil
         }
+
+        return DocProblem(
+            docName: self.name,
+            filePath: self.path,
+            line: self.startLine,
+            column: self.startColumn,
+            details: details
+        )
     }
 }
 

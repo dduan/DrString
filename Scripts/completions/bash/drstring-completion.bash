@@ -4,7 +4,7 @@ _drstring() {
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
     COMPREPLY=()
-    opts="check explain format help -h --help"
+    opts="check explain format extract help -h --help"
     if [[ $COMP_CWORD == "1" ]]; then
         COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
         return
@@ -22,6 +22,10 @@ _drstring() {
             _drstring_format 2
             return
             ;;
+        (extract)
+            _drstring_extract 2
+            return
+            ;;
         (help)
             _drstring_help 2
             return
@@ -30,7 +34,7 @@ _drstring() {
     COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
 }
 _drstring_check() {
-    opts="--config-file -i --include -x --exclude --no-exclude --ignore-throws --no-ignore-throws --ignore-returns --no-ignore-returns --first-letter --needs-separation --no-needs-separation --vertical-align --no-vertical-align --parameter-style --align-after-colon --no-align-after-colon --format --superfluous-exclusion --no-superfluous-exclusion --empty-patterns --no-empty-patterns -h --help"
+    opts="--config-file -i --include -x --exclude --no-exclude --no-exclude --ignore-throws --no-ignore-throws --ignore-returns --no-ignore-returns --first-letter --needs-separation --no-needs-separation --vertical-align --no-vertical-align --parameter-style --align-after-colon --no-align-after-colon --format --superfluous-exclusion --no-superfluous-exclusion --empty-patterns --no-empty-patterns -h --help"
     if [[ $COMP_CWORD == "$1" ]]; then
         COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
         return
@@ -80,7 +84,7 @@ _drstring_explain() {
     COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
 }
 _drstring_format() {
-    opts="--config-file -i --include -x --exclude --no-exclude --ignore-throws --no-ignore-throws --ignore-returns --no-ignore-returns --first-letter --needs-separation --no-needs-separation --vertical-align --no-vertical-align --parameter-style --align-after-colon --no-align-after-colon --column-limit --add-placeholder --no-add-placeholder --start-line --end-line -h --help"
+    opts="--config-file -i --include -x --exclude --no-exclude --no-exclude --ignore-throws --no-ignore-throws --ignore-returns --no-ignore-returns --first-letter --needs-separation --no-needs-separation --vertical-align --no-vertical-align --parameter-style --align-after-colon --no-align-after-colon --column-limit --add-placeholder --no-add-placeholder --start-line --end-line -h --help"
     if [[ $COMP_CWORD == "$1" ]]; then
         COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
         return
@@ -123,6 +127,28 @@ _drstring_format() {
             return
         ;;
         --end-line)
+            
+            return
+        ;;
+    esac
+    COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
+}
+_drstring_extract() {
+    opts="--config-file -i --include -x --exclude --no-exclude -h --help"
+    if [[ $COMP_CWORD == "$1" ]]; then
+        COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
+        return
+    fi
+    case $prev in
+        --config-file)
+            
+            return
+        ;;
+        -i|--include)
+            
+            return
+        ;;
+        -x|--exclude)
             
             return
         ;;

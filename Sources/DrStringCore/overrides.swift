@@ -1,17 +1,6 @@
 extension Configuration {
     mutating func extend(with options: SharedCommandLineOptions) {
-        if !options.include.isEmpty {
-            self.includedPaths = options.include
-        }
-
-        if !options.exclude.isEmpty {
-            self.excludedPaths = options.exclude
-        }
-
-        if options.noExclude {
-            self.excludedPaths = []
-        }
-
+        self.extend(with: options.basics)
         self.ignoreDocstringForThrows = options.ignoreThrows ?? self.ignoreDocstringForThrows
         self.ignoreDocstringForReturns = options.ignoreReturns ?? self.ignoreDocstringForReturns
         self.verticalAlignParameterDescription = options.verticalAlign ?? self.verticalAlignParameterDescription
@@ -33,11 +22,26 @@ extension Configuration {
             self.alignAfterColon = []
         }
     }
+
+    mutating func extend(with basicOptions: SharedCommandLineBasicOptions) {
+        if !basicOptions.include.isEmpty {
+            self.includedPaths = basicOptions.include
+        }
+
+        if !basicOptions.exclude.isEmpty {
+            self.excludedPaths = basicOptions.exclude
+        }
+
+        if basicOptions.noExclude {
+            self.excludedPaths = []
+        }
+    }
 }
 
 
 extension Configuration {
     mutating func extend(with checkCommand: Check) {
+        self.extend(with: checkCommand.options)
         self.outputFormat = checkCommand.format ?? self.outputFormat
         self.allowSuperfluousExclusion = checkCommand.superfluousExclusion ?? self.allowSuperfluousExclusion
         self.allowEmptyPatterns = checkCommand.emptyPatterns ?? self.allowEmptyPatterns
@@ -47,6 +51,7 @@ extension Configuration {
 
 extension Configuration {
     mutating func extend(with formatCommand: Format) {
+        self.extend(with: formatCommand.options)
         self.columnLimit = formatCommand.columnLimit ?? self.columnLimit
         self.addPlaceholder = formatCommand.addPlaceholder ?? self.addPlaceholder
         self.startLine = formatCommand.startLine ?? self.startLine
