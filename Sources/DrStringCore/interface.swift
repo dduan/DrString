@@ -27,9 +27,6 @@ struct SharedCommandLineOptions: ParsableArguments {
     @OptionGroup()
     var basics: SharedCommandLineBasicOptions
 
-    @Flag(help: "Override `exclude` so that its value is empty.")
-    var noExclude: Bool = false
-
     @Flag(
         inversion: .prefixedNo,
         help: "Whether it's ok to not have docstring for what a function/method throws. Optional. Default to 'yes'.")
