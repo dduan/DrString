@@ -46,7 +46,7 @@ let package = Package(
         // For testing
         .package(
             url: "https://github.com/llvm-swift/FileCheck.git",
-            .exact("0.2.4")
+            .exact("0.2.5")
         ),
     ],
     targets: [
