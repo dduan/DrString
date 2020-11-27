@@ -34,7 +34,7 @@ _drstring() {
     COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
 }
 _drstring_check() {
-    opts="--config-file -i --include -x --exclude --no-exclude --no-exclude --ignore-throws --no-ignore-throws --ignore-returns --no-ignore-returns --first-letter --needs-separation --no-needs-separation --vertical-align --no-vertical-align --parameter-style --align-after-colon --no-align-after-colon --format --superfluous-exclusion --no-superfluous-exclusion --empty-patterns --no-empty-patterns -h --help"
+    opts="--config-file -i --include -x --exclude --no-exclude --ignore-throws --no-ignore-throws --ignore-returns --no-ignore-returns --first-letter --needs-separation --no-needs-separation --vertical-align --no-vertical-align --parameter-style --align-after-colon --no-align-after-colon --format --superfluous-exclusion --no-superfluous-exclusion --empty-patterns --no-empty-patterns -h --help"
     if [[ $COMP_CWORD == "$1" ]]; then
         COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
         return
@@ -84,7 +84,7 @@ _drstring_explain() {
     COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
 }
 _drstring_format() {
-    opts="--config-file -i --include -x --exclude --no-exclude --no-exclude --ignore-throws --no-ignore-throws --ignore-returns --no-ignore-returns --first-letter --needs-separation --no-needs-separation --vertical-align --no-vertical-align --parameter-style --align-after-colon --no-align-after-colon --column-limit --add-placeholder --no-add-placeholder --start-line --end-line -h --help"
+    opts="--config-file -i --include -x --exclude --no-exclude --ignore-throws --no-ignore-throws --ignore-returns --no-ignore-returns --first-letter --needs-separation --no-needs-separation --vertical-align --no-vertical-align --parameter-style --align-after-colon --no-align-after-colon --column-limit --add-placeholder --no-add-placeholder --start-line --end-line -h --help"
     if [[ $COMP_CWORD == "$1" ]]; then
         COMPREPLY=( $(compgen -W "$opts" -- "$cur") )
         return
