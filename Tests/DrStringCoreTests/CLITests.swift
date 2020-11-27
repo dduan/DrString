@@ -4,11 +4,11 @@ import Pathos
 import XCTest
 
 final class CLITests: XCTestCase {
-    private let directory: String = { "/" + #file.split(separator: "/").dropLast().joined(separator: "/") }()
+    private let directory = Path(#file).parent
 
     func testConfigFileOptionsAreProperlyParsedForCheckSubcommand() throws {
-        let configFilePath = join(paths: self.directory, "Fixtures", "config0.toml")
-        let arguments = ["check", "--config-file", configFilePath]
+        let configFilePath = self.directory +  "Fixtures" + "config0.toml"
+        let arguments = ["check", "--config-file", "\(configFilePath)"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
         XCTAssertEqual(command?.config?.firstKeywordLetter, .lowercase)
@@ -16,8 +16,8 @@ final class CLITests: XCTestCase {
     }
 
     func testCommandLineArgumentOverridesConfigFileOptionForCheckSubcommand() throws {
-        let configFilePath = join(paths: self.directory, "Fixtures", "config0.toml")
-        let arguments = ["check", "--config-file", configFilePath, "--first-letter", "uppercase"]
+        let configFilePath = self.directory + "Fixtures" + "config0.toml"
+        let arguments = ["check", "--config-file", "\(configFilePath)", "--first-letter", "uppercase"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
         XCTAssertEqual(command?.config?.firstKeywordLetter, .uppercase)
@@ -25,8 +25,8 @@ final class CLITests: XCTestCase {
     }
 
     func testConfigFileOptionsAreProperlyParsedForFormatSubcommand() throws {
-        let configFilePath = join(paths: self.directory, "Fixtures", "config0.toml")
-        let arguments = ["format", "--config-file", configFilePath]
+        let configFilePath = self.directory + "Fixtures" + "config0.toml"
+        let arguments = ["format", "--config-file", "\(configFilePath)"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
         XCTAssertEqual(command?.config?.firstKeywordLetter, .lowercase)
@@ -34,8 +34,8 @@ final class CLITests: XCTestCase {
     }
 
     func testCommandLineArgumentOverridesConfigFileOptionForFormatSubcommand() throws {
-        let configFilePath = join(paths: self.directory, "Fixtures", "config0.toml")
-        let arguments = ["format", "--config-file", configFilePath, "--first-letter", "uppercase"]
+        let configFilePath = self.directory + "Fixtures" + "config0.toml"
+        let arguments = ["format", "--config-file", "\(configFilePath)", "--first-letter", "uppercase"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
         XCTAssertEqual(command?.config?.firstKeywordLetter, .uppercase)
@@ -43,8 +43,8 @@ final class CLITests: XCTestCase {
     }
 
     func testCommandLineArgumentOverridesConfigFileOptionByExplicitNegation() throws {
-        let configFilePath = join(paths: self.directory, "Fixtures", "config0.toml")
-        let arguments = ["format", "--config-file", configFilePath, "--no-needs-separation"]
+        let configFilePath = self.directory + "Fixtures" + "config0.toml"
+        let arguments = ["format", "--config-file", "\(configFilePath)", "--no-needs-separation"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
         XCTAssertEqual(command?.config?.separatedSections, .some([]))

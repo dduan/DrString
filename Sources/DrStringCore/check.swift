@@ -63,8 +63,8 @@ public func check(with config: Configuration, configFile: String?) throws {
     let queue = DispatchQueue(label: "ca.duan.DrString.concurrent", attributes: .concurrent)
     let serialQueue = DispatchQueue(label: "ca.duan.DrString.serial")
 
-    let (included, invalidIncludePatterns) = expandGlob(patterns: config.includedPaths)
-    let (excluded, invalidExcludePatterns) = expandGlob(patterns: config.excludedPaths)
+    let (included, invalidIncludePatterns) = expandGlob(patterns: config.includedPaths.map(Path.init))
+    let (excluded, invalidExcludePatterns) = expandGlob(patterns: config.excludedPaths.map(Path.init))
 
     if !config.allowEmptyPatterns {
         let allInvalidPatterns = invalidIncludePatterns.map { ($0, "inclusion") }
@@ -73,8 +73,8 @@ public func check(with config: Configuration, configFile: String?) throws {
         for (pattern, description) in allInvalidPatterns {
             report(
                 .init(
-                    docName: pattern,
-                    filePath: pattern,
+                    docName: String(describing: pattern),
+                    filePath: String(describing: pattern),
                     line: 0,
                     column: 0,
                     details: [.invalidPattern(description, configFile)]),
@@ -94,7 +94,7 @@ public func check(with config: Configuration, configFile: String?) throws {
         queue.async(group: group) {
             do {
                 var foundProblems = false
-                let (documentables, _) = try extractDocs(fromSourcePath: path)
+                let (documentables, _) = try extractDocs(fromSource: path)
                 for documentable in documentables.compactMap({ $0 }) {
                     if let problem = try documentable.validate(
                         ignoreThrows: ignoreThrows,
@@ -117,12 +117,12 @@ public func check(with config: Configuration, configFile: String?) throws {
 
                 if !foundProblems &&
                     !config.allowSuperfluousExclusion &&
-                    config.excludedPaths.contains(path)
+                    config.excludedPaths.contains(String(describing: path))
                 {
                     report(
                         .init(
                             docName: "",
-                            filePath: path,
+                            filePath: String(describing: path),
                             line: 0,
                             column: 0,
                             details: [.excludedYetNoProblemIsFound(configFile)]
@@ -143,11 +143,11 @@ public func check(with config: Configuration, configFile: String?) throws {
     group.wait()
 
     if !config.allowSuperfluousExclusion {
-        for path in config.excludedPaths.filter({ !$0.contains("*") && !included.contains($0) }) {
+        for path in config.excludedPaths.filter({ !$0.contains("*") && !included.contains(Path($0)) }) {
             report(
                 .init(
                     docName: "",
-                    filePath: path,
+                    filePath: String(describing: path),
                     line: 0,
                     column: 0,
                     details: [.excludedYetNotIncluded]
@@ -173,19 +173,4 @@ public func check(with config: Configuration, configFile: String?) throws {
 
         throw CheckError.foundProblems(summary)
     }
-}
-
-private func expandGlob(patterns: [String]) -> (Set<String>, Set<String>) {
-    var valid = Set<String>()
-    var invalid = Set<String>()
-    for pattern in patterns {
-        let expanded = (try? Pathos.glob(pattern)) ?? []
-        if expanded.isEmpty {
-            invalid.insert(pattern)
-        } else {
-            valid.formUnion(expanded)
-        }
-    }
-
-    return (valid, invalid)
 }

@@ -2,13 +2,13 @@ import Models
 import Pathos
 import SwiftSyntax
 
-public func extractDocs(fromSourcePath sourcePath: String) throws -> ([Documentable], String) {
-    let source = try readString(atPath: sourcePath)
+public func extractDocs(fromSource sourcePath: Path) throws -> ([Documentable], String) {
+    let source = try sourcePath.readUTF8String()
     let extractor = try DocExtractor(sourceText: source, sourcePath: sourcePath)
     return (try extractor.extractDocs(), source)
 }
 
-public func extractDocs(fromSource source: String, sourcePath: String?) throws -> [Documentable] {
+public func extractDocs(fromSource source: String, sourcePath: Path?) throws -> [Documentable] {
     let extractor = try DocExtractor(sourceText: source, sourcePath: sourcePath)
     return try extractor.extractDocs()
 }
@@ -18,10 +18,10 @@ final class DocExtractor: SyntaxRewriter {
     private let syntax: SourceFileSyntax
     private let converter: SourceLocationConverter
 
-    init(sourceText: String, sourcePath: String?) throws {
+    init(sourceText: String, sourcePath: Path?) throws {
         let tree = try SyntaxParser.parse(source: sourceText)
         self.syntax = tree
-        self.converter = SourceLocationConverter(file: sourcePath ?? "", source: sourceText)
+        self.converter = SourceLocationConverter(file: sourcePath.map(String.init(describing:)) ?? "", source: sourceText)
     }
 
     func extractDocs() throws -> [Documentable] {

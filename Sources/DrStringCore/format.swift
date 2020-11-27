@@ -22,7 +22,7 @@ enum FormatError: Error, LocalizedError {
     }
 }
 
-public func formatEdits(fromSource source: String, path: String? = nil, with config: Configuration) throws -> [Edit] {
+public func formatEdits(fromSource source: String, path: Path? = nil, with config: Configuration) throws -> [Edit] {
     var edits = [Edit]()
     let documentables = try extractDocs(fromSource: source, sourcePath: path)
     for documentable in documentables.compactMap({ $0 }) {
@@ -52,8 +52,8 @@ public func format(with config: Configuration) throws {
     var editCount = 0
     var fileCount = 0
 
-    let included = Set((try? config.includedPaths.flatMap(glob)) ?? [])
-    let excluded = Set((try? config.excludedPaths.flatMap(glob)) ?? [])
+    let included = Set((config.includedPaths.compactMap { try? Path($0).glob() }).flatMap { $0 })
+    let excluded = Set((config.excludedPaths.compactMap { try? Path($0).glob() }).flatMap { $0 })
 
     let group = DispatchGroup()
     let queue = DispatchQueue.global()
@@ -61,7 +61,7 @@ public func format(with config: Configuration) throws {
         group.enter()
         queue.async {
             do {
-                let source = try readString(atPath: path)
+                let source = try path.readUTF8String()
                 let edits = try formatEdits(fromSource: source, path: path, with: config)
 
                 if !edits.isEmpty {
@@ -78,11 +78,11 @@ public func format(with config: Configuration) throws {
                     editedLines += originalLines[lastPosition...]
 
                     let finalText = editedLines.joined(separator: "\n")
-                    try write(finalText, atPath: path)
+                    try path.write(utf8: finalText)
                     editCount += edits.count
                 }
             } catch let error {
-                fatalError(String(describing: error) + path)
+                fatalError("\(error): \(path)")
             }
 
             group.leave()
