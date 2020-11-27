@@ -3,20 +3,17 @@ import Pathos
 import XCTest
 
 final class FormattingTests: XCTestCase {
-    private let directory: String = {
-        "/" + #file.split(separator: "/").dropLast().joined(separator: "/")
-    }()
+    private let directory = Path(#file).parent
 
     func testFormatPatchesFilesProperly0() throws {
-        try withTemporaryDirectory { path in
+        try Path.withTemporaryDirectory { path in
             for fileName in ["source0", "source1", "expectation0", "expectation1"] {
-                try! copyFile(
-                    fromPath: join(paths: self.directory, "Fixtures", "Formatting", "\(fileName).fixture"),
-                    toPath: join(paths: path, "\(fileName).swift"))
+                try! self.directory.joined(with: "Fixtures", "Formatting", "\(fileName).fixture")
+                    .copy(to: path.joined(with: "\(fileName).swift"))
             }
 
             var config = Configuration()
-            config.includedPaths = [join(paths: path, "source0.swift"), join(paths: path, "source1.swift")]
+            config.includedPaths = ["\(path + "source0.swift")", "\(path + "source1.swift")"]
             config.verticalAlignParameterDescription = true
             config.parameterStyle = .separate
             config.columnLimit = 100
@@ -24,34 +21,33 @@ final class FormattingTests: XCTestCase {
             try format(with: config)
 
             XCTAssertEqual(
-                try! readString(atPath: join(paths: path, "source0.swift")),
-                try! readString(atPath: join(paths: path, "expectation0.swift"))
+                try! (path + "source0.swift").readUTF8String(),
+                try! (path + "expectation0.swift").readUTF8String()
             )
             XCTAssertEqual(
-                try! readString(atPath: join(paths: path, "source1.swift")),
-                try! readString(atPath: join(paths: path, "expectation1.swift"))
+                try! (path + "source1.swift").readUTF8String(),
+                try! (path + "expectation1.swift").readUTF8String()
             )
         }
     }
 
     private func verify(sourceName: String, expectationName: String, file: StaticString = #file, line: UInt = #line) throws {
-        try withTemporaryDirectory { path in
+        try Path.withTemporaryDirectory { path in
             for fileName in [sourceName, expectationName] {
-                try! copyFile(
-                    fromPath: join(paths: self.directory, "Fixtures", "Formatting", "\(fileName).fixture"),
-                    toPath: join(paths: path, "\(fileName).swift"))
+                try! self.directory.joined(with: "Fixtures", "Formatting", "\(fileName).fixture")
+                    .copy(to: path + "\(fileName).swift")
             }
 
             var config = Configuration()
-            config.includedPaths = [join(paths: path, "\(sourceName).swift")]
+            config.includedPaths = ["\(path + "\(sourceName).swift")"]
             config.verticalAlignParameterDescription = true
             config.parameterStyle = .separate
             config.columnLimit = 100
             try format(with: config)
 
             XCTAssertEqual(
-                try! readString(atPath: join(paths: path, "\(sourceName).swift")),
-                try! readString(atPath: join(paths: path, "\(expectationName).swift")),
+                try! (path + "\(sourceName).swift").readUTF8String(),
+                try! (path + "\(expectationName).swift").readUTF8String(),
                 file: file, line: line
             )
         }

@@ -3,13 +3,13 @@ import Pathos
 import TOMLDecoder
 import Models
 
-private func configFromFile(_ configPath: String) throws -> Configuration? {
-    if let configText = try? readString(atPath: configPath) {
+private func configFromFile(_ configPath: Path) throws -> Configuration? {
+    if let configText = try? configPath.readUTF8String() {
         do {
             let decoded = try TOMLDecoder().decode(Configuration.self, from: configText)
             return decoded
         } catch let error {
-            throw ConfigFileError.configFileIsInvalid(path: configPath, underlyingError: error)
+            throw ConfigFileError.configFileIsInvalid(path: String(describing: configPath), underlyingError: error)
         }
     }
 
@@ -17,34 +17,34 @@ private func configFromFile(_ configPath: String) throws -> Configuration? {
 }
 
 private func makeConfig(from basicOptions: SharedCommandLineBasicOptions) throws -> (String?, Configuration) {
-    let explicitPath: String? = basicOptions.configFile
-    if let explicitPath = explicitPath, (try? isA(.file, atPath: explicitPath)) != .some(true) {
-        throw ConfigFileError.configFileDoesNotExist(explicitPath)
+    let explicitPath = basicOptions.configFile.map(Path.init)
+    if let explicitPath = explicitPath,
+        (try? explicitPath.metadata().fileType.isFile) != .some(true)
+    {
+        throw ConfigFileError.configFileDoesNotExist(String(describing: explicitPath))
     }
 
     let exampleInput = basicOptions.include.first { !$0.contains("*") }
-    let configPath = explicitPath ?? seekConfigFile(forPath: exampleInput ?? ".")
+    let configPath = explicitPath ?? seekConfigFile(for: Path(exampleInput ?? "."))
     var config = Configuration()
     var configPathResult: String?
     if let decoded = try configFromFile(configPath) {
         config = decoded
-        configPathResult = configPath
+        configPathResult = String(describing: configPath)
     }
 
     return (configPathResult, config)
 }
 
-private let kDefaultConfigurationPath = ".drstring.toml"
-private func seekConfigFile(forPath path: String) -> String {
-    guard var dir = try? absolutePath(ofPath: path) else {
+private let kDefaultConfigurationPath = Path(".drstring.toml")
+private func seekConfigFile(for path: Path) -> Path {
+    guard let dir = try? path.absolute() else {
         return kDefaultConfigurationPath
     }
 
-    while dir != "/" {
-        dir = directory(ofPath: dir)
-        if case let path = join(paths: dir, kDefaultConfigurationPath),
-            (try? isA(.file, atPath: path)) == .some(true)
-        {
+    for parent in dir.parents {
+        let path = parent + kDefaultConfigurationPath
+        if (try? path.metadata().fileType.isFile) == .some(true) {
             return path
         }
     }

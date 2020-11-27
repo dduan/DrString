@@ -28,8 +28,8 @@ public func extract(with config: Configuration) throws {
     let group = DispatchGroup()
     let queue = DispatchQueue(label: "ca.duan.DrString.concurrent", attributes: .concurrent)
 
-    let (included, _) = expandGlob(patterns: config.includedPaths)
-    let (excluded, _) = expandGlob(patterns: config.excludedPaths)
+    let (included, _) = expandGlob(patterns: config.includedPaths.map(Path.init))
+    let (excluded, _) = expandGlob(patterns: config.excludedPaths.map(Path.init))
 
     print("[", terminator: "")
     for path in included {
@@ -40,7 +40,7 @@ public func extract(with config: Configuration) throws {
 
         queue.async(group: group) {
             do {
-                let (documentables, _) = try extractDocs(fromSourcePath: path)
+                let (documentables, _) = try extractDocs(fromSource: path)
                 for documentable in documentables.compactMap({ $0 }) {
                     if !documentable.docLines.isEmpty, let docstring = try? parse(lines: documentable.docLines) {
                         let documented = Documented(documentable: documentable, docstring: docstring)
@@ -64,19 +64,4 @@ public func extract(with config: Configuration) throws {
 
     group.wait()
     print("]", terminator: "")
-}
-
-private func expandGlob(patterns: [String]) -> (Set<String>, Set<String>) {
-    var valid = Set<String>()
-    var invalid = Set<String>()
-    for pattern in patterns {
-        let expanded = (try? Pathos.glob(pattern)) ?? []
-        if expanded.isEmpty {
-            invalid.insert(pattern)
-        } else {
-            valid.formUnion(expanded)
-        }
-    }
-
-    return (valid, invalid)
 }
