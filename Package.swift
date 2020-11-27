@@ -40,13 +40,13 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser",
-            .exact("0.3.0")
+            .exact("0.3.1")
         ),
 
         // For testing
         .package(
             url: "https://github.com/llvm-swift/FileCheck.git",
-            .exact("0.2.4")
+            .exact("0.2.5")
         ),
     ],
     targets: [

@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/llvm-swift/FileCheck.git",
         "state": {
           "branch": null,
-          "revision": "f25bfb4c69b9e05bf6b8d0862dcedb875c1b0f68",
-          "version": "0.2.4"
+          "revision": "0dc8a5bff1a7f01e1d7bcc20c79e2127b2ea3eeb",
+          "version": "0.2.5"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "15351c1cd009eba0b6e438bfef55ea9847a8dc4a",
-          "version": "0.3.0"
+          "revision": "92646c0cdbaca076c8d3d0207891785b3379cbff",
+          "version": "0.3.1"
         }
       },
       {
@@ -62,15 +62,6 @@
           "branch": null,
           "revision": "844574d683f53d0737a9c6d706c3ef31ed2955eb",
           "version": "0.50300.0"
-        }
-      },
-      {
-        "package": "swift-tools-support-core",
-        "repositoryURL": "https://github.com/apple/swift-tools-support-core.git",
-        "state": {
-          "branch": null,
-          "revision": "693aba4c4c9dcc4767cc853a0dd38bf90ad8c258",
-          "version": "0.0.1"
         }
       },
       {
