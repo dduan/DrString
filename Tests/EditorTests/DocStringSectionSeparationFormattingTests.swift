@@ -5,6 +5,7 @@ import XCTest
 final class DocStringSectionSeparationFormattingTests: XCTestCase {
     func testFormattingEmptyDocString() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
@@ -25,12 +26,14 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testDescriptionSeparatorGetsAdded() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "Description"),
             ],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -65,6 +68,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testDescriptionSeparatorDoesNotGetAddedIfUnnecessary() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "Description"),
                 .init("", ""),
@@ -72,6 +76,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -106,6 +111,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testDescriptionSeparatorDoesNotGetAddedIfItsTheLastSection() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "Description"),
             ],
@@ -135,10 +141,12 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testParameterSeparatorGetsAdded() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -149,6 +157,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     ])
             ],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -181,10 +190,12 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testParametersSeparatorDoesNotGetAddedIfUnnecessary() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -196,6 +207,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     ])
             ],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -229,10 +241,12 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testParameterSeparatorDoesNotGetAddedIfItsTheLastSection() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -266,10 +280,12 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testThrowsSeparatorGetsAdded() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -279,6 +295,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     .init(" ", "description for returns.")
                 ]),
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -310,10 +327,12 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testThrowsSeparatorDoesNotGetAddedIfUnnecessary() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -323,6 +342,7 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
                     .init(" ", "description for returns.")
                 ]),
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -355,11 +375,13 @@ final class DocStringSectionSeparationFormattingTests: XCTestCase {
 
     func testThrowsSeparatorDoesNotGetAddedIfItsTheLastSection() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),

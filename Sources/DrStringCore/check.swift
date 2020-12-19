@@ -77,7 +77,7 @@ public func check(with config: Configuration, configFile: String?) throws {
                     filePath: String(describing: pattern),
                     line: 0,
                     column: 0,
-                    details: [.invalidPattern(description, configFile)]),
+                    detail: .invalidPattern(description, configFile)),
                 format: config.outputFormat
             )
         }
@@ -96,21 +96,24 @@ public func check(with config: Configuration, configFile: String?) throws {
                 var foundProblems = false
                 let (documentables, _) = try extractDocs(fromSource: path)
                 for documentable in documentables.compactMap({ $0 }) {
-                    if let problem = try documentable.validate(
+                    let problems = try documentable.validate(
                         ignoreThrows: ignoreThrows,
                         ignoreReturns: ignoreReturns,
                         firstLetterUpper: firstLetterUpper,
                         needsSeparation: config.separatedSections,
                         verticalAlign: config.verticalAlignParameterDescription,
                         parameterStyle: config.parameterStyle,
-                        alignAfterColon: config.alignAfterColon)
-                    {
+                        alignAfterColon: config.alignAfterColon
+                    )
+                    if !problems.isEmpty {
                         foundProblems = true
                         if !isPathExcluded {
                             serialQueue.async {
-                                problemCount += problem.details.count
+                                problemCount += problems.count
                             }
-                            report(problem, format: config.outputFormat)
+                            for problem in problems {
+                                report(problem, format: config.outputFormat)
+                            }
                         }
                     }
                 }
@@ -125,7 +128,7 @@ public func check(with config: Configuration, configFile: String?) throws {
                             filePath: String(describing: path),
                             line: 0,
                             column: 0,
-                            details: [.excludedYetNoProblemIsFound(configFile)]
+                            detail: .excludedYetNoProblemIsFound(configFile)
                         ),
                         format: config.outputFormat
                     )
@@ -150,7 +153,7 @@ public func check(with config: Configuration, configFile: String?) throws {
                     filePath: String(describing: path),
                     line: 0,
                     column: 0,
-                    details: [.excludedYetNotIncluded]
+                    detail: .excludedYetNotIncluded
                     ),
                 format: config.outputFormat
             )

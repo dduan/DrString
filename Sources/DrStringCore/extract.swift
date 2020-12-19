@@ -42,9 +42,16 @@ public func extract(with config: Configuration) throws {
             do {
                 let (documentables, _) = try extractDocs(fromSource: path)
                 for documentable in documentables.compactMap({ $0 }) {
-                    if !documentable.docLines.isEmpty, let docstring = try? parse(lines: documentable.docLines) {
+                    if !documentable.docLines.isEmpty,
+                        let docstring = try? parse(
+                            location: .init(path: documentable.path, line: documentable.startLine - documentable.docLines.count),
+                            lines: documentable.docLines
+                        )
+                    {
                         let documented = Documented(documentable: documentable, docstring: docstring)
-                        if let json = try? JSONEncoder().encode(documented), let jsonString = String(data: json, encoding: .utf8) {
+                        if let json = try? JSONEncoder().encode(documented),
+                            let jsonString = String(data: json, encoding: .utf8)
+                        {
                             serialQueue.async {
                                 if hasOutput {
                                     print(",")

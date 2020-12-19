@@ -22,12 +22,14 @@ extension Documentable {
             return []
         }
 
-        let perhapsDocs = self.docLines.isEmpty && addPlaceholder ? nil : try? parse(lines: self.docLines)
+        let perhapsDocs = self.docLines.isEmpty && addPlaceholder ? nil : try? parse(location: .init(),
+                                                                                     lines: self.docLines)
         if !addPlaceholder && perhapsDocs == nil {
             return []
         }
 
         var docs = perhapsDocs ?? DocString(
+            location: .init(),
             description: [], parameterHeader: nil, parameters: [], returns: nil, throws: nil)
 
         if addPlaceholder {
@@ -92,6 +94,7 @@ extension Documentable {
             } else {
                 parameterDocs.append(
                     .init(
+                        relativeLineNumber: 0,
                         preDashWhitespaces: "",
                         keyword: nil,
                         name: .init("", param.name),
@@ -108,6 +111,7 @@ extension Documentable {
         let doesThrow = self.details.throws
         if doesThrow && docs.throws == nil && !ignoreThrows {
             docs.throws = .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: "",
                 keyword: nil,
                 name: .empty,
@@ -122,6 +126,7 @@ extension Documentable {
         let returnType = self.details.returnType
         if let returnType = returnType, docs.returns == nil && !ignoreReturns {
             docs.returns = .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: "",
                 keyword: nil,
                 name: .empty,

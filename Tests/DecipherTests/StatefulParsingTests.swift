@@ -18,11 +18,13 @@ final class StatefulParsingTests: XCTestCase {
         """
 
         let expected = DocString(
+            location: .init(path: "", line: 0, column: 0),
             description: [
                 .init(" ", "Overall description"),
                 .empty,
             ],
             parameterHeader: .init(
+                relativeLineNumber: 2,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Parameters"),
                 name: .init("", ""),
@@ -32,6 +34,7 @@ final class StatefulParsingTests: XCTestCase {
             ),
             parameters: [
                 .init(
+                    relativeLineNumber: 3,
                     preDashWhitespaces: "   ",
                     keyword: nil,
                     name: .init(" ", "d"),
@@ -42,6 +45,7 @@ final class StatefulParsingTests: XCTestCase {
                     ]
                 ),
                 .init(
+                    relativeLineNumber: 4,
                     preDashWhitespaces: "   ",
                     keyword: nil,
                     name: .init(" ", "c"),
@@ -52,6 +56,7 @@ final class StatefulParsingTests: XCTestCase {
                     ]
                 ),
                 .init(
+                    relativeLineNumber: 5,
                     preDashWhitespaces: "   ",
                     keyword: nil,
                     name: .init(" ", "b"),
@@ -62,6 +67,7 @@ final class StatefulParsingTests: XCTestCase {
                     ]
                 ),
                 .init(
+                    relativeLineNumber: 6,
                     preDashWhitespaces: "   ",
                     keyword: nil,
                     name: .init(" ", "a"),
@@ -74,6 +80,7 @@ final class StatefulParsingTests: XCTestCase {
                 ),
             ],
             returns: .init(
+                relativeLineNumber: 8,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .empty,
@@ -82,6 +89,7 @@ final class StatefulParsingTests: XCTestCase {
                 description: [.init(" ", "Returns description")]
             ),
             throws: .init(
+                relativeLineNumber: 9,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .empty,
@@ -91,7 +99,7 @@ final class StatefulParsingTests: XCTestCase {
             )
         )
 
-        let actual = try parse(lines: text.split(separator: "\n").map(String.init))
+        let actual = try parse(location: .init(), lines: text.split(separator: "\n").map(String.init))
 
         XCTAssertEqual(actual, expected)
     }
@@ -110,6 +118,7 @@ final class StatefulParsingTests: XCTestCase {
         """
 
         let expected = DocString(
+            location: .init(),
             description: [
                 .init(" ", "Overall description"),
                 .empty
@@ -117,6 +126,7 @@ final class StatefulParsingTests: XCTestCase {
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 2,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "d"),
@@ -127,6 +137,7 @@ final class StatefulParsingTests: XCTestCase {
                     ]
                 ),
                 .init(
+                    relativeLineNumber: 3,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "c"),
@@ -137,6 +148,7 @@ final class StatefulParsingTests: XCTestCase {
                     ]
                 ),
                 .init(
+                    relativeLineNumber: 4,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "b"),
@@ -147,6 +159,7 @@ final class StatefulParsingTests: XCTestCase {
                     ]
                 ),
                 .init(
+                    relativeLineNumber: 5,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
@@ -159,6 +172,7 @@ final class StatefulParsingTests: XCTestCase {
                 ),
             ],
             returns: .init(
+                relativeLineNumber: 7,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .empty,
@@ -167,6 +181,7 @@ final class StatefulParsingTests: XCTestCase {
                 description: [.init(" ", "Returns description")]
             ),
             throws: .init(
+                relativeLineNumber: 8,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .empty,
@@ -176,7 +191,7 @@ final class StatefulParsingTests: XCTestCase {
             )
         )
 
-        let actual = try parse(lines: text.split(separator: "\n").map(String.init))
+        let actual = try parse(location: .init(), lines: text.split(separator: "\n").map(String.init))
 
         XCTAssertEqual(actual, expected)
     }

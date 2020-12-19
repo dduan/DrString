@@ -73,6 +73,7 @@ extension ProblemCheckingTests {
         ("testMissingSectionSeparator", testMissingSectionSeparator),
         ("testMissingStuff", testMissingStuff),
         ("testNoDocNoError", testNoDocNoError),
+        ("testProblemPositions", testProblemPositions),
         ("testRedundantKeywords", testRedundantKeywords),
         ("testRedundantKeywordsPathsOnly", testRedundantKeywordsPathsOnly),
         ("testSeparateLineInThrowsIsNotTreatedAsContinuedBody", testSeparateLineInThrowsIsNotTreatedAsContinuedBody),

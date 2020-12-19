@@ -6,6 +6,7 @@ final class ParametersTests: XCTestCase {
     func testMissingColonInParameterEntryIsReported() throws {
         let parameterName = "name"
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
@@ -23,6 +24,8 @@ final class ParametersTests: XCTestCase {
             returns: nil,
             throws: nil)
         let problems = try findParameterProblems(
+            fallback: .init(),
+            0,
             [
                 Parameter(
                     label: nil,
@@ -38,7 +41,7 @@ final class ParametersTests: XCTestCase {
             style: .separate,
             alignAfterColon: false)
 
-        guard case .some(.missingColon(let name)) = problems.first, name == parameterName else {
+        guard case .some(.missingColon(let name)) = problems.first?.1, name == parameterName else {
             XCTFail("Expected problem is not reported")
             return
         }
@@ -46,6 +49,7 @@ final class ParametersTests: XCTestCase {
 
     func testMissingColonInHeaderIsReported() throws {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: .init(
                 preDashWhitespaces: " ",
@@ -59,6 +63,8 @@ final class ParametersTests: XCTestCase {
             returns: nil,
             throws: nil)
         let problems = try findParameterProblems(
+            fallback: .init(),
+            0,
             [],
             doc,
             true,
@@ -67,7 +73,7 @@ final class ParametersTests: XCTestCase {
             style: .grouped,
             alignAfterColon: false)
 
-        guard case .some(.missingColon(let keyword)) = problems.first, keyword == "Parameters" else {
+        guard case .some(.missingColon(let keyword)) = problems.first?.1, keyword == "Parameters" else {
             XCTFail("Expected problem is not reported")
             return
         }

@@ -6,6 +6,7 @@ final class AlignmentTests: XCTestCase {
     func testContinuationLineWithOneSpaceIndentMissingForVerticalAlign() throws {
         let parameterName = "name"
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
@@ -25,6 +26,8 @@ final class AlignmentTests: XCTestCase {
             returns: nil,
             throws: nil)
         let problems = try findParameterProblems(
+            fallback: .init(),
+            0,
             [
                 Parameter(
                     label: nil,
@@ -40,7 +43,7 @@ final class AlignmentTests: XCTestCase {
             style: .separate,
             alignAfterColon: false)
 
-        guard case .some(.verticalAlignment) = problems.first else {
+        guard case .some(.verticalAlignment) = problems.first?.1 else {
             XCTFail("expected a missing space to be a problem")
             return
         }
