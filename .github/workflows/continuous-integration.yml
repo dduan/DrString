@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         xcode:
-          - 12.2
+          - 12.3
         action:
           - build
           - package-darwin
