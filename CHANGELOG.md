@@ -1,5 +1,7 @@
 ## main
 
+## 0.4.3
+
 - Introduce a new subcommand: `extract`. It outputs existing docsting, and the signature associated
   with it, in JSON format.
 
