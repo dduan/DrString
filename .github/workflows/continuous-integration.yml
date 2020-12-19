@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         swift:
-          - 5.3.1
+          - 5.3.2
         ubuntu:
           - bionic
           - focal
