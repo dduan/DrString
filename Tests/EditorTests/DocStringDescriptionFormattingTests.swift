@@ -5,6 +5,7 @@ import XCTest
 final class DocStringDescriptionFormattingTests: XCTestCase {
     func testFormattingEmptyDocString() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
@@ -24,6 +25,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
 
     func testDescriptionWithinColumnLimit() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "This is a line of description"),
                 .init(" ", "This is another line of description"),
@@ -54,6 +56,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
 
     func testDescriptionWithinColumnLimitWithInitialColumn() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "This is a line of description"),
                 .init(" ", "This is another line of description"),
@@ -84,6 +87,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
 
     func testEmptyLinesInDescriptionArePreserved() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "This is a line of description"),
                 .init("", ""),
@@ -120,6 +124,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
 
     func testLeadingWhiteSpacesInDescriptionArePreserved() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "This is a line of description"),
                 .init("     ", "This is another line of description"),
@@ -150,6 +155,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
 
     func testSingleLeadingWhiteSpaceIsAddedIfNecessary() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init("", "This is a line of description"),
                 .init("", ""),
@@ -184,6 +190,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
 
     func testExcessiveWhitespaceInEmptyLineAreRemoved() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "This is a line of description"),
                 .init("     ", ""),
@@ -216,6 +223,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
 
     func testLinesExceedingColumnLimitFlowsDownward() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "This is a line of description"),
                 .init("", ""),
@@ -249,6 +257,7 @@ final class DocStringDescriptionFormattingTests: XCTestCase {
 
     func testLinesExceedingColumnLimitFlowsDownwardAndPreservesLeadingWhitespace() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "This is a line of description"),
                 .init("", ""),

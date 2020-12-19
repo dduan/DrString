@@ -1,0 +1,28 @@
+// CHECK-DAG: 5:0: warning: |E012|
+// CHECK-DAG: 6:0: warning: |E002|
+// CHECK-DAG: 5:18: warning: |E008|
+/// f description
+/// - Parameter a : a description
+func f0(a: Int, b: Int)
+
+// CHECK-DAG: 15:6: warning: |E006|
+// CHECK-DAG: 15:17: warning: |E019|
+// CHECK-DAG: 17:10: warning: |E009|
+// CHECK-DAG: 18:4: warning: |E005|
+// CHECK-DAG: 19:0: warning: |E013|
+/// f description
+///
+/// -  Parameters
+///   - a: description a
+///      second line
+///    - b: description b
+/// - Returns: An int
+func f1(a: Int, b: Int)
+
+// CHECK-DAG: 25:10: warning: |E009|
+// CHECK-DAG: 27:9: warning: |E009|
+/// - Returns: some stuff
+///      and more
+/// - Throws: some stuff
+///     and more
+func f2() throws -> Int

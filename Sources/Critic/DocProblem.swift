@@ -5,14 +5,14 @@ public struct DocProblem {
     public let filePath: String
     public let line: Int
     public let column: Int
-    public let details: [Detail]
+    public let detail: Detail
 
-    public init(docName: String, filePath: String, line: Int, column: Int, details: [Detail]) {
+    public init(docName: String, filePath: String, line: Int, column: Int, detail: Detail) {
         self.docName = docName
         self.filePath = filePath
         self.line = line
         self.column = column
-        self.details = details
+        self.detail = detail
     }
 
     public enum Detail {

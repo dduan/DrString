@@ -5,6 +5,7 @@ import XCTest
 final class ReturnsTests: XCTestCase {
     func testAlignAfterColonIsNotAProblem() {
         let returnDoc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
@@ -19,13 +20,15 @@ final class ReturnsTests: XCTestCase {
                     .init("            ", "next line")
                 ]),
             throws: nil)
-        let problems = findReturnsProblems(ignoreReturns: false, returnDoc, returnType: "Int", firstLetterUpper: true,
+        let problems = findReturnsProblems(fallback: .init(0, 0), ignoreReturns: false, returnDoc,
+                                           returnType: "Int", firstLetterUpper: true,
                                            alignAfterColon: true)
         XCTAssert(problems.isEmpty)
     }
 
     func testAlignBeforeColonIsAProblem() {
         let returnDoc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
@@ -40,10 +43,10 @@ final class ReturnsTests: XCTestCase {
                     .init("    ", "next line")
                 ]),
             throws: nil)
-        let problems = findReturnsProblems(ignoreReturns: false, returnDoc, returnType: "Int",
-                                           firstLetterUpper: true, alignAfterColon: true)
+        let problems = findReturnsProblems(fallback: .init(0, 0), ignoreReturns: false, returnDoc,
+                                           returnType: "Int", firstLetterUpper: true, alignAfterColon: true)
 
-        guard case .some(.verticalAlignment(12, "Returns", 2)) = problems.first else {
+        guard case .some(.verticalAlignment(12, "Returns", 2)) = problems.first?.1 else {
             XCTFail("expected vertical aligment problem")
             return
         }
@@ -51,6 +54,7 @@ final class ReturnsTests: XCTestCase {
 
     func testMissingColonIsAProblem() {
         let returnDoc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
@@ -64,9 +68,9 @@ final class ReturnsTests: XCTestCase {
                     .init(" ", "start"),
                 ]),
             throws: nil)
-        let problems = findReturnsProblems(ignoreReturns: false, returnDoc, returnType: "Int",
-                                           firstLetterUpper: true, alignAfterColon: true)
-        guard case .some(.missingColon("Returns")) = problems.first else {
+        let problems = findReturnsProblems(fallback: .init(0, 0), ignoreReturns: false, returnDoc,
+                                           returnType: "Int", firstLetterUpper: true, alignAfterColon: true)
+        guard case .some(.missingColon("Returns")) = problems.first?.1 else {
             XCTFail("expected missing colon to be a problem")
             return
         }

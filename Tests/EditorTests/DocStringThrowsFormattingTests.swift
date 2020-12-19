@@ -5,11 +5,13 @@ import XCTest
 final class DocStringThrowsFormattingTests: XCTestCase {
     func testFormattingBasicThrows() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -39,11 +41,13 @@ final class DocStringThrowsFormattingTests: XCTestCase {
 
     func testFormattingBasicThrowsWithMissingColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -73,11 +77,13 @@ final class DocStringThrowsFormattingTests: XCTestCase {
 
     func testFormattingLowercaseKeyword() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -107,11 +113,13 @@ final class DocStringThrowsFormattingTests: XCTestCase {
 
     func testFormattingColumnLimitWithAlignAfterColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -142,11 +150,13 @@ final class DocStringThrowsFormattingTests: XCTestCase {
 
     func testFormattingColumnLimitWithoutAlignAfterColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -177,11 +187,13 @@ final class DocStringThrowsFormattingTests: XCTestCase {
 
     func testFormattingColumnLimitPreservesLeadingWhitespaces() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -215,11 +227,13 @@ final class DocStringThrowsFormattingTests: XCTestCase {
 
     func testFormattingColumnLimitRemoveExcessLeadingSpaceBeforeColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),
@@ -253,11 +267,13 @@ final class DocStringThrowsFormattingTests: XCTestCase {
 
     func testFormattingColumnLimitPreservesExcessLeadingSpaceAfterColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: nil,
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init("", ""),

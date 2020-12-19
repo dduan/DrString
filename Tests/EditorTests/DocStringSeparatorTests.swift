@@ -5,12 +5,14 @@ import XCTest
 final class DocStringSeparatorTests: XCTestCase {
     func testAddsMissingSeparatorAfterDescription() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "Description")
             ],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
@@ -44,6 +46,7 @@ final class DocStringSeparatorTests: XCTestCase {
 
     func testDoesNotAddSeparatorAfterDescriptionIfNotNecessary() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "Description"),
                 .init("", ""),
@@ -51,6 +54,7 @@ final class DocStringSeparatorTests: XCTestCase {
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
@@ -84,12 +88,14 @@ final class DocStringSeparatorTests: XCTestCase {
 
     func testDoesNotAddSeparatorAfterDescriptionIfNotRequired() {
         let doc = DocString(
+            location: .init(),
             description: [
                 .init(" ", "Description"),
             ],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
@@ -122,10 +128,12 @@ final class DocStringSeparatorTests: XCTestCase {
 
     func testAddsMissingSeparatorAfterParameters() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
@@ -136,6 +144,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     ])
             ],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
@@ -167,10 +176,12 @@ final class DocStringSeparatorTests: XCTestCase {
 
     func testDoesNotAddSeparatorAfterParametersIfNotNecessary() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
@@ -182,6 +193,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     ])
             ],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
@@ -213,10 +225,12 @@ final class DocStringSeparatorTests: XCTestCase {
 
     func testDoesNotAddSeparatorAfterParametersIfNotRequired() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "a"),
@@ -227,6 +241,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     ])
             ],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
@@ -256,10 +271,12 @@ final class DocStringSeparatorTests: XCTestCase {
     }
     func testAddsMissingSeparatorAfterThrows() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
@@ -269,6 +286,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     .init(" ", "stuff")
                 ]),
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init(" ", ""),
@@ -300,10 +318,12 @@ final class DocStringSeparatorTests: XCTestCase {
 
     func testDoesNotAddSeparatorAfterThrowsIfNotNecessary() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
@@ -313,6 +333,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     .init(" ", "stuff"),
                 ]),
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init(" ", ""),
@@ -345,10 +366,12 @@ final class DocStringSeparatorTests: XCTestCase {
 
     func testDoesNotAddSeparatorAfterThrowsIfNotRequired() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init(" ", ""),
@@ -358,6 +381,7 @@ final class DocStringSeparatorTests: XCTestCase {
                     .init(" ", "stuff"),
                 ]),
             throws: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Throws"),
                 name: .init(" ", ""),

@@ -16,7 +16,7 @@ extension String {
 }
 
 /// Trim '///'. Return proceeding leading whitespace, and the rest.
-private func trimDocHead(fromLine line: String) throws -> (String.SubSequence, String.SubSequence) {
+private func trimDocHead(fromLine line: String) throws -> (Substring, Substring) {
     guard
         let docHeadEnd = line.endIndex(ofFirst: "///")
         else
@@ -36,8 +36,8 @@ func parseWords(fromLine line: String) throws -> TextLeadByWhitespace {
 
 // trim number of spaces, "-", number of spaces, and a word whose first letter captilization is ignored
 // return the whitespace between dash and the word, the word, and rest of the line.
-private func trimDash(fromLine line: String.SubSequence, firstLetter: Character, rest: String) throws
-    -> (String.SubSequence, String.SubSequence, String.SubSequence)?
+private func trimDash(fromLine line: Substring, firstLetter: Character, rest: String) throws
+    -> (Substring, Substring, Substring)?
 {
     let upper = String(firstLetter).uppercased().first!
     let lower = String(firstLetter).lowercased().first!
@@ -72,7 +72,7 @@ func parseGroupedParametersHeader(fromLine line: String) throws -> (String, Text
     return try descriptionAfterDash(line: line, firstLetter: "p", rest: "arameters")
 }
 
-private func splitNameColonDescription(fromLine postDash: String.SubSequence) -> (String, String, String, Bool, String, String)? {
+private func splitNameColonDescription(fromLine postDash: Substring) -> (String, String, String, Bool, String, String)? {
     guard let nameStart = postDash.firstIndex(where: { !$0.isWhitespace }),
         let nameEnd = postDash[nameStart...].firstIndex(where: { $0.isWhitespace || $0 == ":" })
         else

@@ -129,4 +129,10 @@ final class ProblemCheckingTests: XCTestCase {
     func testSeparateLineInThrowsIsNotTreatedAsContinuedBody() throws {
         XCTAssert(runTest(fileName: "147", alignAfterColon: [.throws], expectEmpty: true))
     }
+
+    func testProblemPositions() throws {
+        XCTAssert(
+            runTest(fileName: "positional", alignAfterColon: [.parameters, .returns, .throws],
+                    needsSeparation: [.description, .parameters]))
+    }
 }

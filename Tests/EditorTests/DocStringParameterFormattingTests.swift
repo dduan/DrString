@@ -5,10 +5,12 @@ import XCTest
 final class DocStringParameterFormattingTests: XCTestCase {
     func testSeparateSingleParameter() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -39,10 +41,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testSeparateSingleParameterWithMissingColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -73,10 +77,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testSeparateSingleParameterLowercase() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -107,10 +113,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testSeparateSingleParameterMultlineDescription() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -143,10 +151,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testSeparateSingleParameterMultlineDescriptionWithInitialColumn() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -179,10 +189,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testSeparateSingleParameterColumnLimit() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -216,10 +228,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testSeparateMultipleParametersNoVerticalAlignment() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -230,6 +244,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                         .init(" ", "line 2 of foo's description"),
                     ]),
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
@@ -264,10 +279,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testSeparateMultipleParametersVerticalAlignment() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -278,6 +295,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                         .init(" ", "line 2 of foo's description"),
                     ]),
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
@@ -312,10 +330,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testGroupedMultipleParameters() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -326,6 +346,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                         .init(" ", "line 2 of foo's description"),
                     ]),
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
@@ -361,10 +382,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testGroupedMultipleParametersVerticalAligned() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -375,6 +398,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                         .init(" ", "line 2 of foo's description"),
                     ]),
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
@@ -410,10 +434,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testGroupedMultipleParametersOverColumnLimit() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -424,6 +450,7 @@ final class DocStringParameterFormattingTests: XCTestCase {
                         .init(" ", "line 2 of foo's description"),
                     ]),
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "barbaz"),
@@ -460,10 +487,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testContinuationLineIsPaddedToProperLevel0() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -496,10 +525,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testContinuationLineIsPaddedToProperLevel1() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -532,10 +563,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testContinuationLeadingSpacesArePreservedWhenNecessary0() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -568,10 +601,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testContinuationLeadingSpacesArePreservedWhenNecessary1() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -604,10 +639,12 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testExtraIndentationsAreRemovedAndFoldingWorksProperly() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [
                 .init(
+                    relativeLineNumber: 0,
                     preDashWhitespaces: " ",
                     keyword: .init(" ", "Parameter"),
                     name: .init(" ", "foo"),
@@ -641,101 +678,107 @@ final class DocStringParameterFormattingTests: XCTestCase {
 
     func testVerticalAlign() {
         let doc = DocString(
-             description: [],
-             parameterHeader: nil,
-             parameters: [
-                 .init(
-                     preDashWhitespaces: " ",
-                     keyword: .init(" ", "Parameter"),
-                     name: .init(" ", "foo"),
-                     preColonWhitespace: "",
-                     hasColon: true,
-                     description: [
-                         .init("    ", "foo's description continues"),
-                         .init("   ", "foo's description continues"),
-                         .init("                    ", "it continues"),
-                         .init("                    ", "it continues"),
+            location: .init(),
+            description: [],
+            parameterHeader: nil,
+            parameters: [
+                .init(
+                    relativeLineNumber: 0,
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "foo"),
+                    preColonWhitespace: "",
+                    hasColon: true,
+                    description: [
+                        .init("    ", "foo's description continues"),
+                        .init("   ", "foo's description continues"),
+                        .init("                    ", "it continues"),
+                        .init("                    ", "it continues"),
                     ]),
 
-                 .init(
-                     preDashWhitespaces: " ",
-                     keyword: .init(" ", "Parameter"),
-                     name: .init(" ", "barzz"),
-                     preColonWhitespace: "",
-                     hasColon: true,
-                     description: [
-                         .init("  ", "barzz's des"),
+                .init(
+                    relativeLineNumber: 0,
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "barzz"),
+                    preColonWhitespace: "",
+                    hasColon: true,
+                    description: [
+                        .init("  ", "barzz's des"),
                     ]),
-             ],
-             returns: nil,
-             throws: nil)
+            ],
+            returns: nil,
+            throws: nil)
 
-         XCTAssertEqual(
-             doc.reformat(
-                 initialColumn: 0,
-                 columnLimit: 40,
-                 verticalAlign: true,
-                 alignAfterColon: [.parameters],
-                 firstLetterUpperCase: true,
-                 parameterStyle: .separate,
-                 separations: []
-             ),
-             [
-                 "/// - Parameter foo:   foo's description",
-                 "///                    continues",
-                 "///                    foo's description",
-                 "///                    continues",
-                 "///                    it continues",
-                 "///                    it continues",
-                 "/// - Parameter barzz: barzz's des"
-             ]
-         )
+        XCTAssertEqual(
+            doc.reformat(
+                initialColumn: 0,
+                columnLimit: 40,
+                verticalAlign: true,
+                alignAfterColon: [.parameters],
+                firstLetterUpperCase: true,
+                parameterStyle: .separate,
+                separations: []
+                ),
+            [
+                "/// - Parameter foo:   foo's description",
+                "///                    continues",
+                "///                    foo's description",
+                "///                    continues",
+                "///                    it continues",
+                "///                    it continues",
+                "/// - Parameter barzz: barzz's des"
+            ]
+        )
     }
 
     func testCorrectContinuationLinesArePreservedForVerticalAlignment() {
         let doc = DocString(
-               description: [],
-               parameterHeader: nil,
-               parameters: [
-                   .init(
-                       preDashWhitespaces: " ",
-                       keyword: .init(" ", "Parameter"),
-                       name: .init(" ", "mapPadding"),
-                       preColonWhitespace: "",
-                       hasColon: true,
-                       description: [
-                           .init("        ", "The padding for the map view in which the pin will"),
-                           .init("                                 ", "appear to be centered."),
-                      ]),
+            location: .init(),
+            description: [],
+            parameterHeader: nil,
+            parameters: [
+                .init(
+                    relativeLineNumber: 0,
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "mapPadding"),
+                    preColonWhitespace: "",
+                    hasColon: true,
+                    description: [
+                        .init("        ", "The padding for the map view in which the pin will"),
+                        .init("                                 ", "appear to be centered."),
+                    ]),
 
-                   .init(
-                       preDashWhitespaces: " ",
-                       keyword: .init(" ", "Parameter"),
-                       name: .init(" ", "presentationDelay"),
-                       preColonWhitespace: "",
-                       hasColon: true,
-                       description: [
-                           .init(" ", "The delay before the"),
-                      ]),
-               ],
-               returns: nil,
-               throws: nil)
+                .init(
+                    relativeLineNumber: 0,
+                    preDashWhitespaces: " ",
+                    keyword: .init(" ", "Parameter"),
+                    name: .init(" ", "presentationDelay"),
+                    preColonWhitespace: "",
+                    hasColon: true,
+                    description: [
+                        .init(" ", "The delay before the"),
+                    ]),
+            ],
+            returns: nil,
+            throws: nil)
 
-           XCTAssertEqual(
-               doc.reformat(
-                   initialColumn: 4,
-                   columnLimit: 110,
-                   verticalAlign: true,
-                   alignAfterColon: [.parameters],
-                   firstLetterUpperCase: true,
-                   parameterStyle: .separate,
-                   separations: []
-               ),
-               [
-                    "/// - Parameter mapPadding:        The padding for the map view in which the pin will",
-                    "///                                 appear to be centered.",
-                    "/// - Parameter presentationDelay: The delay before the",
-                ]
-           )
+        XCTAssertEqual(
+            doc.reformat(
+                initialColumn: 4,
+                columnLimit: 110,
+                verticalAlign: true,
+                alignAfterColon: [.parameters],
+                firstLetterUpperCase: true,
+                parameterStyle: .separate,
+                separations: []
+                ),
+            [
+                "/// - Parameter mapPadding:        The padding for the map view in which the pin will",
+                "///                                 appear to be centered.",
+                "/// - Parameter presentationDelay: The delay before the",
+            ]
+        )
     }
 }

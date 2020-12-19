@@ -5,10 +5,12 @@ import XCTest
 final class DocStringReturnsFormattingTests: XCTestCase {
     func testFormattingBasicReturns() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -39,10 +41,12 @@ final class DocStringReturnsFormattingTests: XCTestCase {
 
     func testFormattingBasicReturnsWithMissingColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -73,10 +77,12 @@ final class DocStringReturnsFormattingTests: XCTestCase {
 
     func testFormattingLowercaseKeyword() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -107,10 +113,12 @@ final class DocStringReturnsFormattingTests: XCTestCase {
 
     func testFormattingColumnLimitWithAlignAfterColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -142,10 +150,12 @@ final class DocStringReturnsFormattingTests: XCTestCase {
 
     func testFormattingColumnLimitWithoutAlignAfterColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -176,10 +186,12 @@ final class DocStringReturnsFormattingTests: XCTestCase {
     }
     func testFormattingColumnLimitPreservesLeadingWhitespaces() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
@@ -214,10 +226,12 @@ final class DocStringReturnsFormattingTests: XCTestCase {
 
     func testFormattingColumnLimitRemoveExcessLeadingSpaceBeforeColon() {
         let doc = DocString(
+            location: .init(),
             description: [],
             parameterHeader: nil,
             parameters: [],
             returns: .init(
+                relativeLineNumber: 0,
                 preDashWhitespaces: " ",
                 keyword: .init(" ", "Returns"),
                 name: .init("", ""),
