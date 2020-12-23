@@ -14,7 +14,6 @@ jobs:
           - build
           - package-darwin
           - test
-          - test-generated-artifacts
     steps:
     - uses: actions/checkout@v2
     - name: Xcode version

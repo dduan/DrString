@@ -2,16 +2,7 @@ SHELL = /bin/bash
 
 .PHONY: test
 test:
-	@swift test
-
-.PHONY: test-generated-artifacts
-test-generated-artifacts:
-ifeq ($(shell uname),Darwin)
-	@$(MAKE) generate
-	@git diff --exit-code
-else
-	@echo "Only works on macOS"
-endif
+	@swift test --enable-test-discovery
 
 .PHONY: build
 build:
@@ -19,7 +10,7 @@ build:
 	@mv .build/release/drstring-cli .build/release/drstring
 
 .PHONY: generate
-generate: generate-explainers generate-linux-manifest generate-completion-scripts
+generate: generate-explainers generate-completion-scripts
 
 .PHONY: build
 install: build
