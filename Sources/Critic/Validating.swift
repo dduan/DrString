@@ -29,21 +29,24 @@ extension Documentable {
         let doesThrow = self.details.throws
         let returnType = self.details.returnType
         let parameters = self.details.parameters
-        let startLocation = RelativeLocation(self.startLine, self.startColumn)
-        let details = try findDescriptionProblems(fallback: startLocation,
-                                                  docs,
+        let fallback = RelativeLocation(
+            self.docLines.count, // counting from start of docstring, signature is here
+            self.startColumn // actual column of signature
+        )
+
+        let details = try findDescriptionProblems(fallback: fallback, docs,
                                                   needsSeparator: needsSeparation.contains(.description))
-            + findParameterProblems(fallback: .init(self.docLines.count, self.startColumn),
+            + findParameterProblems(fallback: fallback,
                                     docs.description.count, parameters, docs,
                                     firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters),
                                     verticalAlign: verticalAlign, style: parameterStyle,
                                     alignAfterColon: alignAfterColon.contains(.parameters))
-            + findThrowsProblems(fallback: startLocation,
+            + findThrowsProblems(fallback: fallback,
                                  ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs,
                                  firstLetterUpper: firstLetterUpper,
                                  needsSeparation: needsSeparation.contains(.throws),
                                  alignAfterColon: alignAfterColon.contains(.throws))
-            + findReturnsProblems(fallback: startLocation,
+            + findReturnsProblems(fallback: fallback,
                                   ignoreReturns: ignoreReturns, docs,
                                   returnType: returnType, firstLetterUpper: firstLetterUpper,
                                   alignAfterColon: alignAfterColon.contains(.throws))

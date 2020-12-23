@@ -31,4 +31,9 @@ func f2() throws -> Int
     // CHECK: 34:5: warning: |E002|
     /// f description
     /// - Parameter a: a description
-    func f0(a: Int, b: Int)
+    func f3(a: Int, b: Int)
+
+        // CHECK: 39:9: warning: |E004|
+        /// description
+        ///
+        func f4() -> Int
