@@ -93,7 +93,7 @@ func findReturnsProblems(
     }
 
     guard let returnsDoc = docs.returns else {
-        return ignoreReturns ? [] : [(fallback, .missingReturn(returnType))]
+        return ignoreReturns ? [] : [(.init(fallback.line, 1), .missingReturn(returnType))]
     }
 
     var lineNumber = returnsDoc.relativeLineNumber
@@ -177,7 +177,7 @@ func findThrowsProblems(
     }
 
     guard let throwsDoc = docs.throws else {
-        return ignoreThrows ? [] : [(fallback, .missingThrow)]
+        return ignoreThrows ? [] : [(.init(fallback.line, 1), .missingThrow)]
     }
 
     var lineNumber = throwsDoc.relativeLineNumber
@@ -321,7 +321,7 @@ func findParameterProblems(fallback: RelativeLocation, _ line: Int, _ parameters
         if param == nextCommon {
             nextCommon = commonIter.next()
         } else {
-            result.append((fallback, .missingParameter(param.name, param.type)))
+            result.append((.init(fallback.line, 1), .missingParameter(param.name, param.type)))
         }
     }
 

@@ -1,5 +1,5 @@
 // CHECK: 5:0: warning: |E012|
-// CHECK: 6:0: warning: |E002|
+// CHECK: 6:1: warning: |E002|
 // CHECK: 5:18: warning: |E008|
 /// f description
 /// - Parameter a : a description
@@ -27,7 +27,8 @@ func f1(a: Int, b: Int)
 ///     and more
 func f2() throws -> Int
 
-    // CHECK: 32:0: warning: |E012|
+    // CHECK: 33:0: warning: |E012|
+    // CHECK: 34:5: warning: |E002|
     /// f description
     /// - Parameter a: a description
     func f0(a: Int, b: Int)
