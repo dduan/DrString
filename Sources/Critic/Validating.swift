@@ -29,19 +29,21 @@ extension Documentable {
         let doesThrow = self.details.throws
         let returnType = self.details.returnType
         let parameters = self.details.parameters
-
-        let details = try findDescriptionProblems(docs, needsSeparator: needsSeparation.contains(.description))
+        let startLocation = RelativeLocation(self.startLine, self.startColumn)
+        let details = try findDescriptionProblems(fallback: startLocation,
+                                                  docs,
+                                                  needsSeparator: needsSeparation.contains(.description))
             + findParameterProblems(fallback: .init(self.docLines.count, self.startColumn),
                                     docs.description.count, parameters, docs,
                                     firstLetterUpper, needsSeparation: needsSeparation.contains(.parameters),
                                     verticalAlign: verticalAlign, style: parameterStyle,
                                     alignAfterColon: alignAfterColon.contains(.parameters))
-            + findThrowsProblems(fallback: .init(self.startLine, self.startColumn),
+            + findThrowsProblems(fallback: startLocation,
                                  ignoreThrows: ignoreThrows, doesThrow: doesThrow, docs,
                                  firstLetterUpper: firstLetterUpper,
                                  needsSeparation: needsSeparation.contains(.throws),
                                  alignAfterColon: alignAfterColon.contains(.throws))
-            + findReturnsProblems(fallback: .init(self.startLine, self.startColumn),
+            + findReturnsProblems(fallback: startLocation,
                                   ignoreReturns: ignoreReturns, docs,
                                   returnType: returnType, firstLetterUpper: firstLetterUpper,
                                   alignAfterColon: alignAfterColon.contains(.throws))
@@ -63,7 +65,7 @@ extension Documentable {
     }
 }
 
-func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool
+func findDescriptionProblems(fallback: RelativeLocation, _ docs: DocString, needsSeparator: Bool
 ) -> [(RelativeLocation, DocProblem.Detail)]
 {
     if needsSeparator, !docs.parameters.isEmpty ||
@@ -71,7 +73,7 @@ func findDescriptionProblems(_ docs: DocString, needsSeparator: Bool
         docs.returns != nil, let last = docs.description.last, !last.lead.isEmpty ||
         !last.text.isEmpty
     {
-        return [(.init(docs.description.count, 0), .descriptionShouldEndWithEmptyLine)]
+        return [(.init(docs.description.count, -fallback.column), .descriptionShouldEndWithEmptyLine)]
     }
 
     return []
@@ -246,7 +248,7 @@ func findThrowsProblems(
     {
         let backupKeyword = firstLetterUpper ? "Throws" : "throws"
         result.append((
-            .init(lineNumber, 0), .sectionShouldEndWithEmptyLine(throwsDoc.keyword?.text ?? backupKeyword)))
+            .init(lineNumber, -fallback.column), .sectionShouldEndWithEmptyLine(throwsDoc.keyword?.text ?? backupKeyword)))
     }
 
     return result
@@ -350,7 +352,7 @@ func findParameterProblems(fallback: RelativeLocation, _ line: Int, _ parameters
         let last = lastParam.description.last, !last.lead.isEmpty || !last.text.isEmpty
     {
         let lastLineNumber = docs.parameters.last.map { $0.relativeLineNumber + $0.description.count } ?? 0
-        result.append((.init(lastLineNumber, 0), .sectionShouldEndWithEmptyLine(lastParam.name.text)))
+        result.append((.init(lastLineNumber, -fallback.column), .sectionShouldEndWithEmptyLine(lastParam.name.text)))
     }
 
     return result
