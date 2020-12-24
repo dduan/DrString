@@ -78,6 +78,7 @@ extension ProblemCheckingTests {
         ("testRedundantKeywordsPathsOnly", testRedundantKeywordsPathsOnly),
         ("testSeparateLineInThrowsIsNotTreatedAsContinuedBody", testSeparateLineInThrowsIsNotTreatedAsContinuedBody),
         ("testSeparateParameterStyle", testSeparateParameterStyle),
+        ("testThrowsWithDescriptionStartingFromNextLine", testThrowsWithDescriptionStartingFromNextLine),
         ("testUppercaseKeywords", testUppercaseKeywords),
         ("testWhateverParameterStyle", testWhateverParameterStyle),
     ]

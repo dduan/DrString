@@ -135,4 +135,8 @@ final class ProblemCheckingTests: XCTestCase {
             runTest(fileName: "positional", alignAfterColon: [.parameters, .returns, .throws],
                     needsSeparation: [.description, .parameters]))
     }
+
+    func testThrowsWithDescriptionStartingFromNextLine() throws {
+        XCTAssert(runTest(fileName: "throwDescriptionNextLine", expectEmpty: true))
+    }
 }
