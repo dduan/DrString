@@ -1,0 +1,11 @@
+// CHECK-NOT: warning
+/// - Throws:
+///     - Error1 when x
+///     - Error2 when y
+func f() throws {}
+
+// CHECK-NOT: warning
+/// - Returns:
+///     - 1 when x
+///     - 0 when y
+func g() -> Int {}
