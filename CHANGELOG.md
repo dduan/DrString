@@ -1,5 +1,7 @@
 ## main
 
+## 0.5.0
+
 ### Improvement (breaking change?)
 
 - `drstring check` now reports each problem it finds with a file path, line, and column, as apposed to before,
