@@ -9,13 +9,13 @@ func f0(a: Int, b: Int)
 // CHECK: 15:17: warning: |E019|
 // CHECK: 17:10: warning: |E009|
 // CHECK: 18:4: warning: |E005|
-// CHECK: 19:0: warning: |E013|
+// CHECK: 18:8: warning: |E007|
 /// f description
 ///
 /// -  Parameters
 ///   - a: description a
 ///      second line
-///    - b: description b
+///    -b: description b
 /// - Returns: An int
 func f1(a: Int, b: Int)
 

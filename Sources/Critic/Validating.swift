@@ -402,11 +402,19 @@ func findDocParameterFormatProblems(_ parameter: DocString.Entry, _ maxPeerNameL
         }
 
         column += parameter.name.lead.count
-    } else if parameter.preDashWhitespace != "   " {
-        result.append((
-            .init(lineNumber, column),
-            .preDashSpaceInParameter(3, parameter.preDashWhitespace, parameter.name.text)))
-        column += 4
+    } else {
+        if parameter.preDashWhitespace != "   " {
+            result.append((
+                .init(lineNumber, column),
+                .preDashSpaceInParameter(3, parameter.preDashWhitespace, parameter.name.text)))
+            column += 4
+        }
+
+        if parameter.name.lead != " " {
+            result.append((
+                .init(lineNumber, column),
+                .spaceBeforeParameterName(parameter.name.lead, "-", parameter.name.text)))
+        }
     }
 
     column += parameter.name.text.count

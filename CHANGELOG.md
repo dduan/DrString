@@ -9,6 +9,8 @@
   position to best indicate which part of the docstring it relates to.
 - `drstring extract`'s output for existing docstrings gained a new field `relativeLineNumber` for each
   "entry".
+- In grouped parameter style, spacing between the dash `-` and the parameter was not checked before. From this
+  release on, any spacing except a single space is deemed problematic. (#225)
 
 ## 0.4.3
 
