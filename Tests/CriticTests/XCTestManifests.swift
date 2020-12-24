@@ -15,6 +15,7 @@ extension ParametersTests {
     //   `swift test --generate-linuxmain`
     // to regenerate.
     static let __allTests__ParametersTests = [
+        ("testBadSpacingBetweenDashAndParameterName", testBadSpacingBetweenDashAndParameterName),
         ("testMissingColonInHeaderIsReported", testMissingColonInHeaderIsReported),
         ("testMissingColonInParameterEntryIsReported", testMissingColonInParameterEntryIsReported),
     ]

@@ -78,4 +78,57 @@ final class ParametersTests: XCTestCase {
             return
         }
     }
+
+    func testBadSpacingBetweenDashAndParameterName() throws {
+        let doc = DocString(
+            location: .init(),
+            description: [],
+            parameterHeader: .init(
+                preDashWhitespaces: " ",
+                keyword: .init(" ", "Parameters"),
+                name: .init("", ""),
+                preColonWhitespace: "",
+                hasColon: true,
+                description: []
+            ),
+            parameters: [
+                .init(
+                    preDashWhitespaces: "   ",
+                    keyword: nil,
+                    name: .init("", "a"),
+                    preColonWhitespace: "",
+                    hasColon: true,
+                    description: []
+                ),
+            ],
+            returns: nil,
+            throws: nil)
+        let problems = try findParameterProblems(
+            fallback: .init(),
+            0,
+            [
+                Parameter(
+                    label: nil,
+                    name: "a",
+                    type: "String",
+                    isVariadic: false,
+                    hasDefault: false
+                ),
+            ],
+            doc,
+            true,
+            needsSeparation: false,
+            verticalAlign: false,
+            style: .grouped,
+            alignAfterColon: false)
+
+        guard case .some(.spaceBeforeParameterName(let actual, let keyword, let name)) = problems.first?.1 else {
+            XCTFail("Expected problem is not reported")
+            return
+        }
+
+        XCTAssertEqual(actual, "")
+        XCTAssertEqual(name, "a")
+        XCTAssertEqual(keyword, "-")
+    }
 }
