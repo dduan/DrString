@@ -29,8 +29,7 @@ public struct DocProblem {
         case verticalAlignment(Int, String, Int) // Expected, name/keyword, line number
         case spaceAfterColon(String, String) // Keyword, actual
         case keywordCasingForParameter(String, String, String) // Actual, expected, name
-        // TODO: it's also about spelling of the keywords
-        case keywordCasing(String, String) // Actual, expected
+        case keywordSpelling(String, String) // Actual, expected
         case descriptionShouldEndWithEmptyLine
         case sectionShouldEndWithEmptyLine(String) // keyword or parameter name
         case redundantKeyword(String) // keyword
@@ -64,7 +63,7 @@ public struct DocProblem {
                 return "E009"
             case .spaceAfterColon:
                 return "E010"
-            case .keywordCasingForParameter, .keywordCasing:
+            case .keywordCasingForParameter, .keywordSpelling:
                 return "E011"
             case .descriptionShouldEndWithEmptyLine, .sectionShouldEndWithEmptyLine:
                 return "E012"
