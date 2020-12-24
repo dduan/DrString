@@ -1,5 +1,13 @@
 ## main
 
+### Improvement (breaking change?)
+
+- `drstring check` now reports each problem it finds with a file path, line, and column, as apposed to before,
+  where all problems for a specific signature are grouped together. Each type of problem has a custom column
+  position to best indicate which part of the docstring it relates to.
+- `drstring extract`'s output for existing docstrings gained a new field `relativeLineNumber` for each
+  "entry".
+
 ## 0.4.3
 
 - Introduce a new subcommand: `extract`. It outputs existing docsting, and the signature associated
