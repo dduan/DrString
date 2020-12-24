@@ -2,15 +2,19 @@
 
 ## 0.5.0
 
-### Improvement (breaking change?)
+### New
 
 - `drstring check` now reports each problem it finds with a file path, line, and column, as apposed to before,
   where all problems for a specific signature are grouped together. Each type of problem has a custom column
   position to best indicate which part of the docstring it relates to.
 - `drstring extract`'s output for existing docstrings gained a new field `relativeLineNumber` for each
   "entry".
+
+### Bug fixes
 - In grouped parameter style, spacing between the dash `-` and the parameter was not checked before. From this
   release on, any spacing except a single space is deemed problematic. (#225)
+- If documentation for throws and returns starts on the second line, previously this was considered
+  problematic. But it's pretty common to start on the next line. This bug has been fixed. (#213)
 
 ## 0.4.3
 

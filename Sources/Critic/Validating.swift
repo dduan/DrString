@@ -142,12 +142,12 @@ func findReturnsProblems(
         column += 1
     }
 
-    if let postColonLead = returnsDoc.description.first?.lead {
-        if postColonLead != " " {
-            result.append((.init(lineNumber, column), .spaceAfterColon(keywordText, postColonLead)))
+    if let firstLine = returnsDoc.description.first {
+        if firstLine.lead != " " && !firstLine.text.isEmpty {
+            result.append((.init(lineNumber, column), .spaceAfterColon(keywordText, firstLine.lead)))
         }
 
-        column += postColonLead.count
+        column += firstLine.lead.count
     }
 
     if alignAfterColon {
@@ -225,12 +225,12 @@ func findThrowsProblems(
         column += 1
     }
 
-    if let postColonLead = throwsDoc.description.first?.lead {
-        if postColonLead != " " {
-            result.append((.init(lineNumber, column), .spaceAfterColon(keywordText, postColonLead)))
+    if let firstLine = throwsDoc.description.first {
+        if firstLine.lead != " " && !firstLine.text.isEmpty {
+            result.append((.init(lineNumber, column), .spaceAfterColon(keywordText, firstLine.lead)))
         }
 
-        column += postColonLead.count
+        column += firstLine.lead.count
     }
 
     if alignAfterColon {
