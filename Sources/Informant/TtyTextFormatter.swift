@@ -71,7 +71,8 @@ private extension DocProblem {
     var description: String {
         let path = (try? Path(self.filePath).absolute()).map { "\($0)" } ?? self.filePath
         let warning = "\("warning", color: .yellow)"
-        return "\(path):\(self.line + 1):\(self.column): \(warning): \(self.detail.fullDescription)"
+        let header = "\(path):\(self.line + 1):\(self.column):"
+        return  "\(header, style: .bold) \(warning): \(self.detail.fullDescription)"
     }
 }
 
