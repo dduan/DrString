@@ -122,7 +122,7 @@ func findReturnsProblems(
 
     if let keyword = returnsDoc.keyword?.text {
         if keyword != expectedKeyword {
-            result.append((.init(lineNumber, column), .keywordCasing(keyword, expectedKeyword)))
+            result.append((.init(lineNumber, column), .keywordSpelling(keyword, expectedKeyword)))
         }
 
         column += keyword.count
@@ -206,7 +206,7 @@ func findThrowsProblems(
     let expectedKeyword = firstLetterUpper ? "Throws" : "throws"
     if let keyword = throwsDoc.keyword?.text {
         if keyword != expectedKeyword {
-            result.append((.init(lineNumber, column), .keywordCasing(keyword, expectedKeyword)))
+            result.append((.init(lineNumber, column), .keywordSpelling(keyword, expectedKeyword)))
         }
 
         column += keyword.count
@@ -290,7 +290,7 @@ func findParameterProblems(fallback: RelativeLocation, _ line: Int, _ parameters
 
         let expectedKeyword = firstLetterUpper ? "Parameters" : "parameters"
         if keyword.text != expectedKeyword {
-            result.append((.init(lineNumber, column), .keywordCasing(keyword.text, expectedKeyword)))
+            result.append((.init(lineNumber, column), .keywordSpelling(keyword.text, expectedKeyword)))
         }
 
         column += keyword.text.count

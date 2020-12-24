@@ -35,7 +35,7 @@ private extension DocProblem.Detail {
             return "For \(keyword, color: .green), there should be exactly 1 space after \(":", color: .green), found \(actualWhitespace(actual))"
         case .keywordCasingForParameter(let actual, let expected, let name):
             return "For \(name, color: .green), \(expected, color: .green) is misspelled as \(actual, color: .cyan)"
-        case .keywordCasing(let actual, let expected):
+        case .keywordSpelling(let actual, let expected):
             return "\(expected, color: .green) is misspelled as \(actual, color: .cyan)"
         case .descriptionShouldEndWithEmptyLine:
             return "Overall description should end with an empty line"
