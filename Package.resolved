@@ -29,15 +29,6 @@
         }
       },
       {
-        "package": "NetTime",
-        "repositoryURL": "https://github.com/dduan/NetTime",
-        "state": {
-          "branch": null,
-          "revision": "0b242344ea78e5f9b3eef50ddb9695f580a6d772",
-          "version": "0.2.3"
-        }
-      },
-      {
         "package": "Pathos",
         "repositoryURL": "https://github.com/dduan/Pathos.git",
         "state": {
@@ -69,17 +60,8 @@
         "repositoryURL": "https://github.com/dduan/TOMLDecoder.git",
         "state": {
           "branch": null,
-          "revision": "2cbc51e50b74ad2b12c849825af393c284446d8b",
-          "version": "0.1.6"
-        }
-      },
-      {
-        "package": "TOMLDeserializer",
-        "repositoryURL": "https://github.com/dduan/TOMLDeserializer",
-        "state": {
-          "branch": null,
-          "revision": "28762efcff64ad1bb482d4e9632b8a4e817edb4a",
-          "version": "0.2.5"
+          "revision": "ab0ea77b32b0ae38470e566e22d40ff050c8baf8",
+          "version": "0.2.0"
         }
       }
     ]

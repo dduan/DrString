@@ -32,7 +32,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/dduan/TOMLDecoder.git",
-            .exact("0.1.6")
+            .exact("0.2.0")
         ),
         .package(
             url: "https://github.com/mxcl/Chalk.git",
