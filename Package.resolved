@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/dduan/TOMLDecoder.git",
         "state": {
           "branch": null,
-          "revision": "ab0ea77b32b0ae38470e566e22d40ff050c8baf8",
-          "version": "0.2.0"
+          "revision": "dbc8c43d20fe81f2f0e4e060c0c779010acbda06",
+          "version": "0.2.1"
         }
       }
     ]
