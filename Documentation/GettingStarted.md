@@ -147,7 +147,7 @@ Options from command-line arguments overrides those found in config files.
 The `format` subcommand finds and fixes formatting errors in your docstrings.
 
 ```bash
-drstring check -i 'Sources/**/*.swift'
+drstring format -i 'Sources/**/*.swift'
 ```
 
 It shares most [options][] with the `check` subcommand, which can be specified
@@ -182,6 +182,10 @@ Note the second command should be however you would run drstring in command
 line. `$SRCROOT` is a environment variable that mayb come in handy for locating
 your config file.
 
+There's a [Source editor extension][] that generates, and reformats comments in Xcode on
+demmand.
+
+[Source editor extension]: https://apps.apple.com/us/app/drstring/id1523251484?mt=12
 
 ### Getting help
 
