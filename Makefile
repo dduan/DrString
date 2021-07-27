@@ -49,3 +49,7 @@ build-docker:
 .PHONY: package-darwin
 package-darwin: build
 	@Scripts/package-darwin.sh
+
+.PHONY: package-linux
+package-linux: build
+	@Scripts/package-linux.sh

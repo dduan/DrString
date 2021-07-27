@@ -24,3 +24,21 @@ jobs:
         asset_name: drstring-x86_64-apple-darwin.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
+  linux:
+    name: Publish Linux binaries
+    runs-on: ubuntu-focal
+    steps:
+    - uses: fwal/setup-swift@d43a564349d1341cd990cfbd70d94d63b8899475
+      with:
+        swift-version: 5.5
+    - uses: actions/checkout@v2
+    - name: Build and package Linux executable
+      run: make package-linux
+    - name: Upload binaries
+      uses: svenstaro/upload-release-action@v1-release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: .build/drstring.tar.gz
+        asset_name: drstring-x86_64-ubuntu2004.tar.gz
+        tag: ${{ github.ref }}
+        overwrite: true
