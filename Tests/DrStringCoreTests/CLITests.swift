@@ -7,7 +7,7 @@ final class CLITests: XCTestCase {
     private let directory = Path(#file).parent
 
     func testConfigFileOptionsAreProperlyParsedForCheckSubcommand() throws {
-        let configFilePath = self.directory +  "Fixtures" + "config0.toml"
+        let configFilePath = self.directory.joined(with: "Fixtures", "config0.toml")
         let arguments = ["check", "--config-file", "\(configFilePath)"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
@@ -16,7 +16,7 @@ final class CLITests: XCTestCase {
     }
 
     func testCommandLineArgumentOverridesConfigFileOptionForCheckSubcommand() throws {
-        let configFilePath = self.directory + "Fixtures" + "config0.toml"
+        let configFilePath = self.directory.joined(with: "Fixtures", "config0.toml")
         let arguments = ["check", "--config-file", "\(configFilePath)", "--first-letter", "uppercase"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
@@ -25,7 +25,7 @@ final class CLITests: XCTestCase {
     }
 
     func testConfigFileOptionsAreProperlyParsedForFormatSubcommand() throws {
-        let configFilePath = self.directory + "Fixtures" + "config0.toml"
+        let configFilePath = self.directory.joined(with: "Fixtures", "config0.toml")
         let arguments = ["format", "--config-file", "\(configFilePath)"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
@@ -34,7 +34,7 @@ final class CLITests: XCTestCase {
     }
 
     func testCommandLineArgumentOverridesConfigFileOptionForFormatSubcommand() throws {
-        let configFilePath = self.directory + "Fixtures" + "config0.toml"
+        let configFilePath = self.directory.joined(with: "Fixtures", "config0.toml")
         let arguments = ["format", "--config-file", "\(configFilePath)", "--first-letter", "uppercase"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
@@ -43,7 +43,7 @@ final class CLITests: XCTestCase {
     }
 
     func testCommandLineArgumentOverridesConfigFileOptionByExplicitNegation() throws {
-        let configFilePath = self.directory + "Fixtures" + "config0.toml"
+        let configFilePath = self.directory.joined(with: "Fixtures", "config0.toml")
         let arguments = ["format", "--config-file", "\(configFilePath)", "--no-needs-separation"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
