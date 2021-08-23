@@ -1,5 +1,9 @@
 ## main
 
+## 0.5.1
+
+Upgrade Swift version to 5.4
+
 ## 0.5.0
 
 ### New
