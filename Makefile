@@ -31,7 +31,7 @@ generate-explainers:
 
 .PHONY: generate-linux-manifest
 generate-linux-manifest:
-	@swift test --generate-linuxmain
+	@swift test
 
 .PHONY: generate-completion-scripts
 generate-completion-scripts:
