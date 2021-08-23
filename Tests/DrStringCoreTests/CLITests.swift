@@ -7,7 +7,7 @@ final class CLITests: XCTestCase {
     private let directory = Path(#file).parent
 
     func testConfigFileOptionsAreProperlyParsedForCheckSubcommand() throws {
-        let configFilePath = self.directory +  "Fixtures" + "config0.toml"
+        let configFilePath = self.directory + "Fixtures" + "config0.toml"
         let arguments = ["check", "--config-file", "\(configFilePath)"]
         let parsedCommand = try Main.parseAsRoot(arguments)
         let command = try Command(command: parsedCommand)
