@@ -183,7 +183,7 @@ line. `$SRCROOT` is a environment variable that mayb come in handy for locating
 your config file.
 
 There's a [Source editor extension][] that generates, and reformats comments in Xcode on
-demmand.
+demand.
 
 [Source editor extension]: https://apps.apple.com/us/app/drstring/id1523251484?mt=12
 
