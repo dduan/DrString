@@ -20,7 +20,7 @@ let package = Package(
         .package(
             name: "SwiftSyntax",
             url: "https://github.com/apple/swift-syntax.git",
-            .exact("0.50400.0")
+            .exact("0.50500.0")
         ),
         .package(
             url: "https://github.com/dduan/IsTTY.git",
