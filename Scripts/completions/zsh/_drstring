@@ -7,7 +7,8 @@ _drstring() {
     integer ret=1
     local -a args
     args+=(
-        '(-h --help)'{-h,--help}'[Print help information.]'
+        '--version[Show the version.]'
+        '(-h --help)'{-h,--help}'[Show help information.]'
         '(-): :->command'
         '(-)*:: :->arg'
     )
@@ -73,7 +74,8 @@ _drstring_check() {
         '--no-superfluous-exclusion['"'"'yes'"'"' prevents DrString from considering an explicitly excluded path superfluous. Optional. Default to `no`.]'
         '--empty-patterns['"'"'yes'"'"' prevents DrString from considering a pattern for inclusion or exlusion invalid when the pattern matches no file paths. Optional. Default to `no`.]'
         '--no-empty-patterns['"'"'yes'"'"' prevents DrString from considering a pattern for inclusion or exlusion invalid when the pattern matches no file paths. Optional. Default to `no`.]'
-        '(-h --help)'{-h,--help}'[Print help information.]'
+        '--version[Show the version.]'
+        '(-h --help)'{-h,--help}'[Show help information.]'
     )
     _arguments -w -s -S $args[@] && ret=0
 
@@ -85,7 +87,8 @@ _drstring_explain() {
     local -a args
     args+=(
         ':problem-id:'
-        '(-h --help)'{-h,--help}'[Print help information.]'
+        '--version[Show the version.]'
+        '(-h --help)'{-h,--help}'[Show help information.]'
     )
     _arguments -w -s -S $args[@] && ret=0
 
@@ -117,7 +120,8 @@ _drstring_format() {
         '--no-add-placeholder[Add placeholder for an docstring entry if it doesn'"'"'t exist. Optional. Default to '"'"'no'"'"'.]'
         '--start-line[First line formatting subcommand should consider affecting, 0 based. Optional number.]:line:'
         '--end-line[Last line formatting subcommand should consider affecting, 0 based. Optional number.]:line:'
-        '(-h --help)'{-h,--help}'[Print help information.]'
+        '--version[Show the version.]'
+        '(-h --help)'{-h,--help}'[Show help information.]'
     )
     _arguments -w -s -S $args[@] && ret=0
 
@@ -132,7 +136,8 @@ _drstring_extract() {
         '(-i --include)'{-i,--include}'[Paths included for DrString to operate on. Repeatable path.]:path:'
         '(-x --exclude)'{-x,--exclude}'[Paths excluded for DrString to operate on. Repeatable, optional path.]:path:'
         '--no-exclude[Override `exclude` so that its value is empty.]'
-        '(-h --help)'{-h,--help}'[Print help information.]'
+        '--version[Show the version.]'
+        '(-h --help)'{-h,--help}'[Show help information.]'
     )
     _arguments -w -s -S $args[@] && ret=0
 
@@ -144,7 +149,7 @@ _drstring_help() {
     local -a args
     args+=(
         ':subcommands:'
-        '(-h --help)'{-h,--help}'[Print help information.]'
+        '--version[Show the version.]'
     )
     _arguments -w -s -S $args[@] && ret=0
 

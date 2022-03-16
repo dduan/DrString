@@ -14,12 +14,11 @@ else
 endif
 
 .PHONY: build
-build:
-	@swift build --configuration release --disable-sandbox -Xswiftc -warnings-as-errors
-	@mv .build/release/drstring-cli .build/release/drstring
+build-fat-binary:
+	@swift build --arch arm64 --arch x86_64 --configuration release --disable-sandbox -Xswiftc -warnings-as-errors -Xlinker -dead_strip -Xlinker -dead_strip_dylibs
 
 .PHONY: generate
-generate: generate-explainers generate-linux-manifest generate-completion-scripts
+generate: generate-explainers generate-completion-scripts
 
 .PHONY: build
 install: build
@@ -28,10 +27,6 @@ install: build
 .PHONY: generate-explainers
 generate-explainers:
 	@Scripts/generateexplainers.py 'Documentation/Explainers' > Sources/Critic/explainers.swift
-
-.PHONY: generate-linux-manifest
-generate-linux-manifest:
-	@swift test
 
 .PHONY: generate-completion-scripts
 generate-completion-scripts:
@@ -47,5 +42,5 @@ build-docker:
 	@Scripts/ubuntu.sh build 5.3.1 bionic
 
 .PHONY: package-darwin
-package-darwin: build
+package-darwin: build-fat-binary
 	@Scripts/package-darwin.sh

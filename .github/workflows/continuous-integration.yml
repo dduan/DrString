@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   macos:
     name: macOS
-    runs-on: macos-11
+    runs-on: macos-latest
     strategy:
       matrix:
         action:
@@ -16,24 +16,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Xcode version
-      run: sudo xcode-select -s /Applications/Xcode_13.0.app
+      run: sudo xcode-select -s /Applications/Xcode_13.2.1.app
     - name: Action
       run: make ${{ matrix.action }}
 
-  ubuntu:
-    name: Ubuntu
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        swift:
-          - 5.5
-        ubuntu:
-          - bionic
-          - focal
-        action:
-          - build
-          - test
-    steps:
-    - uses: actions/checkout@v2
-    - name: Action
-      run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu }}
+  #ubuntu:
+  #  name: Ubuntu
+  #  runs-on: ubuntu-latest
+  #  strategy:
+  #    matrix:
+  #      swift:
+  #        - 5.5
+  #      ubuntu:
+  #        - bionic
+  #        - focal
+  #      action:
+  #        - build
+  #        - test
+  #  steps:
+  #  - uses: actions/checkout@v2
+  #  - name: Action
+  #    run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu }}
