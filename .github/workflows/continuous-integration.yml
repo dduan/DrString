@@ -25,11 +25,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        ubuntu:
+          - docker: amd64
+            release: focal
+          - docker: amd64
+            release: bionic
+          #- docker: arm64/v8
+          #  release: focal
         swift:
           - 5.6
-        ubuntu:
-          - bionic
-          - focal
         action:
           - build
           - package-linux
@@ -37,4 +41,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Action
-      run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu }}
+      run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu.release }} ${{ matrix.ubuntu.docker }}
