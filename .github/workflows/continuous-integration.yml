@@ -41,4 +41,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Action
-      run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu.release }} ${{ matrix.ubuntu.arch }}
+      run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu.release }} ${{ matrix.ubuntu.docker }}
