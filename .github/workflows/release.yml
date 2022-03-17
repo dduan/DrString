@@ -6,14 +6,13 @@ on:
       - '*'
 
 jobs:
-  build:
-    name: Publish binaries
+  darwin:
+    name: Publish macOS binaries
     runs-on: macos-11
-
     steps:
     - uses: actions/checkout@v1
     - name: Xcode version
-      run: sudo xcode-select -s /Applications/Xcode_13.0.app
+      run: sudo xcode-select -s /Applications/Xcode_13.2.1.app
     - name: Build and package macOS executable
       run: make package-darwin
     - name: Upload binaries
@@ -22,5 +21,25 @@ jobs:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: .build/drstring.tar.gz
         asset_name: drstring-x86_64-apple-darwin.tar.gz
+        tag: ${{ github.ref }}
+        overwrite: true
+  ubuntu:
+    name: Publish Ubuntu binaries
+    strategy:
+      matrix:
+        ubuntu:
+          - bionic
+          - focal
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build and package Ubuntu executable
+      run: Scripts/dockerarchive.sh package-linux 5.6 ${{ matrix.ubuntu }}
+    - name: Upload binaries
+      uses: svenstaro/upload-release-action@v1-release
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: drstring.tar.gz
+        asset_name: drstring-x86_64-unknown-ubuntu_${{ matrix.ubuntu }}.tar.gz
         tag: ${{ github.ref }}
         overwrite: true

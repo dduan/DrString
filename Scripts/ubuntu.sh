@@ -14,6 +14,7 @@ echo 'WORKDIR DrString'             >> $dockerfile
 echo 'RUN apt-get update && apt-get install -y make' >> $dockerfile
 echo "RUN make $action"             >> $dockerfile
 image=drstring
-docker image rm -f "$image" > /dev/null
-docker build -t "$image" -f $dockerfile .
+docker image rm -f "$image" || true > /dev/null
+docker build --platform=linux/amd64 -t "$image" -f $dockerfile .
+docker cp $image:DrString/.build/DrString.tar.gz .build/
 docker run --rm "$image"
