@@ -28,7 +28,12 @@ jobs:
     strategy:
       matrix:
         arch:
-          - amd64
+          - x86_64:
+              docker: amd64
+              archive: x86_64
+          - aarch64:
+              docker: arm64/v8
+              archive: aarch64
         ubuntu:
           - bionic
           - focal
@@ -36,12 +41,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build and package Ubuntu executable
-      run: Scripts/dockerarchive.sh package-linux 5.6 ${{ matrix.ubuntu }} ${{ matrix.amd64 }}
+      run: Scripts/dockerarchive.sh package-linux 5.6 ${{ matrix.ubuntu }} ${{ matrix.arch.docker }}
     - name: Upload binaries
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: drstring.tar.gz
-        asset_name: drstring-x86_64-unknown-ubuntu_${{ matrix.ubuntu }}.tar.gz
+        asset_name: drstring-${{ matrix.arch.archive }}-unknown-ubuntu_${{ matrix.ubuntu }}.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
