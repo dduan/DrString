@@ -32,6 +32,7 @@ jobs:
           - focal
         action:
           - build
+          - package-linux
           - test
     steps:
     - uses: actions/checkout@v2
