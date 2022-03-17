@@ -7,7 +7,7 @@ fi
 action=$1
 swift=$2
 ubuntu=$3
-dockerfile=$(mktemp)
+dockerfile=/tmp/Dockerfile
 echo "FROM swift:$swift-$ubuntu"    >  $dockerfile
 echo 'ADD . DrString'               >> $dockerfile
 echo 'WORKDIR DrString'             >> $dockerfile
@@ -15,6 +15,5 @@ echo 'RUN apt-get update && apt-get install -y make' >> $dockerfile
 echo "RUN make $action"             >> $dockerfile
 image=drstring
 docker image rm -f "$image" || true > /dev/null
-docker build --platform=linux/amd64 -t "$image" -f $dockerfile .
-docker cp $image:DrString/.build/DrString.tar.gz .build/
-docker run --rm "$image"
+docker build --platform=linux/amd64 -t "$image:$image" -f $dockerfile .
+docker run --rm "$image:$image"
