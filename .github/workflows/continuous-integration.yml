@@ -27,6 +27,7 @@ jobs:
       matrix:
         arch:
           - amd64
+          #- arm64/v8
         swift:
           - 5.6
         ubuntu:

@@ -30,8 +30,8 @@ jobs:
         arch:
           - docker: amd64
             archive: x86_64
-          - docker: arm64/v8
-            archive: aarch64
+          #- docker: arm64/v8
+          #  archive: aarch64
         ubuntu:
           - bionic
           - focal
