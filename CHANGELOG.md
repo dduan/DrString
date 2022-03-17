@@ -5,6 +5,7 @@
 - Add support for Swift 5.6, specifically, async signatures.
 - Darwin executable is now a fat binary running natively on M1 as well as intel
 - No longer ship a separate copy of the SwiftSyntax binary. Instead, it's now embeded in the main executable.
+- Releases now include executables built in and for official Swift docker containers for Ubuntu.
 
 ## 0.5.1
 
