@@ -1,5 +1,11 @@
 ## main
 
+## 0.5.2
+
+- Add support for Swift 5.6, specifically, async signatures.
+- Darwin executable is now a fat binary running natively on M1 as well as intel
+- No longer ship a separate copy of the SwiftSyntax binary. Instead, it's now embeded in the main executable.
+
 ## 0.5.1
 
 Upgrade Swift version to 5.4

@@ -1,5 +1,6 @@
 import Models
 import Pathos
+import SwiftSyntaxParser
 import SwiftSyntax
 
 public func extractDocs(fromSource sourcePath: Path) throws -> ([Documentable], String) {

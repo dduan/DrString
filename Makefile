@@ -1,8 +1,15 @@
 SHELL = /bin/bash
 
+ifeq ($(shell uname),Darwin)
+EXTRA_SWIFT_FLAGS = --arch arm64 --arch x86_64 --disable-sandbox -Xlinker -dead_strip -Xlinker -dead_strip_dylibs
+else
+SWIFT_TOOLCHAIN = $(shell dirname $(shell swift -print-target-info | grep runtimeResourcePath | cut -f 2 -d ':' | cut -f 2 -d '"'))
+EXTRA_SWIFT_FLAGS = -Xcxx -L${SWIFT_TOOLCHAIN}/swift/linux
+endif
+
 .PHONY: test
 test:
-	@swift test
+	@swift test ${EXTRA_SWIFT_FLAGS}
 
 .PHONY: test-generated-artifacts
 test-generated-artifacts:
@@ -15,11 +22,10 @@ endif
 
 .PHONY: build
 build:
-	@swift build --configuration release --disable-sandbox -Xswiftc -warnings-as-errors
-	@mv .build/release/drstring-cli .build/release/drstring
+	@swift build --configuration release -Xswiftc -warnings-as-errors ${EXTRA_SWIFT_FLAGS}
 
 .PHONY: generate
-generate: generate-explainers generate-linux-manifest generate-completion-scripts
+generate: generate-explainers generate-completion-scripts
 
 .PHONY: build
 install: build
@@ -28,10 +34,6 @@ install: build
 .PHONY: generate-explainers
 generate-explainers:
 	@Scripts/generateexplainers.py 'Documentation/Explainers' > Sources/Critic/explainers.swift
-
-.PHONY: generate-linux-manifest
-generate-linux-manifest:
-	@swift test
 
 .PHONY: generate-completion-scripts
 generate-completion-scripts:

@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/llvm-swift/FileCheck.git",
         "state": {
           "branch": null,
-          "revision": "0dc8a5bff1a7f01e1d7bcc20c79e2127b2ea3eeb",
-          "version": "0.2.5"
+          "revision": "f7c5f1a9479b33a876a6f5632ca2b92a7ce4b667",
+          "version": "0.2.6"
         }
       },
       {
@@ -42,17 +42,17 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "83b23d940471b313427da226196661856f6ba3e0",
-          "version": "0.4.4"
+          "revision": "554e7659eb5b4dff97158d531aabecf11d546e2d",
+          "version": "1.1.0"
         }
       },
       {
         "package": "SwiftSyntax",
-        "repositoryURL": "https://github.com/apple/swift-syntax.git",
+        "repositoryURL": "https://github.com/dduan/swift-syntax.git",
         "state": {
-          "branch": null,
-          "revision": "75e60475d9d8fd5bbc16a12e0eaa2cb01b0c322e",
-          "version": "0.50500.0"
+          "branch": "release/5.6",
+          "revision": "b82e8df4c63e0748218e85136d52cce8bb4a466a",
+          "version": null
         }
       },
       {

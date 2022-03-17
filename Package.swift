@@ -1,10 +1,10 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 import PackageDescription
 
 let package = Package(
     name: "DrString",
     platforms: [
-        .macOS(.v10_15),
+        .macOS(.v12),
     ],
     products: [
         .executable(
@@ -19,8 +19,8 @@ let package = Package(
     dependencies: [
         .package(
             name: "SwiftSyntax",
-            url: "https://github.com/apple/swift-syntax.git",
-            .exact("0.50500.0")
+            url: "https://github.com/dduan/swift-syntax.git",
+            .branch("release/5.6")
         ),
         .package(
             url: "https://github.com/dduan/IsTTY.git",
@@ -40,13 +40,13 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser",
-            .exact("0.4.4")
+            .exact("1.1.0")
         ),
 
         // For testing
         .package(
             url: "https://github.com/llvm-swift/FileCheck.git",
-            .exact("0.2.5")
+            .exact("0.2.6")
         ),
     ],
     targets: [
@@ -55,7 +55,8 @@ let package = Package(
             dependencies: [
                 "Decipher",
                 "Pathos",
-                "SwiftSyntax",
+                .product(name: "SwiftSyntaxParser", package: "SwiftSyntax"),
+                .product(name: "SwiftSyntax", package: "SwiftSyntax"),
             ]
         ),
         .target(
@@ -103,7 +104,7 @@ let package = Package(
                 "TOMLDecoder",
             ]
         ),
-        .target(
+        .executableTarget(
             name: "DrStringCLI",
             dependencies: ["DrStringCore"]
         ),
