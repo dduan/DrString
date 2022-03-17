@@ -7,6 +7,7 @@ fi
 action=$1
 swift=$2
 ubuntu=$3
+arch=$4
 dockerfile=$(mktemp)
 echo "FROM swift:$swift-$ubuntu"                     >  $dockerfile
 echo 'ADD . DrString'                                >> $dockerfile
@@ -15,4 +16,4 @@ echo 'RUN apt-get update && apt-get install -y make' >> $dockerfile
 echo "RUN make $action"                              >> $dockerfile
 image=drstring
 docker image rm -f "$image:$image" || true > /dev/null
-docker build --platform=linux/amd64 -t "$image:$image" -f $dockerfile .
+docker build --platform=linux/$arch -t "$image:$image" -f $dockerfile .

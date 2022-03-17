@@ -27,6 +27,8 @@ jobs:
     name: Publish Ubuntu binaries
     strategy:
       matrix:
+        arch:
+          - amd64
         ubuntu:
           - bionic
           - focal
@@ -34,7 +36,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build and package Ubuntu executable
-      run: Scripts/dockerarchive.sh package-linux 5.6 ${{ matrix.ubuntu }}
+      run: Scripts/dockerarchive.sh package-linux 5.6 ${{ matrix.ubuntu }} ${{ matrix.amd64 }}
     - name: Upload binaries
       uses: svenstaro/upload-release-action@v1-release
       with:

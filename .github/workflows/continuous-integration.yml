@@ -25,6 +25,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        arch:
+          - amd64
         swift:
           - 5.6
         ubuntu:
@@ -37,4 +39,4 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Action
-      run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu }}
+      run: Scripts/ubuntu.sh ${{ matrix.action }} ${{ matrix.swift }} ${{ matrix.ubuntu }} ${{ matrix.arch }}
