@@ -1,8 +1,15 @@
 SHELL = /bin/bash
 
+ifeq ($(shell uname),Darwin)
+EXTRA_SWIFT_FLAGS = --arch arm64 --arch x86_64 --disable-sandbox -Xlinker -dead_strip -Xlinker -dead_strip_dylibs
+else
+SWIFT_TOOLCHAIN = $(shell dirname $(shell swift -print-target-info | grep runtimeResourcePath | cut -f 2 -d ':' | cut -f 2 -d '"'))
+EXTRA_SWIFT_FLAGS = -Xcxx -L${SWIFT_TOOLCHAIN}/swift/linux
+endif
+
 .PHONY: test
 test:
-	@swift test
+	@swift test ${EXTRA_SWIFT_FLAGS}
 
 .PHONY: test-generated-artifacts
 test-generated-artifacts:
@@ -14,8 +21,8 @@ else
 endif
 
 .PHONY: build
-build-fat-binary:
-	@swift build --arch arm64 --arch x86_64 --configuration release --disable-sandbox -Xswiftc -warnings-as-errors -Xlinker -dead_strip -Xlinker -dead_strip_dylibs
+build:
+	@swift build --configuration release -Xswiftc -warnings-as-errors ${EXTRA_SWIFT_FLAGS}
 
 .PHONY: generate
 generate: generate-explainers generate-completion-scripts
@@ -42,5 +49,5 @@ build-docker:
 	@Scripts/ubuntu.sh build 5.3.1 bionic
 
 .PHONY: package-darwin
-package-darwin: build-fat-binary
+package-darwin: build
 	@Scripts/package-darwin.sh
