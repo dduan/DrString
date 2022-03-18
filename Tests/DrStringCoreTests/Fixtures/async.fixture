@@ -1,0 +1,6 @@
+// CHECK-NOT: Redundant documentation for `returns`
+/// Builds a protocol graph.
+///
+/// - returns: The protocol graph.
+func collect() async -> ProtocolGraph {
+}
