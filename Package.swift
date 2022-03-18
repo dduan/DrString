@@ -19,8 +19,8 @@ let package = Package(
     dependencies: [
         .package(
             name: "SwiftSyntax",
-            url: "https://github.com/dduan/swift-syntax.git",
-            .branch("release/5.6")
+            url: "https://github.com/apple/swift-syntax.git",
+            .exact("0.50600.1")
         ),
         .package(
             url: "https://github.com/dduan/IsTTY.git",
