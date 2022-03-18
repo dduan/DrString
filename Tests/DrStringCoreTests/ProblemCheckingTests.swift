@@ -139,4 +139,8 @@ final class ProblemCheckingTests: XCTestCase {
     func testThrowsWithDescriptionStartingFromNextLine() throws {
         XCTAssert(runTest(fileName: "throwDescriptionNextLine", expectEmpty: true))
     }
+
+    func testAsync() throws {
+        XCTAssert(runTest(fileName: "async"))
+    }
 }
