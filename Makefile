@@ -13,12 +13,8 @@ test:
 
 .PHONY: test-generated-artifacts
 test-generated-artifacts:
-ifeq ($(shell uname),Darwin)
 	@$(MAKE) generate
 	@git diff --exit-code
-else
-	@echo "Only works on macOS"
-endif
 
 .PHONY: build
 build:
