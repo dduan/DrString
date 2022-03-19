@@ -2,7 +2,8 @@
 
 ./Scripts/ubuntu.sh $@
 image=drstring
+archive=.build/drstring_ubuntu.tar.gz
 docker run --rm -iv${PWD}:/host-volume $image:$image sh -s <<EOF
-chown -v $(id -u):$(id -g) drstring.tar.gz
-cp -va drstring.tar.gz /host-volume
+chown -v $(id -u):$(id -g) $archive
+cp -va $archive /host-volume
 EOF
