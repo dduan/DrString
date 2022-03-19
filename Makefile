@@ -53,6 +53,6 @@ build-docker:
 package-darwin: build
 	@Scripts/package-darwin.sh
 
-.PHONY: package-linux
-package-linux: build
-	@Scripts/package-linux.sh
+.PHONY: package-ubuntu
+package-ubuntu: build
+	@Scripts/package-ubuntu.sh

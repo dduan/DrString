@@ -36,7 +36,7 @@ jobs:
           - 5.6
         action:
           - build
-          - package-linux
+          - package-ubuntu
           - test
     steps:
     - uses: actions/checkout@v2
