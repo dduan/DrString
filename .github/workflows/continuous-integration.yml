@@ -30,8 +30,8 @@ jobs:
             release: focal
           - docker: amd64
             release: bionic
-          #- docker: arm64/v8
-          #  release: focal
+          - docker: arm64/v8
+            release: focal
         swift:
           - 5.6
         action:
