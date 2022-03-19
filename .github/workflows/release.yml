@@ -19,7 +19,7 @@ jobs:
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: .build/drstring.tar.gz
+        file: .build/drstring_darwin.tar.gz
         asset_name: drstring-x86_64-apple-darwin.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
@@ -46,7 +46,7 @@ jobs:
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: drstring.tar.gz
+        file: .build/drstring_linux.tar.gz
         asset_name: drstring-${{ matrix.ubuntu.archive }}-unknown-ubuntu_${{ matrix.ubuntu.release }}.tar.gz
         tag: ${{ github.ref }}
         overwrite: true

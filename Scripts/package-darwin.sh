@@ -1,14 +1,19 @@
 #!/bin/bash
 
+set -euo pipefail
+
 BUILD_PATH=.build/apple/Products/Release
 LIB_PATH=$BUILD_PATH/lib
-BIN_PATH=$BUILD_PATH/bin/drstring
+BIN_PATH=$BUILD_PATH/bin
+COMPLETIONS_PATH=$BUILD_PATH/completions
 rm -rf $LIB_PATH
 rm -rf $BIN_PATH
+rm -rf $COMPLETIONS_PATH
 mkdir -p $LIB_PATH
-mkdir -p $BUILD_PATH/{bin,completions}
-cp -r Scripts/completions/* $BUILD_PATH/completions
-cp $BUILD_PATH/drstring-cli $BIN_PATH
+mkdir -p $BIN_PATH
+mkdir -p $COMPLETIONS_PATH
+cp -r Scripts/completions/* $COMPLETIONS_PATH
+cp $BUILD_PATH/drstring-cli $BIN_PATH/drstring
 cp $BUILD_PATH/lib_InternalSwiftSyntaxParser.dylib $LIB_PATH/lib_InternalSwiftSyntaxParser.dylib
 tar -C $BUILD_PATH -czf drstring.tar.gz bin lib completions
-mv drstring.tar.gz .build
+mv drstring_darwin.tar.gz .build
