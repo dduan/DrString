@@ -46,7 +46,7 @@ jobs:
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: .build/drstring_ubuntu.tar.gz
+        file: drstring_ubuntu.tar.gz
         asset_name: drstring-${{ matrix.ubuntu.archive }}-unknown-ubuntu_${{ matrix.ubuntu.release }}.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
