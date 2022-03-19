@@ -41,12 +41,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build and package Ubuntu executable
-      run: Scripts/dockerarchive.sh package-linux 5.6 ${{ matrix.ubuntu.release }} ${{ matrix.ubuntu.docker }}
+      run: Scripts/dockerarchive.sh package-ubuntu 5.6 ${{ matrix.ubuntu.release }} ${{ matrix.ubuntu.docker }}
     - name: Upload binaries
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: .build/drstring_linux.tar.gz
+        file: .build/drstring_ubuntu.tar.gz
         asset_name: drstring-${{ matrix.ubuntu.archive }}-unknown-ubuntu_${{ matrix.ubuntu.release }}.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
