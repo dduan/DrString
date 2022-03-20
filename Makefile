@@ -3,8 +3,8 @@ SHELL = /bin/bash
 ifeq ($(shell uname),Darwin)
 EXTRA_SWIFT_FLAGS = --arch arm64 --arch x86_64 --disable-sandbox -Xlinker -dead_strip -Xlinker -dead_strip_dylibs
 else
-SWIFT_TOOLCHAIN = $(shell dirname $(shell swift -print-target-info | grep runtimeResourcePath | cut -f 2 -d ':' | cut -f 2 -d '"'))
-EXTRA_SWIFT_FLAGS = -Xcxx -L${SWIFT_TOOLCHAIN}/swift/linux
+SWIFT_TOOLCHAIN = $(shell dirname $(shell ./Scripts/locateswift.sh))
+EXTRA_SWIFT_FLAGS = -Xswiftc -static-stdlib -Xswiftc -I${SWIFT_TOOLCHAIN}/swift/_InternalSwiftSyntaxParser -Xlinker -fuse-ld=lld -Xlinker -L${SWIFT_TOOLCHAIN}/swift/linux -Xlinker -rpath -Xlinker '$$ORIGIN/../lib'
 endif
 
 .PHONY: test
