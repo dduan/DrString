@@ -9,7 +9,7 @@ endif
 
 .PHONY: test
 test:
-	@swift test ${EXTRA_SWIFT_FLAGS}
+	@swift test
 
 .PHONY: test-generated-artifacts
 test-generated-artifacts:
