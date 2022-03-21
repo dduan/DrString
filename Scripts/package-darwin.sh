@@ -17,4 +17,3 @@ cp -r Scripts/completions/* $COMPLETIONS_PATH
 cp $BUILD_PATH/drstring-cli $BIN_PATH/drstring
 cp $BUILD_PATH/lib_InternalSwiftSyntaxParser.dylib $LIB_PATH/lib_InternalSwiftSyntaxParser.dylib
 tar -C $BUILD_PATH -czf $ARCHIVE bin lib completions
-mv $ARCHIVE .build

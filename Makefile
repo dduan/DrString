@@ -23,10 +23,6 @@ build:
 .PHONY: generate
 generate: generate-explainers generate-completion-scripts
 
-.PHONY: build
-install: build
-	@mv .build/release/drstring /usr/local/bin
-
 .PHONY: generate-explainers
 generate-explainers:
 	@Scripts/generateexplainers.py 'Documentation/Explainers' > Sources/Critic/explainers.swift
@@ -37,18 +33,14 @@ generate-completion-scripts:
 	@swift run drstring-cli --generate-completion-script bash > Scripts/completions/bash/drstring-completion.bash
 	@swift run drstring-cli --generate-completion-script fish > Scripts/completions/drstring.fish
 
-.PHONY: test-docker
-test-docker:
-	@Scripts/ubuntu.sh test 5.6 bionic amd64
-
 .PHONY: build-docker
 build-docker:
-	@Scripts/ubuntu.sh build 5.6 bionic amd64
+	@docker build --platform linux/amd64 --force-rm --tag drstring .
 
 .PHONY: package-darwin
 package-darwin: build
 	@Scripts/package-darwin.sh
 
 .PHONY: package-ubuntu
-package-ubuntu: build
-	@Scripts/package-ubuntu.sh
+package-ubuntu:
+	@Scripts/ubuntuarchive.sh 5.6.0 focal amd64
