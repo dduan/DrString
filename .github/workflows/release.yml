@@ -19,34 +19,22 @@ jobs:
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: .build/drstring_darwin.tar.gz
+        file: drstring_darwin.tar.gz
         asset_name: drstring-x86_64-apple-darwin.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
   ubuntu:
     name: Publish Ubuntu binaries
-    strategy:
-      matrix:
-        ubuntu:
-          - docker: amd64
-            archive: x86_64
-            release: focal
-          - docker: amd64
-            archive: x86_64
-            release: bionic
-          #- docker: arm64/v8
-          #  archive: aarch64
-          #  release: focal
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build and package Ubuntu executable
-      run: Scripts/dockerarchive.sh package-ubuntu 5.6 ${{ matrix.ubuntu.release }} ${{ matrix.ubuntu.docker }}
+      run: make package-ubuntu
     - name: Upload binaries
       uses: svenstaro/upload-release-action@v1-release
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: drstring_ubuntu.tar.gz
-        asset_name: drstring-${{ matrix.ubuntu.archive }}-unknown-ubuntu_${{ matrix.ubuntu.release }}.tar.gz
+        file: drstring-ubuntu-focal.tar.gz
+        asset_name: drstring-x86_64-unknown-ubuntu_focal.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
