@@ -35,6 +35,6 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: drstring-ubuntu-focal.tar.gz
-        asset_name: drstring-x86_64-unknown-ubuntu_focal.tar.gz
+        asset_name: drstring-x86_64-unknown-ubuntu.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
