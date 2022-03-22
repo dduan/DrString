@@ -1,5 +1,10 @@
 // swift-tools-version:5.5
 import PackageDescription
+#if os(macOS)
+let magicLibrary = true
+#else
+let magicLibrary = false
+#endif
 
 let package = Package(
     name: "DrString",
@@ -106,7 +111,8 @@ let package = Package(
         ),
         .executableTarget(
             name: "DrStringCLI",
-            dependencies: ["DrStringCore"]
+            dependencies: ["DrStringCore"] + (magicLibrary ? ["lib_InternalSwiftSyntaxParser"] : []),
+            linkerSettings: (magicLibrary ? [.unsafeFlags(["-Xlinker", "-dead_strip_dylibs"])] : [])
         ),
         .testTarget(
             name: "ModelsTests",
@@ -145,5 +151,9 @@ let package = Package(
                 "Fixtures/",
             ]
         ),
-    ]
+    ] + (magicLibrary ? [.binaryTarget(
+        name: "lib_InternalSwiftSyntaxParser",
+        url: "https://github.com/keith/StaticInternalSwiftSyntaxParser/releases/download/5.6/lib_InternalSwiftSyntaxParser.xcframework.zip",
+        checksum: "88d748f76ec45880a8250438bd68e5d6ba716c8042f520998a438db87083ae9d"
+    )] : [])
 )
