@@ -31,11 +31,12 @@ mint install dduan/DrString
 
 For macOS and Ubuntu Bionic/Focal, you can download a package from a release.
 After unarchiving the package, the `drstring` binary should run without problems.
-Make sure all content of the archive stay in the same relative location when you
-move them. For example, if you move the executable to `FOO/bin/drstring`, the
-content in `lib/*` should be in `FOO/lib`.
 
-Note: if a parent process who calls `drstring` set the environment variable
+For Ubuntu, Make sure all content of the archive stay in the same relative 
+location when you move them. For example, if you move the executable to 
+`FOO/bin/drstring`, the content in `lib/*` should be in `FOO/lib`.
+
+If a parent process who calls `drstring` set the environment variable
 `LD_LIBRARY_PATH` on Linux, it may affect its successful execution. You must
 set `LD_LIBRARY_PATH` to the `lib` directory distributed with `drstring` in its
 execution environment to restore its functionality.
