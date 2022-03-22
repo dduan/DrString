@@ -27,19 +27,18 @@ brew install dduan/formulae/drstring
 mint install dduan/DrString
 ```
 
-### From source
+### Download from [release page](https://github.com/dduan/DrString/releases)
 
-You'll need Swift 5.3 on your system.
+For macOS and Ubuntu Bionic/Focal, you can download a package from a release.
+After unarchiving the package, the `drstring` binary should run without problems.
+Make sure all content of the archive stay in the same relative location when you
+move them. For example, if you move the executable to `FOO/bin/drstring`, the
+content in `lib/*` should be in `FOO/lib`.
 
-```bash
-git clone https://github.com/dduan/DrString.git
-cd DrString
-make install
-```
-
-If you prefer a slightly more manual approach. Instead of running `make
-install`, first build DrString with `make build`, then move the executable
-`.build/release/drstring` to a location you'd like to invoke it from.
+Note: if a parent process who calls `drstring` set the environment variable
+`LD_LIBRARY_PATH` on Linux, it may affect its successful execution. You must
+set `LD_LIBRARY_PATH` to the `lib` directory distributed with `drstring` in its
+execution environment to restore its functionality.
 
 ## Usage
 
