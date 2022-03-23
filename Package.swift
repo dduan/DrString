@@ -9,7 +9,7 @@ let magicLibrary = false
 let package = Package(
     name: "DrString",
     platforms: [
-        .macOS(.v12),
+        .macOS(.v10_15),
     ],
     products: [
         .executable(
