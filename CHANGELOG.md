@@ -6,6 +6,8 @@
 - Darwin executable is now a fat binary running natively on M1 as well as intel
 - Releases now include executables built in and for official Swift docker containers for Ubuntu.
 - Now includes completion scripts for Fish shell in `Scripts/completions/drstring.fish`.
+- Simplified packaging for macOS. Now it no longer distribute a dynamic libarary. The executable is packaged
+  on the root level of the package.
 
 ## 0.5.1
 
