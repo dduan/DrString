@@ -11,6 +11,10 @@ endif
 test:
 	@swift test
 
+.PHONY: check-version
+check-version:
+	@Scripts/check-version.py
+
 .PHONY: test-generated-artifacts
 test-generated-artifacts:
 	@$(MAKE) generate
