@@ -18,7 +18,7 @@ COPY Package.* ./
 RUN make build
 RUN mkdir -p /executables
 RUN mkdir -p /completions
-RUN install -v .build/release/drstring-cli /executables/drstring
+RUN install -v .build/release/drstring /executables/
 RUN install -v Scripts/completions/bash/drstring-completion.bash /completions/drstring-completion.bash
 RUN install -v Scripts/completions/zsh/_drstring /completions/_drstring
 RUN install -v Scripts/completions/drstring.fish /completions/drstring.fish

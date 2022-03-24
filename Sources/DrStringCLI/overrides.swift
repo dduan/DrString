@@ -1,3 +1,5 @@
+import DrStringCore
+
 extension Configuration {
     mutating func extend(with options: SharedCommandLineOptions) {
         self.extend(with: options.basics)

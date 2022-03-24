@@ -33,9 +33,9 @@ generate-explainers:
 
 .PHONY: generate-completion-scripts
 generate-completion-scripts:
-	@swift run drstring-cli --generate-completion-script zsh > Scripts/completions/zsh/_drstring
-	@swift run drstring-cli --generate-completion-script bash > Scripts/completions/bash/drstring-completion.bash
-	@swift run drstring-cli --generate-completion-script fish > Scripts/completions/drstring.fish
+	@swift run drstring --generate-completion-script zsh > Scripts/completions/zsh/_drstring
+	@swift run drstring --generate-completion-script bash > Scripts/completions/bash/drstring-completion.bash
+	@swift run drstring --generate-completion-script fish > Scripts/completions/drstring.fish
 
 .PHONY: build-docker
 build-docker:
