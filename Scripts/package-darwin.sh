@@ -9,5 +9,5 @@ ARCHIVE=drstring_darwin.tar.gz
 rm -rf $COMPLETIONS_PATH
 mkdir -p $COMPLETIONS_PATH
 cp -r Scripts/completions/* $COMPLETIONS_PATH
-cp $BUILD_PATH/drstring-cli $TEMP/drstring
+cp $BUILD_PATH/drstring $TEMP/
 tar -C $TEMP -czf $ARCHIVE drstring completions

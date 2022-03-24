@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .executable(
-            name: "drstring-cli",
-            targets: ["DrStringCLI"]
+            name: "drstring",
+            targets: ["DrString"]
         ),
         .library(
             name: "DrStringCore",
@@ -98,7 +98,6 @@ let package = Package(
         .target(
             name: "DrStringCore",
             dependencies: [
-                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "Critic",
                 "Decipher",
                 "Editor",
@@ -109,9 +108,19 @@ let package = Package(
                 "TOMLDecoder",
             ]
         ),
-        .executableTarget(
+        .target(
             name: "DrStringCLI",
-            dependencies: ["DrStringCore"] + (magicLibrary ? ["lib_InternalSwiftSyntaxParser"] : []),
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "DrStringCore"
+            ]
+        ),
+        .executableTarget(
+            name: "DrString",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "DrStringCLI"
+            ] + (magicLibrary ? ["lib_InternalSwiftSyntaxParser"] : []),
             linkerSettings: (magicLibrary ? [.unsafeFlags(["-Xlinker", "-dead_strip_dylibs"])] : [])
         ),
         .testTarget(
@@ -140,6 +149,14 @@ let package = Package(
             ]
         ),
         .testTarget(
+            name: "CLITests",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+                "DrStringCLI",
+            ],
+            exclude: ["Fixtures/"]
+        ),
+        .testTarget(
             name: "DrStringCoreTests",
             dependencies: [
                 "DrStringCore",
@@ -147,9 +164,7 @@ let package = Package(
                 "Models",
                 "Pathos",
             ],
-            exclude: [
-                "Fixtures/",
-            ]
+            exclude: ["Fixtures/"]
         ),
     ] + (magicLibrary ? [.binaryTarget(
         name: "lib_InternalSwiftSyntaxParser",
