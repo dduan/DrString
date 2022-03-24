@@ -1,6 +1,6 @@
 import ArgumentParser
 import Models
-import DrStringCore
+import _DrStringCore
 
 extension Configuration.FirstKeywordLetterCasing: ExpressibleByArgument {}
 extension Section: ExpressibleByArgument {}

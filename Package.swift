@@ -95,8 +95,10 @@ let package = Package(
                 "Pathos",
             ]
         ),
+        // workaround for https://bugs.swift.org/browse/SR-15802
+        // delete it in favor of `DrStringCore` once the issue gets resolved.
         .target(
-            name: "DrStringCore",
+            name: "_DrStringCore",
             dependencies: [
                 "Critic",
                 "Decipher",
@@ -109,10 +111,24 @@ let package = Package(
             ]
         ),
         .target(
+            name: "DrStringCore",
+            dependencies: [
+                "Critic",
+                "Decipher",
+                "Editor",
+                "Informant",
+                "IsTTY",
+                "Models",
+                "Pathos",
+                "TOMLDecoder",
+            ] + (magicLibrary ? ["lib_InternalSwiftSyntaxParser"] : []),
+            linkerSettings: (magicLibrary ? [.unsafeFlags(["-Xlinker", "-dead_strip_dylibs"])] : [])
+        ),
+        .target(
             name: "DrStringCLI",
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
-                "DrStringCore"
+                "_DrStringCore"
             ]
         ),
         .executableTarget(
