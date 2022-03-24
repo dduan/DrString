@@ -20,6 +20,11 @@ let package = Package(
             name: "DrStringCore",
             targets: ["DrStringCore"]
         ),
+        .library(
+            name: "DrStringCoreDynamic",
+            type: .dynamic,
+            targets: ["DrStringCore"]
+        ),
     ],
     dependencies: [
         .package(
