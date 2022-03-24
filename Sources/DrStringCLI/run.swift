@@ -2,7 +2,7 @@ import ArgumentParser
 import Pathos
 import TOMLDecoder
 import Models
-import DrStringCore
+import _DrStringCore
 
 private func configFromFile(_ configPath: Path) throws -> Configuration? {
     if let configText = try? configPath.readUTF8String() {

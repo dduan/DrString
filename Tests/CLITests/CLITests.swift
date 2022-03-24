@@ -1,5 +1,5 @@
 import ArgumentParser
-@testable import DrStringCore
+@testable import _DrStringCore
 @testable import DrStringCLI
 import Pathos
 import XCTest

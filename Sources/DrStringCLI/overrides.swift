@@ -1,4 +1,4 @@
-import DrStringCore
+import _DrStringCore
 
 extension Configuration {
     mutating func extend(with options: SharedCommandLineOptions) {
