@@ -5,7 +5,7 @@ import sys
 
 expected = re.search(r'let version = "(.+)"', open('Sources/DrStringCore/version.swift').read(), re.M).group(1)
 versions = {}
-versions['CHANGELOG.md'] = re.search(r'# main\s+##\s*(.+)', open('CHANGELOG.md').read(), re.M).group(1)
+versions['CHANGELOG.md'] = re.search(r'\n##\s*(.+)', open('CHANGELOG.md').read(), re.M).group(1)
 
 for file in versions:
     if expected != versions[file]:
