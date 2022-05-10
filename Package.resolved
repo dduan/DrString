@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/apple/swift-argument-parser",
         "state": {
           "branch": null,
-          "revision": "82905286cc3f0fa8adc4674bf49437cab65a8373",
-          "version": "1.1.1"
+          "revision": "f3c9084a71ef4376f2fabbdf1d3d90a49f1fabdb",
+          "version": "1.1.2"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/dduan/TOMLDecoder.git",
         "state": {
           "branch": null,
-          "revision": "dbc8c43d20fe81f2f0e4e060c0c779010acbda06",
-          "version": "0.2.1"
+          "revision": "a70a127cab92ddcb562a548190fa3ad2a2e5f9bc",
+          "version": "0.2.2"
         }
       }
     ]
