@@ -37,7 +37,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/dduan/TOMLDecoder.git",
-            .exact("0.2.1")
+            .exact("0.2.2")
         ),
         .package(
             url: "https://github.com/mxcl/Chalk.git",
@@ -45,7 +45,7 @@ let package = Package(
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser",
-            .exact("1.1.1")
+            .exact("1.1.2")
         ),
 
         // For testing
