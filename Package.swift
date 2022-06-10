@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.6
 import PackageDescription
 #if os(macOS)
 let magicLibrary = true
@@ -23,35 +23,34 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            name: "SwiftSyntax",
             url: "https://github.com/apple/swift-syntax.git",
-            .exact("0.50600.1")
+            exact: "0.50600.1"
         ),
         .package(
             url: "https://github.com/dduan/IsTTY.git",
-            .exact("0.1.0")
+            exact: "0.1.0"
         ),
         .package(
             url: "https://github.com/dduan/Pathos.git",
-            .exact("0.4.2")
+            exact: "0.4.2"
         ),
         .package(
             url: "https://github.com/dduan/TOMLDecoder.git",
-            .exact("0.2.2")
+            exact: "0.2.2"
         ),
         .package(
             url: "https://github.com/mxcl/Chalk.git",
-            .exact("0.4.0")
+            exact: "0.4.0"
         ),
         .package(
             url: "https://github.com/apple/swift-argument-parser",
-            .exact("1.1.2")
+            exact: "1.1.2"
         ),
 
         // For testing
         .package(
             url: "https://github.com/llvm-swift/FileCheck.git",
-            .exact("0.2.6")
+            exact: "0.2.6"
         ),
     ],
     targets: [
@@ -60,14 +59,14 @@ let package = Package(
             dependencies: [
                 "Decipher",
                 "Pathos",
-                .product(name: "SwiftSyntaxParser", package: "SwiftSyntax"),
-                .product(name: "SwiftSyntax", package: "SwiftSyntax"),
+                .product(name: "SwiftSyntaxParser", package: "swift-syntax"),
+                .product(name: "SwiftSyntax", package: "swift-syntax"),
             ]
         ),
         .target(
             name: "Critic",
             dependencies: [
-                "Crawler",
+                .target(name: "Crawler"),
                 "Decipher",
                 "Models",
             ]
@@ -75,7 +74,7 @@ let package = Package(
         .target(
             name: "Editor",
             dependencies: [
-                "Crawler",
+                .target(name: "Crawler"),
                 "Decipher",
             ]
         ),
