@@ -8,11 +8,11 @@ on:
 jobs:
   darwin:
     name: Publish macOS binaries
-    runs-on: macos-11
+    runs-on: macos-12
     steps:
     - uses: actions/checkout@v1
     - name: Xcode version
-      run: sudo xcode-select -s /Applications/Xcode_13.2.1.app
+      run: sudo xcode-select -s /Applications/Xcode_13.4.1.app
     - name: Build and package macOS executable
       run: make package-darwin
     - name: Upload binaries
