@@ -1,70 +1,68 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Chalk",
-        "repositoryURL": "https://github.com/mxcl/Chalk.git",
-        "state": {
-          "branch": null,
-          "revision": "9aa9f348b86db3cf6702a3e43c081ecec80cf3c7",
-          "version": "0.4.0"
-        }
-      },
-      {
-        "package": "FileCheck",
-        "repositoryURL": "https://github.com/llvm-swift/FileCheck.git",
-        "state": {
-          "branch": null,
-          "revision": "f7c5f1a9479b33a876a6f5632ca2b92a7ce4b667",
-          "version": "0.2.6"
-        }
-      },
-      {
-        "package": "IsTTY",
-        "repositoryURL": "https://github.com/dduan/IsTTY.git",
-        "state": {
-          "branch": null,
-          "revision": "7d4bc7788580c99d5a5295bdde96d0264b06d96e",
-          "version": "0.1.0"
-        }
-      },
-      {
-        "package": "Pathos",
-        "repositoryURL": "https://github.com/dduan/Pathos.git",
-        "state": {
-          "branch": null,
-          "revision": "8697a340a25e9974d4bbdee80a4c361c74963c00",
-          "version": "0.4.2"
-        }
-      },
-      {
-        "package": "swift-argument-parser",
-        "repositoryURL": "https://github.com/apple/swift-argument-parser",
-        "state": {
-          "branch": null,
-          "revision": "f3c9084a71ef4376f2fabbdf1d3d90a49f1fabdb",
-          "version": "1.1.2"
-        }
-      },
-      {
-        "package": "SwiftSyntax",
-        "repositoryURL": "https://github.com/apple/swift-syntax.git",
-        "state": {
-          "branch": null,
-          "revision": "0b6c22b97f8e9320bca62e82cdbee601cf37ad3f",
-          "version": "0.50600.1"
-        }
-      },
-      {
-        "package": "TOMLDecoder",
-        "repositoryURL": "https://github.com/dduan/TOMLDecoder.git",
-        "state": {
-          "branch": null,
-          "revision": "a70a127cab92ddcb562a548190fa3ad2a2e5f9bc",
-          "version": "0.2.2"
-        }
+  "pins" : [
+    {
+      "identity" : "chalk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/mxcl/Chalk.git",
+      "state" : {
+        "revision" : "9aa9f348b86db3cf6702a3e43c081ecec80cf3c7",
+        "version" : "0.4.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "filecheck",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/llvm-swift/FileCheck.git",
+      "state" : {
+        "revision" : "f7c5f1a9479b33a876a6f5632ca2b92a7ce4b667",
+        "version" : "0.2.6"
+      }
+    },
+    {
+      "identity" : "istty",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dduan/IsTTY.git",
+      "state" : {
+        "revision" : "7d4bc7788580c99d5a5295bdde96d0264b06d96e",
+        "version" : "0.1.0"
+      }
+    },
+    {
+      "identity" : "pathos",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dduan/Pathos.git",
+      "state" : {
+        "revision" : "8697a340a25e9974d4bbdee80a4c361c74963c00",
+        "version" : "0.4.2"
+      }
+    },
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser",
+      "state" : {
+        "revision" : "f3c9084a71ef4376f2fabbdf1d3d90a49f1fabdb",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "0b6c22b97f8e9320bca62e82cdbee601cf37ad3f",
+        "version" : "0.50600.1"
+      }
+    },
+    {
+      "identity" : "tomldecoder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dduan/TOMLDecoder.git",
+      "state" : {
+        "revision" : "a70a127cab92ddcb562a548190fa3ad2a2e5f9bc",
+        "version" : "0.2.2"
+      }
+    }
+  ],
+  "version" : 2
 }
