@@ -1,16 +1,16 @@
 import Models
 import Pathos
-import SwiftSyntaxParser
+import SwiftParser
 import SwiftSyntax
 
 public func extractDocs(fromSource sourcePath: Path) throws -> ([Documentable], String) {
     let source = try sourcePath.readUTF8String()
-    let extractor = try DocExtractor(sourceText: source, sourcePath: sourcePath)
+    let extractor = DocExtractor(sourceText: source, sourcePath: sourcePath)
     return (try extractor.extractDocs(), source)
 }
 
 public func extractDocs(fromSource source: String, sourcePath: Path?) throws -> [Documentable] {
-    let extractor = try DocExtractor(sourceText: source, sourcePath: sourcePath)
+    let extractor = DocExtractor(sourceText: source, sourcePath: sourcePath)
     return try extractor.extractDocs()
 }
 
@@ -19,8 +19,8 @@ final class DocExtractor: SyntaxRewriter {
     private let syntax: SourceFileSyntax
     private let converter: SourceLocationConverter
 
-    init(sourceText: String, sourcePath: Path?) throws {
-        let tree = try SyntaxParser.parse(source: sourceText)
+    init(sourceText: String, sourcePath: Path?) {
+        let tree = Parser.parse(source: sourceText)
         self.syntax = tree
         self.converter = SourceLocationConverter(file: sourcePath.map(String.init(describing:)) ?? "", source: sourceText)
     }
@@ -56,7 +56,7 @@ final class DocExtractor: SyntaxRewriter {
     override func visit(_ node: InitializerDeclSyntax) -> DeclSyntax {
         let location = node.startLocation(converter: self.converter)
         let endLocation = node.endLocation(converter: self.converter)
-        let parameters = node.parameters.parameterList.map { $0.parameter }
+        let parameters = node.signature.input.parameterList.map { $0.parameter }
         let signatureText = "init(\(parameters.reduce("") { $0 + ($1.label ?? $1.name) + ":" }))"
         let finding = Documentable(
             path: location.file ?? "",

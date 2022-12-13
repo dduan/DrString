@@ -1,7 +1,7 @@
 ## main
 
 - Moved CLI related API from `DrStringCore` to `DrStringCLI`
-- `DrStringCore` no longer require dynamically linking `lib_internalSwiftSyntax` on macOS.
+- `DrStringCore` now uses the new `swift-syntax` parser
 - Lowered OS requirement from macOS 12 to 10.15
 
 ## 0.5.2

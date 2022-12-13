@@ -24,7 +24,7 @@ extension FunctionDeclSyntax {
     }
 
     var parameters: [Parameter] {
-        return self.signature.input.parameterList.children.compactMap { syntax in
+        return self.signature.input.parameterList.children(viewMode: .sourceAccurate).compactMap { syntax in
             return FunctionParameterSyntax(syntax)?.parameter
         }
     }
@@ -32,7 +32,7 @@ extension FunctionDeclSyntax {
 
 extension InitializerDeclSyntax {
     var `throws`: Bool {
-        return self.throwsOrRethrowsKeyword != nil
+        return self.signature.throwsOrRethrowsKeyword != nil
     }
 }
 
