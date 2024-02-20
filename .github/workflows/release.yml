@@ -20,7 +20,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: drstring_darwin.tar.gz
-        asset_name: drstring-x86_64-apple-darwin.tar.gz
+        asset_name: drstring-universal-apple-darwin.tar.gz
         tag: ${{ github.ref }}
         overwrite: true
   ubuntu:
