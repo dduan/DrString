@@ -1,1 +1,1 @@
-Scripts/Dockerfile-5.6.0-focal
+Scripts/Dockerfile-5.9.2-focal
