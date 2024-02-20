@@ -4,7 +4,7 @@ ifeq ($(shell uname),Darwin)
 EXTRA_SWIFT_FLAGS = --arch arm64 --arch x86_64 --disable-sandbox -Xlinker -dead_strip -Xlinker -dead_strip_dylibs
 else
 SWIFT_TOOLCHAIN = $(shell dirname $(shell ./Scripts/locateswift.sh))
-EXTRA_SWIFT_FLAGS = -Xswiftc -static-stdlib -Xswiftc -I${SWIFT_TOOLCHAIN}/swift/_InternalSwiftSyntaxParser -Xlinker -fuse-ld=lld -Xlinker -L${SWIFT_TOOLCHAIN}/swift/linux -Xlinker -rpath -Xlinker '$$ORIGIN/../lib'
+EXTRA_SWIFT_FLAGS = -Xswiftc -static-stdlib -Xlinker -fuse-ld=lld -Xlinker -L${SWIFT_TOOLCHAIN}/swift/linux -Xlinker -rpath -Xlinker '$$ORIGIN/../lib'
 endif
 
 .PHONY: test
@@ -22,7 +22,7 @@ test-generated-artifacts:
 
 .PHONY: build
 build:
-	@swift build --configuration release -Xswiftc -warnings-as-errors ${EXTRA_SWIFT_FLAGS}
+	@swift build --configuration release -Xswiftc -warnings-as-errors ${EXTRA_SWIFT_FLAGS} --arch arm64 --arch x86_64
 
 .PHONY: generate
 generate: generate-explainers generate-completion-scripts
@@ -47,4 +47,4 @@ package-darwin: build
 
 .PHONY: package-ubuntu
 package-ubuntu:
-	@Scripts/ubuntuarchive.sh 5.6.0 focal amd64
+	@Scripts/ubuntuarchive.sh 5.9.2 focal amd64

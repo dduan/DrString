@@ -10,7 +10,7 @@ ARCHIVE=drstring-ubuntu-${UBUNTU_RELEASE}.tar.gz
 docker build --platform linux/$DOCKER_ARCH --force-rm -f "Scripts/Dockerfile-${SWIFT_VERSION}-${UBUNTU_RELEASE}" --tag $IMAGE_TAG .
 
 TEMP=$(mktemp -d)
-EXES=(/usr/lib/libBlocksRuntime.so /usr/lib/lib_InternalSwiftSyntaxParser.so /usr/bin/drstring)
+EXES=(/usr/bin/drstring)
 ALL=( "${EXES[@]}" /etc/bash_completion.d/drstring /usr/share/zsh/vendor-completions/_drstring /usr/share/fish/completions/drstring.fish )
 for content in ${ALL[@]}; do
     mkdir -p "$TEMP/$(dirname $content)"

@@ -1,10 +1,5 @@
 // swift-tools-version:5.6
 import PackageDescription
-#if os(macOS)
-let magicLibrary = true
-#else
-let magicLibrary = false
-#endif
 
 let package = Package(
     name: "DrString",
@@ -24,7 +19,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/apple/swift-syntax.git",
-            exact: "0.50600.1"
+            exact: "509.1.1"
         ),
         .package(
             url: "https://github.com/dduan/IsTTY.git",
@@ -59,7 +54,7 @@ let package = Package(
             dependencies: [
                 "Decipher",
                 "Pathos",
-                .product(name: "SwiftSyntaxParser", package: "swift-syntax"),
+                .product(name: "SwiftParser", package: "swift-syntax"),
                 .product(name: "SwiftSyntax", package: "swift-syntax"),
             ]
         ),
@@ -120,8 +115,7 @@ let package = Package(
                 "Models",
                 "Pathos",
                 "TOMLDecoder",
-            ] + (magicLibrary ? ["lib_InternalSwiftSyntaxParser"] : []),
-            linkerSettings: (magicLibrary ? [.unsafeFlags(["-Xlinker", "-dead_strip_dylibs"])] : [])
+            ]
         ),
         .target(
             name: "DrStringCLI",
@@ -135,8 +129,7 @@ let package = Package(
             dependencies: [
                 .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "DrStringCLI"
-            ] + (magicLibrary ? ["lib_InternalSwiftSyntaxParser"] : []),
-            linkerSettings: (magicLibrary ? [.unsafeFlags(["-Xlinker", "-dead_strip_dylibs"])] : [])
+            ]
         ),
         .testTarget(
             name: "ModelsTests",
@@ -181,9 +174,5 @@ let package = Package(
             ],
             exclude: ["Fixtures/"]
         ),
-    ] + (magicLibrary ? [.binaryTarget(
-        name: "lib_InternalSwiftSyntaxParser",
-        url: "https://github.com/keith/StaticInternalSwiftSyntaxParser/releases/download/5.6/lib_InternalSwiftSyntaxParser.xcframework.zip",
-        checksum: "88d748f76ec45880a8250438bd68e5d6ba716c8042f520998a438db87083ae9d"
-    )] : [])
+    ]
 )
