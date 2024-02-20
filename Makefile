@@ -22,7 +22,7 @@ test-generated-artifacts:
 
 .PHONY: build
 build:
-	@swift build --configuration release -Xswiftc -warnings-as-errors ${EXTRA_SWIFT_FLAGS}
+	@swift build --configuration release -Xswiftc -warnings-as-errors ${EXTRA_SWIFT_FLAGS} --arch arm64 --arch x86_64
 
 .PHONY: generate
 generate: generate-explainers generate-completion-scripts
@@ -47,4 +47,4 @@ package-darwin: build
 
 .PHONY: package-ubuntu
 package-ubuntu:
-	@Scripts/ubuntuarchive.sh 5.6.0 focal amd64
+	@Scripts/ubuntuarchive.sh 5.9.2 focal amd64

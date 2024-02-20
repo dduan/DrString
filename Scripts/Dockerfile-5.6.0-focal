@@ -1,4 +1,4 @@
-ARG BUILDER_IMAGE=swift:5.6.0-focal
+ARG BUILDER_IMAGE=swift:5.9.2-focal
 ARG RUNTIME_IMAGE=ubuntu:focal
 
 # builder image
