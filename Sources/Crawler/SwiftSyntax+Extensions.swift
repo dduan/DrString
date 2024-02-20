@@ -3,10 +3,10 @@ import SwiftSyntax
 
 extension FunctionParameterSyntax {
     var parameter: Parameter {
-        let label = self.firstName?.text
-        let name = self.secondName?.text ?? self.firstName?.text ?? ""
-        let type = self.type?.description ?? ""
-        let hasDefault = self.defaultArgument != nil
+        let label = self.firstName.text
+        let name = self.secondName?.text ?? self.firstName.text
+        let type = self.type.description
+        let hasDefault = self.defaultValue != nil
         let isVariadic = self.ellipsis?.text == "..."
         return Parameter(label: label, name: name, type: type, isVariadic: isVariadic, hasDefault: hasDefault)
     }
@@ -14,17 +14,17 @@ extension FunctionParameterSyntax {
 
 extension FunctionDeclSyntax {
     var `throws`: Bool {
-        return self.signature.throwsOrRethrowsKeyword != nil
+        return self.signature.effectSpecifiers?.throwsSpecifier != nil
     }
 
     var returnType: String? {
-        let trailingTrivaLength = self.signature.output?.returnType.trailingTriviaLength.utf8Length ?? 0
-        return (self.signature.output?.returnType.description.utf8.dropLast(trailingTrivaLength))
+        let trailingTrivaLength = self.signature.returnClause?.type.trailingTriviaLength.utf8Length ?? 0
+        return (self.signature.returnClause?.type.description.utf8.dropLast(trailingTrivaLength))
             .flatMap(String.init)
     }
 
     var parameters: [Parameter] {
-        return self.signature.input.parameterList.children(viewMode: .sourceAccurate).compactMap { syntax in
+        return self.signature.parameterClause.parameters.children(viewMode: .sourceAccurate).compactMap { syntax in
             return FunctionParameterSyntax(syntax)?.parameter
         }
     }
@@ -32,7 +32,7 @@ extension FunctionDeclSyntax {
 
 extension InitializerDeclSyntax {
     var `throws`: Bool {
-        return self.signature.throwsOrRethrowsKeyword != nil
+        return self.signature.effectSpecifiers?.throwsSpecifier != nil
     }
 }
 

@@ -19,7 +19,7 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/apple/swift-syntax.git",
-            revision: "e1f771ea8ad8bc172de766e0963a76aeb7b08cef"
+            exact: "509.1.1"
         ),
         .package(
             url: "https://github.com/dduan/IsTTY.git",
